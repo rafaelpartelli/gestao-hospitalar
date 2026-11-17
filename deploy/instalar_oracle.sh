@@ -79,8 +79,16 @@ cp -a "$PKG/deploy/rodar_coleta.sh" "$APP_DIR/deploy/" && chmod 755 "$APP_DIR/de
 [ -f "$APP_DIR/config/hospitais.json" ] || cp "$PKG/config/hospitais.json" "$APP_DIR/config/hospitais.json"
 install -d "$WEB_ROOT/hospital"
 # A pagina e os JSON de configuracao sao sobrescritos. A pasta dados/ so recebe arquivos iniciais se estiver vazia.
-(cd "$PKG/hospital" && find . -path ./dados -prune -o -type f -print) | while read -r f; do install -D -m 644 "$PKG/hospital/$f" "$WEB_ROOT/hospital/$f"; done
+(cd "$PKG/hospital" && find . -path ./dados -prune -o -type f ! -name fragmento.html -print) | while read -r f; do install -D -m 644 "$PKG/hospital/$f" "$WEB_ROOT/hospital/$f"; done
+# fragmento.html nao e pagina: so alimenta a montagem da plataforma
+rm -f "$WEB_ROOT/hospital/fragmento.html" "$WEB_ROOT/hospital/index.html"
 install -d -o "$SERVICE_USER" "$WEB_ROOT/hospital/dados"
+if [ -f "$WEB_ROOT/index.html" ]; then
+  cp -p "$WEB_ROOT/index.html" "$WEB_ROOT/index.html.bak.$(date +%Y%m%d%H%M%S)"
+  python3 "$PKG/deploy/montar_plataforma.py" "$WEB_ROOT/index.html" "$PKG/hospital/fragmento.html" || die "nao consegui embutir o modulo no index.html (backup .bak mantido)."
+else
+  echo "AVISO: $WEB_ROOT/index.html nao existe; modulo nao embutido."
+fi
 for f in "$PKG"/hospital/dados/*.json; do [ -e "$WEB_ROOT/hospital/dados/$(basename "$f")" ] || install -m 644 -o "$SERVICE_USER" "$f" "$WEB_ROOT/hospital/dados/"; done
 chown -R "$SERVICE_USER" "$APP_DIR"
 
@@ -142,13 +150,13 @@ say "7/7 Pronto"
 systemctl list-timers 'partelli-hospital-*' --no-pager || true
 cat <<FIM
 
-Pagina: https://partelli.tec.br/hospital/  (arquivos em $WEB_ROOT/hospital)
+Modulo embutido na plataforma: https://partelli.tec.br/#gestao-hospitalar  (arquivos em $WEB_ROOT/hospital)
 Proximos passos:
   1. Edite $APP_DIR/config/hospitais.json com o CNES autorizado, a UF e (se autorizado) o nome.
   2. Confirme os layouts dos arquivos do DATASUS antes da primeira coleta:
        sudo -u $SERVICE_USER env PYTHONPATH=$APP_DIR/robo:$SALA_ROBO PARTELLI_ESTADO=$APP_DIR/estado TMPDIR=$APP_DIR/tmp python3 $APP_DIR/robo/coletar_hospital_sih.py --sondar
      (repita com coletar_hospital_sia.py e coletar_hospital_cnes.py) e envie a saida para ajuste dos campos.
   3. Coleta de teste agora:  sudo systemctl start partelli-hospital-diaria.service ; journalctl -u partelli-hospital-diaria -n 50
-  4. Inclua o link /hospital/ no menu lateral da plataforma.
+  4. O item Gestao Hospitalar ja entra no menu lateral (montar_plataforma.py).
 Guardas ativas: orcamento mensal de ${ORCAMENTO_GB} GB de download, parada com menos de ${DISCO_MIN_GB} GB livres, um robo por vez, limite de 700 MB de memoria.
 FIM

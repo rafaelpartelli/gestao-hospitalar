@@ -2,7 +2,8 @@
 import {el, limpar, carregar, tabela, inteiro, decimal} from './util.js';
 import * as C from './hospital_calc.js';
 
-const D = 'dados/';
+const BASE = new URL('../', import.meta.url).href;   // pasta hospital/ (dados e config), independente da pagina que embute o modulo
+const D = BASE + 'dados/';
 const CHAVE_LOCAL = 'partelli_hospital_v1';
 const brl = v => new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(v);
 const pctf = (v, d = 1) => decimal(v * 100, d) + '%';
@@ -429,7 +430,7 @@ async function carregarUnidade() {
 }
 
 async function iniciar() {
-  const [indice, remessas, status] = await Promise.all([carregar(D + 'indice.json'), carregar('config/remessas_datasus.json'), carregar(D + 'status_fontes.json')]);
+  const [indice, remessas, status] = await Promise.all([carregar(D + 'indice.json'), carregar(BASE + 'config/remessas_datasus.json'), carregar(D + 'status_fontes.json')]);
   Object.assign(S, {indice, remessas, status});
   const sel = limpar(document.getElementById('selHosp'));
   const hs = (indice && indice.hospitais) || [];

@@ -1,0 +1,24 @@
+<section id="gestao-hospitalar">
+<h2>Gestão Hospitalar</h2>
+<p class="sub">Perfil do diretor e do gestor da unidade: faturamento (SIH e SIA), remessas e prazos do DATASUS, CNES, críticas e plano de avanço. Cada número mostra a fonte, a competência e como foi calculado. Somente dados agregados e oficiais, sem dado de paciente ou de profissional.</p>
+<div class="filtros" role="group" aria-label="Escolha da unidade e da competência">
+  <div class="filtros-linha">
+    <label>Unidade hospitalar (CNES)
+      <select id="selHosp"><option value="">Nenhuma unidade configurada</option></select>
+    </label>
+    <label>Ou digite o CNES (7 dígitos)
+      <input id="inpCnes" inputmode="numeric" maxlength="7" placeholder="[PREENCHER: CNES]" autocomplete="off">
+    </label>
+    <label>Competência (MM/AAAA)
+      <select id="selComp"><option value="">Sem competência</option></select>
+    </label>
+    <label>Nova competência
+      <input id="inpComp" placeholder="MM/AAAA" maxlength="7" autocomplete="off">
+    </label>
+    <p id="selo" class="selo" role="status" aria-live="polite">Carregando...</p>
+  </div>
+</div>
+<div class="abas" role="tablist" aria-label="Seções do painel hospitalar" id="abas"></div>
+<div id="painel" class="bloco" role="tabpanel" tabindex="0"></div>
+<p class="nota-pequena">Fontes oficiais: SIH/SUS, SIA/SUS, CNES, SIGTAP e remessas do DATASUS (SIHD, SIASUS, CIHA e Transmissor). Lançamentos manuais ficam apenas neste navegador, até você exportar. Este painel apoia a análise técnica e não substitui os sistemas oficiais.</p>
+</section>

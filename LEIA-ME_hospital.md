@@ -81,3 +81,6 @@ O ambiente de desenvolvimento não alcança o FTP do DATASUS. Foram testados: f�
 ## Atualizacao via git
 Na VM: `cd ~/partelli-hospital && ./deploy/atualizar.sh`. O script faz `git pull`, roda os testes e reaplica os arquivos sem apagar dados coletados nem `/opt/partelli/hospital/config/hospitais.json`.
 Nunca versionar chave SSH, `.env`, dados coletados ou o `hospitais.json` real da VM.
+
+## Integracao na plataforma
+O modulo nao e uma pagina separada: vira a secao `#gestao-hospitalar` do index.html da plataforma (menu lateral, CSS escopado e JS). `deploy/montar_plataforma.py` faz a montagem, com backup `.bak` do index, e e idempotente. A pasta `/hospital/` do servidor guarda apenas dados, configuracao, CSS e JS.
