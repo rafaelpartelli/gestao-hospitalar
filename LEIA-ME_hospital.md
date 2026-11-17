@@ -84,3 +84,8 @@ Nunca versionar chave SSH, `.env`, dados coletados ou o `hospitais.json` real da
 
 ## Integracao na plataforma
 O modulo nao e uma pagina separada: vira a secao `#gestao-hospitalar` do index.html da plataforma (menu lateral, CSS escopado e JS). `deploy/montar_plataforma.py` faz a montagem, com backup `.bak` do index, e e idempotente. A pasta `/hospital/` do servidor guarda apenas dados, configuracao, CSS e JS.
+
+## Deploy automatico (GitHub Actions para a VM)
+A cada push na branch `main`, o GitHub roda os testes e, se passarem, envia o pacote por SSH para a VM, que reinstala o modulo (`deploy/receber_deploy.sh`). A chave de deploy so executa esse recebedor: nao abre shell nem tunel. A VM nao precisa de token do GitHub.
+Configuracao unica, na VM: `./deploy/configurar_deploy_automatico.sh`, e cadastrar os segredos `VM_HOST`, `VM_USER`, `VM_HOST_KEY` e `VM_SSH_KEY` no GitHub (Settings, Secrets and variables, Actions). Nunca versionar chaves.
+Para reverter um deploy: restaurar o `index.html.bak.*` mais recente em `/var/www/html` e reexecutar o deploy de um commit anterior.
