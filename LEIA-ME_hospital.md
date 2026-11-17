@@ -97,3 +97,21 @@ Observacao: se o FTP do DATASUS recusar conexoes vindas do GitHub, registrar o b
 
 ## Criar a instancia Arm gratuita na Oracle
 `deploy/criar_arm_oracle.sh` repete a criacao de uma VM.Standard.A1.Flex (Ubuntu 24.04, ate 2 OCPUs e 12 GB, o limite Always Free) ate haver vaga na regiao principal. Roda no computador do gestor, com a CLI da Oracle configurada (`oci setup config`). Nao guarda credenciais. Trava limites acima da cota gratuita e para sozinho em qualquer erro que nao seja falta de capacidade.
+
+## Executor no notebook e copia no Codeberg
+
+Motivo: o agendamento do GitHub Actions teve atrasos e descarta execucoes com mais de 30 minutos de atraso. Os robos passam a rodar em um notebook (Ubuntu Server 24.04 ou Lubuntu 24.04) com timers systemd. O GitHub continua como repositorio, o site continua na Oracle e o Codeberg recebe uma copia diaria.
+
+Arquivos: `deploy/notebook/instalar_notebook.sh` (instalador, roda com sudo) e `deploy/notebook/coletar_local.sh` (executor, instalado como `/usr/local/bin/partelli-coleta`).
+
+Horarios (America/Sao_Paulo): diaria 02:30 (SIH e SIA), semanal segunda 04:30 (CNES e remessas), espelho 06:30. `Persistent=true`: se o notebook estiver desligado no horario, a coleta roda ao ligar.
+
+Instalacao no notebook:
+1. `git clone` do repositorio (ou copiar a pasta `deploy/notebook`) e `sudo bash deploy/notebook/instalar_notebook.sh`.
+2. Cadastrar as duas chaves PUBLICAS impressas: Deploy key com escrita no GitHub e no Codeberg.
+3. Editar `/etc/partelli/coleta.env`: `CODEBERG_URL` e `VM_HOST` (IP da Oracle).
+4. Copiar para o notebook a chave do conector da Oracle (gerada por `conectar_oracle.sh`) em `/home/partelli/.ssh/oracle_key`, dono partelli, permissao 600.
+5. Testar: `sudo -u partelli partelli-coleta espelho`, depois `sudo systemctl start partelli-coleta@semanal.service` e `tail -f /home/partelli/partelli/log/coleta.log`.
+
+Credenciais: somente chaves SSH em `~partelli/.ssh` (nunca no repositorio). Primeira conexao com GitHub, Codeberg e Oracle aceita a impressao digital (accept-new): conferir uma vez.
+O workflow `coleta.yml` ficou apenas como reserva manual (sem cron).

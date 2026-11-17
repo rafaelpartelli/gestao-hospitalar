@@ -1,9 +1,8 @@
 name: Robos de coleta (GitHub) e envio dos dados para a Oracle
 
 on:
-  schedule:
-    - cron: '30 5 * * *'    # 02:30 de Brasilia: SIH e SIA
-    - cron: '30 7 * * 1'    # segunda 04:30 de Brasilia: CNES e remessas
+  # Agendamento migrado para o notebook (timers systemd, deploy/notebook/).
+  # Este workflow fica como reserva manual: Actions > Run workflow.
   workflow_dispatch:
     inputs:
       modo:
