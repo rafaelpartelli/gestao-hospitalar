@@ -94,3 +94,6 @@ O modulo nao e uma pagina separada: vira a secao `#gestao-hospitalar` do index.h
 Configuracao unica na VM: `./deploy/conectar_oracle.sh`. Depois, cadastrar `VM_HOST`, `VM_USER`, `VM_HOST_KEY` e `VM_SSH_KEY` em Settings, Secrets and variables, Actions, e criar o ambiente `producao` (com aprovacao opcional).
 Reverter o site: restaurar o `index.html.bak.*` mais recente em `/var/www/html` (os 7 ultimos ficam guardados).
 Observacao: se o FTP do DATASUS recusar conexoes vindas do GitHub, registrar o bloqueio e manter o lancamento manual. Nao contornar.
+
+## Criar a instancia Arm gratuita na Oracle
+`deploy/criar_arm_oracle.sh` repete a criacao de uma VM.Standard.A1.Flex (Ubuntu 24.04, ate 2 OCPUs e 12 GB, o limite Always Free) ate haver vaga na regiao principal. Roda no computador do gestor, com a CLI da Oracle configurada (`oci setup config`). Nao guarda credenciais. Trava limites acima da cota gratuita e para sozinho em qualquer erro que nao seja falta de capacidade.
