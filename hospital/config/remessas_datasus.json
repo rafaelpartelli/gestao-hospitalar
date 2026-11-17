@@ -1,0 +1,72 @@
+{
+  "atualizado": "2026-11-16",
+  "aviso": "Páginas oficiais do DATASUS, consultadas em 16/11/2026. A plataforma não lê essas páginas de forma automática. O gestor consulta no portal oficial e lança o resultado. Status: Manual.",
+  "sistemas": [
+    {
+      "id": "sihd",
+      "nome": "SIHD (Sistema de Informação Hospitalar Descentralizado)",
+      "area": "Hospitalar",
+      "url": "http://sihd.datasus.gov.br/remessa/remessa.php",
+      "status": "Manual",
+      "teste": "Leitura automática bloqueada pelo robots.txt do site (teste de 16/11/2026). Consulta manual.",
+      "relatorios": [
+        {"nome": "Acompanhamento de Remessas", "grupo": "Remessas", "informa": "Resultado do processamento da remessa, com consulta por gestor.", "uso": "Confirmar se a remessa da unidade foi processada e se há rejeição."},
+        {"nome": "Relatórios sobre a Entrega de Remessas", "grupo": "Remessas", "informa": "Andamento do recebimento, com os gestores que enviaram e os que não enviaram.", "uso": "Saber se o gestor já enviou a competência."},
+        {"nome": "Resumo do Envio de Remessas", "grupo": "Remessas", "informa": "Total de remessas recebidas por UF no período.", "uso": "Comparar o envio do estado com o do município."},
+        {"nome": "Histórico de Entrega de Remessas", "grupo": "Remessas", "informa": "Situação de envio de cada gestor no período.", "uso": "Ver atrasos recorrentes de envio."},
+        {"nome": "Cronograma de Envio de Remessas do SIHD", "grupo": "Remessas", "informa": "Datas de vigência do envio por competência, percentual recebido e quantidade de AIHs recebidas.", "uso": "Controlar o prazo final de envio."},
+        {"nome": "Totais de AIHs Aprovadas", "grupo": "AIH", "informa": "Quantidade de AIHs enviadas por gestor no período.", "uso": "Fonte do campo AIHs enviadas e aprovadas."},
+        {"nome": "Pesquisa AIH pelo número", "grupo": "AIH", "informa": "Dados de uma AIH específica.", "uso": "Auditar uma AIH rejeitada ou de valor atípico. Não gravar dado de paciente."}
+      ]
+    },
+    {
+      "id": "siasus",
+      "nome": "SIASUS (Sistema de Informações Ambulatoriais do SUS)",
+      "area": "Ambulatorial",
+      "url": "https://sia.datasus.gov.br/remessa/remessa.php",
+      "status": "Manual",
+      "teste": "Leitura automática não testada. Consulta manual.",
+      "relatorios": [
+        {"nome": "Relatório de Acompanhamento", "grupo": "Remessas", "informa": "Percurso da remessa: envio pelo transmissor, recebimento pela produção e carga.", "uso": "Localizar em que etapa a produção ambulatorial parou."},
+        {"nome": "Relatório de Entrega", "grupo": "Remessas", "informa": "Entrega da produção.", "uso": "Confirmar a entrega da competência."},
+        {"nome": "Relatório de Histórico de Remessa", "grupo": "Remessas", "informa": "Histórico de entrega por município, por estado.", "uso": "Ver o padrão de envio ao longo dos meses."},
+        {"nome": "Cronograma de Envio", "grupo": "Prazos", "informa": "Datas de vigência do envio por competência.", "uso": "Controlar o prazo final de envio."},
+        {"nome": "Consulta de APAC", "grupo": "APAC", "informa": "Se uma APAC consta na base nacional.", "uso": "Conferir APAC de alto custo antes de cobrar o faturamento."},
+        {"nome": "Versões Mínimas", "grupo": "Sistemas", "informa": "Versões mínimas dos sistemas exigidas na competência.", "uso": "Evitar rejeição por versão desatualizada do BPA, APAC e FPO."}
+      ]
+    },
+    {
+      "id": "ciha",
+      "nome": "CIHA (Comunicação de Informação Hospitalar e Ambulatorial)",
+      "area": "Hospitalar e ambulatorial, produção não financiada pelo SUS",
+      "url": "https://ciha.saude.gov.br/remessa/remessa.php",
+      "status": "Manual",
+      "teste": "Leitura automática não testada. O endereço original da tela traz um código de sessão (csrt), que não foi guardado.",
+      "relatorios": [
+        {"nome": "Fonte de remuneração por Estabelecimento de Saúde", "grupo": "Remuneração", "informa": "Fonte de remuneração por estabelecimento em um período.", "uso": "Separar a produção custeada pelo SUS da produção por outras fontes."},
+        {"nome": "Consulta de Remessa, Estabelecimento de Saúde", "grupo": "Remessas", "informa": "Remessas por estabelecimento em um período.", "uso": "Confirmar o envio do CIHA da unidade."},
+        {"nome": "Consulta de Remessa, Secretaria de Saúde", "grupo": "Remessas", "informa": "Remessas por Secretaria de Saúde, por estado e município.", "uso": "Ver o que a secretaria já recebeu das unidades."},
+        {"nome": "Consulta Remessas Transmitidas", "grupo": "Remessas", "informa": "Situação de envio por estado e município no período.", "uso": "Acompanhar o envio da rede do município."}
+      ]
+    },
+    {
+      "id": "transmissor",
+      "nome": "Transmissor DATASUS (limites de competência)",
+      "area": "Prazos de todos os sistemas",
+      "url": "http://200.214.44.204/transmissor-web/pages/consultaLimiteCompetencia.jsp",
+      "status": "Manual",
+      "teste": "Endereço por IP em http (sem criptografia). Usar somente para consulta e nunca digitar senha nessa página. Leitura automática não testada.",
+      "sistemas_consulta": ["CIH", "CIHA", "CNES", "INTEGRADOR", "SIAB", "SIASUS", "SIHD", "SIPNI"],
+      "relatorios": [
+        {"nome": "Consulta de Limites de Competências", "grupo": "Prazos", "informa": "Por sistema: competência, data de início, data de fim e observação.", "uso": "Fonte do prazo final de envio. O gestor lança a data fim na aba Remessas e prazos."}
+      ]
+    }
+  ],
+  "elasticnes": {
+    "nome": "ElastiCNES (painéis do CNES)",
+    "url": "https://elasticnes.saude.gov.br/",
+    "status": "A confirmar",
+    "uso": "Consulta externa guiada para localizar o estabelecimento. Aplicar o filtro tipo_estabelecimento e copiar o código CNES da unidade para a plataforma.",
+    "nota": "Nas regras do projeto o ElastiCNES consta como fonte descartada para coleta automática (rota de relatórios do Kibana expõe tarefas de outros usuários). A plataforma só abre o link e não lê o painel. A coleta do CNES é feita pelo FTP oficial do DATASUS."
+  }
+}

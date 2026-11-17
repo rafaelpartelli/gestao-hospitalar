@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import * as C from '../hospital/js/hospital_calc.js';
+const t = (n, f) => { f(); console.log('ok', n); };
+t('media por AIH', () => { assert.equal(C.mediaAIH(1000, 4), 250); assert.equal(C.mediaAIH(1000, 0), null); assert.equal(C.mediaAIH(null, 4), null); });
+t('rejeicao por enviadas', () => { const r = C.rejeicao({enviadas: 200, rejeitadas: 10, aprovadas: 190}); assert.equal(r.valor, 0.05); assert.match(r.base, /enviadas/); });
+t('rejeicao sem enviadas usa processadas e informa a base', () => { const r = C.rejeicao({rejeitadas: 10, aprovadas: 90}); assert.equal(r.valor, 0.1); assert.match(r.base, /processadas/); });
+t('rejeicao sem dado', () => { assert.equal(C.rejeicao({}).valor, null); });
+t('rejeicao por valor', () => assert.equal(C.rejeicaoValor({valor_rejeitado: 100, valor_aprovado: 900}).valor, 0.1));
+t('nao processadas', () => { assert.equal(C.pctNaoProcessadas({nao_processadas: 5, enviadas: 100}), 0.05); assert.equal(C.pctNaoProcessadas({nao_processadas: 5}), null); });
+t('SH mais SP', () => { assert.equal(C.shSpConfere({sh: 600, sp: 400, valor_aprovado: 1000}), true); assert.equal(C.shSpConfere({sh: 600, sp: 300, valor_aprovado: 1000}), false); assert.equal(C.shSpConfere({sh: 600}), null); });
+t('composicao SH e SP', () => { const l = {sh: 600, sp: 400, valor_aprovado: 1000}; assert.equal(C.compSH(l), 0.6); assert.equal(C.compSP(l), 0.4); });
+t('oportunidade', () => { assert.deepEqual(C.oportunidade(1000, 800, 10), {valor: 2000, acima: false}); assert.deepEqual(C.oportunidade(1000, 1200, 10), {valor: 0, acima: true}); assert.equal(C.oportunidade(1000, null, 10).valor, null); });
+t('delta', () => { assert.equal(C.delta(100, 130), 30); assert.equal(C.deltaPct(100, 130), 0.3); assert.equal(C.deltaPct(0, 130), null); assert.equal(C.delta(null, 5), null); });
+t('similaridade', () => { const s = C.similaridade(['a', 'b', 'c'], ['b', 'c', 'd']); assert.equal(s.comuns, 2); assert.equal(s.total, 4); assert.equal(s.valor, 0.5); assert.equal(C.similaridade([], []).valor, null); });
+t('benchmark', () => { assert.equal(C.mediaGeralBench([{valor: 100, qtd: 1}, {valor: 300, qtd: 3}]), 100); assert.equal(C.mediaHospitalBench(300, 3), 100); });
+t('dias para prazo', () => { const h = new Date(2026, 10, 16); assert.equal(C.diasParaPrazo('2026-11-20', h), 4); assert.equal(C.diasParaPrazo('2026-11-10', h), -6); assert.equal(C.diasParaPrazo('', h), null); });
+t('capitulo CID', () => { assert.match(C.capituloCID('J18.9'), /^X\./); assert.match(C.capituloCID('C50'), /^II\./); assert.match(C.capituloCID('D50'), /^III\./); assert.match(C.capituloCID('D30'), /^II\./); assert.match(C.capituloCID('H25'), /^VII\./); assert.match(C.capituloCID('H66'), /^VIII\./); assert.equal(C.capituloCID('xx'), null); });
+t('criticas: SH+SP, sem producao, rejeicao', () => {
+  let r = C.criticas({sih: {}, fonte: 'x', ano: '2026'});
+  assert.ok(r.criticas.some(c => c.codigo === 'C04'));
+  r = C.criticas({sih: {aprovadas: 10, valor_aprovado: 1000, sh: 600, sp: 300, rejeitadas: 2}, fonte: 'SIH', ano: '2026'});
+  assert.ok(r.criticas.some(c => c.codigo === 'C08' && c.severidade === 'Alta'));
+  assert.ok(r.criticas.some(c => c.codigo === 'C12'));
+  assert.ok(!r.criticas.some(c => c.codigo === 'C04'));
+  assert.ok(r.nao_avaliadas.length >= 3);
+});
+t('criticas: fonte e ano, quantidade e valor', () => {
+  const r = C.criticas({sih: {aprovadas: 1, valor_aprovado: 10, sh: 5, sp: 5}, procedimentos: [{codigo: 'P1', qtd: 0, valor: 10}, {codigo: 'P2', qtd: 3, valor: 0}]});
+  assert.ok(r.criticas.some(c => c.codigo === 'C07'));
+  assert.equal(r.criticas.filter(c => c.codigo === 'C11').length, 2);
+});

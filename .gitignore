@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+*.key
+*.pem
+estado/
+tmp/
+hospital/dados/*.json
+!hospital/dados/indice.json
+!hospital/dados/status_fontes.json

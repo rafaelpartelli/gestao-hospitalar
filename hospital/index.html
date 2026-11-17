@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestão Hospitalar | Partelli</title>
+<meta name="description" content="Painel do diretor hospitalar: faturamento SIH e SIA, remessas e prazos do DATASUS, CNES da unidade, críticas de dados e plano de avanço do faturamento SUS.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231351B4'/%3E%3Cpath d='M14 7h4v7h7v4h-7v7h-4v-7H7v-4h7z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/hospital.css?v=1">
+</head>
+<body>
+<a class="pular" href="#conteudo">Ir para o conteúdo</a>
+<header class="topo">
+  <div class="miolo">
+    <p class="marca"><a href="/" style="color:inherit">Partelli · Plataforma de análise de dados e críticas do SUS</a></p>
+    <h1>Gestão Hospitalar</h1>
+    <p class="lead">Perfil do diretor e do gestor da unidade: faturamento, remessas, prazos, CNES, críticas e plano de avanço. Cada número mostra a fonte, a competência e como foi calculado.</p>
+  </div>
+</header>
+
+<nav class="filtros" aria-label="Escolha da unidade e da competência">
+  <div class="miolo filtros-linha">
+    <label>Unidade hospitalar (CNES)
+      <select id="selHosp"><option value="">Nenhuma unidade configurada</option></select>
+    </label>
+    <label>Ou digite o CNES (7 dígitos)
+      <input id="inpCnes" inputmode="numeric" maxlength="7" placeholder="[PREENCHER: CNES]" autocomplete="off">
+    </label>
+    <label>Competência (MM/AAAA)
+      <select id="selComp"><option value="">Sem competência</option></select>
+    </label>
+    <label>Nova competência
+      <input id="inpComp" placeholder="MM/AAAA" maxlength="7" autocomplete="off">
+    </label>
+    <p id="selo" class="selo" role="status" aria-live="polite">Carregando...</p>
+  </div>
+</nav>
+
+<main id="conteudo" class="miolo">
+  <div class="abas" role="tablist" aria-label="Seções do painel hospitalar" id="abas"></div>
+  <div id="painel" class="bloco" role="tabpanel" tabindex="0"></div>
+</main>
+
+<footer class="rodape">
+  <div class="miolo">
+    <p>Rafael Partelli, administrador (CRA/ES 15721). <a href="https://partelli.pro/">partelli.pro</a> · 2026</p>
+    <p>LGPD: somente dados agregados e oficiais. Nenhum dado de paciente, profissional, CPF, CNS, CNPJ, endereço, telefone ou e-mail é coletado ou exibido. Lançamentos manuais ficam apenas neste navegador, até você exportar.</p>
+    <p>Fontes oficiais: SIH/SUS, SIA/SUS, CNES, SIGTAP e remessas do DATASUS (SIHD, SIASUS, CIHA e Transmissor). Este painel apoia a análise técnica e não substitui os sistemas oficiais.</p>
+  </div>
+</footer>
+<script type="module" src="js/hospital.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "aviso": "Preencher somente com CNES autorizado pelo responsável da unidade. Sem autorização, deixar vazio ou usar caso anonimizado. Nenhum nome de hospital é gravado pelos robôs.",
+  "meses": 2,
+  "hospitais": [
+    {"cnes": "[PREENCHER: CNES autorizado, 7 dígitos]", "uf": "ES", "nome": "[PREENCHER: nome autorizado]", "autorizado": false}
+  ]
+}
