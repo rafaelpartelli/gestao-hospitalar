@@ -1,0 +1,45 @@
+name: Site, testes e publicacao na Oracle
+
+on:
+  push:
+    branches: [main]
+    paths: ['hospital/**', 'deploy/**', 'tests/**', '.github/workflows/site.yml']
+  workflow_dispatch:
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: node tests/test_hospital_calc.mjs
+      - name: Testes dos robos
+        run: |
+          git clone --depth 1 https://github.com/rafaelpartelli/sala-gestao /tmp/sala-gestao
+          ROBO_EXTRA=/tmp/sala-gestao/robo python3 -I -m unittest discover -s tests -p "test_hospital.py"
+      - run: bash -n deploy/receber_deploy.sh && python3 -m py_compile deploy/montar_plataforma.py
+
+  publicar:
+    needs: testes
+    runs-on: ubuntu-latest
+    environment: producao
+    concurrency: oracle-publicar
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar conexao com a Oracle
+        env:
+          VM_SSH_KEY: ${{ secrets.VM_SSH_KEY }}
+          VM_HOST_KEY: ${{ secrets.VM_HOST_KEY }}
+          VM_HOST: ${{ secrets.VM_HOST }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$VM_SSH_KEY" > ~/.ssh/oracle_key && chmod 600 ~/.ssh/oracle_key
+          printf '%s\n' "$VM_HOST_KEY" | sed "s/^\[HOST\]/$VM_HOST/" > ~/.ssh/known_hosts
+      - name: Publicar o site (modo site)
+        env:
+          VM_HOST: ${{ secrets.VM_HOST }}
+          VM_USER: ${{ secrets.VM_USER }}
+        run: |
+          git archive --format=tar.gz HEAD hospital deploy/montar_plataforma.py \
+            | ssh -i ~/.ssh/oracle_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$VM_USER@$VM_HOST" site

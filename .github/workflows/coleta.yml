@@ -1,0 +1,90 @@
+name: Robos de coleta (GitHub) e envio dos dados para a Oracle
+
+on:
+  schedule:
+    - cron: '30 5 * * *'    # 02:30 de Brasilia: SIH e SIA
+    - cron: '30 7 * * 1'    # segunda 04:30 de Brasilia: CNES e remessas
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: 'diaria (SIH e SIA), semanal (CNES e remessas) ou tudo'
+        default: 'tudo'
+        type: choice
+        options: [diaria, semanal, tudo]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coleta
+  cancel-in-progress: false
+
+jobs:
+  coleta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    environment: producao
+    env:
+      MODO: ${{ github.event.inputs.modo || (github.event.schedule == '30 7 * * 1' && 'semanal' || 'diaria') }}
+      ORCAMENTO_TRAFEGO_GB: '6'
+      DISCO_MINIMO_GB: '3'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Robos comuns da Sala de Gestao (comum.py e dbc.py)
+        run: git clone --depth 1 https://github.com/rafaelpartelli/sala-gestao /tmp/sala-gestao
+      - name: Restaurar dados anteriores (branch dados)
+        env: { GH_TOKEN: '${{ github.token }}', REPO: '${{ github.repository }}' }
+        run: |
+          URL="https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+          if git ls-remote --exit-code --heads "$URL" dados >/dev/null 2>&1; then
+            git clone -q --depth 1 --branch dados "$URL" dados_repo
+          else
+            mkdir dados_repo && git -C dados_repo init -q -b dados && git -C dados_repo remote add origin "$URL"
+            cp hospital/dados/*.json dados_repo/
+          fi
+      - name: Restaurar historico de download (orcamento mensal)
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/estado
+          key: estado-${{ github.run_id }}
+          restore-keys: estado-
+      - name: Rodar os robos
+        env:
+          PARTELLI_DADOS: ${{ github.workspace }}/dados_repo
+          PARTELLI_CONFIG: ${{ github.workspace }}/config
+          PARTELLI_REMESSAS: ${{ github.workspace }}/hospital/config/remessas_datasus.json
+          PARTELLI_ESTADO: ${{ runner.temp }}/estado
+          TMPDIR: ${{ runner.temp }}
+          PYTHONPATH: ${{ github.workspace }}/robo:/tmp/sala-gestao/robo
+        run: |
+          mkdir -p "$PARTELLI_ESTADO"
+          case "$MODO" in
+            diaria)  JOBS="coletar_hospital_sih coletar_hospital_sia" ;;
+            semanal) JOBS="coletar_hospital_cnes sondar_remessas" ;;
+            *)       JOBS="coletar_hospital_sih coletar_hospital_sia coletar_hospital_cnes sondar_remessas" ;;
+          esac
+          FALHAS=0
+          for J in $JOBS; do
+            echo "::group::$J"; python3 "robo/$J.py" || { echo "::warning::$J terminou com erro"; FALHAS=$((FALHAS+1)); }; echo "::endgroup::"
+          done
+          echo "Robos com erro: $FALHAS"
+      - name: Guardar os dados na branch dados
+        run: |
+          cd dados_repo
+          git config user.name "robo-partelli"; git config user.email "noreply@partelli.pro"
+          git add -A
+          if git diff --cached --quiet; then echo "sem mudancas"; else git commit -q -m "Dados ${MODO} $(date -u +%F)"; git push -q origin dados; fi
+      - name: Enviar os dados para a Oracle (modo dados)
+        env:
+          VM_SSH_KEY: ${{ secrets.VM_SSH_KEY }}
+          VM_HOST_KEY: ${{ secrets.VM_HOST_KEY }}
+          VM_HOST: ${{ secrets.VM_HOST }}
+          VM_USER: ${{ secrets.VM_USER }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$VM_SSH_KEY" > ~/.ssh/oracle_key && chmod 600 ~/.ssh/oracle_key
+          printf '%s\n' "$VM_HOST_KEY" | sed "s/^\[HOST\]/$VM_HOST/" > ~/.ssh/known_hosts
+          cd dados_repo
+          tar czf - *.json | ssh -i ~/.ssh/oracle_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$VM_USER@$VM_HOST" dados
