@@ -1,9 +1,9 @@
 {
- "gerado_em": "2026-11-18T21:59:49-03:00",
+ "gerado_em": "2026-11-18T22:04:49-03:00",
  "fontes": {
   "sihd": {
    "url": "http://sihd.datasus.gov.br/remessa/remessa.php",
-   "testado_em": "2026-11-18T21:59:49-03:00",
+   "testado_em": "2026-11-18T22:04:49-03:00",
    "robots": "inexistente",
    "status": "Manual",
    "http": 200,
@@ -12,7 +12,7 @@
   },
   "siasus": {
    "url": "https://sia.datasus.gov.br/remessa/remessa.php",
-   "testado_em": "2026-11-18T21:59:49-03:00",
+   "testado_em": "2026-11-18T22:04:50-03:00",
    "robots": "inexistente",
    "status": "Manual",
    "http": 200,
@@ -21,16 +21,14 @@
   },
   "ciha": {
    "url": "https://ciha.saude.gov.br/remessa/remessa.php",
-   "testado_em": "2026-11-18T21:59:50-03:00",
+   "testado_em": "2026-11-18T22:04:52-03:00",
    "robots": "inexistente",
-   "status": "Manual",
-   "http": 200,
-   "bytes": 8988,
-   "resultado": "pagina responde; sem leitura automatica de relatorios"
+   "status": "A confirmar",
+   "resultado": "TimeoutError"
   },
   "transmissor": {
    "url": "http://200.214.44.204/transmissor-web/pages/consultaLimiteCompetencia.jsp",
-   "testado_em": "2026-11-18T21:59:50-03:00",
+   "testado_em": "2026-11-18T22:05:22-03:00",
    "robots": "inexistente",
    "status": "Manual",
    "http": 200,
@@ -39,7 +37,7 @@
   },
   "elasticnes": {
    "url": "https://elasticnes.saude.gov.br/",
-   "testado_em": "2026-11-18T21:59:51-03:00",
+   "testado_em": "2026-11-18T22:05:22-03:00",
    "robots": "lido",
    "status": "Manual",
    "http": 200,
