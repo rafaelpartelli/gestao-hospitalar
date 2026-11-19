@@ -106,7 +106,7 @@ def cobertura(saida):
         eq = conta((c.get("equipamentos") or {}).get("itens", []),
                    lambda i: any(k in t.get("equipamento", {}) or k in t.get("tipo_equipamento", {}) for k in (i["tipo"] + i["codigo"], i["tipo"].zfill(2) + i["codigo"].zfill(2), i["codigo"].zfill(4))))
         sv = conta((c.get("servicos") or {}).get("itens", []),
-                   lambda i: (i["servico"] + i["classificacao"]) in t.get("servico_classificacao", {}) or (i["servico"] + "-" + i["classificacao"]) in t.get("servico_classificacao", {}))
+                   lambda i: (i["servico"].zfill(3) + i["classificacao"].zfill(3)) in t.get("servico_classificacao_n", {}))
         linhas.append(f"{nome[:7]}: habilitacoes {hab[0]}/{hab[1]}, incentivos {inc[0]}/{inc[1]}, leitos {lei[0]}/{lei[1]}, equipamentos {eq[0]}/{eq[1]}, servicos {sv[0]}/{sv[1]}")
     return linhas
 

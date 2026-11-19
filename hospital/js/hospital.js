@@ -1,6 +1,7 @@
 // Gestao Hospitalar (perfil do diretor). Sem framework. Textos externos nunca entram como HTML (usa el() do util.js).
 import {el, limpar, carregar, tabela, inteiro, decimal} from './util.js';
 import * as C from './hospital_calc.js';
+import * as DC from './cnes_desc.js';
 
 const BASE = new URL('../', import.meta.url).href;   // pasta hospital/ (dados e config), independente da pagina que embute o modulo
 const D = BASE + 'dados/';
@@ -20,7 +21,8 @@ const guardar = {
   ler() { try { return JSON.parse(localStorage.getItem(CHAVE_LOCAL) || '{}'); } catch (e) { return memoria.dados || {}; } },
   gravar(o) { try { localStorage.setItem(CHAVE_LOCAL, JSON.stringify(o)); } catch (e) { memoria.dados = o; } }
 };
-const S = {indice: null, cnes: '', comp: '', auto: null, local: guardar.ler(), aba: 'resumo', remessas: null, status: null};
+const SEMDESC = '[PREENCHER: descrição]';
+const S = {indice: null, cnes: '', comp: '', auto: null, local: guardar.ler(), aba: 'resumo', remessas: null, status: null, tab: null};
 
 const registro = () => ((S.local[S.cnes || '_'] ||= {})[S.comp || '_'] ||= {sih: {}, remessas: [], plano: [], meta: {}});
 const salvar = () => guardar.gravar(S.local);
@@ -332,15 +334,15 @@ function abaCNES() {
   const est = c.estabelecimento || {}, tp = est.TP_UNID;
   w.append(el('h3', null, 'Caracterização'), el('div', {class: 'kpis'}, kpi('Tipo de unidade', tp ? `${tp}${TIPOS_HOSP[tp] ? ' · ' + TIPOS_HOSP[tp] : ''}` : pend('tipo de unidade'), TIPOS_HOSP[tp] ? 'conferir com a tabela oficial do CNES' : 'código do campo TP_UNID, conferir na tabela oficial'),
     kpi('Leitos existentes', c.leitos ? inteiro(c.leitos.total_existentes) : pend('leitos'), c.leitos ? `${inteiro(c.leitos.total_sus)} SUS` : ''), kpi('Vínculos profissionais', c.profissionais ? inteiro(c.profissionais.total_vinculos) : pend('profissionais'), 'vínculos, não pessoas')));
-  if (c.leitos && c.leitos.itens.length) w.append(el('h3', null, 'Leitos'), tabela(['Tipo', 'Código do leito', 'Existentes', 'SUS', 'Contratados'], c.leitos.itens.map(l => [l.tp_leito, l.cod_leito, inteiro(l.existentes), inteiro(l.sus), inteiro(l.contratados)]), [2, 3, 4]));
-  if (c.servicos && c.servicos.itens.length) w.append(el('h3', null, 'Serviços especializados'), tabela(['Serviço', 'Classificação'], c.servicos.itens.map(x => [x.servico, x.classificacao])));
+  if (c.leitos && c.leitos.itens.length) w.append(el('h3', null, 'Leitos'), tabela(['Tipo', 'Código do leito', 'Descrição', 'Existentes', 'SUS', 'Contratados'], c.leitos.itens.map(l => [l.tp_leito, l.cod_leito, DC.descLeito(S.tab, l.tp_leito, l.cod_leito) || SEMDESC, inteiro(l.existentes), inteiro(l.sus), inteiro(l.contratados)]), [3, 4, 5]));
+  if (c.servicos && c.servicos.itens.length) w.append(el('h3', null, 'Serviços especializados'), tabela(['Serviço', 'Classificação', 'Descrição'], c.servicos.itens.map(x => [x.servico, x.classificacao, DC.descServico(S.tab, x.servico, x.classificacao) || SEMDESC])));
   w.append(el('h3', null, 'Habilitações'));
-  if (c.habilitacoes && c.habilitacoes.itens.length) w.append(tabela(Object.keys(c.habilitacoes.itens[0]).map(k => k.toUpperCase()), c.habilitacoes.itens.map(h => Object.values(h))), el('p', {class: 'nota-pequena'}, 'Conforme o CNES. Para afirmar que um serviço está habilitado, confirme a portaria no DOU. [PREENCHER: portaria de habilitação, número, data e DOU]'));
+  if (c.habilitacoes && c.habilitacoes.itens.length) w.append(tabela(['Código', 'Descrição', 'Início', 'Fim', 'Portaria', 'Data da portaria', 'Leitos'], c.habilitacoes.itens.map(h => [h.sgruphab, DC.descHabilitacao(S.tab, h.sgruphab) || SEMDESC, DC.fmtCompCnes(h.cmpt_ini), DC.fmtCompCnes(h.cmpt_fim), h.portaria || '', h.dtportar || '', h.nuleitos || ''])), el('p', {class: 'nota-pequena'}, 'Conforme o CNES. Para afirmar que um serviço está habilitado, confirme a portaria no DOU. [PREENCHER: portaria de habilitação, número, data e DOU]'));
   else w.append(el('p', {class: 'indisponivel'}, 'Sem habilitações no CNES coletado. Status: A verificar.'));
   if (c.profissionais) w.append(el('h3', null, 'Profissionais por grupo de CBO'), tabela(['Grupo', 'Vínculos', 'Vínculos SUS', 'Horas semanais'], c.profissionais.grupos.map(g => [g.grupo, inteiro(g.vinculos), inteiro(g.vinculos_sus), inteiro(g.horas_semanais)]), [1, 2, 3]), el('p', {class: 'nota-pequena'}, c.profissionais.unidade));
-  if (c.instalacoes && c.instalacoes.itens.length) w.append(el('h3', null, 'Instalações físicas'), tabela(['Código', 'Quantidade'], c.instalacoes.itens.map(x => [x.codigo, inteiro(x.quantidade)]), [1]), el('p', {class: 'nota-pequena'}, `Total de ${inteiro(c.instalacoes.total)} instalações. [PREENCHER: descrição por código, após conferir a tabela auxiliar oficial do CNES]`));
-  if (c.equipamentos && c.equipamentos.itens.length) w.append(el('h3', null, 'Equipamentos'), tabela(['Tipo', 'Código', 'Existentes', 'Em uso'], c.equipamentos.itens.map(x => [x.tipo, x.codigo, inteiro(x.existentes), inteiro(x.em_uso)]), [2, 3]), el('p', {class: 'nota-pequena'}, 'Códigos conforme tabela do CNES. [PREENCHER: descrição por código, após conferir a tabela auxiliar oficial]'));
-  if (c.incentivos && c.incentivos.itens.length) w.append(el('h3', null, 'Incentivos'), tabela(Object.keys(c.incentivos.itens[0]).map(k => k.toUpperCase()), c.incentivos.itens.map(h => Object.values(h))));
+  if (c.instalacoes && c.instalacoes.itens.length) w.append(el('h3', null, 'Instalações físicas'), tabela(['Código', 'Descrição', 'Quantidade'], c.instalacoes.itens.map(x => [x.codigo, DC.descInstalacao(S.tab, x.codigo) || SEMDESC, inteiro(x.quantidade)]), [2]), el('p', {class: 'nota-pequena'}, `Total de ${inteiro(c.instalacoes.total)} instalações. ${S.tab ? 'Descrição conforme a tabela auxiliar oficial do CNES (DATASUS).' : '[PREENCHER: descrição por código, tabela auxiliar do CNES ainda não coletada]'}`));
+  if (c.equipamentos && c.equipamentos.itens.length) w.append(el('h3', null, 'Equipamentos'), tabela(['Tipo', 'Código', 'Descrição', 'Existentes', 'Em uso'], c.equipamentos.itens.map(x => [x.tipo, x.codigo, DC.descEquipamento(S.tab, x.tipo, x.codigo) || SEMDESC, inteiro(x.existentes), inteiro(x.em_uso)]), [3, 4]), el('p', {class: 'nota-pequena'}, S.tab ? 'Descrição conforme a tabela auxiliar oficial do CNES (DATASUS).' : '[PREENCHER: descrição por código, tabela auxiliar do CNES ainda não coletada]'));
+  if (c.incentivos && c.incentivos.itens.length) w.append(el('h3', null, 'Incentivos'), tabela(['Código', 'Descrição', 'Início', 'Fim', 'Portaria', 'Data da portaria'], c.incentivos.itens.map(h => [h.sgruphab, DC.descIncentivo(S.tab, h.sgruphab) || SEMDESC, DC.fmtCompCnes(h.cmpt_ini), DC.fmtCompCnes(h.cmpt_fim), h.portaria || '', h.dtportar || ''])));
   w.append(comparaCNES(c), avisosColeta(c));
   return w;
 }
@@ -422,6 +424,7 @@ function abaFontes() {
 // ---------------------------------------------------------------- inicializacao
 async function carregarUnidade() {
   S.auto = S.cnes ? await carregar(D + S.cnes + '.json') : null;
+  S.tab = await carregar(D + 'tabelas_cnes.json');
   const sel = limpar(document.getElementById('selComp'));
   const ks = Object.keys((S.auto && S.auto.competencias) || {}).map(chaveParaComp), loc = Object.keys(S.local[S.cnes || '_'] || {}).filter(x => x !== '_');
   const todas = [...new Set([...ks, ...loc])].sort((a, b) => compParaChave(b).localeCompare(compParaChave(a)));
