@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """CNES do estabelecimento configurado (FTP do DATASUS): tipo de unidade (ST), leitos (LT), servicos especializados (SR),
 habilitacoes (HB) e profissionais por grupo de CBO (PF). Somente agregados e codigos. Nunca le nome, CPF, CNS, CNPJ, endereco, telefone ou e-mail.
-Equivale, para a unidade, ao que o ElastiCNES mostra por tipo_estabelecimento, sem depender daquele painel.
+Equivale, para a unidade, ao que o ElastiCNES mostra (estabelecimento, leitos, servicos, habilitacoes, profissionais, equipamentos e incentivos), lido direto do FTP oficial.
+O ElastiCNES em si NAO e acessado (fonte descartada nas regras do projeto: expoe tarefas de outros usuarios).
 Saida: <PARTELLI_DADOS>/<CNES>.json, bloco cnes. Status da fonte: Em teste."""
 import sys
 import dbc
@@ -13,6 +14,9 @@ LT = ["CNES", "TP_LEITO", "CODLEITO", "QT_EXIST", "QT_CONTR", "QT_SUS", "QT_NSUS
 SR = ["CNES", "SERV_ESP", "CLASS_SR", "SRVUNICO", "AMB_SUS", "HOSP_SUS"]
 HB = ["CNES", "SGRUPHAB", "PORTARIA", "DTPORTAR", "MAPORTAR", "COMPETEN"]  # campos confirmados no arquivo real HBES2610 (nov/2026); CODHAB e DTPORT nao existem
 PF = ["CNES", "CBO", "PROF_SUS", "HORA_AMB", "HORAOUTR", "HORAHOSP"]
+# Hipoteses (arquivos EQ e IN ainda nao sondados): campos ausentes viram aviso, nunca erro. Confirmar com --sondar.
+EQ = ["CNES", "TIPEQUIP", "CODEQUIP", "QT_EXIST", "QT_USO", "IND_SUS", "IND_NSUS"]
+IN = ["CNES", "INCENTIV", "COMPETEN", "PORTARIA", "DTPORTAR", "MAPORTAR"]
 GRUPOS_CBO = [("Médicos", ("2251", "2252", "2253", "2231")), ("Enfermeiros", ("2235",)), ("Técnicos e auxiliares de enfermagem", ("3222",)),
               ("Cirurgiões-dentistas", ("2232",)), ("Farmacêuticos", ("2234",)), ("Psicólogos", ("2515",)), ("Fisioterapeutas", ("2236",)),
               ("Nutricionistas", ("2237",)), ("Assistentes sociais", ("2516",)), ("Fonoaudiólogos e terapeutas ocupacionais", ("2238", "2239"))]
@@ -71,6 +75,26 @@ def resumir_habilitacoes(regs):
     return {"itens": itens}
 
 
+def resumir_equipamentos(regs):
+    por = {}
+    for r in regs:
+        k = (r.get("TIPEQUIP") or "").strip() + "/" + (r.get("CODEQUIP") or "").strip()
+        a = por.setdefault(k, [0, 0])
+        a[0] += int(numero_br(r.get("QT_EXIST"))); a[1] += int(numero_br(r.get("QT_USO")))
+    linhas = [{"tipo": k.split("/")[0], "codigo": k.split("/")[1], "existentes": v[0], "em_uso": v[1]} for k, v in sorted(por.items())]
+    return {"itens": linhas, "total_existentes": sum(l["existentes"] for l in linhas), "total_em_uso": sum(l["em_uso"] for l in linhas)}
+
+
+def resumir_incentivos(regs):
+    vistos, itens = set(), []
+    for r in regs:
+        item = {k.lower(): (r.get(k) or "").strip() for k in ("INCENTIV", "COMPETEN", "PORTARIA", "DTPORTAR", "MAPORTAR") if k in r}
+        chave = tuple(sorted(item.items()))
+        if item and chave not in vistos:
+            vistos.add(chave); itens.append(item)
+    return {"itens": itens}
+
+
 def resumir_profissionais(regs):
     por = {}
     for r in regs:
@@ -89,13 +113,15 @@ def processar_uf(uf, cnes_set):
     if not comps:
         raise H.ErroColeta(f"nenhum arquivo ST{uf} no FTP do CNES")
     comp = comps[0]
-    blocos = {c: {"competencia_cnes": H.aamm_para_mmaaaa(comp), "fonte": "CNES, arquivos ST, LT, SR, HB e PF do FTP do DATASUS", "coletado_em": agora(),
+    blocos = {c: {"competencia_cnes": H.aamm_para_mmaaaa(comp), "fonte": "CNES, arquivos ST, LT, SR, HB, PF, EQ e IN do FTP do DATASUS", "coletado_em": agora(),
                   "status_fonte": "Em teste", "avisos": []} for c in cnes_set}
     plano = [("ST", ST, ["CNES", "TP_UNID"], lambda regs: ({k: (regs[0].get(k) or "").strip() for k in ST if k in regs[0] and k != "CNES"} if regs else None), "estabelecimento"),
              ("LT", LT, ["CNES", "QT_EXIST"], resumir_leitos, "leitos"),
              ("SR", SR, ["CNES", "SERV_ESP"], resumir_servicos, "servicos"),
              ("HB", HB, ["CNES"], resumir_habilitacoes, "habilitacoes"),
-             ("PF", PF, ["CNES", "CBO"], resumir_profissionais, "profissionais")]
+             ("PF", PF, ["CNES", "CBO"], resumir_profissionais, "profissionais"),
+             ("EQ", EQ, ["CNES"], resumir_equipamentos, "equipamentos"),
+             ("IN", IN, ["CNES"], resumir_incentivos, "incentivos")]
     for tipo, desej, obrig, reduzir, chave in plano:
         try:
             out, avisos, nome = coletar_tipo(tipo, uf, comp, cnes_set, desej, obrig, reduzir)
@@ -113,7 +139,7 @@ def processar_uf(uf, cnes_set):
 
 
 def sondar():
-    for tipo in ("ST", "LT", "SR", "HB", "PF"):
+    for tipo in ("ST", "LT", "SR", "HB", "PF", "EQ", "IN"):
         pasta = f"{H.PASTA_CNES}/{tipo}"
         comp = H.competencias_recentes(H.listar(pasta, tipo + "AP"), tipo, "AP", 1)
         if not comp:
@@ -123,9 +149,26 @@ def sondar():
             print(tipo, comp[0], "registros", cab["registros"], "campos", [c[0] for c in cab["campos"]], flush=True)
 
 
+def listar_auxiliares():
+    """Lista a pasta de tabelas auxiliares do CNES (descricoes de servico, leito, habilitacao, equipamento, incentivo).
+    Somente listagem: o nome real dos arquivos ainda nao foi confirmado."""
+    pasta = H.PASTA_CNES.rsplit("/", 1)[0] + "/Auxiliar"
+    f = H.conectar()
+    try:
+        for n in f.nlst(pasta):
+            print(n.split("/")[-1], flush=True)
+    finally:
+        try:
+            f.quit()
+        except Exception:
+            pass
+
+
 def main():
     if "--sondar" in sys.argv:
         sondar(); return 0
+    if "--auxiliares" in sys.argv:
+        listar_auxiliares(); return 0
     cfg = H.carregar_config()
     if not cfg["hospitais"]:
         print("nenhum CNES valido em config/hospitais.json: nada a coletar"); return 0

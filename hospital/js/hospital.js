@@ -338,6 +338,8 @@ function abaCNES() {
   if (c.habilitacoes && c.habilitacoes.itens.length) w.append(tabela(Object.keys(c.habilitacoes.itens[0]).map(k => k.toUpperCase()), c.habilitacoes.itens.map(h => Object.values(h))), el('p', {class: 'nota-pequena'}, 'Conforme o CNES. Para afirmar que um serviço está habilitado, confirme a portaria no DOU. [PREENCHER: portaria de habilitação, número, data e DOU]'));
   else w.append(el('p', {class: 'indisponivel'}, 'Sem habilitações no CNES coletado. Status: A verificar.'));
   if (c.profissionais) w.append(el('h3', null, 'Profissionais por grupo de CBO'), tabela(['Grupo', 'Vínculos', 'Vínculos SUS', 'Horas semanais'], c.profissionais.grupos.map(g => [g.grupo, inteiro(g.vinculos), inteiro(g.vinculos_sus), inteiro(g.horas_semanais)]), [1, 2, 3]), el('p', {class: 'nota-pequena'}, c.profissionais.unidade));
+  if (c.equipamentos && c.equipamentos.itens.length) w.append(el('h3', null, 'Equipamentos'), tabela(['Tipo', 'Código', 'Existentes', 'Em uso'], c.equipamentos.itens.map(x => [x.tipo, x.codigo, inteiro(x.existentes), inteiro(x.em_uso)]), [2, 3]), el('p', {class: 'nota-pequena'}, 'Códigos conforme tabela do CNES. [PREENCHER: descrição por código, após conferir a tabela auxiliar oficial]'));
+  if (c.incentivos && c.incentivos.itens.length) w.append(el('h3', null, 'Incentivos'), tabela(Object.keys(c.incentivos.itens[0]).map(k => k.toUpperCase()), c.incentivos.itens.map(h => Object.values(h))));
   w.append(comparaCNES(c), avisosColeta(c));
   return w;
 }
@@ -355,7 +357,7 @@ function comparaCNES(c) {
   const outros = ((S.indice && S.indice.hospitais) || []).filter(h => h.cnes !== S.cnes);
   if (!outros.length) { w.append(el('p', {class: 'nota-pequena'}, 'Configure ao menos dois CNES para comparar leitos, serviços e habilitações. Similaridade = itens em comum ÷ itens únicos nos dois.')); return w; }
   const sel = el('select', null, outros.map(h => el('option', {value: h.cnes}, h.nome || 'CNES ' + h.cnes))), out = el('div');
-  const itens = x => ({Leitos: (x.leitos ? x.leitos.itens : []).map(l => l.tp_leito + '/' + l.cod_leito), Serviços: (x.servicos ? x.servicos.itens : []).map(s => s.servico + '|' + s.classificacao), Habilitações: (x.habilitacoes ? x.habilitacoes.itens : []).map(h => JSON.stringify(h))});
+  const itens = x => ({Leitos: (x.leitos ? x.leitos.itens : []).map(l => l.tp_leito + '/' + l.cod_leito), Serviços: (x.servicos ? x.servicos.itens : []).map(s => s.servico + '|' + s.classificacao), Habilitações: (x.habilitacoes ? x.habilitacoes.itens : []).map(h => JSON.stringify(h)), Equipamentos: (x.equipamentos ? x.equipamentos.itens : []).map(q => q.tipo + '/' + q.codigo), Incentivos: (x.incentivos ? x.incentivos.itens : []).map(h => JSON.stringify(h))});
   sel.addEventListener('change', async () => {
     const o = await carregar(D + sel.value + '.json'), b = o && o.cnes; if (!b) { limpar(out).append(el('p', {class: 'indisponivel'}, 'Sem CNES coletado para a unidade escolhida.')); return; }
     const A = itens(c), B = itens(b), linhas = Object.keys(A).map(k => { const s = C.similaridade(A[k], B[k]); return [k, s.valor === null ? pend('itens') : pctf(s.valor), inteiro(s.comuns), inteiro(s.total)]; });

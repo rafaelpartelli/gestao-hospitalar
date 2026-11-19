@@ -44,6 +44,13 @@ class Comum(unittest.TestCase):
         cab = bytes([3, 26, 1, 1]) + struct.pack("<IHH", 0, tam_cab, 1 + 8 * len(nomes)) + b"\x00" * 20
         return cab + campos + b"\x0d"
 
+    def test_equipamentos_e_incentivos(self):
+        e = CNES.resumir_equipamentos([{"TIPEQUIP": "1", "CODEQUIP": "01", "QT_EXIST": "3", "QT_USO": "2"},
+                                       {"TIPEQUIP": "1", "CODEQUIP": "01", "QT_EXIST": "1", "QT_USO": "1"}])
+        self.assertEqual(e["total_existentes"], 4); self.assertEqual(e["total_em_uso"], 3)
+        i = CNES.resumir_incentivos([{"INCENTIV": "0101", "COMPETEN": "202610"}, {"INCENTIV": "0101", "COMPETEN": "202610"}, {}])
+        self.assertEqual(len(i["itens"]), 1)
+
     def test_campos_obrigatorios_e_proibidos(self):
         d = self._dbf(["CNES", "VAL_TOT", "NOMEPROF", "N_AIH"])
         ler, aus, _ = H.campos_presentes(d, ["CNES", "VAL_TOT", "NOMEPROF", "N_AIH", "X"], ["CNES"])
