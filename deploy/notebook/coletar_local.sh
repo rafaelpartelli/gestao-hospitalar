@@ -66,8 +66,8 @@ export PARTELLI_DADOS="$DADOS" PARTELLI_CONFIG="$REPO/config" \
 
 case "$MODO" in
   diaria)  JOBS="coletar_hospital_sih coletar_hospital_sia" ;;
-  semanal) JOBS="coletar_hospital_cnes sondar_remessas" ;;
-  *)       JOBS="coletar_hospital_sih coletar_hospital_sia coletar_hospital_cnes sondar_remessas" ;;
+  semanal) JOBS="coletar_hospital_cnes coletar_cnes_tabelas sondar_remessas" ;;
+  *)       JOBS="coletar_hospital_sih coletar_hospital_sia coletar_hospital_cnes coletar_cnes_tabelas sondar_remessas" ;;
 esac
 JOBS="${JOBS_OVERRIDE:-$JOBS}"   # uso em testes
 

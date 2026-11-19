@@ -44,6 +44,16 @@ class Comum(unittest.TestCase):
         cab = bytes([3, 26, 1, 1]) + struct.pack("<IHH", 0, tam_cab, 1 + 8 * len(nomes)) + b"\x00" * 20
         return cab + campos + b"\x0d"
 
+    def test_tabelas_cnes(self):
+        import coletar_cnes_tabelas as T, struct
+        cnv = "4 2 L\r\n      1  1-Cirurgico                                        1\r\n      2  2-Clinico geral                                    2\r\n"
+        self.assertEqual(T.parse_cnv(cnv), {"1": "1-Cirurgico", "2": "2-Clinico geral"})
+        campos = [("CHAVE", 4), ("DS", 10)]
+        cab = bytearray(32); cab[4:12] = struct.pack("<IHH", 2, 32 + 32 * 2 + 1, 1 + 14)
+        desc = b"".join(n.encode().ljust(11, b"\0") + b"C" + b"\0" * 4 + bytes([t]) + b"\0" * 15 for n, t in campos)
+        regs = b" 0101Gama      " + b" 0102Mamo      "
+        self.assertEqual(T.tabela_dbf(bytes(cab) + desc + b"\x0d" + regs), {"0101": "Gama", "0102": "Mamo"})
+
     def test_instalacoes(self):
         r = CNES.resumir_instalacoes([{"QTINST01": "3", "QTINST02": "0", "QTINST05": "2", "CENTRCIR": "1"}])
         self.assertEqual(r["total"], 5); self.assertEqual([i["codigo"] for i in r["itens"]], ["01", "05"])
