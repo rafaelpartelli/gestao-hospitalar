@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Executa no notebook (usuario partelli). Uso: partelli-coleta diaria|semanal|tudo|espelho
+# Executa no notebook, no usuario configurado no servico (padrao: rafael). Uso: partelli-coleta diaria|semanal|tudo|espelho
 # Robos rodam aqui, os dados vao para a branch "dados" no GitHub, para a Oracle (modo dados)
 # e o codigo e os dados ganham copia no Codeberg (modo espelho).
 # Nenhuma credencial neste arquivo: chaves SSH ficam em ~/.ssh e ajustes em /etc/partelli/coleta.env.
@@ -19,6 +19,10 @@ VM_HOST="${VM_HOST:-}"                    # IP ou dominio da Oracle (vazio = nao
 VM_USER="${VM_USER:-ubuntu}"
 ORACLE_KEY="${ORACLE_KEY:-$HOME/.ssh/oracle_key}"
 SSH_OPTS="-o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o BatchMode=yes"
+# Chaves proprias dos robos: nao dependem nem alteram o ~/.ssh/config do usuario.
+GH_KEY="${GH_KEY:-$HOME/.ssh/partelli_github_key}"
+CB_KEY="${CB_KEY:-$HOME/.ssh/partelli_codeberg_key}"
+export GIT_SSH_COMMAND="ssh -i $GH_KEY $SSH_OPTS"
 
 mkdir -p "$BASE"/{log,estado,tmp}
 LOG="$BASE/log/coleta.log"
@@ -37,7 +41,7 @@ if [ "$MODO" = "espelho" ]; then
   ESP="$BASE/espelho.git"
   if [ -d "$ESP" ]; then git -C "$ESP" fetch -q --prune origin '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
   else git clone -q --bare "$REPO_URL" "$ESP"; git -C "$ESP" fetch -q origin '+refs/heads/*:refs/heads/*'; fi
-  git -C "$ESP" push -q --prune "$CODEBERG_URL" 'refs/heads/*:refs/heads/*' 'refs/tags/*:refs/tags/*'
+  GIT_SSH_COMMAND="ssh -i $CB_KEY $SSH_OPTS" git -C "$ESP" push -q --prune "$CODEBERG_URL" 'refs/heads/*:refs/heads/*' 'refs/tags/*:refs/tags/*'
   log "espelho Codeberg atualizado"
   exit 0
 fi

@@ -110,8 +110,10 @@ Instalacao no notebook:
 1. `git clone` do repositorio (ou copiar a pasta `deploy/notebook`) e `sudo bash deploy/notebook/instalar_notebook.sh`.
 2. Cadastrar as duas chaves PUBLICAS impressas: Deploy key com escrita no GitHub e no Codeberg.
 3. Editar `/etc/partelli/coleta.env`: `CODEBERG_URL` e `VM_HOST` (IP da Oracle).
-4. Copiar para o notebook a chave do conector da Oracle (gerada por `conectar_oracle.sh`) em `/home/partelli/.ssh/oracle_key`, dono partelli, permissao 600.
-5. Testar: `sudo -u partelli partelli-coleta espelho`, depois `sudo systemctl start partelli-coleta@semanal.service` e `tail -f /home/partelli/partelli/log/coleta.log`.
+4. Copiar para o notebook a chave do conector da Oracle (gerada por `conectar_oracle.sh`) em `/home/rafael/.ssh/oracle_key`, dono rafael, permissao 600.
+5. Testar: `sudo -u rafael partelli-coleta espelho`, depois `sudo systemctl start partelli-coleta@semanal.service` e `tail -f /home/rafael/partelli/log/coleta.log`.
 
-Credenciais: somente chaves SSH em `~partelli/.ssh` (nunca no repositorio). Primeira conexao com GitHub, Codeberg e Oracle aceita a impressao digital (accept-new): conferir uma vez.
+Usuario: tudo roda no usuario `rafael` (padrao do instalador; outro usuario: `PARTELLI_USER=nome`). Chaves proprias `partelli_github_key` e `partelli_codeberg_key`, sem alterar o `~/.ssh/config`.
+
+Credenciais: somente chaves SSH em `~rafael/.ssh` (nunca no repositorio). Primeira conexao com GitHub, Codeberg e Oracle aceita a impressao digital (accept-new): conferir uma vez.
 O workflow `coleta.yml` ficou apenas como reserva manual (sem cron).

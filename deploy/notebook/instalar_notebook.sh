@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Instala o executor dos robos no notebook (Ubuntu Server 24.04 ou Lubuntu 24.04). Rodar com sudo.
-# Cria usuario partelli, timers systemd (diaria, semanal, espelho), desliga suspensao e gera chaves SSH.
+# Instala o executor dos robos no notebook (Ubuntu Server 24.04 ou Lubuntu 24.04). Rodar com sudo ou como root.
+# Roda no usuario indicado em PARTELLI_USER (padrao: rafael; criado so se nao existir). Nao altera o ~/.ssh/config dele.
+# Timers systemd (diaria, semanal, espelho), desliga suspensao e gera chaves SSH proprias (partelli_github_key, partelli_codeberg_key).
 # Nao grava nenhuma credencial: imprime apenas as chaves PUBLICAS para cadastro no GitHub e no Codeberg.
 set -euo pipefail
 [ "$(id -u)" -eq 0 ] || { echo "Rode com sudo."; exit 1; }
@@ -10,27 +11,18 @@ apt-get update -qq
 apt-get install -y -qq git python3 openssh-client util-linux ca-certificates
 timedatectl set-timezone America/Sao_Paulo
 
-# usuario de servico
-id partelli >/dev/null 2>&1 || useradd -m -s /bin/bash partelli
-install -d -m 700 -o partelli -g partelli /home/partelli/.ssh
-for K in github_key codeberg_key; do
-  [ -f /home/partelli/.ssh/$K ] || sudo -u partelli ssh-keygen -q -t ed25519 -N "" -C "partelli-notebook-$K" -f /home/partelli/.ssh/$K
+# usuario que executa os robos
+USUARIO="${PARTELLI_USER:-rafael}"
+id "$USUARIO" >/dev/null 2>&1 || useradd -m -s /bin/bash "$USUARIO"
+CASA="$(getent passwd "$USUARIO" | cut -d: -f6)"
+install -d -m 700 -o "$USUARIO" -g "$USUARIO" "$CASA/.ssh"
+for K in partelli_github_key partelli_codeberg_key; do
+  [ -f "$CASA/.ssh/$K" ] || sudo -u "$USUARIO" ssh-keygen -q -t ed25519 -N "" -C "partelli-notebook-${K%_key}" -f "$CASA/.ssh/$K"
 done
-cat > /home/partelli/.ssh/config <<'CFG'
-Host github.com
-  IdentityFile ~/.ssh/github_key
-  IdentitiesOnly yes
-  StrictHostKeyChecking accept-new
-Host codeberg.org
-  IdentityFile ~/.ssh/codeberg_key
-  IdentitiesOnly yes
-  StrictHostKeyChecking accept-new
-CFG
-chown partelli:partelli /home/partelli/.ssh/config; chmod 600 /home/partelli/.ssh/config
 
 # script e configuracao
 install -m 755 "$AQUI/coletar_local.sh" /usr/local/bin/partelli-coleta
-install -d -m 750 -o root -g partelli /etc/partelli
+install -d -m 750 -o root -g "$USUARIO" /etc/partelli
 if [ ! -f /etc/partelli/coleta.env ]; then
   cat > /etc/partelli/coleta.env <<'ENV'
 # Sem senha aqui. Preencha somente enderecos.
@@ -41,18 +33,18 @@ CODEBERG_URL=
 VM_HOST=
 VM_USER=ubuntu
 ENV
-  chown root:partelli /etc/partelli/coleta.env; chmod 640 /etc/partelli/coleta.env
 fi
+chown root:"$USUARIO" /etc/partelli/coleta.env; chmod 640 /etc/partelli/coleta.env
 
 # unidades systemd
-cat > /etc/systemd/system/partelli-coleta@.service <<'UNIT'
+cat > /etc/systemd/system/partelli-coleta@.service <<UNIT
 [Unit]
 Description=Partelli coleta (%i)
 After=network-online.target
 Wants=network-online.target
 [Service]
 Type=oneshot
-User=partelli
+User=$USUARIO
 ExecStart=/usr/local/bin/partelli-coleta %i
 Nice=10
 IOSchedulingClass=idle
@@ -88,10 +80,11 @@ systemctl enable --now partelli-diaria.timer partelli-semanal.timer partelli-esp
 echo
 echo "Instalado. Agora cadastre as chaves PUBLICAS (nunca a privada):"
 echo "--- GitHub: Settings do repositorio gestao-hospitalar > Deploy keys > Add (marcar Allow write access)"
-cat /home/partelli/.ssh/github_key.pub
+cat "$CASA/.ssh/partelli_github_key.pub"
 echo "--- Codeberg: Settings do repositorio > Deploy keys > Add (marcar acesso de escrita)"
-cat /home/partelli/.ssh/codeberg_key.pub
+cat "$CASA/.ssh/partelli_codeberg_key.pub"
 echo
 echo "Depois edite /etc/partelli/coleta.env (CODEBERG_URL e VM_HOST)."
-echo "Teste: sudo -u partelli /usr/local/bin/partelli-coleta espelho"
+echo "Usuario dos robos: $USUARIO (pasta de trabalho: $CASA/partelli, log: $CASA/partelli/log/coleta.log)"
+echo "Teste: sudo -u $USUARIO /usr/local/bin/partelli-coleta espelho"
 echo "Proximas execucoes: systemctl list-timers 'partelli-*'"
