@@ -11,7 +11,7 @@ from comum import numero_br, agora
 ST = ["CNES", "TP_UNID", "NAT_JUR", "ESFERA_A", "NIV_HIER", "ATIVIDAD", "CLIENTEL", "TURNO_AT", "TPGESTAO", "VINC_SUS", "RETENCAO", "CODUFMUN"]
 LT = ["CNES", "TP_LEITO", "CODLEITO", "QT_EXIST", "QT_CONTR", "QT_SUS", "QT_NSUS"]
 SR = ["CNES", "SERV_ESP", "CLASS_SR", "SRVUNICO", "AMB_SUS", "HOSP_SUS"]
-HB = ["CNES", "SGRUPHAB", "CODHAB", "PORTARIA", "DTPORTAR", "MAPORTAR", "DTPORT", "COMPETEN"]
+HB = ["CNES", "SGRUPHAB", "PORTARIA", "DTPORTAR", "MAPORTAR", "COMPETEN"]  # campos confirmados no arquivo real HBES2610 (nov/2026); CODHAB e DTPORT nao existem
 PF = ["CNES", "CBO", "PROF_SUS", "HORA_AMB", "HORAOUTR", "HORAHOSP"]
 GRUPOS_CBO = [("Médicos", ("2251", "2252", "2253", "2231")), ("Enfermeiros", ("2235",)), ("Técnicos e auxiliares de enfermagem", ("3222",)),
               ("Cirurgiões-dentistas", ("2232",)), ("Farmacêuticos", ("2234",)), ("Psicólogos", ("2515",)), ("Fisioterapeutas", ("2236",)),
