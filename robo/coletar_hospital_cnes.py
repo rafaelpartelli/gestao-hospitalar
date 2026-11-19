@@ -12,11 +12,14 @@ from comum import numero_br, agora
 ST = ["CNES", "TP_UNID", "NAT_JUR", "ESFERA_A", "NIV_HIER", "ATIVIDAD", "CLIENTEL", "TURNO_AT", "TPGESTAO", "VINC_SUS", "RETENCAO", "CODUFMUN"]
 LT = ["CNES", "TP_LEITO", "CODLEITO", "QT_EXIST", "QT_CONTR", "QT_SUS", "QT_NSUS"]
 SR = ["CNES", "SERV_ESP", "CLASS_SR", "SRVUNICO", "AMB_SUS", "HOSP_SUS"]
-HB = ["CNES", "SGRUPHAB", "PORTARIA", "DTPORTAR", "MAPORTAR", "COMPETEN"]  # campos confirmados no arquivo real HBES2610 (nov/2026); CODHAB e DTPORT nao existem
+HB = ["CNES", "SGRUPHAB", "CMPT_INI", "CMPT_FIM", "PORTARIA", "DTPORTAR", "MAPORTAR", "NULEITOS", "COMPETEN"]  # confirmados por sondagem (nov/2026); CODHAB e DTPORT nao existem
 PF = ["CNES", "CBO", "PROF_SUS", "HORA_AMB", "HORAOUTR", "HORAHOSP"]
-# Hipoteses (arquivos EQ e IN ainda nao sondados): campos ausentes viram aviso, nunca erro. Confirmar com --sondar.
+# EQ e IN: campos confirmados por sondagem (nov/2026). IN tem o mesmo layout do HB: SGRUPHAB identifica o incentivo.
 EQ = ["CNES", "TIPEQUIP", "CODEQUIP", "QT_EXIST", "QT_USO", "IND_SUS", "IND_NSUS"]
-IN = ["CNES", "INCENTIV", "COMPETEN", "PORTARIA", "DTPORTAR", "MAPORTAR"]
+IN = ["CNES", "SGRUPHAB", "CMPT_INI", "CMPT_FIM", "PORTARIA", "DTPORTAR", "MAPORTAR", "COMPETEN"]
+# Instalacoes fisicas ficam no arquivo ST (quantidade por tipo e indicadores de centros). Descricao dos codigos: tabela auxiliar do CNES.
+INST = ["QTINST%02d" % i for i in range(1, 38)]
+INST_IND = ["CENTRCIR", "CENTROBS", "CENTRNEO", "URGEMERG", "ATENDAMB", "ATENDHOS"]
 GRUPOS_CBO = [("Médicos", ("2251", "2252", "2253", "2231")), ("Enfermeiros", ("2235",)), ("Técnicos e auxiliares de enfermagem", ("3222",)),
               ("Cirurgiões-dentistas", ("2232",)), ("Farmacêuticos", ("2234",)), ("Psicólogos", ("2515",)), ("Fisioterapeutas", ("2236",)),
               ("Nutricionistas", ("2237",)), ("Assistentes sociais", ("2516",)), ("Fonoaudiólogos e terapeutas ocupacionais", ("2238", "2239"))]
@@ -68,11 +71,26 @@ def resumir_servicos(regs):
 def resumir_habilitacoes(regs):
     vistos, itens = set(), []
     for r in regs:
-        item = {k.lower(): (r.get(k) or "").strip() for k in ("SGRUPHAB", "CODHAB", "PORTARIA", "DTPORTAR", "DTPORT", "MAPORTAR", "COMPETEN") if k in r}
+        item = {k.lower(): (r.get(k) or "").strip() for k in ("SGRUPHAB", "CMPT_INI", "CMPT_FIM", "PORTARIA", "DTPORTAR", "MAPORTAR", "NULEITOS", "COMPETEN") if k in r}
         chave = tuple(sorted(item.items()))
         if chave not in vistos:
             vistos.add(chave); itens.append(item)
     return {"itens": itens}
+
+
+def resumir_instalacoes(regs):
+    """Quantidade por tipo de instalacao (QTINST01 a QTINST37, somente > 0) e indicadores de centros, do registro ST da unidade."""
+    if not regs:
+        return None
+    r = regs[0]
+    itens = []
+    for k in INST:
+        if k in r:
+            n = int(numero_br(r.get(k)))
+            if n > 0:
+                itens.append({"codigo": k[-2:], "quantidade": n})
+    ind = {k.lower(): (r.get(k) or "").strip() for k in INST_IND if k in r}
+    return {"itens": itens, "indicadores": ind, "total": sum(i["quantidade"] for i in itens)}
 
 
 def resumir_equipamentos(regs):
@@ -88,7 +106,7 @@ def resumir_equipamentos(regs):
 def resumir_incentivos(regs):
     vistos, itens = set(), []
     for r in regs:
-        item = {k.lower(): (r.get(k) or "").strip() for k in ("INCENTIV", "COMPETEN", "PORTARIA", "DTPORTAR", "MAPORTAR") if k in r}
+        item = {k.lower(): (r.get(k) or "").strip() for k in ("SGRUPHAB", "CMPT_INI", "CMPT_FIM", "PORTARIA", "DTPORTAR", "MAPORTAR", "COMPETEN") if k in r}
         chave = tuple(sorted(item.items()))
         if item and chave not in vistos:
             vistos.add(chave); itens.append(item)
@@ -115,7 +133,7 @@ def processar_uf(uf, cnes_set):
     comp = comps[0]
     blocos = {c: {"competencia_cnes": H.aamm_para_mmaaaa(comp), "fonte": "CNES, arquivos ST, LT, SR, HB, PF, EQ e IN do FTP do DATASUS", "coletado_em": agora(),
                   "status_fonte": "Em teste", "avisos": []} for c in cnes_set}
-    plano = [("ST", ST, ["CNES", "TP_UNID"], lambda regs: ({k: (regs[0].get(k) or "").strip() for k in ST if k in regs[0] and k != "CNES"} if regs else None), "estabelecimento"),
+    plano = [("ST", ST + INST + INST_IND, ["CNES", "TP_UNID"], lambda regs: ({k: (regs[0].get(k) or "").strip() for k in ST if k in regs[0] and k != "CNES"} if regs else None), "estabelecimento"),
              ("LT", LT, ["CNES", "QT_EXIST"], resumir_leitos, "leitos"),
              ("SR", SR, ["CNES", "SERV_ESP"], resumir_servicos, "servicos"),
              ("HB", HB, ["CNES"], resumir_habilitacoes, "habilitacoes"),
@@ -133,6 +151,8 @@ def processar_uf(uf, cnes_set):
             blocos[c]["avisos"] += avisos
             if out is not None:
                 blocos[c][chave] = reduzir(out[c]) if out[c] or tipo != "ST" else None
+                if tipo == "ST":
+                    blocos[c]["instalacoes"] = resumir_instalacoes(out[c])
     for c in sorted(cnes_set):
         H.atualizar_hospital(c, None, "cnes", blocos[c])
         print(f"{uf} CNES {c}: competencia {comp}, avisos={len(blocos[c]['avisos'])}", flush=True)

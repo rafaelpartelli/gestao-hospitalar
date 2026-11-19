@@ -44,6 +44,16 @@ class Comum(unittest.TestCase):
         cab = bytes([3, 26, 1, 1]) + struct.pack("<IHH", 0, tam_cab, 1 + 8 * len(nomes)) + b"\x00" * 20
         return cab + campos + b"\x0d"
 
+    def test_instalacoes(self):
+        r = CNES.resumir_instalacoes([{"QTINST01": "3", "QTINST02": "0", "QTINST05": "2", "CENTRCIR": "1"}])
+        self.assertEqual(r["total"], 5); self.assertEqual([i["codigo"] for i in r["itens"]], ["01", "05"])
+        self.assertEqual(r["indicadores"], {"centrcir": "1"})
+        self.assertIsNone(CNES.resumir_instalacoes([]))
+
+    def test_vigencia_habilitacao(self):
+        h = CNES.resumir_habilitacoes([{"SGRUPHAB": "1902", "CMPT_INI": "202606", "CMPT_FIM": "209912", "PORTARIA": "X"}])
+        self.assertEqual(h["itens"][0]["cmpt_ini"], "202606")
+
     def test_equipamentos_e_incentivos(self):
         e = CNES.resumir_equipamentos([{"TIPEQUIP": "1", "CODEQUIP": "01", "QT_EXIST": "3", "QT_USO": "2"},
                                        {"TIPEQUIP": "1", "CODEQUIP": "01", "QT_EXIST": "1", "QT_USO": "1"}])
