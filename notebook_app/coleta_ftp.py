@@ -46,18 +46,22 @@ def ja_baixado(item):
     return os.path.isfile(p) and os.path.getsize(p) == item["tamanho"] and item["tamanho"] > 0
 
 
-def listar_pasta(pasta):
+def listar_pasta(pasta, aceita=None):
+    """Lista a pasta. Com `aceita` (funcao nome->bool), so pede o tamanho dos arquivos aceitos: pasta do DATASUS tem milhares de arquivos."""
+    aceita = aceita or (lambda nome: True)
     f = H.conectar()
     try:
         saida = []
         try:
             for nome, fatos in f.mlsd(pasta, facts=["type", "size"]):
-                if fatos.get("type") == "file":
+                if fatos.get("type") == "file" and aceita(nome):
                     saida.append((nome, int(fatos.get("size", 0) or 0)))
         except Exception:
             f.cwd(pasta)
             f.voidcmd("TYPE I")
             for nome in f.nlst():
+                if not aceita(nome):
+                    continue
                 try:
                     saida.append((nome, int(f.size(nome) or 0)))
                 except Exception:
@@ -110,7 +114,9 @@ def main(argv):
         return 0
     listagens = {}
     for pasta in sorted({f["pasta"] for f in cfg["fontes"]}):
-        listagens[pasta] = listar_pasta(pasta)
+        rxs = [padrao(cfg, f["prefixo"]) for f in cfg["fontes"] if f["pasta"] == pasta]
+        print(f"[ftp-es] lendo {pasta}", flush=True)
+        listagens[pasta] = listar_pasta(pasta, lambda nome, rxs=rxs: any(r.match(nome) for r in rxs))
     plano = planejar(cfg, listagens)
     pendentes = [i for i in plano if not ja_baixado(i)]
     estado = {"atualizado": datetime.now().isoformat(timespec="seconds"), "ano": cfg["ano"], "uf": cfg["uf"],
