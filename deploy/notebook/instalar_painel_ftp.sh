@@ -53,12 +53,12 @@ Wants=network-online.target
 Type=oneshot
 User=$USUARIO
 Environment=PARTELLI_BASE=$HOME_U/partelli
-ExecStart=/usr/bin/python3 $HOME_U/partelli/repo/notebook_app/coleta_ftp.py
+ExecStart=/usr/bin/python3 $HOME_U/partelli/repo/notebook_app/rodar_automacao.py
 StandardOutput=append:$HOME_U/partelli/log/automacao_ftp.log
 StandardError=append:$HOME_U/partelli/log/automacao_ftp.log
-MemoryMax=300M
+MemoryMax=600M
 Nice=10
-TimeoutStartSec=4h
+TimeoutStartSec=6h
 UNIT
 cat > /etc/systemd/system/partelli-ftp-es.timer <<UNIT
 [Unit]

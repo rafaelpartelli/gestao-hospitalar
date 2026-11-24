@@ -29,7 +29,7 @@ th{background:#eef2f9;color:var(--azul2)}.num{text-align:right;white-space:nowra
 <section><h2>Status do notebook</h2><div class="cards" id="cards"></div><p class="mudo" id="timers"></p>
 <div class="linha"><button id="c_diaria">Coletar SIH e SIA agora</button><button id="c_semanal" class="sec">Coletar CNES agora</button><button id="c_tudo" class="sec">Coletar tudo</button><span id="rod" class="mudo"></span></div>
 <pre id="log">sem log</pre><button class="sec" id="atlog">Atualizar log</button></section>
-<section><h2>Download automático: ES, 2026 (RDES, SPES, PAES)</h2><p class="mudo">Roda todo dia às 03:40 e baixa só o que ainda não está no notebook. Respeita o limite de tráfego e de disco.</p>
+<section><h2>Download automático: ES, 2026 (RDES, SPES, PAES)</h2><p class="mudo">Roda todo dia às 03:40: baixa só o que ainda não está no notebook (respeitando o limite de tráfego e de disco) e converte para a base SQLite agregada, sem dados de pessoas.</p>
 <div id="auto" class="aviso">Carregando...</div><div class="linha"><button id="autorodar">Baixar agora</button><button class="sec" id="autolog">Ver log da automação</button></div><pre id="autolog_tx" class="oculto"></pre></section>
 <section><h2>Explorador do FTP</h2><p class="mudo">Somente a área pública /dissemin/publicos/. Atalhos para as pastas usadas pelos robôs:</p>
 <div class="linha"><button class="sec" data-p="/dissemin/publicos/CNES/200508_/Dados">CNES Dados</button><button class="sec" data-p="/dissemin/publicos/CNES/200508_/Auxiliar">CNES Auxiliar</button><button class="sec" data-p="/dissemin/publicos/SIHSUS/200801_/Dados">SIH Dados</button><button class="sec" data-p="/dissemin/publicos/SIASUS/200801_/Dados">SIA Dados</button></div>

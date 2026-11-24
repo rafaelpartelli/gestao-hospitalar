@@ -136,3 +136,9 @@ O painel nunca le valores de arquivo: o botao Campos mostra apenas nomes de camp
 ### Download automatico de arquivos (ES, 2026)
 
 `notebook_app/coleta_ftp.py` baixa do FTP do DATASUS os arquivos `RDES`, `SPES` e `PAES` de 2026 (config em `notebook_app/automacao.json`: ano, UF e pastas) para `~/partelli/ftp_downloads`. Timer `partelli-ftp-es.timer` todos os dias as 03:40. Pula arquivo ja baixado (mesmo tamanho), respeita orcamento de trafego e disco minimo, usa a mesma trava dos robos (nunca dois ao mesmo tempo) e grava `_estado_automacao.json`. Manual: `python3 notebook_app/coleta_ftp.py --listar` (so lista) ou o botao "Baixar agora" do painel. Para mudar ano ou UF, editar `automacao.json`.
+
+### Conversao para SQLite (base agregada)
+
+`notebook_app/converter_sqlite.py` converte os DBC baixados (RDES, SPES, PAES) em `~/partelli/base/producao_es.sqlite`, somando por hospital (CNES), competencia e procedimento. So le colunas de uma lista fixa, conferida contra `PROIBIDOS`: nao grava numero da AIH, nascimento, CEP, municipio de residencia, sexo, idade, raca, CPF, CNS, autorizacao, nota fiscal nem documento de profissional. Tabelas: `rd` (AIH reduzida), `sp` (servicos profissionais), `pa` (ambulatorial), mais `arquivos` (controle de linhas e valor por arquivo). Cada arquivo e conferido (linhas e valor somados na base = lidos do DBC) antes de gravar; reprocessar substitui o arquivo, sem duplicar.
+O timer das 03:40 roda `rodar_automacao.py`: baixa o que falta e converte. Manual: `python3 notebook_app/converter_sqlite.py` (converte pendentes), `--resumo` (linhas e valor por arquivo, para conferir com fonte oficial), `--limpar-dias N` (apaga DBC bruto ja convertido ha mais de N dias; desligado por padrao).
+`python3 notebook_app/campos_dbc.py` mostra so os nomes de campos de um arquivo de cada tipo.

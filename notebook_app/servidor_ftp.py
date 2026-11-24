@@ -293,7 +293,7 @@ def disparar_automacao():
     os.makedirs(LOGS, exist_ok=True)
     saida = open(os.path.join(LOGS, "automacao_ftp.log"), "ab")
     env = dict(os.environ, PARTELLI_BASE=BASE, PAINEL_DOWNLOADS=DOWNLOADS)
-    _proc["auto"] = subprocess.Popen([sys.executable, os.path.join(AQUI, "coleta_ftp.py")], stdout=saida, stderr=subprocess.STDOUT,
+    _proc["auto"] = subprocess.Popen([sys.executable, os.path.join(AQUI, "rodar_automacao.py")], stdout=saida, stderr=subprocess.STDOUT,
                                      stdin=subprocess.DEVNULL, env=env)
 
 
