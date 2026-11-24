@@ -231,7 +231,7 @@ def arquivos_locais():
     itens = []
     for n in sorted(os.listdir(DOWNLOADS)):
         p = os.path.join(DOWNLOADS, n)
-        if os.path.isfile(p):
+        if os.path.isfile(p) and not n.startswith("_") and not n.endswith(".parte"):
             st = os.stat(p)
             itens.append({"nome": n, "tamanho": st.st_size, "data": datetime.fromtimestamp(st.st_mtime).isoformat(timespec="minutes")})
     return itens
@@ -275,6 +275,26 @@ def status():
             "disco_livre_gb": round(disco_livre_gb(), 1), "disco_minimo_gb": DISCO_MIN_GB, "timers": timers, "ultima": ult,
             "coleta_rodando": rodando, "coleta_modo": _proc["modo"] if rodando else None, "download": dict(_dl),
             "agora": datetime.now().isoformat(timespec="seconds")}
+
+
+def estado_automacao():
+    try:
+        with open(os.path.join(DOWNLOADS, "_estado_automacao.json"), encoding="utf-8") as a:
+            est = json.load(a)
+    except (OSError, ValueError):
+        est = None
+    rodando = _proc.get("auto") is not None and _proc["auto"].poll() is None
+    return {"estado": est, "rodando": rodando}
+
+
+def disparar_automacao():
+    if _proc.get("auto") is not None and _proc["auto"].poll() is None:
+        raise RuntimeError("a automacao ja esta em execucao")
+    os.makedirs(LOGS, exist_ok=True)
+    saida = open(os.path.join(LOGS, "automacao_ftp.log"), "ab")
+    env = dict(os.environ, PARTELLI_BASE=BASE, PAINEL_DOWNLOADS=DOWNLOADS)
+    _proc["auto"] = subprocess.Popen([sys.executable, os.path.join(AQUI, "coleta_ftp.py")], stdout=saida, stderr=subprocess.STDOUT,
+                                     stdin=subprocess.DEVNULL, env=env)
 
 
 def disparar_coleta(modo):
@@ -382,6 +402,8 @@ class Painel(BaseHTTPRequestHandler):
                 if not cam:
                     return self._erro("caminho fora de /dissemin/publicos/", 403)
                 return self._enviar(200, {"caminho": cam, "itens": listar_ftp(cam)})
+            if u.path == "/api/automacao":
+                return self._enviar(200, estado_automacao())
             if u.path == "/api/arquivos":
                 return self._enviar(200, {"itens": arquivos_locais(), "pasta": DOWNLOADS})
             if u.path == "/api/cabecalho":
@@ -441,6 +463,9 @@ class Painel(BaseHTTPRequestHandler):
                     return self._erro("arquivo invalido", 404)
                 os.remove(p)
                 return self._enviar(200, {"ok": True})
+            if u.path == "/api/automacao/rodar":
+                disparar_automacao()
+                return self._enviar(200, {"iniciado": True})
             if u.path == "/api/coletar":
                 disparar_coleta(corpo.get("modo"))
                 return self._enviar(200, {"iniciado": True})

@@ -132,3 +132,7 @@ O painel nunca le valores de arquivo: o botao Campos mostra apenas nomes de camp
 - Visualizacao: o painel serve a pagina Gestao Hospitalar em `http://127.0.0.1:8765/hospital/` (mesmo token), lendo os JSON direto do notebook.
 - GitHub, Oracle e Codeberg sao opcionais e vem desligados: `PUBLICAR_GITHUB=1` (envia os dados), `ATUALIZAR_CODIGO=1` (atualiza o codigo; sem rede, segue com a copia local), `VM_HOST` (envia ao site) e `CODEBERG_URL` (espelho).
 - Para atualizar o codigo manualmente: `cd ~/partelli/repo && git pull`.
+
+### Download automatico de arquivos (ES, 2026)
+
+`notebook_app/coleta_ftp.py` baixa do FTP do DATASUS os arquivos `RDES`, `SPES` e `PAES` de 2026 (config em `notebook_app/automacao.json`: ano, UF e pastas) para `~/partelli/ftp_downloads`. Timer `partelli-ftp-es.timer` todos os dias as 03:40. Pula arquivo ja baixado (mesmo tamanho), respeita orcamento de trafego e disco minimo, usa a mesma trava dos robos (nunca dois ao mesmo tempo) e grava `_estado_automacao.json`. Manual: `python3 notebook_app/coleta_ftp.py --listar` (so lista) ou o botao "Baixar agora" do painel. Para mudar ano ou UF, editar `automacao.json`.

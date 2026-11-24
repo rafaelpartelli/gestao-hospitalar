@@ -42,8 +42,41 @@ PrivateTmp=true
 [Install]
 WantedBy=multi-user.target
 UNIT
+# Download automatico ES 2026 (RDES, SPES, PAES), todos os dias 03:40, depois da coleta diaria das 02:30
+cat > /etc/systemd/system/partelli-ftp-es.service <<UNIT
+[Unit]
+Description=Download automatico FTP DATASUS, ES (Partelli)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=$USUARIO
+Environment=PARTELLI_BASE=$HOME_U/partelli
+ExecStart=/usr/bin/python3 $HOME_U/partelli/repo/notebook_app/coleta_ftp.py
+StandardOutput=append:$HOME_U/partelli/log/automacao_ftp.log
+StandardError=append:$HOME_U/partelli/log/automacao_ftp.log
+MemoryMax=300M
+Nice=10
+TimeoutStartSec=4h
+UNIT
+cat > /etc/systemd/system/partelli-ftp-es.timer <<UNIT
+[Unit]
+Description=Agenda do download automatico FTP, ES
+
+[Timer]
+OnCalendar=*-*-* 03:40:00
+Persistent=true
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target
+UNIT
+install -d -o "$USUARIO" -g "$USUARIO" "$HOME_U/partelli/log"
 systemctl daemon-reload
+systemctl enable --now partelli-ftp-es.timer
 systemctl enable --now partelli-ftp.service
+systemctl restart partelli-ftp.service
 sleep 2
 systemctl --no-pager --lines=5 status partelli-ftp.service || true
 PORTA="$(grep ^PAINEL_PORT= "$ENV" | cut -d= -f2)"

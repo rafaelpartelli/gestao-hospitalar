@@ -29,6 +29,8 @@ th{background:#eef2f9;color:var(--azul2)}.num{text-align:right;white-space:nowra
 <section><h2>Status do notebook</h2><div class="cards" id="cards"></div><p class="mudo" id="timers"></p>
 <div class="linha"><button id="c_diaria">Coletar SIH e SIA agora</button><button id="c_semanal" class="sec">Coletar CNES agora</button><button id="c_tudo" class="sec">Coletar tudo</button><span id="rod" class="mudo"></span></div>
 <pre id="log">sem log</pre><button class="sec" id="atlog">Atualizar log</button></section>
+<section><h2>Download automático: ES, 2026 (RDES, SPES, PAES)</h2><p class="mudo">Roda todo dia às 03:40 e baixa só o que ainda não está no notebook. Respeita o limite de tráfego e de disco.</p>
+<div id="auto" class="aviso">Carregando...</div><div class="linha"><button id="autorodar">Baixar agora</button><button class="sec" id="autolog">Ver log da automação</button></div><pre id="autolog_tx" class="oculto"></pre></section>
 <section><h2>Explorador do FTP</h2><p class="mudo">Somente a área pública /dissemin/publicos/. Atalhos para as pastas usadas pelos robôs:</p>
 <div class="linha"><button class="sec" data-p="/dissemin/publicos/CNES/200508_/Dados">CNES Dados</button><button class="sec" data-p="/dissemin/publicos/CNES/200508_/Auxiliar">CNES Auxiliar</button><button class="sec" data-p="/dissemin/publicos/SIHSUS/200801_/Dados">SIH Dados</button><button class="sec" data-p="/dissemin/publicos/SIASUS/200801_/Dados">SIA Dados</button></div>
 <div class="linha" style="margin-top:10px"><span id="cam" class="mudo"></span><button class="sec" id="sobe">Subir um nível</button><input id="filtro" placeholder="Filtrar (ex.: RDES26, STES26, PAES26)" aria-label="Filtro" style="flex:1;min-width:200px"></div>
@@ -44,7 +46,7 @@ async function api(u,corpo){const r=await fetch(u,corpo?{method:"POST",headers:{
  if(r.status===401){mostrarLogin();throw new Error("sessão encerrada")}const j=await r.json();if(!r.ok)throw new Error(j.erro||r.status);return j}
 function mostrarLogin(){$("#entrada").classList.remove("oculto");$("#app").classList.add("oculto");$("#sair").classList.add("oculto")}
 async function iniciar(){const s=await (await fetch("/api/sessao")).json();if(!s.autenticado){mostrarLogin();if(!s.configurado)$("#msgl").textContent="Servidor sem token configurado.";return}
- $("#entrada").classList.add("oculto");$("#app").classList.remove("oculto");$("#sair").classList.remove("oculto");status();locais();ir(cam)}
+ $("#entrada").classList.add("oculto");$("#app").classList.remove("oculto");$("#sair").classList.remove("oculto");status();locais();automacao();ir(cam)}
 $("#entrar").onclick=async()=>{try{await api("/api/login",{token:$("#token").value});$("#token").value="";iniciar()}catch(e){$("#msgl").textContent=e.message}};
 $("#sair").onclick=async()=>{await api("/api/sair",{});mostrarLogin()};
 async function status(){try{const s=await api("/api/status");
@@ -72,6 +74,11 @@ $("#loc").onclick=async e=>{const d=e.target.dataset;if(d.a&&confirm("Apagar "+d
  if(d.h){try{const j=await api("/api/cabecalho?nome="+encodeURIComponent(d.h));$("#cab").classList.remove("oculto");
   $("#cabtx").innerHTML=`<p>${j.registros} registros, ${j.campos.length} campos.</p><p class="mudo">${j.campos.map(c=>esc(c.nome)+(c.sensivel?" (sensível, os robôs não leem)":"")).join(", ")}</p>`}catch(x){alert(x.message)}}};
 ["diaria","semanal","tudo"].forEach(m=>$("#c_"+m).onclick=async()=>{if(confirm("Iniciar a coleta "+m+" agora?")){try{await api("/api/coletar",{modo:m});status()}catch(e){alert(e.message)}}});
+async function automacao(){try{const j=await api("/api/automacao");const e=j.estado;
+ $("#auto").textContent=j.rodando?"Em execução...":e?`Última verificação ${e.atualizado}: ${e.encontrados} arquivos de ${e.uf} ${e.ano} no FTP, ${e.pendentes} pendentes, ${e.baixados_agora} baixados na última rodada`+(e.bloqueado?`. Parado pelas proteções: ${e.bloqueado}`:"")+(e.erros.length?`. Erros: ${e.erros.length}`:""):"[PREENCHER: ainda sem execução]";
+ $("#autorodar").disabled=j.rodando}catch(x){}}
+$("#autorodar").onclick=async()=>{if(confirm("Verificar o FTP e baixar os arquivos pendentes agora?")){try{await api("/api/automacao/rodar",{});automacao()}catch(e){alert(e.message)}}};
+$("#autolog").onclick=async()=>{try{const j=await api("/api/log?arq=automacao_ftp.log");const p=$("#autolog_tx");p.classList.remove("oculto");p.textContent=j.linhas.join("\n")||"sem log"}catch(e){}};
 async function log(){try{const j=await api("/api/log");$("#log").textContent=j.linhas.join("\n")||"sem log"}catch(e){}}
-$("#atlog").onclick=log;setInterval(()=>{if(!$("#app").classList.contains("oculto"))status()},5000);iniciar();setTimeout(log,800);
+$("#atlog").onclick=log;setInterval(()=>{if(!$("#app").classList.contains("oculto")){status();automacao();locais()}},5000);iniciar();setTimeout(log,800);
 </script></body></html>
