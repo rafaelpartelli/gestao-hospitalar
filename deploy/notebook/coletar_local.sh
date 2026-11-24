@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Executa no notebook, no usuario configurado no servico (padrao: rafael). Uso: partelli-coleta diaria|semanal|tudo|espelho
-# Robos rodam aqui, os dados vao para a branch "dados" no GitHub, para a Oracle (modo dados)
-# e o codigo e os dados ganham copia no Codeberg (modo espelho).
+# Funciona 100% no notebook: codigo e dados ficam em ~/partelli, a pagina e servida pelo painel local.
+# GitHub, Oracle e Codeberg sao opcionais e ficam desligados por padrao (PUBLICAR_GITHUB=0, ATUALIZAR_CODIGO=0, VM_HOST vazio).
+# A unica conexao obrigatoria e com o FTP publico do DATASUS.
 # Nenhuma credencial neste arquivo: chaves SSH ficam em ~/.ssh e ajustes em /etc/partelli/coleta.env.
 set -euo pipefail
 
@@ -14,6 +15,8 @@ ENV_FILE="${PARTELLI_ENV:-/etc/partelli/coleta.env}"
 BASE="${PARTELLI_BASE:-$HOME/partelli}"
 REPO_URL="${REPO_URL:-git@github.com:rafaelpartelli/gestao-hospitalar.git}"
 SALA_URL="${SALA_URL:-https://github.com/rafaelpartelli/sala-gestao.git}"
+PUBLICAR_GITHUB="${PUBLICAR_GITHUB:-0}"   # 1 = envia os dados a branch dados do GitHub
+ATUALIZAR_CODIGO="${ATUALIZAR_CODIGO:-0}" # 1 = atualiza o codigo pelo GitHub antes de coletar (falha nao interrompe)
 CODEBERG_URL="${CODEBERG_URL:-}"          # [PREENCHER: ex. git@codeberg.org:USUARIO/gestao-hospitalar.git]
 VM_HOST="${VM_HOST:-}"                    # IP ou dominio da Oracle (vazio = nao envia)
 VM_USER="${VM_USER:-ubuntu}"
@@ -30,9 +33,11 @@ exec 9>"$BASE/.lock"
 flock -n 9 || { echo "$(date -Is) outra execucao em andamento, saindo" >> "$LOG"; exit 0; }
 log() { echo "$(date -Is) [$MODO] $*" | tee -a "$LOG"; }
 
-atualizar_repo() { # $1 = url, $2 = pasta
-  if [ -d "$2/.git" ]; then git -C "$2" fetch -q origin && git -C "$2" reset -q --hard origin/main
-  else git clone -q "$1" "$2"; fi
+atualizar_repo() { # $1 = url, $2 = pasta. Com a copia local presente, so atualiza se ATUALIZAR_CODIGO=1 e nunca falha por rede.
+  if [ -d "$2/.git" ]; then
+    [ "$ATUALIZAR_CODIGO" = "1" ] || return 0
+    { git -C "$2" fetch -q origin && git -C "$2" reset -q --hard origin/main; } || log "sem rede para atualizar $2, usando a copia local"
+  else git clone -q "$1" "$2" || { log "ERRO: sem copia local de $2 e sem acesso a $1"; exit 1; }; fi
 }
 
 # ---------- espelho no Codeberg ----------
@@ -55,11 +60,10 @@ atualizar_repo "$REPO_URL" "$REPO"
 atualizar_repo "$SALA_URL" "$SALA"
 
 if [ -d "$DADOS/.git" ]; then
-  git -C "$DADOS" fetch -q origin dados 2>/dev/null && git -C "$DADOS" reset -q --hard origin/dados || true
-elif git ls-remote --exit-code --heads "$REPO_URL" dados >/dev/null 2>&1; then
-  git clone -q --branch dados "$REPO_URL" "$DADOS"
+  if [ "$PUBLICAR_GITHUB" = "1" ]; then git -C "$DADOS" fetch -q origin dados 2>/dev/null && git -C "$DADOS" reset -q --hard origin/dados || true; fi
 else
-  mkdir -p "$DADOS"; git -C "$DADOS" init -q -b dados; git -C "$DADOS" remote add origin "$REPO_URL"
+  mkdir -p "$DADOS"; git -C "$DADOS" init -q -b dados
+  git -C "$DADOS" remote add origin "$REPO_URL" 2>/dev/null || true
   cp "$REPO"/hospital/dados/*.json "$DADOS"/ 2>/dev/null || true
 fi
 
@@ -86,7 +90,12 @@ cd "$DADOS"
 git config user.name "robo-partelli"; git config user.email "noreply@partelli.pro"
 git add -A
 if git diff --cached --quiet; then log "sem mudanca nos dados"
-else git commit -q -m "Dados $MODO $(date -u +%F) (notebook)"; git push -q origin dados; log "dados enviados ao GitHub (branch dados)"; fi
+else
+  git commit -q -m "Dados $MODO $(date -u +%F) (notebook)"; log "dados gravados no notebook ($DADOS)"
+  if [ "$PUBLICAR_GITHUB" = "1" ]; then
+    git push -q origin dados && log "dados enviados ao GitHub (branch dados)" || log "AVISO: envio ao GitHub falhou, dados seguem salvos no notebook"
+  else log "envio ao GitHub desligado (PUBLICAR_GITHUB=0)"; fi
+fi
 
 if [ -n "$VM_HOST" ] && ls ./*.json >/dev/null 2>&1; then
   tar czf - ./*.json | ssh -i "$ORACLE_KEY" $SSH_OPTS "$VM_USER@$VM_HOST" dados \

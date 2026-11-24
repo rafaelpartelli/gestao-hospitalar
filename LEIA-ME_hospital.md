@@ -125,3 +125,10 @@ Pagina local para explorar o FTP publico do DATASUS (somente `/dissemin/publicos
 Instalacao (no notebook): `cd ~/partelli/repo && git pull && sudo bash deploy/notebook/instalar_painel_ftp.sh`.
 Acesso: `http://127.0.0.1:8765` no proprio notebook, ou de outro computador por `ssh -L 8765:127.0.0.1:8765 rafael@<ip>`. Token em `/etc/partelli/ftp.env` (nao fica no codigo). Por padrao nao abre a rede; para abrir na rede local, definir `PAINEL_HOST=0.0.0.0` no arquivo e reiniciar (sem HTTPS, usar so em rede confiavel).
 O painel nunca le valores de arquivo: o botao Campos mostra apenas nomes de campos e contagem de registros.
+
+### Operacao 100% no notebook
+
+- Coleta: os timers rodam `partelli-coleta`, que usa o codigo ja presente em `~/partelli/repo` e grava os JSON em `~/partelli/dados_repo` (com historico git local). A unica conexao obrigatoria e com o FTP publico do DATASUS.
+- Visualizacao: o painel serve a pagina Gestao Hospitalar em `http://127.0.0.1:8765/hospital/` (mesmo token), lendo os JSON direto do notebook.
+- GitHub, Oracle e Codeberg sao opcionais e vem desligados: `PUBLICAR_GITHUB=1` (envia os dados), `ATUALIZAR_CODIGO=1` (atualiza o codigo; sem rede, segue com a copia local), `VM_HOST` (envia ao site) e `CODEBERG_URL` (espelho).
+- Para atualizar o codigo manualmente: `cd ~/partelli/repo && git pull`.

@@ -21,7 +21,7 @@ th{background:#eef2f9;color:var(--azul2)}.num{text-align:right;white-space:nowra
 .card b{display:block;font-size:1.4rem;color:var(--azul2)}pre{background:#0f1720;color:#d6e2f0;padding:10px;border-radius:8px;overflow:auto;max-height:260px;font-size:.8rem}
 #entrada{max-width:420px;margin:60px auto}.oculto{display:none}a.caminho{color:var(--azul);cursor:pointer;text-decoration:underline}
 </style></head><body>
-<header><h1>Painel FTP do Serverrobo</h1><small>Plataforma Partelli, fonte oficial: ftp.datasus.gov.br</small><button class="sec oculto" id="sair">Sair</button></header>
+<header><h1>Painel FTP do Serverrobo</h1><small>Plataforma Partelli, fonte oficial: ftp.datasus.gov.br</small><span><a href="/hospital/" style="color:#fff;margin-right:14px">Gestão Hospitalar</a><button class="sec oculto" id="sair">Sair</button></span></header>
 <main>
 <section id="entrada" class="oculto"><h2>Acesso</h2><p class="mudo">Informe o token gerado na instalação (arquivo /etc/partelli/ftp.env no notebook).</p>
 <div class="linha"><input id="token" type="password" autocomplete="off" placeholder="Token" aria-label="Token"><button id="entrar">Entrar</button></div><p id="msgl" class="erro"></p></section>

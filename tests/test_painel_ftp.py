@@ -95,6 +95,18 @@ class Http(unittest.TestCase):
         self.assertEqual(self.req("/api/apagar", {"nome": "../x"}, cookie=ck)[0], 404)
         self.assertEqual(self.req("/api/coletar", {"modo": "rm -rf"}, cookie=ck)[0], 400)
 
+    def test_pagina_hospital_local(self):
+        c, _, _ = self.req("/hospital/js/hospital.js")
+        self.assertIn(c, (200, 302, 401))
+        ck = self.login()
+        c, b, _ = self.req("/hospital/", cookie=ck)
+        self.assertEqual(c, 200)
+        self.assertIn(b"gestao-hospitalar", b)
+        self.assertEqual(self.req("/hospital/js/hospital.js", cookie=ck)[0], 200)
+        self.assertEqual(self.req("/hospital/dados/indice.json", cookie=ck)[0], 200)
+        for ruim in ("/hospital/js/../../etc/passwd", "/hospital/js/x.py", "/hospital/config/..%2f..%2fx.json", "/hospital/outro/a.js"):
+            self.assertEqual(self.req(ruim, cookie=ck)[0], 404, ruim)
+
     def test_pagina(self):
         c, b, h = self.req("/")
         self.assertEqual(c, 200)

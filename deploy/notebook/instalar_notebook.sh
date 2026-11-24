@@ -84,7 +84,7 @@ cat "$CASA/.ssh/partelli_github_key.pub"
 echo "--- Codeberg: Settings do repositorio > Deploy keys > Add (marcar acesso de escrita)"
 cat "$CASA/.ssh/partelli_codeberg_key.pub"
 echo
-echo "Depois edite /etc/partelli/coleta.env (CODEBERG_URL e VM_HOST)."
+echo "Opcional, em /etc/partelli/coleta.env: PUBLICAR_GITHUB=1, ATUALIZAR_CODIGO=1, CODEBERG_URL e VM_HOST. Por padrao tudo roda so no notebook."
 echo "Usuario dos robos: $USUARIO (pasta de trabalho: $CASA/partelli, log: $CASA/partelli/log/coleta.log)"
 echo "Teste: sudo -u $USUARIO /usr/local/bin/partelli-coleta espelho"
 echo "Proximas execucoes: systemctl list-timers 'partelli-*'"

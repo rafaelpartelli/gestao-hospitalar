@@ -27,6 +27,9 @@ DOWNLOADS = os.environ.get("PAINEL_DOWNLOADS", os.path.join(BASE, "ftp_downloads
 LOGS = os.path.join(BASE, "log")
 COLETOR = os.environ.get("PARTELLI_COLETOR", "/usr/local/bin/partelli-coleta")
 MODOS = {"diaria", "semanal", "tudo", "espelho"}
+REPO_HOSP = os.path.abspath(os.path.join(AQUI, "..", "hospital"))     # codigo da pagina hospitalar (no proprio notebook)
+DADOS_HOSP = os.environ.get("PAINEL_DADOS", os.path.join(BASE, "dados_repo"))  # JSON gerados pelos robos
+_MIME = {".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json; charset=utf-8"}
 LIMITE_CONFIRMAR = 200 * 1024 * 1024
 ORC_GB = H.ORCAMENTO_GB if H else 6.0
 DISCO_MIN_GB = H.DISCO_MIN_GB if H else 3.0
@@ -287,6 +290,29 @@ def disparar_coleta(modo):
     _proc["modo"] = modo
 
 
+# ------------------------------------------------------------------ pagina hospitalar local
+def arquivo_hospital(sub):
+    """Mapeia /hospital/<sub> para um arquivo local. Somente js, css, config e dados, nomes simples."""
+    m = re.fullmatch(r"(js|css|config|dados)/([A-Za-z0-9._-]{1,80})", sub)
+    if not m or not m.group(2).endswith((".js", ".css", ".json")):
+        return None
+    pasta = DADOS_HOSP if m.group(1) == "dados" else os.path.join(REPO_HOSP, m.group(1))
+    caminho = os.path.join(pasta, m.group(2))
+    if m.group(1) == "dados" and not os.path.isfile(caminho):
+        caminho = os.path.join(REPO_HOSP, "dados", m.group(2))   # modelo vazio do repositorio
+    return caminho if os.path.isfile(caminho) else None
+
+
+def pagina_hospital():
+    with open(os.path.join(REPO_HOSP, "fragmento.html"), encoding="utf-8") as a:
+        frag = a.read()
+    return ('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+            '<title>Gestão Hospitalar | Partelli (local)</title><link rel="stylesheet" href="/hospital/css/hospital.css">'
+            '<style>body{margin:0;font:16px/1.45 system-ui,Arial,sans-serif;background:#f6f7f9;color:#1f2933}.topo{background:#0c326f;color:#fff;padding:12px 18px}.topo a{color:#fff}main{max-width:1100px;margin:0 auto;padding:0 16px 40px}</style></head><body>'
+            '<div class="topo"><a href="/">Painel FTP</a> &nbsp;|&nbsp; Dados lidos do próprio notebook</div><main>' + frag +
+            '</main><script type="module" src="/hospital/js/hospital.js"></script></body></html>').encode()
+
+
 # ------------------------------------------------------------------ HTTP
 class Painel(BaseHTTPRequestHandler):
     server_version = "PartelliPainel"
@@ -332,6 +358,16 @@ class Painel(BaseHTTPRequestHandler):
         if u.path in ("/", "/index.html"):
             with open(os.path.join(AQUI, "static", "index.html"), "rb") as a:
                 return self._enviar(200, a.read(), "text/html; charset=utf-8")
+        if u.path.startswith("/hospital"):
+            if not self._autenticado():
+                return self._enviar(302, b"", "text/plain", {"Location": "/"})
+            if u.path in ("/hospital", "/hospital/"):
+                return self._enviar(200, pagina_hospital(), "text/html; charset=utf-8")
+            arq = arquivo_hospital(u.path[len("/hospital/"):])
+            if not arq:
+                return self._enviar(404, {"erro": "nao encontrado"})
+            with open(arq, "rb") as a:
+                return self._enviar(200, a.read(), _MIME.get(os.path.splitext(arq)[1], "application/octet-stream"))
         if u.path == "/api/sessao":
             return self._enviar(200, {"autenticado": self._autenticado(), "configurado": bool(TOKEN and SEGREDO)})
         if not u.path.startswith("/api/"):
