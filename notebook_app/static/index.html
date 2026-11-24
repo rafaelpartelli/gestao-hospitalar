@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel FTP, Serverrobo | Partelli</title>
+<style>
+:root{--azul:#1351b4;--azul2:#0c326f;--verde:#168821;--fundo:#f6f7f9;--linha:#d9dde3;--tx:#1f2933;--tx2:#4b5563;--aviso:#fff6e0;--avisotx:#6b4a00;--erro:#c4161c}
+*{box-sizing:border-box}body{margin:0;font:16px/1.45 system-ui,Arial,sans-serif;background:var(--fundo);color:var(--tx)}
+header{background:var(--azul2);color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{font-size:1.1rem;margin:0}header small{opacity:.85}
+main{max-width:1100px;margin:0 auto;padding:16px}
+section{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:16px;margin:16px 0}
+h2{font-size:1.05rem;margin:0 0 10px;color:var(--azul2)}
+button,input,select{font:inherit;min-height:44px;border-radius:6px;border:1px solid var(--linha);padding:8px 12px}
+button{background:var(--azul);color:#fff;border-color:var(--azul);cursor:pointer}button.sec{background:#fff;color:var(--azul)}button.perigo{background:#fff;color:var(--erro);border-color:var(--erro)}
+button:disabled{opacity:.5;cursor:not-allowed}:focus-visible{outline:3px solid #c05a00;outline-offset:2px}
+table{width:100%;border-collapse:collapse;font-size:.92rem}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--linha);vertical-align:middle}
+th{background:#eef2f9;color:var(--azul2)}.num{text-align:right;white-space:nowrap}
+.linha{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.aviso{background:var(--aviso);color:var(--avisotx);padding:10px 12px;border-radius:8px;margin:8px 0}
+.erro{color:var(--erro)}.ok{color:var(--verde)}.mudo{color:var(--tx2);font-size:.85rem}
+.barra{height:14px;background:#e6ecf7;border-radius:7px;overflow:hidden}.barra>i{display:block;height:100%;background:var(--azul)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.card{border:1px solid var(--linha);border-radius:8px;padding:12px}
+.card b{display:block;font-size:1.4rem;color:var(--azul2)}pre{background:#0f1720;color:#d6e2f0;padding:10px;border-radius:8px;overflow:auto;max-height:260px;font-size:.8rem}
+#entrada{max-width:420px;margin:60px auto}.oculto{display:none}a.caminho{color:var(--azul);cursor:pointer;text-decoration:underline}
+</style></head><body>
+<header><h1>Painel FTP do Serverrobo</h1><small>Plataforma Partelli, fonte oficial: ftp.datasus.gov.br</small><button class="sec oculto" id="sair">Sair</button></header>
+<main>
+<section id="entrada" class="oculto"><h2>Acesso</h2><p class="mudo">Informe o token gerado na instalação (arquivo /etc/partelli/ftp.env no notebook).</p>
+<div class="linha"><input id="token" type="password" autocomplete="off" placeholder="Token" aria-label="Token"><button id="entrar">Entrar</button></div><p id="msgl" class="erro"></p></section>
+<div id="app" class="oculto">
+<section><h2>Status do notebook</h2><div class="cards" id="cards"></div><p class="mudo" id="timers"></p>
+<div class="linha"><button id="c_diaria">Coletar SIH e SIA agora</button><button id="c_semanal" class="sec">Coletar CNES agora</button><button id="c_tudo" class="sec">Coletar tudo</button><span id="rod" class="mudo"></span></div>
+<pre id="log">sem log</pre><button class="sec" id="atlog">Atualizar log</button></section>
+<section><h2>Explorador do FTP</h2><p class="mudo">Somente a área pública /dissemin/publicos/. Atalhos para as pastas usadas pelos robôs:</p>
+<div class="linha"><button class="sec" data-p="/dissemin/publicos/CNES/200508_/Dados">CNES Dados</button><button class="sec" data-p="/dissemin/publicos/CNES/200508_/Auxiliar">CNES Auxiliar</button><button class="sec" data-p="/dissemin/publicos/SIHSUS/200801_/Dados">SIH Dados</button><button class="sec" data-p="/dissemin/publicos/SIASUS/200801_/Dados">SIA Dados</button></div>
+<div class="linha" style="margin-top:10px"><span id="cam" class="mudo"></span><button class="sec" id="sobe">Subir um nível</button><input id="filtro" placeholder="Filtrar (ex.: RDES26, STES26, PAES26)" aria-label="Filtro" style="flex:1;min-width:200px"></div>
+<div id="dl" class="aviso oculto"></div><div style="overflow:auto"><table><thead><tr><th>Nome</th><th class="num">Tamanho</th><th>Data</th><th></th></tr></thead><tbody id="ls"></tbody></table></div><p id="msgls" class="mudo"></p></section>
+<section><h2>Arquivos baixados no notebook</h2><p class="mudo" id="pasta"></p><div style="overflow:auto"><table><thead><tr><th>Nome</th><th class="num">Tamanho</th><th>Data</th><th></th></tr></thead><tbody id="loc"></tbody></table></div>
+<div id="cab" class="oculto"><h3>Cabeçalho do arquivo (somente nomes de campos)</h3><div id="cabtx"></div></div></section>
+</div></main>
+<script>
+const $=s=>document.querySelector(s);let cam="/dissemin/publicos/SIHSUS/200801_/Dados",lista=[];
+const fmt=n=>n>=1e9?(n/1e9).toFixed(2)+" GB":n>=1e6?(n/1e6).toFixed(1)+" MB":n>=1e3?(n/1e3).toFixed(0)+" KB":n+" B";
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+async function api(u,corpo){const r=await fetch(u,corpo?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(corpo)}:{});
+ if(r.status===401){mostrarLogin();throw new Error("sessão encerrada")}const j=await r.json();if(!r.ok)throw new Error(j.erro||r.status);return j}
+function mostrarLogin(){$("#entrada").classList.remove("oculto");$("#app").classList.add("oculto");$("#sair").classList.add("oculto")}
+async function iniciar(){const s=await (await fetch("/api/sessao")).json();if(!s.autenticado){mostrarLogin();if(!s.configurado)$("#msgl").textContent="Servidor sem token configurado.";return}
+ $("#entrada").classList.add("oculto");$("#app").classList.remove("oculto");$("#sair").classList.remove("oculto");status();locais();ir(cam)}
+$("#entrar").onclick=async()=>{try{await api("/api/login",{token:$("#token").value});$("#token").value="";iniciar()}catch(e){$("#msgl").textContent=e.message}};
+$("#sair").onclick=async()=>{await api("/api/sair",{});mostrarLogin()};
+async function status(){try{const s=await api("/api/status");
+ $("#cards").innerHTML=`<div class="card">Tráfego do mês<b>${s.trafego_gb} GB</b><div class="barra"><i style="width:${Math.min(100,s.trafego_pct)}%"></i></div><span class="mudo">${s.trafego_pct}% do limite de ${s.orcamento_gb} GB</span></div>
+ <div class="card">Disco livre<b>${s.disco_livre_gb} GB</b><span class="mudo">mínimo ${s.disco_minimo_gb} GB</span></div>
+ <div class="card">Coleta<b>${s.coleta_rodando?"em execução ("+esc(s.coleta_modo)+")":"parada"}</b></div>
+ <div class="card">Última execução<span class="mudo">${Object.entries(s.ultima).map(([k,v])=>esc(k)+": "+esc(v)).join("<br>")||"[PREENCHER: sem registro]"}</span></div>`;
+ $("#timers").textContent=s.timers.length?"Agendamentos ativos: "+s.timers.length:"Nenhum agendamento lido.";
+ ["diaria","semanal","tudo"].forEach(m=>$("#c_"+m).disabled=s.coleta_rodando);$("#rod").textContent=s.coleta_rodando?"Aguarde o término.":"";
+ const d=s.download;if(d&&d.estado&&d.estado!=="ocioso"){const b=$("#dl");b.classList.remove("oculto");
+  b.textContent=d.estado==="baixando"?`Baixando ${d.nome}: ${fmt(d.recebido||0)} de ${fmt(d.total||0)}`:d.estado==="concluido"?`Concluído: ${d.nome} (${fmt(d.recebido)})`:"Erro no download: "+(d.erro||"")}
+ if(d&&d.estado==="concluido")locais()}catch(e){}}
+async function ir(p){try{const j=await api("/api/ls?path="+encodeURIComponent(p));cam=j.caminho;lista=j.itens;$("#cam").textContent=cam;$("#msgls").textContent="";desenhar()}catch(e){$("#msgls").textContent=e.message}}
+function desenhar(){const f=$("#filtro").value.trim().toUpperCase();const it=lista.filter(i=>!f||i.nome.toUpperCase().includes(f)).slice(0,500);
+ $("#ls").innerHTML=it.map(i=>i.tipo==="dir"?`<tr><td><a class="caminho" data-d="${esc(i.nome)}">${esc(i.nome)}/</a></td><td></td><td>${esc(i.data)}</td><td></td></tr>`:
+ `<tr><td>${esc(i.nome)}</td><td class="num">${fmt(i.tamanho)}</td><td>${esc(i.data)}</td><td><button data-b="${esc(i.nome)}">Baixar</button></td></tr>`).join("")||"<tr><td colspan=4>Nada encontrado.</td></tr>";
+ if(lista.length>500)$("#msgls").textContent="Mostrando 500 de "+lista.length+". Use o filtro."}
+$("#ls").onclick=async e=>{const d=e.target.dataset;if(d.d)ir(cam+"/"+d.d);if(d.b){try{let j=await api("/api/baixar",{path:cam+"/"+d.b});
+ if(j.precisa_confirmar&&confirm("Arquivo de "+fmt(j.tamanho)+". Confirmar o download?"))j=await api("/api/baixar",{path:cam+"/"+d.b,confirmar:true});status()}catch(x){$("#msgls").textContent=x.message}}};
+$("#filtro").oninput=desenhar;$("#sobe").onclick=()=>{const p=cam.split("/").slice(0,-1).join("/");ir(p.length>="/dissemin/publicos".length?p:"/dissemin/publicos")};
+document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>ir(b.dataset.p));
+async function locais(){try{const j=await api("/api/arquivos");$("#pasta").textContent="Pasta no notebook: "+j.pasta;
+ $("#loc").innerHTML=j.itens.map(i=>`<tr><td>${esc(i.nome)}</td><td class="num">${fmt(i.tamanho)}</td><td>${esc(i.data)}</td><td class="linha">${/\.dbc$/i.test(i.nome)?`<button class="sec" data-h="${esc(i.nome)}">Campos</button>`:""}<a href="/api/baixado?nome=${encodeURIComponent(i.nome)}"><button class="sec">Salvar</button></a><button class="perigo" data-a="${esc(i.nome)}">Apagar</button></td></tr>`).join("")||"<tr><td colspan=4>Nenhum arquivo baixado.</td></tr>"}catch(e){}}
+$("#loc").onclick=async e=>{const d=e.target.dataset;if(d.a&&confirm("Apagar "+d.a+"?")){await api("/api/apagar",{nome:d.a});locais()}
+ if(d.h){try{const j=await api("/api/cabecalho?nome="+encodeURIComponent(d.h));$("#cab").classList.remove("oculto");
+  $("#cabtx").innerHTML=`<p>${j.registros} registros, ${j.campos.length} campos.</p><p class="mudo">${j.campos.map(c=>esc(c.nome)+(c.sensivel?" (sensível, os robôs não leem)":"")).join(", ")}</p>`}catch(x){alert(x.message)}}};
+["diaria","semanal","tudo"].forEach(m=>$("#c_"+m).onclick=async()=>{if(confirm("Iniciar a coleta "+m+" agora?")){try{await api("/api/coletar",{modo:m});status()}catch(e){alert(e.message)}}});
+async function log(){try{const j=await api("/api/log");$("#log").textContent=j.linhas.join("\n")||"sem log"}catch(e){}}
+$("#atlog").onclick=log;setInterval(()=>{if(!$("#app").classList.contains("oculto"))status()},5000);iniciar();setTimeout(log,800);
+</script></body></html>

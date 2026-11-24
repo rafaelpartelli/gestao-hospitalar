@@ -117,3 +117,11 @@ Usuario: tudo roda no usuario `rafael` (padrao do instalador; outro usuario: `PA
 
 Credenciais: somente chaves SSH em `~rafael/.ssh` (nunca no repositorio). Primeira conexao com GitHub, Codeberg e Oracle aceita a impressao digital (accept-new): conferir uma vez.
 O workflow `coleta.yml` ficou apenas como reserva manual (sem cron).
+
+## Painel FTP do Serverrobo (notebook)
+
+Pagina local para explorar o FTP publico do DATASUS (somente `/dissemin/publicos/`), baixar arquivos com as protecoes dos robos (limite de 6 GB/mes de trafego, disco minimo de 3 GB, um download por vez, confirmacao acima de 200 MB), ver status e disparar coletas.
+
+Instalacao (no notebook): `cd ~/partelli/repo && git pull && sudo bash deploy/notebook/instalar_painel_ftp.sh`.
+Acesso: `http://127.0.0.1:8765` no proprio notebook, ou de outro computador por `ssh -L 8765:127.0.0.1:8765 rafael@<ip>`. Token em `/etc/partelli/ftp.env` (nao fica no codigo). Por padrao nao abre a rede; para abrir na rede local, definir `PAINEL_HOST=0.0.0.0` no arquivo e reiniciar (sem HTTPS, usar so em rede confiavel).
+O painel nunca le valores de arquivo: o botao Campos mostra apenas nomes de campos e contagem de registros.
