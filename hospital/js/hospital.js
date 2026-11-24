@@ -1,7 +1,7 @@
 // Gestao Hospitalar (perfil do diretor). Sem framework. Textos externos nunca entram como HTML (usa el() do util.js).
 import {el, limpar, carregar, tabela, inteiro, decimal} from './util.js';
 import * as C from './hospital_calc.js';
-import * as DC from './cnes_desc.js';
+import * as DC from './util.js';
 
 const BASE = new URL('../', import.meta.url).href;   // pasta hospital/ (dados e config), independente da pagina que embute o modulo
 const D = BASE + 'dados/';

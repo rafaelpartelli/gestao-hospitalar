@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import * as D from '../hospital/js/cnes_desc.js';
+import * as D from '../hospital/js/util.js';
 
 const tab = {tabelas: {
   servico_classificacao_n: {'122003': '122 SERVICO DE DIAGNOSTICO / 003 CLASSE'},

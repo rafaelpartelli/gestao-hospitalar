@@ -142,3 +142,12 @@ O painel nunca le valores de arquivo: o botao Campos mostra apenas nomes de camp
 `notebook_app/converter_sqlite.py` converte os DBC baixados (RDES, SPES, PAES) em `~/partelli/base/producao_es.sqlite`, somando por hospital (CNES), competencia e procedimento. So le colunas de uma lista fixa, conferida contra `PROIBIDOS`: nao grava numero da AIH, nascimento, CEP, municipio de residencia, sexo, idade, raca, CPF, CNS, autorizacao, nota fiscal nem documento de profissional. Tabelas: `rd` (AIH reduzida), `sp` (servicos profissionais), `pa` (ambulatorial), mais `arquivos` (controle de linhas e valor por arquivo). Cada arquivo e conferido (linhas e valor somados na base = lidos do DBC) antes de gravar; reprocessar substitui o arquivo, sem duplicar.
 O timer das 03:40 roda `rodar_automacao.py`: baixa o que falta e converte. Manual: `python3 notebook_app/converter_sqlite.py` (converte pendentes), `--resumo` (linhas e valor por arquivo, para conferir com fonte oficial), `--limpar-dias N` (apaga DBC bruto ja convertido ha mais de N dias; desligado por padrao).
 `python3 notebook_app/campos_dbc.py` mostra so os nomes de campos de um arquivo de cada tipo.
+
+### Publicar no site (partelli.tec.br, VM Oracle)
+
+O notebook publica direto na VM pelo conector Partelli (`partelli-receber-deploy`, chave sem shell, so aceita os modos `site` e `dados`):
+- `partelli-coleta site`: envia a pagina Gestao Hospitalar (HTML embutido, CSS, JS, configuracao).
+- `partelli-coleta publicar`: pagina e dados (todos os JSON de `~/partelli/dados_repo`).
+- Depois de cada coleta, os dados seguem sozinhos para a Oracle quando `VM_HOST` estiver definido em `/etc/partelli/coleta.env`.
+Pre-requisitos no notebook: `VM_HOST=partelli.tec.br`, `VM_USER=<usuario da VM>` em `/etc/partelli/coleta.env` e a chave do conector em `~rafael/.ssh/oracle_key` (permissao 600; copiar do terminal da VM, nunca por chat). A base SQLite agregada e os arquivos DBC nao sobem para o site.
+Aviso: a descricao dos codigos do CNES agora vive em `hospital/js/util.js` (o conector da VM so instala arquivos conhecidos; um arquivo novo nao seria publicado).

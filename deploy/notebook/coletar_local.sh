@@ -7,7 +7,7 @@
 set -euo pipefail
 
 MODO="${1:-}"
-case "$MODO" in diaria|semanal|tudo|espelho) ;; *) echo "uso: $0 diaria|semanal|tudo|espelho" >&2; exit 2 ;; esac
+case "$MODO" in diaria|semanal|tudo|espelho|site|publicar) ;; *) echo "uso: $0 diaria|semanal|tudo|espelho|site|publicar" >&2; exit 2 ;; esac
 
 ENV_FILE="${PARTELLI_ENV:-/etc/partelli/coleta.env}"
 [ -r "$ENV_FILE" ] && . "$ENV_FILE"
@@ -51,6 +51,17 @@ if [ "$MODO" = "espelho" ]; then
   exit 0
 fi
 
+# ---------- envio para a Oracle (conector Partelli: so executa partelli-receber-deploy, sem shell) ----------
+enviar_oracle() { # $1 = site|dados
+  [ -n "$VM_HOST" ] || { log "VM_HOST vazio em $ENV_FILE: envio para a Oracle desligado"; return 2; }
+  [ -r "$ORACLE_KEY" ] || { log "chave do conector nao encontrada em $ORACLE_KEY"; return 2; }
+  if [ "$1" = "site" ]; then
+    tar czf - -C "$REPO" hospital deploy/montar_plataforma.py | ssh -i "$ORACLE_KEY" $SSH_OPTS "$VM_USER@$VM_HOST" site
+  else
+    ( cd "$DADOS" && ls ./*.json >/dev/null 2>&1 && tar czf - ./*.json | ssh -i "$ORACLE_KEY" $SSH_OPTS "$VM_USER@$VM_HOST" dados )
+  fi
+}
+
 # ---------- coleta ----------
 export ORCAMENTO_TRAFEGO_GB="${ORCAMENTO_TRAFEGO_GB:-6}"
 export DISCO_MINIMO_GB="${DISCO_MINIMO_GB:-3}"
@@ -58,6 +69,17 @@ REPO="$BASE/repo"; SALA="$BASE/sala-gestao"; DADOS="$BASE/dados_repo"
 
 atualizar_repo "$REPO_URL" "$REPO"
 atualizar_repo "$SALA_URL" "$SALA"
+
+if [ "$MODO" = "site" ] || [ "$MODO" = "publicar" ]; then
+  RES=0
+  log "publicando a pagina Gestao Hospitalar em $VM_HOST"
+  enviar_oracle site && log "pagina enviada para a Oracle" || { log "ERRO no envio da pagina"; RES=1; }
+  if [ "$MODO" = "publicar" ]; then
+    enviar_oracle dados && log "dados enviados para a Oracle" || { log "ERRO no envio dos dados"; RES=1; }
+  fi
+  [ "$RES" -eq 0 ] && date -Is > "$BASE/ultima_execucao_${MODO}.txt"
+  exit "$RES"
+fi
 
 if [ -d "$DADOS/.git" ]; then
   if [ "$PUBLICAR_GITHUB" = "1" ]; then git -C "$DADOS" fetch -q origin dados 2>/dev/null && git -C "$DADOS" reset -q --hard origin/dados || true; fi
@@ -97,9 +119,8 @@ else
   else log "envio ao GitHub desligado (PUBLICAR_GITHUB=0)"; fi
 fi
 
-if [ -n "$VM_HOST" ] && ls ./*.json >/dev/null 2>&1; then
-  tar czf - ./*.json | ssh -i "$ORACLE_KEY" $SSH_OPTS "$VM_USER@$VM_HOST" dados \
-    && log "dados enviados para a Oracle" || { log "ERRO no envio para a Oracle"; FALHAS=$((FALHAS+1)); }
+if [ -n "$VM_HOST" ]; then
+  enviar_oracle dados && log "dados enviados para a Oracle" || { log "ERRO no envio para a Oracle"; FALHAS=$((FALHAS+1)); }
 else log "envio para a Oracle desligado (VM_HOST vazio)"; fi
 
 log "fim, robos com erro: $FALHAS"
