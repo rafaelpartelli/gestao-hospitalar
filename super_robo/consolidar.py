@@ -117,7 +117,7 @@ def secao_dengue(uf, cod):
 
 
 def SEM_REGISTRO(o_que):
-    return {"situacao": f"A confirmar: nenhuma {o_que} do municipio na base de 2026",
+    return {"situacao": f"A confirmar: sem {o_que} do municipio na base de 2026",
             "obs": "Ausencia de registro nao e erro de leitura. Conferir se o municipio tem estabelecimento do tipo no CNES (leitos, rede)."}
 
 
@@ -139,7 +139,7 @@ def habilitacoes(cod):
         base = {"fonte": "CNES, arquivo HB (FTP DATASUS), agregado na base local", "competencia": f"{comp[4:]}/{comp[:4]}",
                 "convertido_em": con.execute("SELECT MAX(convertido_em) FROM arquivos WHERE tabela='hb'").fetchone()[0]}
         if not linhas:
-            return {**base, **SEM_REGISTRO("habilitacao")}
+            return {**base, **SEM_REGISTRO("habilitacao cadastrada")}
         return {**base, "total": len(linhas), "estabelecimentos": sorted({r["cnes"] for r in linhas}), "itens": linhas,
                 "descricao_codigos": pend("descricao do codigo de habilitacao (tabela de habilitacoes do SIGTAP ainda nao carregada)")}
     finally:
@@ -161,7 +161,7 @@ def ciha_mun(cod):
         base = {"fonte": "CIHA (FTP DATASUS), agregado na base local", "convertido_em": con.execute("SELECT MAX(convertido_em) FROM arquivos WHERE tabela='ciha'").fetchone()[0],
                 "obs": "CIHA nao traz valor financeiro. Complementa o SIH, nao somar com AIH sem conferir duplicidade por CNES."}
         if not mes:
-            return {**SEM_REGISTRO("registro CIHA"), **base}
+            return {**SEM_REGISTRO("registro de CIHA"), **base}
         proc = [{"procedimento": p, "quantidade": q} for p, q in con.execute(
             "SELECT proc_rea, SUM(qt_proc) FROM ciha WHERE munic_mov=? GROUP BY proc_rea ORDER BY SUM(qt_proc) DESC LIMIT ?", (c6, TOP))]
         cn = [r[0] for r in con.execute("SELECT DISTINCT cnes FROM ciha WHERE munic_mov=? ORDER BY cnes", (c6,))]
