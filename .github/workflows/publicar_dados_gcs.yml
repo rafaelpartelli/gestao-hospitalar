@@ -1,0 +1,32 @@
+name: Dados da rede hospitalar para o Google Cloud
+
+# Copia os rede_*.json (agregados por CNES) da branch dados para o bucket lido pelo site partelli.tec.br.
+# Sem chave: o GitHub se identifica ao Google por federacao de identidade (Workload Identity), restrita a este repositorio.
+on:
+  schedule:
+    - cron: '30 12 * * *'   # 09:30 em Brasilia, depois da coleta diaria do notebook
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency: publicar-dados-gcs
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { path: codigo }
+      - uses: actions/checkout@v4
+        with: { ref: dados, path: dados }
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/190400213604/locations/global/workloadIdentityPools/github-partelli/providers/github
+          service_account: serverrobo-publicador@project-d23d1622-81be-4565-83d.iam.gserviceaccount.com
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -q google-cloud-storage
+      - name: Enviar rede_*.json (com guarda de privacidade)
+        run: python3 codigo/deploy/notebook/publicar_gcs.py dados partelli-dados-saude

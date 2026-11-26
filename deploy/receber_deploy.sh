@@ -18,7 +18,7 @@ H="$WEB_ROOT/hospital"
 if [ "$MODO" = "site" ]; then
   [ -f "$TMP/hospital/fragmento.html" ] && [ -f "$TMP/deploy/montar_plataforma.py" ] || { echo "ERRO: pacote do site incompleto"; exit 1; }
   $SUDO install -d -m 755 "$H" "$H/dados" "$H/css" "$H/js" "$H/config"
-  for f in css/hospital.css js/hospital.js js/hospital_calc.js js/util.js config/remessas_datasus.json; do
+  for f in css/hospital.css js/hospital.js js/hospital_calc.js js/util.js js/rede.js config/remessas_datasus.json; do
     [ -f "$TMP/hospital/$f" ] || { echo "ERRO: falta hospital/$f"; exit 1; }
     $SUDO install -m 644 "$TMP/hospital/$f" "$H/$f"
   done
