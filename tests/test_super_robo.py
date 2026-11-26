@@ -393,3 +393,29 @@ class Descricoes(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+
+class MotivosDeRejeicao(unittest.TestCase):
+    def test_tabela_do_manual(self):
+        import motivos_rejeicao as MR
+        self.assertEqual(len(MR.MOTIVOS), 230)
+        for ausente in (3, 9, 80, 101, 114, 222):
+            self.assertNotIn(ausente, MR.MOTIVOS)
+
+    def test_descricao_so_para_seis_digitos_e_com_status(self):
+        import motivos_rejeicao as MR
+        d = MR.descricao("060082")
+        self.assertEqual(d["texto_manual"], "DATA DA SAÍDA > DATA APRESENTAÇÃO")
+        self.assertEqual(d["pagina_manual"], 153)
+        self.assertIn("a confirmar", d["status"])
+        self.assertIsNone(MR.descricao("010003"))
+        self.assertIsNone(MR.descricao("014"))
+        self.assertIsNone(MR.descricao(None))
+
+    def test_critica_c07_leva_motivo_provavel(self):
+        import hospitais as H
+        rec = {"rejeitadas_fechadas": 20, "por_codigo_erro": [{"codigo_erro": "060082", "rejeitadas": 10, "recuperadas": 2, "nao_recuperadas": 8, "pct_recuperadas": 20.0}]}
+        c = H._criticas("9", {"leitos": {"existentes": 20}, "estabelecimento": {"leitos_p1_p2_p3": [20, 0, 0]}}, [], None, rec)
+        k = next(x for x in c if x["codigo"].startswith("C07-060082"))
+        self.assertEqual(k["motivo_provavel"]["final_3_digitos"], "082")

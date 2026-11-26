@@ -235,3 +235,12 @@ Arquivo opcional `~/partelli/entrada/plano_acoes.csv` (variável `PLANO_ACOES`),
 ## Checklist de habilitação por hospital
 
 `hospitais.itens[].checklist_habilitacao` parte do HB (habilitações cadastradas no CNES, competência mais recente). Regra: **Habilitado** só com portaria registrada e vigência aberta (`cmpt_fim` 999999 ou não anterior à competência do HB); sem portaria ou com vigência encerrada fica **A verificar**, com o motivo. Em habilitação e Não habilitado dependem do gestor (não há dado). A confirmação da portaria no DOU é pendência (`portaria_no_dou`: [PREENCHER]). O bloco `bases_do_cadastro` mostra, para cada item da plataforma (caracterização, atividades, CBO e carga horária, leitos, serviços, habilitações, incentivos, equipamentos, instalações), se há registro na base. Cada habilitação "A verificar" gera a crítica C09-<código>-<CNES> (Média) e entra no plano de avanço; o gestor pode lançar ação, prazo e responsável no CSV usando `critica` = `C09-<código>`.
+
+## Motivo provavel do codigo de rejeicao (SIH)
+
+O dossie mostra `motivo_provavel` nos codigos de erro do arquivo ER (`por_codigo_erro`, `principais_codigos_erro`) e nas criticas C07 e C08.
+- Fonte: Manual Tecnico Operacional do SIH/SUS, secao 17 (Motivos de Rejeicao da AIH), codigos de 1 a 236, em `super_robo/motivos_rejeicao.py`.
+- O CO_ERRO do ER tem 6 digitos. A relacao pelos 3 ultimos digitos e CORRESPONDENCIA PROVAVEL, status "a confirmar". Nao existe tabela oficial publica
+  para os 6 digitos (pastas Doc e Auxiliar do SIHSUS conferidas, sem lista de erros). O codigo 010003, por exemplo, nao tem texto no manual e fica sem descricao.
+- Codigos sem texto no manual: 3, 9, 80, 101, 114 e 222. Texto transcrito por leitura automatizada do PDF: conferir com o manual antes de publicar.
+- Confirmacao: ver, na tela de rejeicao do SIHD2 do hospital, o motivo de 1 AIH com o codigo 060082 e de 1 com 060120 e comparar com o texto exibido.

@@ -6,6 +6,7 @@ ESTIMATIVA (AIH aprovadas SUS e leitos SUS do cadastro), nao substitui o censo h
 import calendar, os, sqlite3
 import plano_acoes as PA
 import cnes_secoes as S
+import motivos_rejeicao as MR
 
 RESP = "A definir pelo gestor"
 
@@ -136,6 +137,14 @@ def _ocupacao_mensal(sih, leitos_sus):
         x["ocupacao_estimada_pct"] = round(x["dias_permanencia"] / (leitos_sus * dias_mes) * 100, 1)
 
 
+def _com_motivo(item):
+    """Acrescenta o motivo provavel (manual do SIH, a confirmar) a um item com codigo_erro de 6 digitos. Sem texto no manual, nao acrescenta nada."""
+    d = MR.descricao(item.get("codigo_erro"))
+    if d:
+        item["motivo_provavel"] = d
+    return item
+
+
 def _recuperacao(con, cnes, sih):
     """AIH rejeitadas que reapareceram aprovadas em competencia posterior (tabela rejeicao_rec, gerada por reconciliar_rejeicoes.py).
     A competencia mais recente da base fica 'em aberto': a AIH ainda pode ser reapresentada."""
@@ -160,8 +169,8 @@ def _recuperacao(con, cnes, sih):
            "rejeitadas_fechadas": rf, "recuperadas": cf, "nao_recuperadas": nao,
            "pct_recuperadas": round(cf / rf * 100, 1) if rf else None,
            "valor_recuperado": round(sum(x[5] for x in fech), 2),
-           "por_codigo_erro": [{"codigo_erro": e, "rejeitadas": r, "recuperadas": k, "nao_recuperadas": r - k,
-                                "pct_recuperadas": round(k / r * 100, 1) if r else None}
+           "por_codigo_erro": [_com_motivo({"codigo_erro": e, "rejeitadas": r, "recuperadas": k, "nao_recuperadas": r - k,
+                                            "pct_recuperadas": round(k / r * 100, 1) if r else None})
                                for e, (r, k) in sorted(por_cod.items(), key=lambda kv: -kv[1][0])[:5]],
            "regra": "AIH recuperada: mesmo numero e mesmo CNES aprovado no SIH em competencia posterior a da rejeicao. O numero da AIH nao e gravado.",
            "base": "Rejeicoes de competencias anteriores a mais recente da base."}
@@ -186,13 +195,13 @@ def _rejeicao(con, cnes, sih):
         meses.append({"competencia": comp, "aprovadas": a, "rejeitadas": r, "pct_rejeicao": round(r / (a + r) * 100, 2) if (a + r) else None})
     rec = _recuperacao(con, cnes, sih)
     tr, ta = sum(m["rejeitadas"] for m in meses), sum(m["aprovadas"] for m in meses)
-    erros = [{"codigo_erro": e, "aih": n} for e, n in con.execute(
+    erros = [_com_motivo({"codigo_erro": e, "aih": n}) for e, n in con.execute(
         "SELECT co_erro, SUM(n_linhas) FROM er WHERE cnes=? GROUP BY co_erro ORDER BY SUM(n_linhas) DESC LIMIT 5", (cnes,))]
     return {"total_rejeitadas": tr, "total_aprovadas": ta, "pct_rejeicao_periodo": round(tr / (ta + tr) * 100, 2) if (ta + tr) else None,
             "por_mes": meses, "principais_codigos_erro": erros, "reapresentacao": rec,
             "formula": "rejeitadas / (aprovadas + rejeitadas) x 100, por contagem de AIH",
             "obs": "O arquivo ER nao tem valor em R$: perda em R$ fica a apurar. Uma AIH rejeitada pode ser reapresentada e aprovada em competencia seguinte. "
-                   "Descricao do codigo de erro depende de tabela auxiliar nao carregada."}
+                   "O texto do motivo (campo motivo_provavel) vem do manual do SIH pelos 3 ultimos digitos do codigo e e CORRESPONDENCIA PROVAVEL, a confirmar; sem texto no manual, o codigo fica sem descricao."}
 
 
 def _indicadores(sih, leitos_sus, leitos_exist=None):
@@ -272,6 +281,11 @@ def _criticas(cnes, cad, sih, ind, rec=None):
             add(f"C08-{top['codigo_erro']}", f"Rejeicoes concentradas no codigo {top['codigo_erro']}: {top['rejeitadas']} de {tot_f} ({round(top['rejeitadas'] / tot_f * 100, 1)}%). "
                 f"Mesmo recuperadas, atrasam o recebimento em pelo menos uma competencia.", "Media", "AIH",
                 "Prevenir na origem: validar o dado antes de fechar a remessa e treinar a digitacao do campo envolvido.")
+    for k in c:
+        if k["codigo"].startswith(("C07-", "C08-")):
+            d = MR.descricao(k["codigo"].split("-")[1])
+            if d:
+                k["motivo_provavel"] = d
     return c
 
 
