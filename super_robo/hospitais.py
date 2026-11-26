@@ -170,13 +170,13 @@ def _indicadores(sih, leitos_sus, leitos_exist=None):
     return ind
 
 
-def _criticas(cnes, cad, sih, ind):
+def _criticas(cnes, cad, sih, ind, rec=None):
     c = []
 
     def add(cod, desc, sev, origem, acao, status="Aberta"):
         c.append({"codigo": f"{cod}-{cnes}", "descricao": desc, "severidade": sev, "origem": origem, "acao_recomendada": acao,
                   "responsavel": RESP, "prazo": RESP, "status": status})
-    aih = ind["aih"] if ind else 0
+    aih = (ind or {}).get("aih", 0)
     ex = (cad.get("leitos") or {}).get("existentes")
     if aih and not ex:
         add("C01", "CNES com AIH aprovadas e sem leito existente no cadastro (arquivo LT).", "Alta", "CNES",
@@ -206,7 +206,44 @@ def _criticas(cnes, cad, sih, ind):
     if ind and ind.get("ocupacao_estimada_pct") and ind["ocupacao_estimada_pct"] > 100:
         add("C05", f"Ocupacao estimada de {ind['ocupacao_estimada_pct']}% (acima de 100%): leitos SUS do cadastro podem estar subestimados.", "Media", "CNES",
             "Conferir leitos SUS no CNES e a permanencia registrada nas AIH.", "A verificar")
+    st = (cad.get("estabelecimento") or {}).get("leitos_p1_p2_p3")
+    if ex and st and sum(st) > 0 and sum(st) != ex:
+        add("C06", f"Leitos existentes no arquivo LT ({ex}) diferem da soma P1+P2+P3 do cadastro do estabelecimento ({sum(st)}).", "Media", "CNES",
+            "Conferir os leitos no CNES; a ocupacao estimada depende desse denominador.", "A verificar")
+    if isinstance(rec, dict) and rec.get("rejeitadas_fechadas"):
+        for x in rec.get("por_codigo_erro", []):
+            nao, tot, pct = x["nao_recuperadas"], x["rejeitadas"], x["pct_recuperadas"]
+            if nao > 0:
+                sev = "Alta" if (nao >= 5 and pct is not None and pct < 50) else "Media"
+                add(f"C07-{x['codigo_erro']}", f"Rejeicao sem aprovacao posterior no codigo {x['codigo_erro']}: {nao} de {tot} AIH ({round(100 - pct, 1)}%).", sev, "AIH",
+                    "Obter o relatorio de rejeitadas do hospital para o codigo, corrigir a causa e reapresentar dentro do prazo.")
+        tot_f = rec["rejeitadas_fechadas"]
+        top = (rec.get("por_codigo_erro") or [None])[0]
+        if top and tot_f >= 10 and top["rejeitadas"] / tot_f >= 0.5:
+            add(f"C08-{top['codigo_erro']}", f"Rejeicoes concentradas no codigo {top['codigo_erro']}: {top['rejeitadas']} de {tot_f} ({round(top['rejeitadas'] / tot_f * 100, 1)}%). "
+                f"Mesmo recuperadas, atrasam o recebimento em pelo menos uma competencia.", "Media", "AIH",
+                "Prevenir na origem: validar o dado antes de fechar a remessa e treinar a digitacao do campo envolvido.")
     return c
+
+
+def _plano(criticas, rec, ind):
+    """Plano de avanco do faturamento a partir das criticas. Ganho em R$ nao e inventado: o gestor lanca. Perda e ESTIMATIVA."""
+    media = (ind or {}).get("media_por_aih")
+    itens = []
+    for k in criticas:
+        item = {"acao": k["acao_recomendada"], "critica_vinculada": k["codigo"], "prioridade": k["severidade"], "ganho_estimado_rs": None,
+                "perda_por_rejeicao_rs": None, "prazo": RESP, "responsavel": RESP, "status": "A iniciar"}
+        if k["codigo"].startswith("C07-") and isinstance(rec, dict) and media:
+            cod = k["codigo"].split("-")[1]
+            x = next((y for y in rec.get("por_codigo_erro", []) if y["codigo_erro"] == cod), None)
+            if x:
+                item["perda_por_rejeicao_rs"] = round(x["nao_recuperadas"] * media, 2)
+                item["obs_perda"] = "ESTIMATIVA: AIH nao recuperadas x media por AIH aprovada do hospital. O arquivo ER nao traz valor."
+        itens.append(item)
+    ordem = {"Alta": 0, "Media": 1, "Baixa": 2}
+    itens.sort(key=lambda i: ordem[i["prioridade"]])
+    return {"itens": itens, "total": len(itens),
+            "pendencia_ganho": "[PREENCHER: ganho estimado em R$ de cada acao, lancado pelo gestor]" if itens else None}
 
 
 def visao_hospitais(banco, c6):
@@ -224,10 +261,12 @@ def visao_hospitais(banco, c6):
             sih, sia, ciha = _producao(con, cnes)
             _ocupacao_mensal(sih, (cad.get("leitos") or {}).get("sus"))
             ind = _indicadores(sih, (cad.get("leitos") or {}).get("sus"), (cad.get("leitos") or {}).get("existentes"))
+            rej = _rejeicao(con, cnes, sih)
+            crit = _criticas(cnes, cad, sih, ind, (rej or {}).get("reapresentacao") if isinstance(rej, dict) else None)
             itens.append({"cnes": cnes, "cadastro": cad,
                           "producao": {"sih_por_mes": sih, "sia_aprovado_por_mes": sia, "ciha_por_mes": ciha,
                                        "sia_aprovado_total": {"quantidade": sum(x["quantidade_aprovada"] for x in sia), "valor": round(sum(x["valor_aprovado"] for x in sia), 2)} if sia else None},
-                          "indicadores": ind, "rejeicao_sih": _rejeicao(con, cnes, sih), "criticas": _criticas(cnes, cad, sih, ind)})
+                          "indicadores": ind, "rejeicao_sih": rej, "criticas": crit, "plano_avanco": _plano(crit, (rej or {}).get("reapresentacao"), ind)})
         sev = {"Alta": 0, "Media": 0, "Baixa": 0}
         for h in itens:
             for k in h["criticas"]:

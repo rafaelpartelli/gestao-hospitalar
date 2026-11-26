@@ -196,6 +196,31 @@ class Criticas(unittest.TestCase):
         self.assertNotIn("ocupacao_estimada_pct", H._indicadores(sih, 0))   # sem leito SUS: nao estima
 
 
+class PlanoDeAvanco(unittest.TestCase):
+    def test_criticas_de_rejeicao_e_plano(self):
+        import hospitais as H
+        rec = {"rejeitadas_fechadas": 100, "recuperadas": 40, "nao_recuperadas": 60,
+               "por_codigo_erro": [{"codigo_erro": "X1", "rejeitadas": 80, "recuperadas": 30, "nao_recuperadas": 50, "pct_recuperadas": 37.5},
+                                   {"codigo_erro": "X2", "rejeitadas": 20, "recuperadas": 18, "nao_recuperadas": 2, "pct_recuperadas": 90.0}]}
+        cad = {"leitos": {"existentes": 35, "sus": 32, "nao_sus": 3}, "estabelecimento": {"leitos_p1_p2_p3": [4, 18, 0]}, "habilitacoes": {"total": 1}}
+        ind = {"media_por_aih": 400.0}
+        crit = H._criticas("9", cad, [], ind, rec)
+        cod = {k["codigo"]: k for k in crit}
+        self.assertIn("C06-9", cod)
+        c7 = [k for k in crit if k["codigo"].startswith("C07-")]
+        self.assertEqual(sorted((k["codigo"], k["severidade"]) for k in c7), [("C07-X1-9", "Alta"), ("C07-X2-9", "Media")])
+        self.assertTrue(any(k["codigo"].startswith("C08-X1") for k in crit))      # 80 de 100 concentrados
+        plano = H._plano(crit, rec, ind)
+        primeiro = plano["itens"][0]
+        self.assertEqual(primeiro["prioridade"], "Alta")
+        self.assertEqual(primeiro["perda_por_rejeicao_rs"], 50 * 400.0)
+        self.assertIn("ESTIMATIVA", primeiro["obs_perda"])
+        self.assertIsNone(primeiro["ganho_estimado_rs"])                          # ganho e lancado pelo gestor
+        self.assertTrue(plano["pendencia_ganho"].startswith("[PREENCHER"))
+        self.assertEqual(H._plano([], None, None), {"itens": [], "total": 0, "pendencia_ganho": None})
+        self.assertEqual([k for k in H._criticas("9", {"leitos": {"existentes": 20}, "estabelecimento": {"leitos_p1_p2_p3": [20, 0, 0]}}, [], None, {"rejeitadas_fechadas": 5, "por_codigo_erro": [{"codigo_erro": "Z", "rejeitadas": 5, "recuperadas": 5, "nao_recuperadas": 0, "pct_recuperadas": 100.0}]})], [])
+
+
 class Reapresentacao(unittest.TestCase):
     def test_meses_fechados_e_em_aberto(self):
         import hospitais as H, sqlite3

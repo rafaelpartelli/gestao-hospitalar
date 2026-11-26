@@ -192,3 +192,14 @@ Aviso: a descricao dos codigos do CNES agora vive em `hospital/js/util.js` (o co
 - Recuperada: mesmo número e mesmo CNES aprovado em competência posterior à da rejeição. Aprovação na mesma competência ou anterior não conta.
 - A rejeição da competência mais recente fica "em aberto" (ainda pode ser reapresentada) e não entra no percentual de recuperação.
 - Dossiê por hospital: `rejeicao_sih.reapresentacao` traz rejeitadas, recuperadas, não recuperadas, percentual, valor recuperado (R$ das aprovações posteriores) e, rotulada como ESTIMATIVA, a perda líquida (não recuperadas x média por AIH aprovada).
+
+## Críticas de rejeição e plano de avanço do faturamento
+
+Cada hospital do dossiê (`hospitais.itens[].criticas` e `plano_avanco`) recebe, além de C01 a C05:
+
+- **C06**: leitos existentes no arquivo LT diferem da soma P1+P2+P3 do cadastro do estabelecimento (ST). Severidade Média.
+- **C07-<código de erro>**: rejeição sem aprovação posterior (reapresentação) naquele código. Alta se houver 5 ou mais AIH e menos de 50% recuperadas; caso contrário, Média.
+- **C08-<código de erro>**: concentração de 50% ou mais das rejeições fechadas em um único código (mínimo de 10 rejeições). Mesmo recuperadas, atrasam o recebimento.
+
+O `plano_avanco` lista ação, crítica vinculada, prioridade, ganho estimado, perda por rejeição, prazo, responsável e status.
+Regras: o **ganho estimado em R$ não é calculado**, fica `[PREENCHER]` para o gestor lançar; a **perda por rejeição é ESTIMATIVA** (AIH não recuperadas x média por AIH aprovada do hospital), pois o arquivo ER não traz valor. A AIH é lida apenas em memória, nada identificável é gravado.
