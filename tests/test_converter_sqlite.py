@@ -175,6 +175,29 @@ class Conversao(unittest.TestCase):
                 self.assertNotIn(proibida, colunas)
 
 
+class MudancaDeLayout(unittest.TestCase):
+    def test_tabela_vazia_com_layout_antigo_e_recriada_e_com_dados_para(self):
+        import sqlite3 as sq
+        caminho = os.path.join(tempfile.mkdtemp(), "m.sqlite")
+        K.abrir_banco(caminho).close()
+        con = sq.connect(caminho)
+        con.execute("DROP TABLE hb")
+        con.execute("CREATE TABLE hb (arquivo TEXT, cnes TEXT, n_linhas INTEGER, PRIMARY KEY (arquivo, cnes))")
+        con.commit()
+        con.close()
+        con = K.abrir_banco(caminho)            # vazia: recria com o layout atual
+        self.assertIn("sgruphab", [r[1] for r in con.execute("PRAGMA table_info(hb)")])
+        con.execute("INSERT INTO hb (arquivo,cnes,codufmun,sgruphab,cmpt_ini,cmpt_fim,dtportar,portaria,maportar,competen,tp_unid,vinc_sus,esfera_a,nat_jur,n_linhas,nuleitos) "
+                    "VALUES ('x','1','2','3','4','5','6','7','8','9','a','b','c','d',1,1)")
+        con.execute("DROP TABLE lt")
+        con.execute("CREATE TABLE lt (arquivo TEXT, cnes TEXT, n_linhas INTEGER, PRIMARY KEY (arquivo, cnes))")
+        con.execute("INSERT INTO lt VALUES ('x','1',1)")
+        con.commit()
+        con.close()
+        with self.assertRaises(RuntimeError):   # com dados: nao apaga, avisa
+            K.abrir_banco(caminho)
+
+
 class LayoutsReais(unittest.TestCase):
     def test_todo_campo_lido_existe_no_arquivo_real(self):
         mapa = {"hb": "HB", "inc": "IN", "lt": "LT", "eq": "EQ", "pf": "PF", "rc": "RC", "ef": "EF", "sr": "SR", "ep": "EP", "st": "ST"}

@@ -103,6 +103,12 @@ def abrir_banco(caminho=None):
         cols = ["arquivo TEXT NOT NULL"] + [f"{c} TEXT NOT NULL" for c, _ in dims] + ["n_linhas INTEGER NOT NULL"] + \
                [f"{c} {'REAL' if tp == 'v' else 'INTEGER'} NOT NULL" for c, _, tp in meds]
         pk = ", ".join(["arquivo"] + [c for c, _ in dims])
+        esperadas = ["arquivo"] + [c for c, _ in dims] + ["n_linhas"] + [c for c, _, _ in meds]
+        atuais = [r[1] for r in con.execute(f"PRAGMA table_info({t})")]
+        if atuais and atuais != esperadas:      # layout mudou desde a criacao da tabela
+            if con.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]:
+                raise RuntimeError(f"tabela {t} tem dados com layout antigo; apague os arquivos dela de 'arquivos' e a tabela, depois reconverta")
+            con.execute(f"DROP TABLE {t}")
         con.execute(f"CREATE TABLE IF NOT EXISTS {t} ({', '.join(cols)}, PRIMARY KEY ({pk})) WITHOUT ROWID")
     return con
 
