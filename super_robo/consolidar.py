@@ -260,10 +260,10 @@ def montar(cfg, m, terr):
             "equipamentos_cadastro": S.equipamentos(BANCO, cod[:6], tabelas_cnes()),
             "profissionais_cadastro": S.profissionais(BANCO, cod[:6]),
             "servicos_especializados": S.servicos(BANCO, cod[:6], tabelas_cnes()),
-            "equipes_cadastro": S.equipes(BANCO, cod[:6]),
+            "equipes_cadastro": S.equipes(BANCO, cod[:6], tabelas_cnes()),
             "incentivos": S.lista_hab(BANCO, cod[:6], "inc", "IN", "incentivo cadastrado", tabelas_cnes(), S.desc_incentivo),
-            "regras_contratuais": S.lista_hab(BANCO, cod[:6], "rc", "RC", "regra contratual cadastrada", tabelas_cnes()),
-            "entidade_filantropica": S.lista_hab(BANCO, cod[:6], "ef", "EF", "registro de entidade filantropica", tabelas_cnes()),
+            "regras_contratuais": S.lista_hab(BANCO, cod[:6], "rc", "RC", "regra contratual cadastrada", tabelas_cnes(), S.desc_regra),
+            "entidade_filantropica": S.lista_hab(BANCO, cod[:6], "ef", "EF", "registro de entidade filantropica", tabelas_cnes(), S.desc_filantropico),
             "estabelecimentos": S.estabelecimentos(BANCO, cod[:6], tabelas_cnes())},
         "territorio_saude": {
             "dengue": secao_dengue(uf, cod),

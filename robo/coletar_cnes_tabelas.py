@@ -14,9 +14,13 @@ ARQUIVO = "TAB_CNES.zip"
 VALIDADE_DIAS = 60
 
 CNV = {"equipamento": "CNV/equipam2508.cnv", "tipo_equipamento": "CNV/Equip_Tp.cnv", "especialidade_leito": "CNV/Esp_leit.CNV",
-       "tipo_leito": "CNV/tip1leit.cnv", "indicador_sus": "CNV/IND_SUS.CNV"}
+       "tipo_leito": "CNV/tip1leit.cnv", "indicador_sus": "CNV/IND_SUS.CNV",
+       # equipes, filantropico e equipamentos antigos/grupos (descricao de codigos que ficavam sem texto)
+       "equipe_tipo": "CNV/tipoeqpC.cnv", "estabelecimento_filantropico": "CNV/ESTABFIL.CNV",
+       "equipamento_2507": "CNV/equipam2507.cnv", "equipamento_grupo": "CNV/Equipam_grp.cnv"}
 DBF = {"habilitacao": "DBF/HABILITA.DBF", "incentivo": "DBF/incentivos.dbf", "servico_classificacao": "DBF/S_CLASSEA.dbf",
-       "servico_classificacao_n": "DBF/S_CLASSEN.dbf", "tipo_equipamento_dbf": "DBF/TP_EQUIPAM.dbf"}
+       "servico_classificacao_n": "DBF/S_CLASSEN.dbf", "tipo_equipamento_dbf": "DBF/TP_EQUIPAM.dbf",
+       "equipe_dbf": "DBF/EQUIPE.dbf", "regras_dbf": "DBF/REGRAS.DBF"}
 DEF_LINHAS = {"instalacoes_def": ("Estabelecimento.def", re.compile(r"QTINST|CENTRCIR|CENTROBS|CENTRNEO|URGEMERG|ATENDAMB|ATENDHOS", re.I)),
               "servico_def": ("Servico_Especializado_200803_.def", re.compile(r"SERV|CLASS", re.I))}
 

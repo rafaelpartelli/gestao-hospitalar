@@ -42,6 +42,30 @@ def _sem_prefixo(t):
     return re.sub(r"^\d+\s*-\s*", "", str(t or "")).strip()
 
 
+def _buscar(tabela, chave):
+    """Procura a chave como veio e em variantes de zeros a esquerda/espacos (tabelas do CNES variam). Devolve '' se nao achar."""
+    c = str(chave if chave is not None else "").strip()
+    if not c or not isinstance(tabela, dict):
+        return ""
+    for k in dict.fromkeys([c, c.lstrip("0") or "0", c.zfill(2), c.zfill(3), c.zfill(4)]):
+        if k in tabela and tabela[k]:
+            return str(tabela[k])
+    return ""
+
+
+def desc_equipe(tab, tipo):
+    t = _T(tab)
+    return _sem_prefixo(_buscar(t.get("equipe_dbf"), tipo) or _buscar(t.get("equipe_tipo"), tipo))
+
+
+def desc_regra(tab, cod):
+    return _sem_prefixo(_buscar(_T(tab).get("regras_dbf"), cod))
+
+
+def desc_filantropico(tab, cod):
+    return _sem_prefixo(_buscar(_T(tab).get("estabelecimento_filantropico"), cod))
+
+
 def desc_habilitacao(tab, sg):
     return _T(tab).get("habilitacao", {}).get(str(sg or "").strip(), "")
 
@@ -60,11 +84,12 @@ def desc_leito(tab, tipo, cod):
 def desc_equipamento(tab, tipo, cod):
     k = _pad(tipo, 2) + _pad(cod, 2)
     t = _T(tab)
-    return _sem_prefixo(t.get("equipamento", {}).get(k) or t.get("tipo_equipamento", {}).get(k))
+    return _sem_prefixo(t.get("equipamento", {}).get(k) or t.get("tipo_equipamento", {}).get(k) or t.get("equipamento_2507", {}).get(k))
 
 
 def desc_servico(tab, serv, classe):
-    return _T(tab).get("servico_classificacao_n", {}).get(_pad(serv, 3) + _pad(classe, 3), "")
+    t, k = _T(tab), _pad(serv, 3) + _pad(classe, 3)
+    return t.get("servico_classificacao_n", {}).get(k, "") or t.get("servico_classificacao", {}).get(k, "")
 
 
 def mapa_instalacoes(tab):
@@ -248,7 +273,7 @@ def servicos(banco, c6, tab):
         con.close()
 
 
-def equipes(banco, c6):
+def equipes(banco, c6, tab=None):
     con = _abrir(banco)
     if con is None:
         return pend("base SQLite nao encontrada")
@@ -257,13 +282,13 @@ def equipes(banco, c6):
         if not comp:
             return pend("equipes: arquivos EP ainda nao convertidos na base")
         base = _cab(con, "ep", "CNES, arquivo EP (FTP DATASUS), agregado na base local", comp)
-        itens = [{"tipo_equipe": t, "equipes": n, "sem_data_de_desativacao": a} for t, n, a in con.execute(
+        itens = [{"tipo_equipe": t, "equipes": n, "sem_data_de_desativacao": a, **({"descricao": d} if (d := desc_equipe(tab, t)) else {})} for t, n, a in con.execute(
             "SELECT tipo_eqp, COUNT(DISTINCT idequipe), COUNT(DISTINCT CASE WHEN TRIM(dt_desat)='' THEN idequipe END) FROM ep "
             "WHERE codufmun=? AND competen=? GROUP BY tipo_eqp ORDER BY COUNT(DISTINCT idequipe) DESC", (c6, comp))]
         if not itens:
             return {**sem_registro("equipe cadastrada"), **base}
         return {**base, "total_equipes": sum(i["equipes"] for i in itens), "itens": itens,
-                "obs": "Tipo de equipe em codigo do CNES. Descricao do tipo depende da tabela auxiliar, nao carregada."}
+                "obs": "Tipo de equipe em codigo do CNES; a descricao vem da tabela auxiliar oficial, quando o codigo consta dela."}
     finally:
         con.close()
 

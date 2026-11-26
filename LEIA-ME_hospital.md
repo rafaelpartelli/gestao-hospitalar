@@ -227,3 +227,7 @@ Arquivo opcional `~/partelli/entrada/plano_acoes.csv` (variável `PLANO_ACOES`),
 ## Emendas por município no dossiê
 
 `secoes.recursos.emendas` vem de `<SALA>/recursos/ES.json` (gerado por `coletar_recursos.py` a partir do Radar de Recursos, partelli.pro/fundo, que lê os Painéis InvestSUS/FNS). Traz, do ano da proposta (`meta.anoEm`): número de propostas, proposto, empenhado, pago, percentual empenhado sobre proposto, percentual pago sobre empenhado e saldo a pagar. São percentuais de **execução**, não meta. Sem número de proposta nem autor. Status da fonte: Em teste (leitura direta do InvestSUS/FNS a partir do GitHub deu HTTP 403; a do notebook ainda não foi testada). Não depende da localidade MÚLTIPLO do Portal da Transparência. Arquivo ausente vira `[PREENCHER]`.
+
+## Descrição de equipes, regras contratuais e entidade filantrópica
+
+`coletar_cnes_tabelas.py` agora também extrai do TAB_CNES.zip: `CNV/tipoeqpC.cnv` e `DBF/EQUIPE.dbf` (tipos de equipe), `DBF/REGRAS.DBF` (regras contratuais), `CNV/ESTABFIL.CNV` (entidade filantrópica), `CNV/equipam2507.cnv` e `CNV/Equipam_grp.cnv` (equipamentos antigos e grupos). A busca do código tolera zeros à esquerda; sem correspondência, fica só o código (sem texto inventado). Para recarregar: `PARTELLI_DADOS=<sala-gestao>/dados python3 robo/coletar_cnes_tabelas.py --forcar` e depois `systemctl start partelli-super`.

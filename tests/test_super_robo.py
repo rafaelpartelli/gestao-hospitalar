@@ -331,6 +331,14 @@ class Descricoes(unittest.TestCase):
         self.assertEqual(S.desc_leito(self.TAB, "01", "3"), "Cirurgico · Cirurgia geral")
         self.assertEqual(S.desc_equipamento(self.TAB, "2", "5"), "Raio X")
         self.assertEqual(S.desc_servico(self.TAB, "121", "1"), "Servico exemplo")
+        tab2 = {"tabelas": {"equipe_dbf": {"70": "Equipe exemplo"}, "regras_dbf": {"0001": "Regra exemplo"}, "estabelecimento_filantropico": {"1": "Sim"},
+                            "equipamento_2507": {"0682": "Equip antigo"}, "servico_classificacao": {"160006": "Servico antigo"}}}
+        self.assertEqual(S.desc_equipe(tab2, "070"), "Equipe exemplo")          # zeros a esquerda diferentes
+        self.assertEqual(S.desc_regra(tab2, "1"), "Regra exemplo")
+        self.assertEqual(S.desc_filantropico(tab2, "01"), "Sim")
+        self.assertEqual(S.desc_equipamento(tab2, "6", "82"), "Equip antigo")
+        self.assertEqual(S.desc_servico(tab2, "160", "6"), "Servico antigo")
+        self.assertEqual((S.desc_equipe(None, "70"), S.desc_regra(tab2, "99"), S.desc_equipe(tab2, "")), ("", "", ""))
         self.assertEqual(S.mapa_instalacoes(self.TAB), {"01": "Centro cirurgico: Salas cirurgicas"})
         self.assertIsInstance(S.secao_tabelas(None), str)
         self.assertTrue(S.secao_tabelas(None).startswith("[PREENCHER"))
