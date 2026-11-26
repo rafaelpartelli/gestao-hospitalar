@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestão Hospitalar | Partelli</title>
+<meta name="description" content="Rede hospitalar, rejeição de AIH, habilitações, críticas e plano de avanço do faturamento SUS, com dados oficiais do DATASUS.">
+<link rel="stylesheet" href="css/hospital.css?v=3">
+<style>
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#f6f7f9;color:#1f2933}
+.topo{background:#0c326f;color:#fff}.topo div{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.topo a{color:#fff;text-decoration:none;font-weight:700}.topo nav a{font-weight:400;margin-left:16px;text-decoration:underline}
+main{max-width:1100px;margin:0 auto;padding:8px 16px 40px}
+.pular{position:absolute;left:-999px}.pular:focus{left:8px;top:8px;background:#fff;color:#000;padding:8px;z-index:10}
+footer{background:#fff;border-top:1px solid #d9dde3;font-size:.82rem;color:#4b5563}footer div{max-width:1100px;margin:0 auto;padding:18px 16px}
+#gestao-hospitalar .sub{color:#4b5563;max-width:80ch}
+#gestao-hospitalar .abas{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0}
+#gestao-hospitalar .aba{font:inherit;padding:10px 14px;border:1px solid #d9dde3;border-radius:8px 8px 0 0;background:#fff;cursor:pointer;min-height:44px}
+#gestao-hospitalar .aba[aria-selected="true"]{background:#1351b4;color:#fff;border-color:#1351b4}
+</style>
+</head>
+<body>
+<a class="pular" href="#gestao-hospitalar">Ir para o conteúdo</a>
+<header class="topo"><div><a href="/">Partelli</a><nav aria-label="Navegação"><a href="/">Início</a></nav></div></header>
+<main>
+<section id="gestao-hospitalar">
+<h2>Gestão Hospitalar</h2>
+<p class="sub">Perfil do diretor e do gestor da unidade: faturamento (SIH e SIA), remessas e prazos do DATASUS, CNES, críticas e plano de avanço. Cada número mostra a fonte, a competência e como foi calculado. Somente dados agregados e oficiais, sem dado de paciente ou de profissional.</p>
+<div class="filtros" role="group" aria-label="Escolha da unidade e da competência">
+  <div class="filtros-linha">
+    <label>Unidade hospitalar (CNES)
+      <select id="selHosp"><option value="">Nenhuma unidade configurada</option></select>
+    </label>
+    <label>Ou digite o CNES (7 dígitos)
+      <input id="inpCnes" inputmode="numeric" maxlength="7" placeholder="[PREENCHER: CNES]" autocomplete="off">
+    </label>
+    <label>Competência (MM/AAAA)
+      <select id="selComp"><option value="">Sem competência</option></select>
+    </label>
+    <label>Nova competência
+      <input id="inpComp" placeholder="MM/AAAA" maxlength="7" autocomplete="off">
+    </label>
+    <p id="selo" class="selo" role="status" aria-live="polite">Carregando...</p>
+  </div>
+</div>
+<div class="abas" role="tablist" aria-label="Seções do painel hospitalar" id="abas"></div>
+<div id="painel" class="bloco" role="tabpanel" tabindex="0"></div>
+<p class="nota-pequena">Fontes oficiais: SIH/SUS, SIA/SUS, CNES, SIGTAP e remessas do DATASUS (SIHD, SIASUS, CIHA e Transmissor). Lançamentos manuais ficam apenas neste navegador, até você exportar. Este painel apoia a análise técnica e não substitui os sistemas oficiais.</p>
+</section>
+</main>
+<footer><div>
+<p><strong>Rafael Partelli</strong>, Administrador e profissional liberal (CRA/ES 15721). Gestão de Serviços Públicos de Saúde, Informática em Saúde e Inteligência Artificial. Membro da SBIS. partelli.pro · 2026.</p>
+<p>Privacidade (LGPD): esta página usa somente dados agregados e oficiais, identificados por código CNES. Não informe CPF, CNS, nome de profissional, telefone, e-mail ou endereço. Lançamentos manuais ficam apenas neste navegador.</p>
+</div></footer>
+<script type="module" src="js/hospital.js?v=3"></script>
+</body>
+</html>

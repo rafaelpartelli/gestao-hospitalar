@@ -23,7 +23,7 @@ const guardar = {
   gravar(o) { try { localStorage.setItem(CHAVE_LOCAL, JSON.stringify(o)); } catch (e) { memoria.dados = o; } }
 };
 const SEMDESC = '[PREENCHER: descrição]';
-const S = {indice: null, cnes: '', comp: '', auto: null, local: guardar.ler(), aba: 'resumo', remessas: null, status: null, tab: null};
+const S = {indice: null, cnes: '', comp: '', auto: null, local: guardar.ler(), aba: location.hash === '#resumo' ? 'resumo' : 'rede', remessas: null, status: null, tab: null};
 
 const registro = () => ((S.local[S.cnes || '_'] ||= {})[S.comp || '_'] ||= {sih: {}, remessas: [], plano: [], meta: {}});
 const salvar = () => guardar.gravar(S.local);
