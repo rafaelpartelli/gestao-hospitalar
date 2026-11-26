@@ -73,7 +73,7 @@ TABELAS = {
     "st": ("STES",
            [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("tp_unid", "TP_UNID"), ("natureza", "NATUREZA"), ("nat_jur", "NAT_JUR"), ("esfera_a", "ESFERA_A"),
             ("tpgestao", "TPGESTAO"), ("vinc_sus", "VINC_SUS"), ("tp_prest", "TP_PREST"), ("turno_at", "TURNO_AT"), ("atividad", "ATIVIDAD"),
-            ("clientel", "CLIENTEL"), ("niv_hier", "NIV_HIER"), ("terceiro", "TERCEIRO"), ("retencao", "RETENCAO"), ("regsaude", "REGSAUDE"),
+            ("clientel", "CLIENTEL"), ("niv_hier", "NIV_HIER"), ("retencao", "RETENCAO"), ("regsaude", "REGSAUDE"),
             ("micr_reg", "MICR_REG"), ("urgemerg", "URGEMERG"), ("atendamb", "ATENDAMB"), ("centrcir", "CENTRCIR"), ("centrobs", "CENTROBS"),
             ("centrneo", "CENTRNEO"), ("atendhos", "ATENDHOS"), ("leithosp", "LEITHOSP"), ("av_acred", "AV_ACRED"), ("clasaval", "CLASAVAL"),
             ("av_pnass", "AV_PNASS"), ("competen", "COMPETEN")],
