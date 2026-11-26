@@ -35,6 +35,17 @@ def sinais(dt_inter, dt_saida, comp):
     return s
 
 
+def destino(aprovacoes, comp):
+    """Onde a AIH rejeitada na competencia comp foi aprovada: 'mesma', 'anterior', 'posterior' (a mais proxima) ou 'nunca' (nao esta no RD do mesmo CNES)."""
+    comps = sorted(x[0] for x in aprovacoes)
+    if not comps:
+        return "nunca"
+    if comp in comps:
+        return "mesma"
+    post = [c for c in comps if c > comp]
+    return "posterior" if post else "anterior"
+
+
 def validar(pasta=None, cnes_filtro=None):
     pasta = pasta or K.ORIGEM
     rd = {}
@@ -55,8 +66,9 @@ def validar(pasta=None, cnes_filtro=None):
             if cnes_filtro and c not in cnes_filtro:
                 continue
             comp = r["ANO"].strip() + r["MES"].strip()
-            v = acc.setdefault(r["CO_ERRO"].strip(), {"rejeitadas": 0, "casadas": 0, "saida_apos_competencia": [0, 0], "saida_6m_antes": [0, 0], "inter_apos_saida": [0, 0]})
+            v = acc.setdefault(r["CO_ERRO"].strip(), {"rejeitadas": 0, "casadas": 0, "saida_apos_competencia": [0, 0], "saida_6m_antes": [0, 0], "inter_apos_saida": [0, 0], "destino": {"mesma": 0, "anterior": 0, "posterior": 0, "nunca": 0}})
             v["rejeitadas"] += 1
+            v["destino"][destino(rd.get((c, r["AIH"].strip()), []), comp)] += 1
             post = sorted(x for x in rd.get((c, r["AIH"].strip()), []) if x[0] > comp)
             if not post:
                 continue
@@ -70,6 +82,11 @@ def validar(pasta=None, cnes_filtro=None):
 def main(argv):
     acc = validar(cnes_filtro=set(argv[1:]) or None)
     top = sorted(acc.items(), key=lambda kv: -kv[1]["rejeitadas"])[:20]
+    print("DESTINO da AIH rejeitada (mesmo CNES, numero igual no RD): % aprovada na MESMA competencia | % so em competencia ANTERIOR | % POSTERIOR | % NUNCA aprovada")
+    for cod, v in top:
+        d, t = v["destino"], v["rejeitadas"]
+        print(cod, t, *[f"{round(d[k] / t * 100, 1)}%" for k in ("mesma", "anterior", "posterior", "nunca")], sep=" | ")
+    print()
     print("codigo | rejeitadas | casadas c/ aprovacao posterior | % saida apos a competencia | % saida 6+ meses antes | % internacao apos saida")
     for cod, v in top:
         def p(k):

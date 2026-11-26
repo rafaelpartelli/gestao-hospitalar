@@ -429,3 +429,10 @@ class ValidarMotivos(unittest.TestCase):
         self.assertEqual(V.sinais("20260310", "20260305", "202603")["inter_apos_saida"], True)
         self.assertTrue(V.sinais("20250101", "20250105", "202603")["saida_6m_antes"])
         self.assertEqual(V.sinais("", "xx", "202602"), {})
+
+    def test_destino_da_aih_rejeitada(self):
+        import validar_motivos_rejeicao as V
+        self.assertEqual(V.destino([], "202603"), "nunca")
+        self.assertEqual(V.destino([("202603", "", "")], "202603"), "mesma")
+        self.assertEqual(V.destino([("202605", "", "")], "202603"), "posterior")
+        self.assertEqual(V.destino([("202601", "", "")], "202603"), "anterior")
