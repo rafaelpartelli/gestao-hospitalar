@@ -163,3 +163,12 @@ Aviso: a descricao dos codigos do CNES agora vive em `hospital/js/util.js` (o co
 - `hb`: uma linha por habilitação do estabelecimento na competência (código, vigência, portaria, leitos). O código (SGRUPHAB) aparece sem descrição até a tabela de habilitações do SIGTAP ser carregada: pendência registrada no dossiê.
 - `ciha`: quantidades, dias de permanência e óbitos. Não tem valor financeiro e não deve ser somado ao SIH sem conferir duplicidade por CNES.
 - Dossiê por município: `cnes.habilitacoes` (competência mais recente do HB) e `producao.ciha`.
+
+## Demais grupos do CNES (ST, LT, EQ, PF, SR, EP, IN, RC, EF)
+
+- Download automático (ES, 2026, últimos 3 meses de cada grupo cadastral) em `/dissemin/publicos/CNES/200508_/Dados/<grupo>`.
+- Conversão para tabelas agregadas `st`, `lt`, `eq`, `pf`, `sr`, `ep`, `inc`, `rc`, `ef`. Nunca gravados: CNPJ, CEP, conta bancária, contrato, alvará, CPF, CNS, nome e registro de profissional, município de residência do profissional, nomes de equipe e de área.
+- Profissionais (`pf`): contagem de vínculos e horas por CNES e CBO. Um profissional com mais de um vínculo conta mais de uma vez.
+- Dossiê por município, em `cnes`: `estabelecimentos`, `leitos_por_tipo`, `equipamentos_cadastro`, `profissionais_cadastro`, `servicos_especializados`, `equipes_cadastro`, `habilitacoes`, `incentivos`, `regras_contratuais`, `entidade_filantropica`.
+- Descrição de códigos: vem de `tabelas_cnes.json` (gerado por `robo/coletar_cnes_tabelas.py`, status Em teste). Sem esse arquivo o dossiê traz só o código e uma pendência única em `cnes.tabelas_codigos`. Variável opcional `TABELAS_CNES` aponta o caminho.
+- Cada seção usa a competência mais recente do próprio grupo e a informa.

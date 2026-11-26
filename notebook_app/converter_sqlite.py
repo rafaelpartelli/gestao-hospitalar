@@ -23,6 +23,10 @@ ORIGEM = os.environ.get("PAINEL_DOWNLOADS", os.path.join(BASE, "ftp_downloads"))
 BANCO = os.environ.get("PARTELLI_BANCO", os.path.join(BASE, "base", "producao_es.sqlite"))
 FLUSH = 50000
 
+HAB_DIMS = [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("sgruphab", "SGRUPHAB"), ("cmpt_ini", "CMPT_INI"), ("cmpt_fim", "CMPT_FIM"),
+            ("dtportar", "DTPORTAR"), ("portaria", "PORTARIA"), ("maportar", "MAPORTAR"), ("competen", "COMPETEN"), ("tp_unid", "TP_UNID"),
+            ("vinc_sus", "VINC_SUS"), ("esfera_a", "ESFERA_A"), ("nat_jur", "NAT_JUR")]
+
 # nome da tabela -> (prefixo do arquivo, dimensoes [(coluna, campo DBC)], medidas [(coluna, campo DBC, tipo)], medida de controle)
 # tipo: "v" valor em R$ (somado em centavos), "i" inteiro
 TABELAS = {
@@ -36,24 +40,53 @@ TABELAS = {
             ("tp_ato", "SP_TP_ATO"), ("cbo", "SP_PF_CBO"), ("complex", "SP_COMPLEX"), ("financ", "SP_FINANC")],
            [("qtd_ato", "SP_QTD_ATO", "i"), ("val_ato", "SP_VALATO", "v")], "val_ato"),
     # CNES, habilitacoes (HB): uma linha por habilitacao do estabelecimento na competencia. Sem CPF_CNPJ, CNPJ_MAN, COD_CEP.
-    "hb": ("HBES",
-           [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("sgruphab", "SGRUPHAB"), ("cmpt_ini", "CMPT_INI"), ("cmpt_fim", "CMPT_FIM"),
-            ("dtportar", "DTPORTAR"), ("portaria", "PORTARIA"), ("maportar", "MAPORTAR"), ("competen", "COMPETEN"), ("tp_unid", "TP_UNID"),
-            ("vinc_sus", "VINC_SUS"), ("esfera_a", "ESFERA_A"), ("nat_jur", "NAT_JUR")],
-           [("nuleitos", "NULEITOS", "i")], "nuleitos"),
+    "hb": ("HBES", HAB_DIMS, [("nuleitos", "NULEITOS", "i")], "nuleitos"),
     # CIHA: sem campo de valor. Sem CNPJ do hospital/consorcio, nascimento, sexo, idade, municipio de residencia, datas de atendimento e saida.
     "ciha": ("CIHA",
              [("cnes", "CNES"), ("ano", "ANO_CMPT"), ("mes", "MES_CMPT"), ("proc_rea", "PROC_REA"), ("diag_princ", "DIAG_PRINC"),
               ("espec", "ESPEC"), ("car_int", "CAR_INT"), ("natureza", "NATUREZA"), ("gestao", "GESTAO"), ("modalidade", "MODALIDADE"),
               ("munic_mov", "MUNIC_MOV")],
              [("qt_proc", "QT_PROC", "i"), ("dias_perm", "DIAS_PERM", "i"), ("uti_dias", "UTI_MES_TO", "i"), ("mortes", "MORTE", "i")], "qt_proc"),
+    # Demais grupos do CNES. Mesmos dados de cadastro de estabelecimento (sem CNPJ, CEP, conta bancaria, contrato, alvara).
+    "inc": ("INES", HAB_DIMS, [], "n_linhas"),
+    "rc": ("RCES", HAB_DIMS, [], "n_linhas"),
+    "ef": ("EFES", HAB_DIMS, [], "n_linhas"),
+    "lt": ("LTES",
+           [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("tp_leito", "TP_LEITO"), ("codleito", "CODLEITO"), ("competen", "COMPETEN")],
+           [("qt_exist", "QT_EXIST", "i"), ("qt_contr", "QT_CONTR", "i"), ("qt_sus", "QT_SUS", "i"), ("qt_nsus", "QT_NSUS", "i")], "qt_exist"),
+    "eq": ("EQES",
+           [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("tipequip", "TIPEQUIP"), ("codequip", "CODEQUIP"), ("ind_sus", "IND_SUS"),
+            ("ind_nsus", "IND_NSUS"), ("competen", "COMPETEN")],
+           [("qt_exist", "QT_EXIST", "i"), ("qt_uso", "QT_USO", "i")], "qt_exist"),
+    # Profissionais: so contagem de vinculos e horas por CNES e CBO. Nunca CPF, CNS, nome, registro no conselho, municipio de residencia.
+    "pf": ("PFES",
+           [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("cbo", "CBO"), ("vinculac", "VINCULAC"), ("vincul_c", "VINCUL_C"), ("vincul_a", "VINCUL_A"),
+            ("vincul_n", "VINCUL_N"), ("prof_sus", "PROF_SUS"), ("profnsus", "PROFNSUS"), ("competen", "COMPETEN")],
+           [("horaoutr", "HORAOUTR", "i"), ("horahosp", "HORAHOSP", "i"), ("hora_amb", "HORA_AMB", "i")], "hora_amb"),
+    "sr": ("SRES",
+           [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("serv_esp", "SERV_ESP"), ("class_sr", "CLASS_SR"), ("caracter", "CARACTER"),
+            ("amb_sus", "AMB_SUS"), ("amb_nsus", "AMB_NSUS"), ("hosp_sus", "HOSP_SUS"), ("hosp_nsus", "HOSP_NSUS"), ("cnesterc", "CNESTERC"),
+            ("competen", "COMPETEN")], [], "n_linhas"),
+    "ep": ("EPES",
+           [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("tipo_eqp", "TIPO_EQP"), ("idequipe", "IDEQUIPE"), ("dt_ativa", "DT_ATIVA"),
+            ("dt_desat", "DT_DESAT"), ("motdesat", "MOTDESAT"), ("competen", "COMPETEN")], [], "n_linhas"),
+    "st": ("STES",
+           [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("tp_unid", "TP_UNID"), ("natureza", "NATUREZA"), ("nat_jur", "NAT_JUR"), ("esfera_a", "ESFERA_A"),
+            ("tpgestao", "TPGESTAO"), ("vinc_sus", "VINC_SUS"), ("tp_prest", "TP_PREST"), ("turno_at", "TURNO_AT"), ("atividad", "ATIVIDAD"),
+            ("clientel", "CLIENTEL"), ("niv_hier", "NIV_HIER"), ("terceiro", "TERCEIRO"), ("retencao", "RETENCAO"), ("regsaude", "REGSAUDE"),
+            ("micr_reg", "MICR_REG"), ("urgemerg", "URGEMERG"), ("atendamb", "ATENDAMB"), ("centrcir", "CENTRCIR"), ("centrobs", "CENTROBS"),
+            ("centrneo", "CENTRNEO"), ("atendhos", "ATENDHOS"), ("leithosp", "LEITHOSP"), ("av_acred", "AV_ACRED"), ("clasaval", "CLASAVAL"),
+            ("av_pnass", "AV_PNASS"), ("competen", "COMPETEN")],
+           [("qtleitp1", "QTLEITP1", "i"), ("qtleitp2", "QTLEITP2", "i"), ("qtleitp3", "QTLEITP3", "i")] +
+           [(f"qtinst{n:02d}", f"QTINST{n:02d}", "i") for n in range(1, 38)], "qtleitp1"),
     "pa": ("PAES",
            [("cnes", "PA_CODUNI"), ("mvm", "PA_MVM"), ("cmp", "PA_CMP"), ("proc_id", "PA_PROC_ID"), ("cbo", "PA_CBOCOD"),
             ("tpfin", "PA_TPFIN"), ("subfin", "PA_SUBFIN"), ("nivcpl", "PA_NIVCPL"), ("ufmun", "PA_UFMUN")],
            [("qtd_pro", "PA_QTDPRO", "i"), ("qtd_apr", "PA_QTDAPR", "i"), ("val_pro", "PA_VALPRO", "v"), ("val_apr", "PA_VALAPR", "v")], "val_apr"),
 }
 NUNCA = set(H.PROIBIDOS) | {"CGC_HOSP", "CGC_CONSOR", "MUNIC_RES", "SEXO", "IDADE", "COD_IDADE", "RACA_COR", "DT_ATEND", "DT_SAIDA",
-                            "HOMONIMO", "NACIONAL", "CPF_AUT", "SP_NAIH", "SP_PF_DOC"}
+                            "HOMONIMO", "NACIONAL", "CPF_AUT", "SP_NAIH", "SP_PF_DOC", "CO_BANCO", "CO_AGENC", "C_CORREN", "CONTRATM",
+                            "CONTRATE", "ALVARA", "REGISTRO", "UFMUNRES", "CPFUNICO", "CBOUNICO", "NOME_EQP", "NOMEAREA", "DESCSEGM", "CPF_CNPJ"}
 for _t, (_p, _d, _m, _c) in TABELAS.items():   # trava: nenhuma coluna proibida na lista
     _usados = {c for _, c in _d} | {c for _, c, _ in _m}
     assert not (_usados & NUNCA), f"coluna proibida em {_t}: {_usados & NUNCA}"
@@ -90,9 +123,9 @@ def converter_arquivo(con, caminho, nome=None):
     tipos = [tp for _, _, tp in meds]
     cols_dim = [c for c, _ in dims]
     cols_med = [c for c, _, _ in meds]
-    sql = (f"INSERT INTO {tabela} (arquivo, {', '.join(cols_dim)}, n_linhas, {', '.join(cols_med)}) VALUES ({', '.join('?' * (1 + nd + 1 + nm))}) "
-           f"ON CONFLICT(arquivo, {', '.join(cols_dim)}) DO UPDATE SET n_linhas=n_linhas+excluded.n_linhas, " +
-           ", ".join(f"{c}={c}+excluded.{c}" for c in cols_med))
+    sql = (f"INSERT INTO {tabela} (arquivo, {', '.join(cols_dim)}, n_linhas{''.join(', ' + c for c in cols_med)}) VALUES ({', '.join('?' * (1 + nd + 1 + nm))}) "
+           f"ON CONFLICT(arquivo, {', '.join(cols_dim)}) DO UPDATE SET n_linhas=n_linhas+excluded.n_linhas" +
+           "".join(f", {c}={c}+excluded.{c}" for c in cols_med))
     with open(caminho, "rb") as a:
         dados = a.read()
     con.execute("BEGIN")
@@ -100,8 +133,9 @@ def converter_arquivo(con, caminho, nome=None):
         con.execute(f"DELETE FROM {tabela} WHERE arquivo=?", (nome,))
         con.execute("DELETE FROM arquivos WHERE nome=?", (nome,))
         acc, lidas, ctrl_cent = {}, 0, 0
-        idx_ctrl = cols_med.index(controle)
-        esc = 100 if tipos[idx_ctrl] == "v" else 1     # valor em centavos ou contagem inteira
+        por_linhas = controle == "n_linhas"          # tabelas sem medida: o controle e a contagem de linhas
+        idx_ctrl = None if por_linhas else cols_med.index(controle)
+        esc = 100 if (not por_linhas and tipos[idx_ctrl] == "v") else 1     # valor em centavos ou contagem inteira
 
         def descarregar():
             lote = []
@@ -124,6 +158,8 @@ def converter_arquivo(con, caminho, nome=None):
                 if i == idx_ctrl:
                     ctrl_cent += x
             lidas += 1
+            if por_linhas:
+                ctrl_cent += 1
             if len(acc) >= FLUSH:
                 descarregar()
         descarregar()
@@ -146,7 +182,7 @@ def converter_arquivo(con, caminho, nome=None):
 def pendentes(con, pasta=None):
     pasta = pasta or ORIGEM
     feitos = dict(con.execute("SELECT nome, tamanho FROM arquivos"))
-    rx = re.compile(r"^(RDES|SPES|PAES|HBES|CIHAES)\d{4}\.dbc$", re.I)
+    rx = re.compile(r"^(RDES|SPES|PAES|HBES|CIHAES|INES|RCES|EFES|LTES|EQES|PFES|SRES|EPES|STES)\d{4}\.dbc$", re.I)
     saida = []
     for n in sorted(os.listdir(pasta)) if os.path.isdir(pasta) else []:
         p = os.path.join(pasta, n)

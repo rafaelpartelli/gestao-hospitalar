@@ -129,5 +129,36 @@ class Conversao(unittest.TestCase):
             self.assertNotIn(sensivel, despejo)
 
 
+    def _dbc_da_tabela(self, tabela, extras, n=3):
+        _, dims, meds, _ = K.TABELAS[tabela]
+        campos = [(c, "C", 14) for _, c in dims] + [(c, "N", 6) for _, c, _ in meds] + [(c, "C", 14) for c in extras]
+        linhas = []
+        for k in range(n):
+            lin = [("2483998" if k < 2 else "2484943") if c == "CNES" else "320350" if c == "CODUFMUN" else "225125" if c == "CBO" else f"v{k % 2}" if tp == "C" else 2
+                   for c, tp, _ in [(c, "C", 0) for _, c in dims]]
+            lin += [3 for _ in meds] + ["SEGREDO-123456" for _ in extras]
+            linhas.append(lin)
+        return montar_dbc(campos, linhas)
+
+    def test_novos_grupos_cnes_convertem_e_nao_guardam_dado_pessoal(self):
+        casos = {"LTES2610": ("lt", []), "EQES2610": ("eq", []), "SRES2610": ("sr", ["CPF_CNPJ", "CNPJ_MAN"]), "EPES2610": ("ep", ["NOME_EQP", "NOMEAREA"]),
+                 "INES2610": ("inc", ["CPF_CNPJ", "COD_CEP"]), "RCES2610": ("rc", []), "EFES2610": ("ef", []),
+                 "STES2610": ("st", ["CPF_CNPJ", "CO_BANCO", "C_CORREN", "ALVARA"]),
+                 "PFES2610": ("pf", ["CPF_PROF", "NOMEPROF", "CNS_PROF", "REGISTRO", "UFMUNRES"])}
+        for nome, (tab, extras) in casos.items():
+            r = K.converter_arquivo(self.con, self.grava(nome + ".dbc", self._dbc_da_tabela(tab, extras)))
+            self.assertEqual((r["tabela"], r["linhas"]), (tab, 3), nome)
+        despejo = "\n".join(self.con.iterdump())
+        self.assertNotIn("SEGREDO-123456", despejo)
+        pf = self.con.execute("SELECT SUM(n_linhas), SUM(hora_amb) FROM pf").fetchone()
+        self.assertEqual(pf, (3, 9))
+        self.assertEqual(self.con.execute("SELECT SUM(n_linhas) FROM sr").fetchone()[0], 3)   # tabela sem medida: controle por linhas
+        self.assertEqual(len(K.pendentes(self.con)), 0)
+        for t in ("pf", "st", "sr", "ep"):
+            colunas = {c[1] for c in self.con.execute(f"PRAGMA table_info({t})")}
+            for proibida in ("cpf_prof", "nomeprof", "cns_prof", "registro", "ufmunres", "cpf_cnpj", "cnpj_man", "cod_cep", "c_corren", "alvara", "nome_eqp"):
+                self.assertNotIn(proibida, colunas)
+
+
 if __name__ == "__main__":
     unittest.main()

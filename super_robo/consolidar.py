@@ -17,6 +17,19 @@ SAIDA = os.environ.get("DOSSIE_SAIDA", os.path.join(BASE, "dossie"))
 CONFIG = os.environ.get("SUPER_MUNICIPIOS", os.path.join(AQUI, "municipios.json"))
 BRT = timezone(timedelta(hours=-3))
 TOP = 10
+sys.path.insert(0, AQUI)
+import cnes_secoes as S
+
+_TAB = []
+
+
+def tabelas_cnes():
+    """tabelas_cnes.json (descricao oficial de codigos do CNES), se existir. Sem ele o dossie traz so o codigo."""
+    if not _TAB:
+        cand = [os.environ.get("TABELAS_CNES", ""), os.path.join(BASE, "dados_repo", "tabelas_cnes.json"),
+                os.path.join(BASE, "dados_repo", "dados", "tabelas_cnes.json"), os.path.join(SALA, "tabelas_cnes.json")]
+        _TAB.append(S.carregar_tabelas([x for x in cand if x]))
+    return _TAB[0]
 
 
 def ler(caminho):
@@ -121,31 +134,6 @@ def SEM_REGISTRO(o_que):
             "obs": "Ausencia de registro nao e erro de leitura. Conferir se o municipio tem estabelecimento do tipo no CNES (leitos, rede)."}
 
 
-def habilitacoes(cod):
-    """Habilitacoes do CNES (arquivo HB) dos estabelecimentos do municipio, na competencia mais recente da base."""
-    c6 = cod[:6]
-    if not os.path.isfile(BANCO):
-        return pend("base SQLite nao encontrada; rode converter_sqlite.py")
-    con = sqlite3.connect(BANCO)
-    try:
-        tem = con.execute("SELECT name FROM sqlite_master WHERE name='hb'").fetchone()
-        comp = con.execute("SELECT MAX(competen) FROM hb").fetchone()[0] if tem else None
-        if not comp:
-            return pend("habilitacoes: arquivos HB ainda nao convertidos na base")
-        linhas = [{"cnes": a, "codigo_habilitacao": b, "vigencia_inicio": i, "vigencia_fim": f, "portaria": po, "data_portaria": dt, "leitos": nl}
-                  for a, b, i, f, po, dt, nl in con.execute(
-                      "SELECT cnes, sgruphab, cmpt_ini, cmpt_fim, portaria, dtportar, SUM(nuleitos) FROM hb WHERE codufmun=? AND competen=? "
-                      "GROUP BY cnes, sgruphab, cmpt_ini, cmpt_fim, portaria, dtportar ORDER BY cnes, sgruphab", (c6, comp))]
-        base = {"fonte": "CNES, arquivo HB (FTP DATASUS), agregado na base local", "competencia": f"{comp[4:]}/{comp[:4]}",
-                "convertido_em": con.execute("SELECT MAX(convertido_em) FROM arquivos WHERE tabela='hb'").fetchone()[0]}
-        if not linhas:
-            return {**base, **SEM_REGISTRO("habilitacao cadastrada")}
-        return {**base, "total": len(linhas), "estabelecimentos": sorted({r["cnes"] for r in linhas}), "itens": linhas,
-                "descricao_codigos": pend("descricao do codigo de habilitacao (tabela de habilitacoes do SIGTAP ainda nao carregada)")}
-    finally:
-        con.close()
-
-
 def ciha_mun(cod):
     """CIHA (internacao e atendimento hospitalar fora do SIH) do municipio: quantidades, sem valor financeiro."""
     c6 = cod[:6]
@@ -237,7 +225,17 @@ def montar(cfg, m, terr):
             "equipamentos": secao_mapa("equipamentos.json", ler(os.path.join(SALA, "equipamentos.json")), "mun", cod),
             "profissionais": secao_uf("profissionais", uf, cod),
             "rede": secao_uf("rede", uf, cod),
-            "habilitacoes": habilitacoes(cod)},
+            "tabelas_codigos": S.secao_tabelas(tabelas_cnes()),
+            "habilitacoes": S.lista_hab(BANCO, cod[:6], "hb", "HB", "habilitacao cadastrada", tabelas_cnes(), S.desc_habilitacao),
+            "leitos_por_tipo": S.leitos_por_tipo(BANCO, cod[:6], tabelas_cnes()),
+            "equipamentos_cadastro": S.equipamentos(BANCO, cod[:6], tabelas_cnes()),
+            "profissionais_cadastro": S.profissionais(BANCO, cod[:6]),
+            "servicos_especializados": S.servicos(BANCO, cod[:6], tabelas_cnes()),
+            "equipes_cadastro": S.equipes(BANCO, cod[:6]),
+            "incentivos": S.lista_hab(BANCO, cod[:6], "inc", "IN", "incentivo cadastrado", tabelas_cnes(), S.desc_incentivo),
+            "regras_contratuais": S.lista_hab(BANCO, cod[:6], "rc", "RC", "regra contratual cadastrada", tabelas_cnes()),
+            "entidade_filantropica": S.lista_hab(BANCO, cod[:6], "ef", "EF", "registro de entidade filantropica", tabelas_cnes()),
+            "estabelecimentos": S.estabelecimentos(BANCO, cod[:6], tabelas_cnes())},
         "territorio_saude": {
             "dengue": secao_dengue(uf, cod),
             "cobertura_planos_ans": secao_mapa("ans.json", ler(os.path.join(SALA, "ans.json")), "mun", cod)},
