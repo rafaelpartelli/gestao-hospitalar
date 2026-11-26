@@ -98,5 +98,36 @@ class Conversao(unittest.TestCase):
             self.assertFalse(usados & K.H.PROIBIDOS)
 
 
+    def test_hb_sem_documento_e_cep(self):
+        campos = [("CNES", "C", 7), ("CODUFMUN", "C", 6), ("CPF_CNPJ", "C", 14), ("CNPJ_MAN", "C", 14), ("COD_CEP", "C", 8), ("TP_UNID", "C", 2),
+                  ("VINC_SUS", "C", 1), ("ESFERA_A", "C", 2), ("SGRUPHAB", "C", 4), ("CMPT_INI", "C", 6), ("CMPT_FIM", "C", 6), ("DTPORTAR", "C", 10),
+                  ("PORTARIA", "C", 50), ("MAPORTAR", "C", 6), ("NULEITOS", "N", 3), ("COMPETEN", "C", 6), ("NAT_JUR", "C", 4)]
+        regs = [["2483998", "320350", "12345678000199", "99999999000100", "29900000", "05", "1", "03", "0601", "202001", "999999", "2020-01-10",
+                 "PORTARIA GM/MS 100", "202001", 10, "202610", "1023"],
+                ["2483998", "320350", "12345678000199", "99999999000100", "29900000", "05", "1", "03", "0602", "202101", "999999", "2021-02-10",
+                 "PORTARIA GM/MS 200", "202102", 5, "202610", "1023"]]
+        r = K.converter_arquivo(self.con, self.grava("HBES2610.dbc", montar_dbc(campos, regs)))
+        self.assertEqual((r["tabela"], r["linhas"], r["grupos"]), ("hb", 2, 2))
+        self.assertEqual(self.con.execute("SELECT SUM(nuleitos) FROM hb").fetchone()[0], 15)
+        despejo = "\n".join(self.con.iterdump())
+        for sensivel in ("12345678000199", "99999999000100", "29900000"):
+            self.assertNotIn(sensivel, despejo)
+
+    def test_ciha_sem_cnpj_nascimento_nem_residencia(self):
+        campos = [("ANO_CMPT", "C", 4), ("MES_CMPT", "C", 2), ("ESPEC", "C", 2), ("CGC_HOSP", "C", 14), ("MUNIC_RES", "C", 6), ("NASC", "C", 8),
+                  ("SEXO", "C", 1), ("UTI_MES_TO", "N", 3), ("PROC_REA", "C", 10), ("QT_PROC", "N", 6), ("DT_ATEND", "C", 8), ("DT_SAIDA", "C", 8),
+                  ("DIAG_PRINC", "C", 4), ("NATUREZA", "C", 2), ("GESTAO", "C", 1), ("MUNIC_MOV", "C", 6), ("IDADE", "C", 2), ("DIAS_PERM", "N", 5),
+                  ("MORTE", "N", 1), ("CAR_INT", "C", 2), ("CNES", "C", 7), ("CGC_CONSOR", "C", 14), ("MODALIDADE", "C", 2)]
+        lin = lambda p, q, d, m: ["2026", "09", "03", "11111111000111", "320530", "19800101", "F", 0, p, q, "20260901", "20260905", "O800", "50", "M",
+                                  "320350", "30", d, m, "01", "2483998", "22222222000122", "02"]
+        regs = [lin("0310010039", 1, 3, 0), lin("0310010039", 1, 4, 1), lin("0411010034", 2, 2, 0)]
+        r = K.converter_arquivo(self.con, self.grava("CIHAES2609.dbc", montar_dbc(campos, regs)))
+        self.assertEqual((r["tabela"], r["linhas"], r["grupos"]), ("ciha", 3, 2))
+        self.assertEqual(self.con.execute("SELECT n_linhas, qt_proc, dias_perm, mortes FROM ciha WHERE proc_rea='0310010039'").fetchone(), (2, 2, 7, 1))
+        despejo = "\n".join(self.con.iterdump())
+        for sensivel in ("11111111000111", "22222222000122", "19800101", "20260901"):
+            self.assertNotIn(sensivel, despejo)
+
+
 if __name__ == "__main__":
     unittest.main()

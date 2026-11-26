@@ -121,6 +121,55 @@ def SEM_REGISTRO(o_que):
             "obs": "Ausencia de registro nao e erro de leitura. Conferir se o municipio tem estabelecimento do tipo no CNES (leitos, rede)."}
 
 
+def habilitacoes(cod):
+    """Habilitacoes do CNES (arquivo HB) dos estabelecimentos do municipio, na competencia mais recente da base."""
+    c6 = cod[:6]
+    if not os.path.isfile(BANCO):
+        return pend("base SQLite nao encontrada; rode converter_sqlite.py")
+    con = sqlite3.connect(BANCO)
+    try:
+        tem = con.execute("SELECT name FROM sqlite_master WHERE name='hb'").fetchone()
+        comp = con.execute("SELECT MAX(competen) FROM hb").fetchone()[0] if tem else None
+        if not comp:
+            return pend("habilitacoes: arquivos HB ainda nao convertidos na base")
+        linhas = [{"cnes": a, "codigo_habilitacao": b, "vigencia_inicio": i, "vigencia_fim": f, "portaria": po, "data_portaria": dt, "leitos": nl}
+                  for a, b, i, f, po, dt, nl in con.execute(
+                      "SELECT cnes, sgruphab, cmpt_ini, cmpt_fim, portaria, dtportar, SUM(nuleitos) FROM hb WHERE codufmun=? AND competen=? "
+                      "GROUP BY cnes, sgruphab, cmpt_ini, cmpt_fim, portaria, dtportar ORDER BY cnes, sgruphab", (c6, comp))]
+        base = {"fonte": "CNES, arquivo HB (FTP DATASUS), agregado na base local", "competencia": f"{comp[4:]}/{comp[:4]}",
+                "convertido_em": con.execute("SELECT MAX(convertido_em) FROM arquivos WHERE tabela='hb'").fetchone()[0]}
+        if not linhas:
+            return {**base, **SEM_REGISTRO("habilitacao")}
+        return {**base, "total": len(linhas), "estabelecimentos": sorted({r["cnes"] for r in linhas}), "itens": linhas,
+                "descricao_codigos": pend("descricao do codigo de habilitacao (tabela de habilitacoes do SIGTAP ainda nao carregada)")}
+    finally:
+        con.close()
+
+
+def ciha_mun(cod):
+    """CIHA (internacao e atendimento hospitalar fora do SIH) do municipio: quantidades, sem valor financeiro."""
+    c6 = cod[:6]
+    if not os.path.isfile(BANCO):
+        return pend("base SQLite nao encontrada; rode converter_sqlite.py")
+    con = sqlite3.connect(BANCO)
+    try:
+        if not con.execute("SELECT name FROM sqlite_master WHERE name='ciha'").fetchone():
+            return pend("CIHA ainda nao convertido na base")
+        mes = [{"competencia": f"{m}/{a}", "registros": n, "quantidade_procedimentos": q, "dias_permanencia": d, "obitos": o}
+               for a, m, n, q, d, o in con.execute(
+                   "SELECT ano, mes, SUM(n_linhas), SUM(qt_proc), SUM(dias_perm), SUM(mortes) FROM ciha WHERE munic_mov=? GROUP BY ano, mes ORDER BY ano, mes", (c6,))]
+        base = {"fonte": "CIHA (FTP DATASUS), agregado na base local", "convertido_em": con.execute("SELECT MAX(convertido_em) FROM arquivos WHERE tabela='ciha'").fetchone()[0],
+                "obs": "CIHA nao traz valor financeiro. Complementa o SIH, nao somar com AIH sem conferir duplicidade por CNES."}
+        if not mes:
+            return {**SEM_REGISTRO("registro CIHA"), **base}
+        proc = [{"procedimento": p, "quantidade": q} for p, q in con.execute(
+            "SELECT proc_rea, SUM(qt_proc) FROM ciha WHERE munic_mov=? GROUP BY proc_rea ORDER BY SUM(qt_proc) DESC LIMIT ?", (c6, TOP))]
+        cn = [r[0] for r in con.execute("SELECT DISTINCT cnes FROM ciha WHERE munic_mov=? ORDER BY cnes", (c6,))]
+        return {**base, "cnes_com_ciha": cn, "por_mes": mes, "principais_procedimentos": proc}
+    finally:
+        con.close()
+
+
 def producao(con, cod):
     """SIH (RD, SP) e SIA (PA, somente aprovado) do municipio, a partir da base SQLite agregada."""
     c6 = cod[:6]
@@ -181,14 +230,14 @@ def montar(cfg, m, terr):
             "fns_investsus": secao_uf("recursos", uf, cod),
             "transferencias_uniao_saude": secao_mapa("transferencias.json", ler(os.path.join(SALA, "transferencias.json")), "mun", cod),
             "emendas": pend("emendas por municipio: fonte e chave do Portal da Transparencia a definir (localidade MULTIPLO limita o dado)")},
-        "producao": {"sih": sih, "sia_aprovado": sia},
+        "producao": {"sih": sih, "sia_aprovado": sia, "ciha": ciha_mun(cod)},
         "cnes": {
             "leitos": secao_mapa("leitos.json", ler(os.path.join(SALA, "leitos.json")), "mun", cod),
             "equipes": secao_mapa("equipes.json", ler(os.path.join(SALA, "equipes.json")), "mun", cod),
             "equipamentos": secao_mapa("equipamentos.json", ler(os.path.join(SALA, "equipamentos.json")), "mun", cod),
             "profissionais": secao_uf("profissionais", uf, cod),
             "rede": secao_uf("rede", uf, cod),
-            "habilitacoes": pend("habilitacoes por municipio (CNES, arquivo HB): coletor a criar")},
+            "habilitacoes": habilitacoes(cod)},
         "territorio_saude": {
             "dengue": secao_dengue(uf, cod),
             "cobertura_planos_ans": secao_mapa("ans.json", ler(os.path.join(SALA, "ans.json")), "mun", cod)},

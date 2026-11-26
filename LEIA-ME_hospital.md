@@ -155,3 +155,11 @@ Aviso: a descricao dos codigos do CNES agora vive em `hospital/js/util.js` (o co
 ### Super robo, camada 1: dossie por municipio (ES)
 
 `super_robo/consolidar.py` gera, para Itapemirim, Marataizes, Montanha, Nova Venecia e Sao Mateus (`super_robo/municipios.json`, codigos IBGE conferidos na base SICONFI), um JSON por municipio em `~/partelli/dossie/` com: populacao (IBGE/SICONFI), despesa, receita e pessoal (SICONFI), SIOPS, FNS/InvestSUS, transferencias da Uniao, leitos, equipes, equipamentos, profissionais e rede (CNES), dengue, cobertura de planos (ANS) e a producao SIH e SIA **aprovado** vinda da base SQLite. Cada secao traz fonte, data de coleta e defasagem em dias; sem dado vira `[PREENCHER: ...]` e entra em `pendencias`. Os dados nacionais vem de `SALA_DADOS` (padrao `~/partelli/sala-gestao/dados`). Timer diario as 05:30: `deploy/notebook/instalar_super_robo.sh`.
+
+## Habilitações (CNES HB) e CIHA
+
+- Download automático (ES, 2026): `HBES` (CNES, habilitações) e `CIHAES` (internação e atendimento hospitalar), junto de RD, SP e PA.
+- Conversão para a base SQLite, tabelas `hb` e `ciha`. Não são gravados: CNPJ do hospital e do consórcio, CNPJ/CPF do mantenedor, CEP, nascimento, sexo, idade, município de residência, datas de atendimento e saída.
+- `hb`: uma linha por habilitação do estabelecimento na competência (código, vigência, portaria, leitos). O código (SGRUPHAB) aparece sem descrição até a tabela de habilitações do SIGTAP ser carregada: pendência registrada no dossiê.
+- `ciha`: quantidades, dias de permanência e óbitos. Não tem valor financeiro e não deve ser somado ao SIH sem conferir duplicidade por CNES.
+- Dossiê por município: `cnes.habilitacoes` (competência mais recente do HB) e `producao.ciha`.

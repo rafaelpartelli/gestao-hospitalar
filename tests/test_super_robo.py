@@ -36,6 +36,12 @@ def prepara():
     con.execute("INSERT INTO sp (arquivo,cnes,ano,mes,proc_rea,ato_prof,tp_ato,cbo,complex,financ,n_linhas,qtd_ato,val_ato) VALUES ('SPES2601.dbc','2484943','2026','01','p','a','01','225125','02','04',1,9,999)")
     for mun, proc, qa, va in (("320350", "0301010072", 40, 400.0), ("320350", "0202010120", 10, 900.0), ("320390", "0301010072", 7, 7777.0)):
         con.execute("INSERT INTO pa (arquivo,cnes,mvm,cmp,proc_id,cbo,tpfin,subfin,nivcpl,ufmun,n_linhas,qtd_pro,qtd_apr,val_pro,val_apr) VALUES ('PAES2601.dbc','2483998','202601','202601',?,'225125','01','0100','0',?,1,?,?,?,?)", (proc, mun, qa + 5, qa, va + 50, va))
+    con.execute("INSERT INTO hb (arquivo,cnes,codufmun,sgruphab,cmpt_ini,cmpt_fim,dtportar,portaria,maportar,competen,tp_unid,vinc_sus,esfera_a,nat_jur,n_linhas,nuleitos) "
+                "VALUES ('HBES2610.dbc','2483998','320350','0601','202001','999999','2020-01-10','PORTARIA 100','202001','202610','05','1','03','1023',1,10)")
+    con.execute("INSERT INTO hb (arquivo,cnes,codufmun,sgruphab,cmpt_ini,cmpt_fim,dtportar,portaria,maportar,competen,tp_unid,vinc_sus,esfera_a,nat_jur,n_linhas,nuleitos) "
+                "VALUES ('HBES2610.dbc','2484943','320390','0601','202001','999999','2020-01-10','PORTARIA 101','202001','202610','05','1','03','1023',1,99)")
+    con.execute("INSERT INTO ciha (arquivo,cnes,ano,mes,proc_rea,diag_princ,espec,car_int,natureza,gestao,modalidade,munic_mov,n_linhas,qt_proc,dias_perm,uti_dias,mortes) "
+                "VALUES ('CIHAES2609.dbc','7777777','2026','09','0310010039','O80','03','01','50','M','02','320350',4,5,12,0,1)")
     con.execute("INSERT INTO arquivos VALUES ('RDES2601.dbc','rd',1,1,1,1,'2026-11-23T23:00:00')")
     con.commit()
     con.close()
@@ -75,8 +81,22 @@ class Dossie(unittest.TestCase):
 
     def test_pendencias_sem_inventar(self):
         self.assertTrue(any("emendas" in p for p in self.d["pendencias"]))
-        self.assertTrue(any("habilitacoes" in p for p in self.d["pendencias"]))
+        self.assertTrue(any("descricao_codigos" in p for p in self.d["pendencias"]))   # codigo sem descricao: nao inventar
         self.assertIsInstance(self.d["secoes"]["recursos"]["transferencias_uniao_saude"], str)   # arquivo ausente vira marcador
+
+    def test_habilitacoes_do_municipio(self):
+        h = self.d["secoes"]["cnes"]["habilitacoes"]
+        self.assertEqual((h["competencia"], h["total"], h["estabelecimentos"]), ("10/2026", 1, ["2483998"]))
+        self.assertEqual(h["itens"][0]["portaria"], "PORTARIA 100")
+        self.assertNotIn("PORTARIA 101", json.dumps(h))   # habilitacao de outro municipio nao vaza
+
+    def test_ciha_sem_valor_e_so_do_municipio(self):
+        c = self.d["secoes"]["producao"]["ciha"]
+        self.assertEqual(c["por_mes"][0], {"competencia": "09/2026", "registros": 4, "quantidade_procedimentos": 5, "dias_permanencia": 12, "obitos": 1})
+        self.assertEqual(c["cnes_com_ciha"], ["7777777"])
+        ita = json.load(open(os.path.join(C.SAIDA, f"{ITA}.json")))
+        self.assertTrue(ita["secoes"]["producao"]["ciha"]["situacao"].startswith("A confirmar"))
+        self.assertTrue(ita["secoes"]["cnes"]["habilitacoes"]["situacao"].startswith("A confirmar"))
 
     def test_municipio_sem_dado(self):
         ita = json.load(open(os.path.join(C.SAIDA, f"{ITA}.json")))

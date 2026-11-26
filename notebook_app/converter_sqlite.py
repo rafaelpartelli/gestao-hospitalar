@@ -35,14 +35,28 @@ TABELAS = {
            [("cnes", "SP_CNES"), ("ano", "SP_AA"), ("mes", "SP_MM"), ("proc_rea", "SP_PROCREA"), ("ato_prof", "SP_ATOPROF"),
             ("tp_ato", "SP_TP_ATO"), ("cbo", "SP_PF_CBO"), ("complex", "SP_COMPLEX"), ("financ", "SP_FINANC")],
            [("qtd_ato", "SP_QTD_ATO", "i"), ("val_ato", "SP_VALATO", "v")], "val_ato"),
+    # CNES, habilitacoes (HB): uma linha por habilitacao do estabelecimento na competencia. Sem CPF_CNPJ, CNPJ_MAN, COD_CEP.
+    "hb": ("HBES",
+           [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("sgruphab", "SGRUPHAB"), ("cmpt_ini", "CMPT_INI"), ("cmpt_fim", "CMPT_FIM"),
+            ("dtportar", "DTPORTAR"), ("portaria", "PORTARIA"), ("maportar", "MAPORTAR"), ("competen", "COMPETEN"), ("tp_unid", "TP_UNID"),
+            ("vinc_sus", "VINC_SUS"), ("esfera_a", "ESFERA_A"), ("nat_jur", "NAT_JUR")],
+           [("nuleitos", "NULEITOS", "i")], "nuleitos"),
+    # CIHA: sem campo de valor. Sem CNPJ do hospital/consorcio, nascimento, sexo, idade, municipio de residencia, datas de atendimento e saida.
+    "ciha": ("CIHA",
+             [("cnes", "CNES"), ("ano", "ANO_CMPT"), ("mes", "MES_CMPT"), ("proc_rea", "PROC_REA"), ("diag_princ", "DIAG_PRINC"),
+              ("espec", "ESPEC"), ("car_int", "CAR_INT"), ("natureza", "NATUREZA"), ("gestao", "GESTAO"), ("modalidade", "MODALIDADE"),
+              ("munic_mov", "MUNIC_MOV")],
+             [("qt_proc", "QT_PROC", "i"), ("dias_perm", "DIAS_PERM", "i"), ("uti_dias", "UTI_MES_TO", "i"), ("mortes", "MORTE", "i")], "qt_proc"),
     "pa": ("PAES",
            [("cnes", "PA_CODUNI"), ("mvm", "PA_MVM"), ("cmp", "PA_CMP"), ("proc_id", "PA_PROC_ID"), ("cbo", "PA_CBOCOD"),
             ("tpfin", "PA_TPFIN"), ("subfin", "PA_SUBFIN"), ("nivcpl", "PA_NIVCPL"), ("ufmun", "PA_UFMUN")],
            [("qtd_pro", "PA_QTDPRO", "i"), ("qtd_apr", "PA_QTDAPR", "i"), ("val_pro", "PA_VALPRO", "v"), ("val_apr", "PA_VALAPR", "v")], "val_apr"),
 }
+NUNCA = set(H.PROIBIDOS) | {"CGC_HOSP", "CGC_CONSOR", "MUNIC_RES", "SEXO", "IDADE", "COD_IDADE", "RACA_COR", "DT_ATEND", "DT_SAIDA",
+                            "HOMONIMO", "NACIONAL", "CPF_AUT", "SP_NAIH", "SP_PF_DOC"}
 for _t, (_p, _d, _m, _c) in TABELAS.items():   # trava: nenhuma coluna proibida na lista
     _usados = {c for _, c in _d} | {c for _, c, _ in _m}
-    assert not (_usados & H.PROIBIDOS), f"coluna proibida em {_t}: {_usados & H.PROIBIDOS}"
+    assert not (_usados & NUNCA), f"coluna proibida em {_t}: {_usados & NUNCA}"
 
 
 def abrir_banco(caminho=None):
@@ -87,6 +101,7 @@ def converter_arquivo(con, caminho, nome=None):
         con.execute("DELETE FROM arquivos WHERE nome=?", (nome,))
         acc, lidas, ctrl_cent = {}, 0, 0
         idx_ctrl = cols_med.index(controle)
+        esc = 100 if tipos[idx_ctrl] == "v" else 1     # valor em centavos ou contagem inteira
 
         def descarregar():
             lote = []
@@ -113,23 +128,25 @@ def converter_arquivo(con, caminho, nome=None):
                 descarregar()
         descarregar()
         n_db, soma = con.execute(f"SELECT COALESCE(SUM(n_linhas),0), COALESCE(SUM({controle}),0) FROM {tabela} WHERE arquivo=?", (nome,)).fetchone()
-        if n_db != lidas or abs(soma - ctrl_cent / 100) > 0.5:
-            raise RuntimeError(f"conferencia falhou em {nome}: linhas {lidas} x {n_db}, valor {ctrl_cent / 100:.2f} x {soma:.2f}")
-        con.execute(f"UPDATE {tabela} SET " + ", ".join(f"{c}=ROUND({c},2)" for c, _, tp in meds if tp == "v") + " WHERE arquivo=?", (nome,))
+        if n_db != lidas or abs(soma - ctrl_cent / esc) > 0.5:
+            raise RuntimeError(f"conferencia falhou em {nome}: linhas {lidas} x {n_db}, valor {ctrl_cent / esc:.2f} x {soma:.2f}")
+        vals = [c for c, _, tp in meds if tp == "v"]
+        if vals:   # HB e CIHA nao tem valor em R$
+            con.execute(f"UPDATE {tabela} SET " + ", ".join(f"{c}=ROUND({c},2)" for c in vals) + " WHERE arquivo=?", (nome,))
         grupos = con.execute(f"SELECT COUNT(*) FROM {tabela} WHERE arquivo=?", (nome,)).fetchone()[0]
         con.execute("INSERT INTO arquivos VALUES (?,?,?,?,?,?,?)",
-                    (nome, tabela, len(dados), lidas, grupos, round(ctrl_cent / 100, 2), datetime.now().isoformat(timespec="seconds")))
+                    (nome, tabela, len(dados), lidas, grupos, round(ctrl_cent / esc, 2), datetime.now().isoformat(timespec="seconds")))
         con.execute("COMMIT")
     except Exception:
         con.execute("ROLLBACK")
         raise
-    return {"nome": nome, "tabela": tabela, "linhas": lidas, "grupos": grupos, "valor": ctrl_cent / 100, "bytes": len(dados)}
+    return {"nome": nome, "tabela": tabela, "linhas": lidas, "grupos": grupos, "valor": ctrl_cent / esc, "bytes": len(dados)}
 
 
 def pendentes(con, pasta=None):
     pasta = pasta or ORIGEM
     feitos = dict(con.execute("SELECT nome, tamanho FROM arquivos"))
-    rx = re.compile(r"^(RDES|SPES|PAES)\d{4}\.dbc$", re.I)
+    rx = re.compile(r"^(RDES|SPES|PAES|HBES|CIHAES)\d{4}\.dbc$", re.I)
     saida = []
     for n in sorted(os.listdir(pasta)) if os.path.isdir(pasta) else []:
         p = os.path.join(pasta, n)
