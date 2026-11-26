@@ -21,6 +21,14 @@ class Plano(unittest.TestCase):
         for ruim in ("RDES2512.dbc", "RDSP2601.dbc", "SPSP2601.dbc", "ERES2601.dbc", "PASP2601a.dbc", "PAES2501a.dbc", "RDES2613.dbc", "PAES2600a.dbc", "RDES2601.dbc.bak"):
             self.assertNotIn(ruim, nomes)
 
+    def test_ultimos_meses_so_nos_grupos_cadastrais(self):
+        pasta = "/dissemin/publicos/CNES/200508_/Dados/LT"
+        lst = {pasta: [(f"LTES26{m:02d}.dbc", 5) for m in range(1, 11)]}
+        cfg = dict(CFG, fontes=[{"prefixo": "LT", "pasta": pasta, "sistema": "x", "ultimos": 3}])
+        self.assertEqual([i["nome"] for i in C.planejar(cfg, lst)], ["LTES2608.dbc", "LTES2609.dbc", "LTES2610.dbc"])
+        cfg2 = dict(CFG, fontes=[{"prefixo": "LT", "pasta": pasta, "sistema": "x"}])
+        self.assertEqual(len(C.planejar(cfg2, lst)), 10)
+
     def test_ano_configuravel(self):
         cfg = dict(CFG, ano=2025)
         self.assertEqual([i["nome"] for i in C.planejar(cfg, LIST) if i["nome"].startswith("PA")], ["PAES2501a.dbc"])

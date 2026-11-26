@@ -27,6 +27,60 @@
       "prefixo": "CIHA",
       "pasta": "/dissemin/publicos/CIHA/201101_/Dados",
       "sistema": "CIHA, internacao e atendimento hospitalar"
+    },
+    {
+      "prefixo": "ST",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/ST",
+      "sistema": "CNES, estabelecimentos",
+      "ultimos": 3
+    },
+    {
+      "prefixo": "LT",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/LT",
+      "sistema": "CNES, leitos por tipo",
+      "ultimos": 3
+    },
+    {
+      "prefixo": "EQ",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/EQ",
+      "sistema": "CNES, equipamentos",
+      "ultimos": 3
+    },
+    {
+      "prefixo": "PF",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/PF",
+      "sistema": "CNES, profissionais",
+      "ultimos": 3
+    },
+    {
+      "prefixo": "SR",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/SR",
+      "sistema": "CNES, servicos especializados e classificacao",
+      "ultimos": 3
+    },
+    {
+      "prefixo": "EP",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/EP",
+      "sistema": "CNES, equipes",
+      "ultimos": 3
+    },
+    {
+      "prefixo": "IN",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/IN",
+      "sistema": "CNES, incentivos",
+      "ultimos": 3
+    },
+    {
+      "prefixo": "RC",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/RC",
+      "sistema": "CNES, regras contratuais",
+      "ultimos": 3
+    },
+    {
+      "prefixo": "EF",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/EF",
+      "sistema": "CNES, entidade filantropica",
+      "ultimos": 3
     }
   ]
 }

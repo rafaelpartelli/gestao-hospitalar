@@ -34,9 +34,12 @@ def planejar(cfg, listagens):
     plano = []
     for fonte in cfg["fontes"]:
         rx = padrao(cfg, fonte["prefixo"])
-        for nome, tam in listagens.get(fonte["pasta"], []):
-            if rx.match(nome):
-                plano.append({"nome": nome, "pasta": fonte["pasta"], "tamanho": int(tam), "sistema": fonte["sistema"]})
+        itens = [{"nome": nome, "pasta": fonte["pasta"], "tamanho": int(tam), "sistema": fonte["sistema"]}
+                 for nome, tam in listagens.get(fonte["pasta"], []) if rx.match(nome)]
+        if fonte.get("ultimos"):   # grupos cadastrais (CNES): so as competencias mais recentes, para poupar trafego
+            itens.sort(key=lambda i: re.search(r"(\d{4})[a-z]?\.dbc$", i["nome"], re.I).group(1))
+            itens = itens[-int(fonte["ultimos"]):]
+        plano.extend(itens)
     plano.sort(key=lambda i: (i["nome"][-8:-4] if i["nome"][-5].isdigit() else i["nome"][-9:-5], i["nome"]))
     return plano
 
@@ -116,13 +119,19 @@ def main(argv):
     for pasta in sorted({f["pasta"] for f in cfg["fontes"]}):
         rxs = [padrao(cfg, f["prefixo"]) for f in cfg["fontes"] if f["pasta"] == pasta]
         print(f"[ftp-es] lendo {pasta}", flush=True)
-        listagens[pasta] = listar_pasta(pasta, lambda nome, rxs=rxs: any(r.match(nome) for r in rxs))
+        try:
+            listagens[pasta] = listar_pasta(pasta, lambda nome, rxs=rxs: any(r.match(nome) for r in rxs))
+        except Exception as e:   # pasta inexistente ou indisponivel nao derruba as demais
+            listagens[pasta] = []
+            print(f"[ftp-es] pasta indisponivel {pasta}: {str(e)[:100]}", flush=True)
     plano = planejar(cfg, listagens)
     pendentes = [i for i in plano if not ja_baixado(i)]
     estado = {"atualizado": datetime.now().isoformat(timespec="seconds"), "ano": cfg["ano"], "uf": cfg["uf"],
               "encontrados": len(plano), "pendentes": len(pendentes), "baixados_agora": 0, "erros": [], "bloqueado": None}
     print(f"[ftp-es] {len(plano)} arquivos de {cfg['uf']} {cfg['ano']} no FTP, {len(pendentes)} a baixar")
     if "--listar" in argv:
+        falta = sum(i["tamanho"] for i in plano if not ja_baixado(i))
+        print(f"[ftp-es] a baixar: {falta / 1e6:.1f} MB ({falta / 1e9 / max(float(H.ORCAMENTO_GB), 0.001) * 100:.1f}% do orcamento mensal de trafego)")
         for i in plano:
             print(("ok       " if ja_baixado(i) else "pendente ") + f"{i['nome']:18} {i['tamanho'] / 1e6:8.1f} MB ({i['tamanho']:>10,} bytes)  {i['sistema']}")
         return 0
