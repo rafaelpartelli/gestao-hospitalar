@@ -85,7 +85,7 @@ def secao_tabelas(tab):
     """Uma unica indicacao no dossie: de onde vem a descricao dos codigos, ou o que falta para te-la."""
     if not tab:
         return pend("tabelas oficiais de descricao de codigos do CNES (tabelas_cnes.json): rode robo/coletar_cnes_tabelas.py no notebook")
-    return {"fonte": tab.get("fonte", "CNES, tabelas auxiliares (FTP DATASUS)"), "gerado_em": tab.get("gerado_em")}
+    return {"fonte": tab.get("fonte", "CNES, tabelas auxiliares (FTP DATASUS)"), "gerado_em": tab.get("gerado_em") or tab.get("coletado_em")}
 
 
 def _fmt(comp):
