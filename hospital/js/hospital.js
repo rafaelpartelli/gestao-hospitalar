@@ -2,6 +2,7 @@
 import {el, limpar, carregar, tabela, inteiro, decimal} from './util.js';
 import * as C from './hospital_calc.js';
 import * as DC from './util.js';
+import {abaRede} from './rede.js';
 
 const BASE = new URL('../', import.meta.url).href;   // pasta hospital/ (dados e config), independente da pagina que embute o modulo
 const D = BASE + 'dados/';
@@ -39,7 +40,7 @@ function dadosComp() {
 
 // ---------------------------------------------------------------- interface geral
 const ABAS = [['resumo', 'Resumo executivo'], ['sih', 'Faturamento hospitalar (SIH)'], ['sia', 'Produção ambulatorial (SIA)'],
-  ['remessas', 'Remessas e prazos'], ['cnes', 'Estabelecimento (CNES)'], ['criticas', 'Críticas e plano'], ['fontes', 'Fontes e status']];
+  ['remessas', 'Remessas e prazos'], ['cnes', 'Estabelecimento (CNES)'], ['criticas', 'Críticas e plano'], ['rede', 'Rede e rejeições (ES)'], ['fontes', 'Fontes e status']];
 
 function montarAbas() {
   const nav = limpar(document.getElementById('abas'));
@@ -50,7 +51,7 @@ function desenhar() {
   montarAbas();
   const p = limpar(document.getElementById('painel'));
   p.setAttribute('aria-labelledby', 'aba-' + S.aba);
-  const f = {resumo: abaResumo, sih: abaSIH, sia: abaSIA, remessas: abaRemessas, cnes: abaCNES, criticas: abaCriticas, fontes: abaFontes}[S.aba];
+  const f = {resumo: abaResumo, sih: abaSIH, sia: abaSIA, remessas: abaRemessas, cnes: abaCNES, criticas: abaCriticas, rede: abaRede, fontes: abaFontes}[S.aba];
   p.append(f());
   const selo = document.getElementById('selo');
   selo.textContent = S.cnes ? `CNES ${S.cnes}${S.comp ? ', competência ' + S.comp : ', sem competência escolhida'}` : 'Informe o CNES de uma unidade autorizada para começar.';

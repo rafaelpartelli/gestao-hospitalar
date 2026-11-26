@@ -19,8 +19,8 @@ def montar(html, fragmento):
     if html.count('<section id="apis"') != 1:
         raise SystemExit("ERRO: secao #apis nao encontrada.")
     html = html.replace('<section id="apis"', "<!--GH:INICIO-->\n" + fragmento.strip() + "\n<!--GH:FIM-->\n<section id=\"apis\"", 1)
-    html = html.replace("</head>", '<link rel="stylesheet" href="hospital/css/hospital.css?v=2">\n</head>', 1)
-    html = html.replace("</body>", '<script type="module" src="hospital/js/hospital.js?v=2"></script>\n</body>', 1)
+    html = html.replace("</head>", '<link rel="stylesheet" href="hospital/css/hospital.css?v=3">\n</head>', 1)
+    html = html.replace("</body>", '<script type="module" src="hospital/js/hospital.js?v=3"></script>\n</body>', 1)
     return html
 
 if __name__ == "__main__":

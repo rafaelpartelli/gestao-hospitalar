@@ -258,3 +258,11 @@ O super robo grava `<BASE>/dossie/estado_ES_rejeicao_por_cnes.json` (a cada exec
 participacao no total e acumulada, codigo do municipio de movimento, recuperacao (aprovacao posterior, so competencias fechadas) e os 3 principais codigos de erro
 com `motivo_provavel` (a confirmar). So codigo CNES e codigo do municipio: nome de estabelecimento ou municipio so com autorizacao. Sem valor em R$ (o ER nao traz).
 Funcao: `hospitais.rejeicao_por_cnes(banco, topo=15)`.
+
+## Aba "Rede e rejeicoes (ES)" no site
+
+O super robo grava em `<BASE>/dados_repo` os arquivos `rede_indice.json`, `rede_<cod>.json` (secao de hospitais do municipio) e `rede_rejeicao_es.json`
+(rejeicao por CNES). A guarda de privacidade recusa arquivo com sequencia de 11 ou mais digitos. A aba (`hospital/js/rede.js`) mostra: rejeicao por CNES no ES,
+hospitais do municipio e, por CNES, producao SIH, rejeicao por codigo com motivo provavel (a confirmar), habilitacoes, criticas e plano de avanco. Perda e ESTIMATIVA.
+Publicacao: o `git push` em `main` com mudanca em `hospital/**` ou `deploy/**` dispara a publicacao do site na Oracle (workflow site.yml). Os dados seguem por
+`partelli-coleta publicar` (modo dados). Nada e publicado sem merge em `main`.
