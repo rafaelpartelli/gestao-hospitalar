@@ -22,7 +22,7 @@ def _gravar(pasta, nome, obj):
     return True
 
 
-SECOES_SITE = {"producao": "producao", "cnes": "cnes", "financeiro": "financeiro", "recursos": "recursos", "territorio": "territorio_saude"}
+SECOES_SITE = {"producao": "producao", "cnes": "cnes", "financeiro": "financeiro", "recursos": "recursos", "territorio": "territorio_saude", "estab": "estabelecimentos_producao"}
 
 
 def exportar(dossie, saida):

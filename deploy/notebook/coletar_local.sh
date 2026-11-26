@@ -117,9 +117,9 @@ export PARTELLI_DADOS="$DADOS" PARTELLI_CONFIG="$REPO/config" \
 
 case "$MODO" in
   diaria)  JOBS="coletar_hospital_sih coletar_hospital_sia status_fontes" ;;
-  semanal) JOBS="coletar_hospital_cnes coletar_cnes_tabelas sondar_remessas status_fontes" ;;
+  semanal) JOBS="coletar_hospital_cnes coletar_cnes_tabelas coletar_nomes_cnes sondar_remessas status_fontes" ;;
   fontes)  JOBS="$FONTES_LOCAIS status_fontes" ;;   # FONTES_LOCAIS (opcional, em coleta.env): coletores da Sala rodados aqui, ex.: "sala:coletar_recursos sala:coletar_emendas"
-  *)       JOBS="coletar_hospital_sih coletar_hospital_sia coletar_hospital_cnes coletar_cnes_tabelas sondar_remessas status_fontes" ;;
+  *)       JOBS="coletar_hospital_sih coletar_hospital_sia coletar_hospital_cnes coletar_cnes_tabelas coletar_nomes_cnes sondar_remessas status_fontes" ;;
 esac
 JOBS="${JOBS_OVERRIDE:-$JOBS}"   # uso em testes
 

@@ -22,6 +22,7 @@ sys.path.insert(0, AQUI)
 import cnes_secoes as S
 import hospitais as HOSP
 import exportar_site as SITE
+import estabelecimentos as ESTAB
 
 _TAB = []
 
@@ -254,6 +255,7 @@ def montar(cfg, m, terr):
             "transferencias_uniao_saude": secao_mapa("transferencias.json", ler(os.path.join(SALA, "transferencias.json")), "mun", cod),
             "emendas": secao_emendas(uf, cod)},
         "producao": {"sih": sih, "sia_aprovado": sia, "ciha": ciha_mun(cod)},
+        "estabelecimentos_producao": ESTAB.montar(BANCO, cod),
         "hospitais": HOSP.visao_hospitais(BANCO, cod[:6], tabelas_cnes()),
         "cnes": {
             "leitos": secao_mapa("leitos.json", ler(os.path.join(SALA, "leitos.json")), "mun", cod),
