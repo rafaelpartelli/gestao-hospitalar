@@ -38,9 +38,20 @@ async function preencher(api) {
     else { const u = S.unidades.find(x => x.cnes === e.cnes); if (u._auto && !u.desc && ehNome(nome[e.cnes])) u.desc = String(nome[e.cnes]).slice(0, 80); }
   });
 
+  // etapa 1: IDHM (Atlas, via IBGE Cidades), so se a API confirmar o nome do indicador
+  try {
+    if (!S.ident.idh) {
+      const B = 'https://servicodados.ibge.gov.br/api/v1/pesquisas/37/indicadores/30255';
+      const [meta, res] = await Promise.all([fetch(B).then(r => r.ok ? r.json() : null), fetch(B + '/resultados/' + cod).then(r => r.ok ? r.json() : null)]);
+      const nomeInd = meta && meta[0] && meta[0].indicador, serie = res && res[0] && res[0].res && res[0].res[0] && res[0].res[0].res, anos = serie ? Object.keys(serie) : [];
+      const ano = anos.sort().pop(), v = ano ? Number(String(serie[ano]).replace(',', '.')) : NaN;
+      if (/IDHM|Desenvolvimento Humano/i.test(String(nomeInd || '')) && isFinite(v) && v > 0 && v <= 1) { S.ident.idh = String(v); S.ident.idhFonte = 'IDHM ' + ano + ', Atlas do Desenvolvimento Humano (PNUD, Ipea, FJP), via IBGE Cidades'; }
+    }
+  } catch (e) { /* IDH fica para lançamento manual */ }
+
   // etapa 3 e 4: por estabelecimento
   ests.forEach(e => {
-    arr(e.sih).forEach(x => add('3.hosp', Object.assign({ unidade: e.cnes, comp: x.competencia, env: '', apr: num(x.aih), rej: '', np: '', vapr: num(x.valor_total), vrej: '', obs: 'SIH aprovado (RD). Enviadas, rejeitadas e não processadas: lançar do arquivo ER.' }, ctx, { fonte: 'SIH/SUS (DATASUS)' })));
+    arr(e.sih).forEach(x => add('3.hosp', Object.assign({ unidade: e.cnes, comp: x.competencia, env: typeof x.rejeitadas === 'number' ? (Number(x.aih) || 0) + x.rejeitadas : '', apr: num(x.aih), rej: typeof x.rejeitadas === 'number' ? x.rejeitadas : '', np: '', vapr: num(x.valor_total), vrej: '', obs: 'Aprovadas (RD) e rejeitadas (ER) do SIH; enviadas = aprovadas + rejeitadas. Não processadas e valor rejeitado: lançar (o ER não traz R$).' }, ctx, { fonte: 'SIH/SUS (DATASUS)' })));
     arr(e.sia && e.sia.por_mes).forEach(x => add('3.amb', Object.assign({ unidade: e.cnes, comp: x.mes_processamento, qtd: num(x.quantidade_aprovada), val: num(x.valor_aprovado), obs: 'Somente produção aprovada (quantidade aprovada).' }, ctx, { fonte: 'SIA/SUS (DATASUS)' })));
     arr(e.ciha).forEach(x => add('3.ciha', Object.assign({ unidade: e.cnes, comp: x.competencia, qtd: num(x.registros), obs: 'CIHA, sem valor financeiro.' }, ctx, { fonte: 'CIHA (DATASUS)' })));
     const p = e.profissionais;

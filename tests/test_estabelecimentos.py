@@ -14,6 +14,8 @@ class T(unittest.TestCase):
         CREATE TABLE rd(munic_mov,cnes,ano,mes,n_linhas,val_tot,mortes,dias_perm);
         CREATE TABLE pa(ufmun,cnes,mvm,qtd_apr,val_apr,proc_id);
         CREATE TABLE ciha(munic_mov,cnes,ano,mes,n_linhas,qt_proc,dias_perm,mortes);
+        CREATE TABLE er(cnes,ano,mes,n_linhas,co_erro);
+        INSERT INTO er VALUES('1111111','2026','01',2,'0123');
         CREATE TABLE pf(codufmun,cnes,competen,cbo,n_linhas,hora_amb,horahosp,horaoutr);
         INSERT INTO st VALUES('320390','1111111','202610','05','1'),('320390','2222222','202610','02','1');
         INSERT INTO rd VALUES('320390','1111111','2026','01',10,5000.5,1,30);
@@ -30,6 +32,7 @@ class T(unittest.TestCase):
             m = {x["cnes"]: x for x in r["estabelecimentos"]}
             self.assertEqual(set(m), {"1111111", "2222222"})
             self.assertEqual(m["1111111"]["sih"][0]["aih"], 10)
+            self.assertEqual(m["1111111"]["sih"][0]["rejeitadas"], 2)
             self.assertEqual(m["2222222"]["sia"]["por_mes"][0]["valor_aprovado"], 800.0)
             self.assertEqual(m["1111111"]["ciha"][0]["registros"], 4)
             self.assertEqual(m["1111111"]["profissionais"]["vinculos"], 3)

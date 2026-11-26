@@ -54,6 +54,14 @@ def montar(banco, cod):
                     p = ficha(c)["profissionais"]
                     if p and len(p["principais_cbo"]) < TOP_CBO:
                         p["principais_cbo"].append({"cbo": b, "vinculos": n, "horas_ambulatoriais": a, "horas_hospitalares": h, "horas_outras": o})
+        if _tem(con, "er") and e:
+            for c in list(e):  # ER nao tem municipio: filtra pelos CNES do municipio (por RD, SIA, CIHA, PF ou ST)
+                for ano, m, n in con.execute("SELECT ano, mes, SUM(n_linhas) FROM er WHERE cnes=? GROUP BY ano, mes", (c,)):
+                    comp = f"{m}/{ano}"
+                    x = next((y for y in e[c]["sih"] if y["competencia"] == comp), None)
+                    if x is None:
+                        x = {"competencia": comp, "aih": 0, "valor_total": 0, "obitos": 0, "dias_permanencia": 0}; e[c]["sih"].append(x)
+                    x["rejeitadas"] = n
         def peso(f):
             return sum(x["valor_total"] for x in f["sih"]) + sum(x["valor_aprovado"] for x in f["sia"]["por_mes"])
         lista = [f for f in e.values() if f["sih"] or f["sia"]["por_mes"] or f["ciha"] or f["profissionais"]]
