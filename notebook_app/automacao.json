@@ -3,8 +3,25 @@
   "ano": 2026,
   "uf": "ES",
   "fontes": [
-    {"prefixo": "RD", "pasta": "/dissemin/publicos/SIHSUS/200801_/Dados", "sistema": "SIH, AIH reduzida"},
-    {"prefixo": "SP", "pasta": "/dissemin/publicos/SIHSUS/200801_/Dados", "sistema": "SIH, servicos profissionais"},
-    {"prefixo": "PA", "pasta": "/dissemin/publicos/SIASUS/200801_/Dados", "sistema": "SIA, producao ambulatorial"}
+    {
+      "prefixo": "RD",
+      "pasta": "/dissemin/publicos/SIHSUS/200801_/Dados",
+      "sistema": "SIH, AIH reduzida"
+    },
+    {
+      "prefixo": "SP",
+      "pasta": "/dissemin/publicos/SIHSUS/200801_/Dados",
+      "sistema": "SIH, servicos profissionais"
+    },
+    {
+      "prefixo": "PA",
+      "pasta": "/dissemin/publicos/SIASUS/200801_/Dados",
+      "sistema": "SIA, producao ambulatorial"
+    },
+    {
+      "prefixo": "HB",
+      "pasta": "/dissemin/publicos/CNES/200508_/Dados/HB",
+      "sistema": "CNES, habilitacoes"
+    }
   ]
 }
