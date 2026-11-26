@@ -188,6 +188,46 @@ class Conversao(unittest.TestCase):
                 self.assertNotIn(proibida, colunas)
 
 
+@unittest.skipIf(montar_dbc is None, "defina ROBO_EXTRA para achar dbc_codificador")
+class ComplementoFederal(unittest.TestCase):
+    def setUp(self):
+        for n in os.listdir(K.ORIGEM):
+            os.remove(os.path.join(K.ORIGEM, n))
+
+    def test_rd_com_campos_federais_fecha_o_total(self):
+        con = K.abrir_banco(os.path.join(tempfile.mkdtemp(), "f.sqlite"))
+        campos = rd_campos() + [("VAL_SH_FED", "N", 13), ("VAL_SP_FED", "N", 13)]
+        regs = [rd_linha("1", "2550687", "0310010039", "100.00", "50.00", 3) + ["10.00", "5.00"]]
+        regs[0][14] = "165.00"                                   # VAL_TOT = SH + SP + SH_FED + SP_FED
+        r = K.converter_arquivo(con, self._grava("RDES2603.dbc", montar_dbc(campos, regs)))
+        self.assertEqual(r["linhas"], 1)
+        sh, sp, shf, spf, tot = con.execute("SELECT val_sh, val_sp, val_sh_fed, val_sp_fed, val_tot FROM rd").fetchone()
+        self.assertAlmostEqual(sh + sp + shf + spf, tot, 2)
+
+    def test_rd_antigo_sem_os_campos_vale_zero(self):
+        con = K.abrir_banco(os.path.join(tempfile.mkdtemp(), "a.sqlite"))
+        K.converter_arquivo(con, self._grava("RDES2601.dbc", montar_dbc(rd_campos(), [rd_linha("1", "2550687", "0310010039", "10.00", "5.00", 1)])))
+        self.assertEqual(con.execute("SELECT val_sh_fed, val_sp_fed FROM rd").fetchone(), (0, 0))
+
+    def test_base_antiga_ganha_colunas_e_marca_reconversao(self):
+        caminho = os.path.join(tempfile.mkdtemp(), "m.sqlite")
+        con = K.abrir_banco(caminho)
+        K.converter_arquivo(con, self._grava("RDES2601.dbc", montar_dbc(rd_campos(), [rd_linha("1", "2550687", "0310010039", "10.00", "5.00", 1)])))
+        con.execute("ALTER TABLE rd DROP COLUMN val_sh_fed")
+        con.execute("ALTER TABLE rd DROP COLUMN val_sp_fed")
+        con.commit()
+        con.close()
+        con = K.abrir_banco(caminho)           # migra sem apagar nada
+        self.assertIn("val_sh_fed", [r[1] for r in con.execute("PRAGMA table_info(rd)")])
+        self.assertEqual(con.execute("SELECT COUNT(*) FROM rd").fetchone()[0], 1)
+        self.assertEqual([os.path.basename(x) for x in K.pendentes(con)], ["RDES2601.dbc"])
+
+    def _grava(self, nome, bruto):
+        with open(os.path.join(K.ORIGEM, nome), "wb") as a:
+            a.write(bruto)
+        return os.path.join(K.ORIGEM, nome)
+
+
 class MudancaDeLayout(unittest.TestCase):
     def test_tabela_vazia_com_layout_antigo_e_recriada_e_com_dados_para(self):
         import sqlite3 as sq

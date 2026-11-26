@@ -29,9 +29,9 @@ def prepara():
     grava("siops_resumo.json", {"fonte": "SIOPS RREO Anexo 12"})
     grava("leitos.json", {"gerado_em": agora, "fonte": "CNES", "competencia": "202609", "campos": ["EST", "SUS"], "mun": {MONT[:6]: [1, 35]}})
     con = K.abrir_banco(C.BANCO)
-    cols_rd = "(arquivo,cnes,ano,mes,proc_rea,diag_princ,espec,car_int,complex,financ,munic_mov,n_linhas,val_sh,val_sp,val_tot,dias_perm,qt_diarias,uti_dias,mortes)"
+    cols_rd = "(arquivo,cnes,ano,mes,proc_rea,diag_princ,espec,car_int,complex,financ,munic_mov,n_linhas,val_sh,val_sp,val_tot,dias_perm,qt_diarias,uti_dias,mortes,val_sh_fed,val_sp_fed)"
     for cnes, mun, proc, n, tot in (("2483998", "320350", "0310010039", 2, 300.0), ("2483998", "320350", "0411010034", 1, 700.0), ("2484943", "320390", "0310010039", 5, 9999.0)):
-        con.execute(f"INSERT INTO rd {cols_rd} VALUES ('RDES2601.dbc',?,'2026','01',?,'O80','03','01','02','04',?,?,?,?,?,6,0,0,1)", (cnes, proc, mun, n, tot * .6, tot * .4, tot))
+        con.execute(f"INSERT INTO rd {cols_rd} VALUES ('RDES2601.dbc',?,'2026','01',?,'O80','03','01','02','04',?,?,?,?,?,6,0,0,1,0,0)", (cnes, proc, mun, n, tot * .6, tot * .4, tot))
     con.execute("INSERT INTO sp (arquivo,cnes,ano,mes,proc_rea,ato_prof,tp_ato,cbo,complex,financ,n_linhas,qtd_ato,val_ato) VALUES ('SPES2601.dbc','2483998','2026','01','p','a','01','225125','02','04',1,3,50.5)")
     con.execute("INSERT INTO sp (arquivo,cnes,ano,mes,proc_rea,ato_prof,tp_ato,cbo,complex,financ,n_linhas,qtd_ato,val_ato) VALUES ('SPES2601.dbc','2484943','2026','01','p','a','01','225125','02','04',1,9,999)")
     for mun, proc, qa, va in (("320350", "0301010072", 40, 400.0), ("320350", "0202010120", 10, 900.0), ("320390", "0301010072", 7, 7777.0)):
@@ -217,6 +217,11 @@ class PlanoDeAvanco(unittest.TestCase):
         self.assertIn("ESTIMATIVA", primeiro["obs_perda"])
         self.assertIsNone(primeiro["ganho_estimado_rs"])                          # ganho e lancado pelo gestor
         self.assertTrue(plano["pendencia_ganho"].startswith("[PREENCHER"))
+        # C02: com os complementos federais o total fecha e nao ha alerta; sem eles, ha
+        fecha = [{"competencia": "03/2026", "valor_total": 165.0, "sh": 100.0, "sp": 50.0, "sh_fed": 10.0, "sp_fed": 5.0}]
+        self.assertFalse([k for k in H._criticas("9", {"leitos": {}}, fecha, None) if k["codigo"].startswith("C02")])
+        fecha[0]["sh_fed"] = 0.0
+        self.assertTrue([k for k in H._criticas("9", {"leitos": {}}, fecha, None) if k["codigo"].startswith("C02")])
         self.assertEqual(H._plano([], None, None), {"itens": [], "total": 0, "pendencia_ganho": None})
         self.assertEqual([k for k in H._criticas("9", {"leitos": {"existentes": 20}, "estabelecimento": {"leitos_p1_p2_p3": [20, 0, 0]}}, [], None, {"rejeitadas_fechadas": 5, "por_codigo_erro": [{"codigo_erro": "Z", "rejeitadas": 5, "recuperadas": 5, "nao_recuperadas": 0, "pct_recuperadas": 100.0}]})], [])
 

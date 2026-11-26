@@ -68,9 +68,10 @@ def _cadastro(con, cnes):
 
 
 def _producao(con, cnes):
-    sih = [{"competencia": f"{m}/{a}", "aih": n, "valor_total": round(t, 2), "sh": round(sh, 2), "sp": round(sp, 2), "dias_permanencia": d, "obitos": mo, "dias_uti": u}
-           for a, m, n, t, sh, sp, d, mo, u in con.execute(
-               "SELECT ano, mes, SUM(n_linhas), SUM(val_tot), SUM(val_sh), SUM(val_sp), SUM(dias_perm), SUM(mortes), SUM(uti_dias) FROM rd WHERE cnes=? GROUP BY ano, mes ORDER BY ano, mes", (cnes,))] if _tem(con, "rd") else []
+    sih = [{"competencia": f"{m}/{a}", "aih": n, "valor_total": round(t, 2), "sh": round(sh, 2), "sp": round(sp, 2), "sh_fed": round(shf, 2), "sp_fed": round(spf, 2),
+            "dias_permanencia": d, "obitos": mo, "dias_uti": u}
+           for a, m, n, t, sh, sp, shf, spf, d, mo, u in con.execute(
+               "SELECT ano, mes, SUM(n_linhas), SUM(val_tot), SUM(val_sh), SUM(val_sp), SUM(val_sh_fed), SUM(val_sp_fed), SUM(dias_perm), SUM(mortes), SUM(uti_dias) FROM rd WHERE cnes=? GROUP BY ano, mes ORDER BY ano, mes", (cnes,))] if _tem(con, "rd") else []
     sia = [{"mes_processamento": f"{m[4:]}/{m[:4]}", "quantidade_aprovada": q, "valor_aprovado": round(v, 2)} for m, q, v in con.execute(
         "SELECT mvm, SUM(qtd_apr), SUM(val_apr) FROM pa WHERE cnes=? GROUP BY mvm ORDER BY mvm", (cnes,))] if _tem(con, "pa") else []
     ciha = [{"competencia": f"{m}/{a}", "registros": n, "quantidade_procedimentos": q} for a, m, n, q in con.execute(
@@ -182,8 +183,8 @@ def _criticas(cnes, cad, sih, ind, rec=None):
         add("C01", "CNES com AIH aprovadas e sem leito existente no cadastro (arquivo LT).", "Alta", "CNES",
             "Conferir o cadastro de leitos do estabelecimento no CNES e atualizar, se divergente.")
     for x in sih:
-        if abs(x["sh"] + x["sp"] - x["valor_total"]) > 0.5:
-            add("C02", f"SH mais SP diferente do valor total em {x['competencia']}.", "Alta", "AIH",
+        if abs(x["sh"] + x["sp"] + x.get("sh_fed", 0) + x.get("sp_fed", 0) - x["valor_total"]) > 0.5:
+            add("C02", f"SH + SP (com os complementos federais SH_FED e SP_FED, quando existem) diferente do valor total em {x['competencia']}.", "Alta", "AIH",
                 "Reconferir os valores da competencia no SIH antes de usar o total.")
             break
     if len(sih) >= 2:

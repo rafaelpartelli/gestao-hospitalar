@@ -27,6 +27,9 @@ HAB_DIMS = [("cnes", "CNES"), ("codufmun", "CODUFMUN"), ("sgruphab", "SGRUPHAB")
             ("dtportar", "DTPORTAR"), ("portaria", "PORTARIA"), ("maportar", "MAPORTAR"), ("competen", "COMPETEN"), ("tp_unid", "TP_UNID"),
             ("vinc_sus", "VINC_SUS"), ("esfera_a", "ESFERA_A"), ("nat_jur", "NAT_JUR")]
 
+# campos que arquivos de competencias antigas nao trazem: ausentes, valem zero
+OPCIONAIS = {"VAL_SH_FED", "VAL_SP_FED"}
+
 # nome da tabela -> (prefixo do arquivo, dimensoes [(coluna, campo DBC)], medidas [(coluna, campo DBC, tipo)], medida de controle)
 # tipo: "v" valor em R$ (somado em centavos), "i" inteiro
 TABELAS = {
@@ -34,7 +37,9 @@ TABELAS = {
            [("cnes", "CNES"), ("ano", "ANO_CMPT"), ("mes", "MES_CMPT"), ("proc_rea", "PROC_REA"), ("diag_princ", "DIAG_PRINC"),
             ("espec", "ESPEC"), ("car_int", "CAR_INT"), ("complex", "COMPLEX"), ("financ", "FINANC"), ("munic_mov", "MUNIC_MOV")],
            [("val_sh", "VAL_SH", "v"), ("val_sp", "VAL_SP", "v"), ("val_tot", "VAL_TOT", "v"), ("dias_perm", "DIAS_PERM", "i"),
-            ("qt_diarias", "QT_DIARIAS", "i"), ("uti_dias", "UTI_MES_TO", "i"), ("mortes", "MORTE", "i")], "val_tot"),
+            ("qt_diarias", "QT_DIARIAS", "i"), ("uti_dias", "UTI_MES_TO", "i"), ("mortes", "MORTE", "i"),
+            # a partir de 03/2026 o RD traz o complemento federal em campos proprios: VAL_TOT = SH + SP + SH_FED + SP_FED (conferido no CNES 2550687)
+            ("val_sh_fed", "VAL_SH_FED", "v"), ("val_sp_fed", "VAL_SP_FED", "v")], "val_tot"),
     "sp": ("SPES",
            [("cnes", "SP_CNES"), ("ano", "SP_AA"), ("mes", "SP_MM"), ("proc_rea", "SP_PROCREA"), ("ato_prof", "SP_ATOPROF"),
             ("tp_ato", "SP_TP_ATO"), ("cbo", "SP_PF_CBO"), ("complex", "SP_COMPLEX"), ("financ", "SP_FINANC")],
@@ -107,7 +112,17 @@ def abrir_banco(caminho=None):
         pk = ", ".join(["arquivo"] + [c for c, _ in dims])
         esperadas = ["arquivo"] + [c for c, _ in dims] + ["n_linhas"] + [c for c, _, _ in meds]
         atuais = [r[1] for r in con.execute(f"PRAGMA table_info({t})")]
-        if atuais and atuais != esperadas:      # layout mudou desde a criacao da tabela
+        if atuais and atuais != esperadas and esperadas[:len(atuais)] == atuais and all(c in {m for m, _, _ in meds} for c in esperadas[len(atuais):]):
+            # so surgiram medidas novas no fim: acrescenta as colunas (zero) e marca os arquivos da tabela para reconversao
+            for c in esperadas[len(atuais):]:
+                tp = next(tp for m, _, tp in meds if m == c)
+                con.execute(f"ALTER TABLE {t} ADD COLUMN {c} {'REAL' if tp == 'v' else 'INTEGER'} NOT NULL DEFAULT 0")
+            for (nome,) in con.execute("SELECT nome FROM arquivos WHERE tabela=?", (t,)).fetchall():
+                if os.path.isfile(os.path.join(ORIGEM, nome)):
+                    con.execute("UPDATE arquivos SET tamanho=-1 WHERE nome=?", (nome,))
+            con.commit()
+            print(f"[conversao] tabela {t}: colunas novas {esperadas[len(atuais):]}; arquivos brutos serao reconvertidos")
+        elif atuais and atuais != esperadas:      # layout mudou desde a criacao da tabela
             if con.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]:
                 raise RuntimeError(f"tabela {t} tem dados com layout antigo; apague os arquivos dela de 'arquivos' e a tabela, depois reconverta")
             con.execute(f"DROP TABLE {t}")
@@ -128,6 +143,10 @@ def converter_arquivo(con, caminho, nome=None):
     _, dims, meds, controle = TABELAS[tabela]
     campos = [c for _, c in dims] + [c for _, c, _ in meds]
     nd, nm = len(dims), len(meds)
+    import dbc as _dbc
+    presentes = {c[0] for c in _dbc.cabecalho(open(caminho, "rb").read(65536))["campos"]}
+    ausentes = {c for c in campos if c in OPCIONAIS and c not in presentes}
+    pedir = [c for c in campos if c not in ausentes]
     tipos = [tp for _, _, tp in meds]
     cols_dim = [c for c, _ in dims]
     cols_med = [c for c, _, _ in meds]
@@ -153,14 +172,14 @@ def converter_arquivo(con, caminho, nome=None):
             con.executemany(sql, lote)
             acc.clear()
 
-        for r in dbc.registros(dados, campos):
+        for r in dbc.registros(dados, pedir):
             chave = tuple(r[c] for c in campos[:nd])
             v = acc.get(chave)
             if v is None:
                 v = acc[chave] = [0] + [0] * nm
             v[0] += 1
             for i in range(nm):
-                val = r[campos[nd + i]]
+                val = r.get(campos[nd + i], "0")
                 x = round(numero_br(val) * 100) if tipos[i] == "v" else _inteiro(val)
                 v[1 + i] += x
                 if i == idx_ctrl:

@@ -203,3 +203,10 @@ Cada hospital do dossiê (`hospitais.itens[].criticas` e `plano_avanco`) recebe,
 
 O `plano_avanco` lista ação, crítica vinculada, prioridade, ganho estimado, perda por rejeição, prazo, responsável e status.
 Regras: o **ganho estimado em R$ não é calculado**, fica `[PREENCHER]` para o gestor lançar; a **perda por rejeição é ESTIMATIVA** (AIH não recuperadas x média por AIH aprovada do hospital), pois o arquivo ER não traz valor. A AIH é lida apenas em memória, nada identificável é gravado.
+
+## Complemento federal no RD (a partir de 03/2026)
+
+Conferido no CNES 2550687 (competências 03 a 09/2026): `VAL_TOT = VAL_SH + VAL_SP + VAL_SH_FED + VAL_SP_FED`, diferença zero nas sete competências. Em 01 e 02/2026 esses campos não existem no arquivo e valem zero.
+O conversor passou a ler `VAL_SH_FED` e `VAL_SP_FED` (campos opcionais). Em bases já criadas, `abrir_banco` acrescenta as colunas (zero) e marca os arquivos brutos existentes para reconversão; a próxima execução do `converter_sqlite.py` (ou do timer) recalcula o RD. Arquivos brutos já removidos mantêm zero nesses campos.
+A crítica C02 agora compara SH + SP + SH_FED + SP_FED com o valor total. O significado administrativo dos campos federais (nome sugere complemento federal) deve ser confirmado na documentação do DATASUS.
+Pendência: a seção municipal do dossiê (`consolidar.py`) e `conferir_hospital.py` ainda mostram SH e SP sem os campos federais.
