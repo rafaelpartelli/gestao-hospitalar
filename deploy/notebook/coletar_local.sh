@@ -149,8 +149,10 @@ if [ -n "$VM_HOST" ]; then
   enviar_oracle dados && log "dados enviados para a Oracle" || { log "ERRO no envio para a Oracle"; FALHAS=$((FALHAS+1)); }
 else log "envio para a Oracle desligado (VM_HOST vazio)"; fi
 
-if [ -n "$GCS_BUCKET" ]; then
+if [ -n "$GCS_BUCKET" ] && [ -s "$GCS_KEY" ]; then
   enviar_gcs && log "dados enviados ao Google Cloud ($GCS_BUCKET)" || { log "ERRO no envio ao Google Cloud"; FALHAS=$((FALHAS+1)); }
+elif [ -n "$GCS_BUCKET" ]; then
+  log "sem chave de conta de servico: o envio ao bucket e feito pela acao do GitHub (Publicar dados), sem chave"
 fi
 
 log "fim, robos com erro: $FALHAS"
