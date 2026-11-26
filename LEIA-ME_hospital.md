@@ -172,3 +172,10 @@ Aviso: a descricao dos codigos do CNES agora vive em `hospital/js/util.js` (o co
 - Dossiê por município, em `cnes`: `estabelecimentos`, `leitos_por_tipo`, `equipamentos_cadastro`, `profissionais_cadastro`, `servicos_especializados`, `equipes_cadastro`, `habilitacoes`, `incentivos`, `regras_contratuais`, `entidade_filantropica`.
 - Descrição de códigos: vem de `tabelas_cnes.json` (gerado por `robo/coletar_cnes_tabelas.py`, status Em teste). Sem esse arquivo o dossiê traz só o código e uma pendência única em `cnes.tabelas_codigos`. Variável opcional `TABELAS_CNES` aponta o caminho.
 - Cada seção usa a competência mais recente do próprio grupo e a informa.
+
+## Visão por hospital (dossiê, seção `hospitais`)
+
+- Hospitais do município: CNES com AIH (MUNIC_MOV), com CIHA ou com leito cadastrado no ST.
+- Por hospital: cadastro (estabelecimento, leitos, equipamentos, profissionais, habilitações, incentivos, serviços), produção (SIH por mês, SIA aprovado, CIHA), indicadores e críticas.
+- Indicadores: média por AIH, permanência média, mortalidade hospitalar, AIH por leito SUS por mês e ocupação estimada. A ocupação é estimativa (dias de permanência das AIH aprovadas contra leitos SUS do cadastro) e não substitui o censo hospitalar.
+- Críticas automáticas: C01 AIH sem leito existente no cadastro; C02 SH mais SP diferente do total; C03 competência sem produção entre meses com produção; C04 AIH sem habilitação registrada; C05 ocupação estimada acima de 100%. Responsável e prazo ficam "A definir pelo gestor".

@@ -19,6 +19,7 @@ BRT = timezone(timedelta(hours=-3))
 TOP = 10
 sys.path.insert(0, AQUI)
 import cnes_secoes as S
+import hospitais as HOSP
 
 _TAB = []
 
@@ -219,6 +220,7 @@ def montar(cfg, m, terr):
             "transferencias_uniao_saude": secao_mapa("transferencias.json", ler(os.path.join(SALA, "transferencias.json")), "mun", cod),
             "emendas": pend("emendas por municipio: fonte e chave do Portal da Transparencia a definir (localidade MULTIPLO limita o dado)")},
         "producao": {"sih": sih, "sia_aprovado": sia, "ciha": ciha_mun(cod)},
+        "hospitais": HOSP.visao_hospitais(BANCO, cod[:6]),
         "cnes": {
             "leitos": secao_mapa("leitos.json", ler(os.path.join(SALA, "leitos.json")), "mun", cod),
             "equipes": secao_mapa("equipes.json", ler(os.path.join(SALA, "equipes.json")), "mun", cod),

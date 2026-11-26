@@ -35,7 +35,7 @@ def prepara():
     con.execute("INSERT INTO sp (arquivo,cnes,ano,mes,proc_rea,ato_prof,tp_ato,cbo,complex,financ,n_linhas,qtd_ato,val_ato) VALUES ('SPES2601.dbc','2483998','2026','01','p','a','01','225125','02','04',1,3,50.5)")
     con.execute("INSERT INTO sp (arquivo,cnes,ano,mes,proc_rea,ato_prof,tp_ato,cbo,complex,financ,n_linhas,qtd_ato,val_ato) VALUES ('SPES2601.dbc','2484943','2026','01','p','a','01','225125','02','04',1,9,999)")
     for mun, proc, qa, va in (("320350", "0301010072", 40, 400.0), ("320350", "0202010120", 10, 900.0), ("320390", "0301010072", 7, 7777.0)):
-        con.execute("INSERT INTO pa (arquivo,cnes,mvm,cmp,proc_id,cbo,tpfin,subfin,nivcpl,ufmun,n_linhas,qtd_pro,qtd_apr,val_pro,val_apr) VALUES ('PAES2601.dbc','2483998','202601','202601',?,'225125','01','0100','0',?,1,?,?,?,?)", (proc, mun, qa + 5, qa, va + 50, va))
+        con.execute("INSERT INTO pa (arquivo,cnes,mvm,cmp,proc_id,cbo,tpfin,subfin,nivcpl,ufmun,n_linhas,qtd_pro,qtd_apr,val_pro,val_apr) VALUES ('PAES2601.dbc',?,'202601','202601',?,'225125','01','0100','0',?,1,?,?,?,?)", ("2483998" if mun == "320350" else "2484943", proc, mun, qa + 5, qa, va + 50, va))
     con.execute("INSERT INTO hb (arquivo,cnes,codufmun,sgruphab,cmpt_ini,cmpt_fim,dtportar,portaria,maportar,competen,tp_unid,vinc_sus,esfera_a,nat_jur,n_linhas,nuleitos) "
                 "VALUES ('HBES2610.dbc','2483998','320350','0601','202001','999999','2020-01-10','PORTARIA 100','202001','202610','05','1','03','1023',1,10)")
     con.execute("INSERT INTO hb (arquivo,cnes,codufmun,sgruphab,cmpt_ini,cmpt_fim,dtportar,portaria,maportar,competen,tp_unid,vinc_sus,esfera_a,nat_jur,n_linhas,nuleitos) "
@@ -139,6 +139,22 @@ class Dossie(unittest.TestCase):
         self.assertNotIn("999999", json.dumps(c["profissionais_cadastro"]))
         self.assertNotIn('"122"', json.dumps(c["servicos_especializados"]))
 
+    def test_visao_por_hospital(self):
+        h = self.d["secoes"]["hospitais"]
+        self.assertEqual([i["cnes"] for i in h["itens"]], ["2483998", "7777777"])   # AIH, e CIHA sem AIH
+        hosp = h["itens"][0]
+        self.assertEqual(hosp["cadastro"]["leitos"], {"competencia": "10/2026", "existentes": 20, "sus": 18, "nao_sus": 2})
+        self.assertEqual(hosp["cadastro"]["habilitacoes"]["codigos"], ["0601"])
+        ind = hosp["indicadores"]
+        self.assertEqual((ind["aih"], ind["valor_total"], ind["media_por_aih"]), (3, 1000.0, 333.33))
+        self.assertEqual((ind["permanencia_media_dias"], ind["mortalidade_hospitalar_pct"]), (4.0, 66.67))
+        self.assertEqual(ind["ocupacao_estimada_pct"], round(12 / (18 * 31) * 100, 1))
+        self.assertEqual(hosp["producao"]["sia_aprovado_total"], {"quantidade": 50, "valor": 1300.0})
+        self.assertEqual(hosp["criticas"], [])
+        self.assertIsNone(h["itens"][1]["indicadores"])
+        self.assertEqual(h["criticas_por_severidade"], {"Alta": 0, "Media": 0, "Baixa": 0})
+        self.assertNotIn("2484943", json.dumps(h))   # hospital de outro municipio nao entra
+
     def test_municipio_sem_dado(self):
         ita = json.load(open(os.path.join(C.SAIDA, f"{ITA}.json")))
         self.assertTrue(ita["secoes"]["producao"]["sih"]["aih_por_mes"]["situacao"].startswith("A confirmar"))
@@ -150,6 +166,21 @@ class Dossie(unittest.TestCase):
         txt = json.dumps(self.d)
         for proibido in ("n_aih", "cpf", "cns", "nasc"):
             self.assertNotIn(proibido, txt.lower())
+
+
+class Criticas(unittest.TestCase):
+    def test_regras_das_criticas(self):
+        import hospitais as H
+        sih = [{"competencia": "01/2026", "aih": 5, "valor_total": 1000.0, "sh": 500.0, "sp": 400.0, "dias_permanencia": 10, "obitos": 0, "dias_uti": 0},
+               {"competencia": "04/2026", "aih": 5, "valor_total": 1000.0, "sh": 600.0, "sp": 400.0, "dias_permanencia": 900, "obitos": 0, "dias_uti": 0}]
+        cad = {"leitos": {"existentes": 0, "sus": 5, "nao_sus": 0}, "habilitacoes": {"total": 0, "codigos": []}}
+        ind = H._indicadores(sih, 5)
+        cod = {k["codigo"][:3]: k for k in H._criticas("9", cad, sih, ind)}
+        self.assertEqual(sorted(cod), ["C01", "C02", "C03", "C04", "C05"])
+        self.assertEqual((cod["C01"]["severidade"], cod["C02"]["severidade"], cod["C03"]["status"]), ("Alta", "Alta", "A verificar"))
+        self.assertIn("02/2026, 03/2026", cod["C03"]["descricao"])
+        self.assertEqual(H._indicadores([], 5), None)
+        self.assertNotIn("ocupacao_estimada_pct", H._indicadores(sih, 0))   # sem leito SUS: nao estima
 
 
 class Descricoes(unittest.TestCase):
