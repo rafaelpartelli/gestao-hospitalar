@@ -1,0 +1,5585 @@
+{
+ "gerado_em": "2026-11-26T19:11:43-03:00",
+ "municipio": {
+  "cod": "3202801",
+  "nome": "Itapemirim"
+ },
+ "secao": {
+  "fonte": "SIH, SIA (aprovado), CIHA e CNES PF, agregados por CNES na base local",
+  "total": 79,
+  "truncado": false,
+  "obs": "Contagem de vinculos, nao de pessoas. Sem nome de profissional ou qualquer dado de identificacao.",
+  "estabelecimentos": [
+   {
+    "cnes": "6945368",
+    "tipo_unidade": "05",
+    "sih": [
+     {
+      "competencia": "01/2026",
+      "aih": 351,
+      "valor_total": 554505.41,
+      "obitos": 21,
+      "dias_permanencia": 1757
+     },
+     {
+      "competencia": "02/2026",
+      "aih": 429,
+      "valor_total": 758565.73,
+      "obitos": 16,
+      "dias_permanencia": 1940
+     },
+     {
+      "competencia": "03/2026",
+      "aih": 373,
+      "valor_total": 689224.95,
+      "obitos": 18,
+      "dias_permanencia": 1804
+     },
+     {
+      "competencia": "04/2026",
+      "aih": 272,
+      "valor_total": 272267.99,
+      "obitos": 13,
+      "dias_permanencia": 991
+     },
+     {
+      "competencia": "05/2026",
+      "aih": 380,
+      "valor_total": 612519.89,
+      "obitos": 19,
+      "dias_permanencia": 1860
+     },
+     {
+      "competencia": "06/2026",
+      "aih": 281,
+      "valor_total": 389421.09,
+      "obitos": 14,
+      "dias_permanencia": 1421
+     },
+     {
+      "competencia": "07/2026",
+      "aih": 393,
+      "valor_total": 654610.87,
+      "obitos": 19,
+      "dias_permanencia": 2290
+     },
+     {
+      "competencia": "08/2026",
+      "aih": 335,
+      "valor_total": 546348.55,
+      "obitos": 13,
+      "dias_permanencia": 1675
+     },
+     {
+      "competencia": "09/2026",
+      "aih": 329,
+      "valor_total": 484375.91,
+      "obitos": 17,
+      "dias_permanencia": 1735
+     }
+    ],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 4830,
+       "valor_aprovado": 51851.26
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 4396,
+       "valor_aprovado": 59726.06
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 4989,
+       "valor_aprovado": 54926.6
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 2997,
+       "valor_aprovado": 47416.74
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 2857,
+       "valor_aprovado": 44317.95
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 2753,
+       "valor_aprovado": 44378.47
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 3048,
+       "valor_aprovado": 47990.36
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 2918,
+       "valor_aprovado": 43605.32
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 1495,
+       "valor_aprovado": 23703.88
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0209010037",
+       "quantidade_aprovada": 2943,
+       "valor_aprovado": 141734.88
+      },
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 12139,
+       "valor_aprovado": 121390.0
+      },
+      {
+       "procedimento": "0209010029",
+       "quantidade_aprovada": 529,
+       "valor_aprovado": 59597.14
+      },
+      {
+       "procedimento": "0301060061",
+       "quantidade_aprovada": 2110,
+       "valor_aprovado": 23210.0
+      },
+      {
+       "procedimento": "0202020134",
+       "quantidade_aprovada": 940,
+       "valor_aprovado": 5423.8
+      }
+     ]
+    },
+    "ciha": [
+     {
+      "competencia": "03/2026",
+      "registros": 370,
+      "quantidade_procedimentos": 2045,
+      "dias_permanencia": 16,
+      "obitos": 1
+     },
+     {
+      "competencia": "04/2026",
+      "registros": 388,
+      "quantidade_procedimentos": 3133,
+      "dias_permanencia": 22,
+      "obitos": 0
+     },
+     {
+      "competencia": "05/2026",
+      "registros": 403,
+      "quantidade_procedimentos": 2741,
+      "dias_permanencia": 14,
+      "obitos": 0
+     },
+     {
+      "competencia": "06/2026",
+      "registros": 439,
+      "quantidade_procedimentos": 3009,
+      "dias_permanencia": 20,
+      "obitos": 0
+     },
+     {
+      "competencia": "07/2026",
+      "registros": 447,
+      "quantidade_procedimentos": 2803,
+      "dias_permanencia": 54,
+      "obitos": 0
+     },
+     {
+      "competencia": "08/2026",
+      "registros": 421,
+      "quantidade_procedimentos": 2597,
+      "dias_permanencia": 14,
+      "obitos": 0
+     },
+     {
+      "competencia": "09/2026",
+      "registros": 282,
+      "quantidade_procedimentos": 1973,
+      "dias_permanencia": 35,
+      "obitos": 1
+     }
+    ],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 425,
+     "horas_ambulatoriais": 664,
+     "horas_hospitalares": 7226,
+     "horas_outras": 6220,
+     "principais_cbo": [
+      {
+       "cbo": "322205",
+       "vinculos": 150,
+       "horas_ambulatoriais": 224,
+       "horas_hospitalares": 5013,
+       "horas_outras": 340
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 44,
+       "horas_ambulatoriais": 176,
+       "horas_hospitalares": 1296,
+       "horas_outras": 108
+      },
+      {
+       "cbo": "422110",
+       "vinculos": 29,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 1220
+      },
+      {
+       "cbo": "514230",
+       "vinculos": 23,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 916
+      },
+      {
+       "cbo": "225125",
+       "vinculos": 22,
+       "horas_ambulatoriais": 30,
+       "horas_hospitalares": 124,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "521130",
+       "vinculos": 15,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 612
+      },
+      {
+       "cbo": "225270",
+       "vinculos": 14,
+       "horas_ambulatoriais": 22,
+       "horas_hospitalares": 28,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223605",
+       "vinculos": 11,
+       "horas_ambulatoriais": 30,
+       "horas_hospitalares": 192,
+       "horas_outras": 138
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7336578",
+    "tipo_unidade": "05",
+    "sih": [
+     {
+      "competencia": "01/2026",
+      "aih": 100,
+      "valor_total": 53851.23,
+      "obitos": 0,
+      "dias_permanencia": 215
+     },
+     {
+      "competencia": "02/2026",
+      "aih": 103,
+      "valor_total": 58898.64,
+      "obitos": 1,
+      "dias_permanencia": 214
+     },
+     {
+      "competencia": "03/2026",
+      "aih": 100,
+      "valor_total": 52507.55,
+      "obitos": 0,
+      "dias_permanencia": 193
+     },
+     {
+      "competencia": "04/2026",
+      "aih": 125,
+      "valor_total": 62448.18,
+      "obitos": 0,
+      "dias_permanencia": 236
+     },
+     {
+      "competencia": "05/2026",
+      "aih": 108,
+      "valor_total": 58678.87,
+      "obitos": 1,
+      "dias_permanencia": 193
+     },
+     {
+      "competencia": "06/2026",
+      "aih": 115,
+      "valor_total": 66259.09,
+      "obitos": 1,
+      "dias_permanencia": 237
+     },
+     {
+      "competencia": "07/2026",
+      "aih": 122,
+      "valor_total": 63311.19,
+      "obitos": 1,
+      "dias_permanencia": 256
+     },
+     {
+      "competencia": "08/2026",
+      "aih": 161,
+      "valor_total": 81826.79,
+      "obitos": 2,
+      "dias_permanencia": 331
+     },
+     {
+      "competencia": "09/2026",
+      "aih": 147,
+      "valor_total": 69298.85,
+      "obitos": 1,
+      "dias_permanencia": 328
+     }
+    ],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 30386,
+       "valor_aprovado": 83104.2
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 29975,
+       "valor_aprovado": 81894.21
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 32364,
+       "valor_aprovado": 87759.25
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 34380,
+       "valor_aprovado": 92950.51
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 31016,
+       "valor_aprovado": 88709.3
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 34116,
+       "valor_aprovado": 87697.56
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 30089,
+       "valor_aprovado": 77405.79
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 30742,
+       "valor_aprovado": 81061.75
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 29.7
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301060029",
+       "quantidade_aprovada": 33238,
+       "valor_aprovado": 414477.86
+      },
+      {
+       "procedimento": "0301060096",
+       "quantidade_aprovada": 5104,
+       "valor_aprovado": 56144.0
+      },
+      {
+       "procedimento": "0204030188",
+       "quantidade_aprovada": 1024,
+       "valor_aprovado": 46080.0
+      },
+      {
+       "procedimento": "0301100012",
+       "quantidade_aprovada": 51966,
+       "valor_aprovado": 32738.58
+      },
+      {
+       "procedimento": "0205020046",
+       "quantidade_aprovada": 460,
+       "valor_aprovado": 17457.0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 229,
+     "horas_ambulatoriais": 2275,
+     "horas_hospitalares": 2739,
+     "horas_outras": 2439,
+     "principais_cbo": [
+      {
+       "cbo": "322205",
+       "vinculos": 56,
+       "horas_ambulatoriais": 990,
+       "horas_hospitalares": 1026,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225125",
+       "vinculos": 31,
+       "horas_ambulatoriais": 336,
+       "horas_hospitalares": 540,
+       "horas_outras": 24
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 27,
+       "horas_ambulatoriais": 483,
+       "horas_hospitalares": 486,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 13,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 468
+      },
+      {
+       "cbo": "324115",
+       "vinculos": 10,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 120,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "422105",
+       "vinculos": 8,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 288
+      },
+      {
+       "cbo": "225250",
+       "vinculos": 8,
+       "horas_ambulatoriais": 54,
+       "horas_hospitalares": 58,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 6,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 264
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447215",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 9791,
+       "valor_aprovado": 50569.89
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 11504,
+       "valor_aprovado": 67977.5
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 13671,
+       "valor_aprovado": 88834.49
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 13379,
+       "valor_aprovado": 80485.21
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 13022,
+       "valor_aprovado": 82279.64
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 17209,
+       "valor_aprovado": 108639.29
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 14814,
+       "valor_aprovado": 94211.58
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 17169,
+       "valor_aprovado": 110806.27
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 140,
+       "valor_aprovado": 2564.35
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0202010708",
+       "quantidade_aprovada": 5536,
+       "valor_aprovado": 84368.64
+      },
+      {
+       "procedimento": "0202010384",
+       "quantidade_aprovada": 3926,
+       "valor_aprovado": 61206.34
+      },
+      {
+       "procedimento": "0202060250",
+       "quantidade_aprovada": 5765,
+       "valor_aprovado": 51654.4
+      },
+      {
+       "procedimento": "0202060381",
+       "quantidade_aprovada": 3612,
+       "valor_aprovado": 41899.2
+      },
+      {
+       "procedimento": "0202010503",
+       "quantidade_aprovada": 4254,
+       "valor_aprovado": 33436.44
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 35,
+     "horas_ambulatoriais": 542,
+     "horas_hospitalares": 0,
+     "horas_outras": 360,
+     "principais_cbo": [
+      {
+       "cbo": "223605",
+       "vinculos": 14,
+       "horas_ambulatoriais": 238,
+       "horas_hospitalares": 0,
+       "horas_outras": 120
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 3,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 120
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 3,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "251510",
+       "vinculos": 3,
+       "horas_ambulatoriais": 44,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225120",
+       "vinculos": 2,
+       "horas_ambulatoriais": 14,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "517330",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "422105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447258",
+    "tipo_unidade": "68",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 7062,
+       "valor_aprovado": 34956.9
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 9663,
+       "valor_aprovado": 47831.85
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 7383,
+       "valor_aprovado": 36545.85
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 9916,
+       "valor_aprovado": 49084.2
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 8266,
+       "valor_aprovado": 40916.7
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0803010125",
+       "quantidade_aprovada": 26275,
+       "valor_aprovado": 130061.25
+      },
+      {
+       "procedimento": "0803010109",
+       "quantidade_aprovada": 16015,
+       "valor_aprovado": 79274.25
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 85,
+     "horas_ambulatoriais": 624,
+     "horas_hospitalares": 0,
+     "horas_outras": 2600,
+     "principais_cbo": [
+      {
+       "cbo": "411010",
+       "vinculos": 26,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 1040
+      },
+      {
+       "cbo": "782305",
+       "vinculos": 14,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 560
+      },
+      {
+       "cbo": "782320",
+       "vinculos": 13,
+       "horas_ambulatoriais": 360,
+       "horas_hospitalares": 0,
+       "horas_outras": 160
+      },
+      {
+       "cbo": "131210",
+       "vinculos": 5,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 160
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 4,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 160
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 3,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "123105",
+       "vinculos": 3,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 120
+      },
+      {
+       "cbo": "322415",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447207",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 446,
+       "valor_aprovado": 2772.0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 545,
+       "valor_aprovado": 3335.0
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 870,
+       "valor_aprovado": 3607.0
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 787,
+       "valor_aprovado": 3011.0
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 10307,
+       "valor_aprovado": 50028.78
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 11421,
+       "valor_aprovado": 54011.89
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 13576,
+       "valor_aprovado": 62581.83
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 6237,
+       "valor_aprovado": 11762.38
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0803010125",
+       "quantidade_aprovada": 18813,
+       "valor_aprovado": 93124.35
+      },
+      {
+       "procedimento": "0803010109",
+       "quantidade_aprovada": 11564,
+       "valor_aprovado": 57241.8
+      },
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 3231,
+       "valor_aprovado": 32310.0
+      },
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 916,
+       "valor_aprovado": 5770.8
+      },
+      {
+       "procedimento": "0302050027",
+       "quantidade_aprovada": 558,
+       "valor_aprovado": 2605.86
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 24,
+     "horas_ambulatoriais": 688,
+     "horas_hospitalares": 0,
+     "horas_outras": 160,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 7,
+       "horas_ambulatoriais": 280,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 3,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 120
+      },
+      {
+       "cbo": "322245",
+       "vinculos": 3,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225170",
+       "vinculos": 3,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322430",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "254310",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225124",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9301666",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 38,
+       "valor_aprovado": 380.0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 555,
+       "valor_aprovado": 4136.9
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 1446,
+       "valor_aprovado": 7702.34
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 1344,
+       "valor_aprovado": 7167.2
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 1667,
+       "valor_aprovado": 7841.09
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 1478,
+       "valor_aprovado": 7468.22
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 2150,
+       "valor_aprovado": 10658.7
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 3081,
+       "valor_aprovado": 7085.79
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 2,
+       "valor_aprovado": 18.06
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 4703,
+       "valor_aprovado": 29628.9
+      },
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 2269,
+       "valor_aprovado": 22690.0
+      },
+      {
+       "procedimento": "0204010179",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 54.18
+      },
+      {
+       "procedimento": "0414020278",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 22.72
+      },
+      {
+       "procedimento": "0414020073",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 21.92
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 53,
+     "horas_ambulatoriais": 749,
+     "horas_hospitalares": 36,
+     "horas_outras": 280,
+     "principais_cbo": [
+      {
+       "cbo": "223208",
+       "vinculos": 11,
+       "horas_ambulatoriais": 156,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223605",
+       "vinculos": 7,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 5,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 200
+      },
+      {
+       "cbo": "322415",
+       "vinculos": 5,
+       "horas_ambulatoriais": 192,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "251510",
+       "vinculos": 5,
+       "horas_ambulatoriais": 60,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 3,
+       "horas_ambulatoriais": 60,
+       "horas_hospitalares": 36,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 2,
+       "horas_ambulatoriais": 48,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225270",
+       "vinculos": 2,
+       "horas_ambulatoriais": 13,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5871212",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 68,
+       "valor_aprovado": 680.0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 59,
+       "valor_aprovado": 590.0
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 825,
+       "valor_aprovado": 5804.0
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 706,
+       "valor_aprovado": 4198.2
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 823,
+       "valor_aprovado": 5268.1
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 863,
+       "valor_aprovado": 5336.6
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 892,
+       "valor_aprovado": 5459.4
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 1228,
+       "valor_aprovado": 3738.6
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 3323,
+       "valor_aprovado": 20934.9
+      },
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 1014,
+       "valor_aprovado": 10140.0
+      },
+      {
+       "procedimento": "0414020120",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0307030040",
+       "quantidade_aprovada": 3,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0307020070",
+       "quantidade_aprovada": 5,
+       "valor_aprovado": 0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 20,
+     "horas_ambulatoriais": 216,
+     "horas_hospitalares": 0,
+     "horas_outras": 165,
+     "principais_cbo": [
+      {
+       "cbo": "322415",
+       "vinculos": 4,
+       "horas_ambulatoriais": 88,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "251510",
+       "vinculos": 4,
+       "horas_ambulatoriais": 34,
+       "horas_hospitalares": 0,
+       "horas_outras": 5
+      },
+      {
+       "cbo": "223208",
+       "vinculos": 4,
+       "horas_ambulatoriais": 44,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223810",
+       "vinculos": 2,
+       "horas_ambulatoriais": 30,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "225133",
+       "vinculos": 1,
+       "horas_ambulatoriais": 4,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225124",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223710",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9260447",
+    "tipo_unidade": "70",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 171,
+       "valor_aprovado": 1473.9
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 391,
+       "valor_aprovado": 3018.6
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 557,
+       "valor_aprovado": 4134.4
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 459,
+       "valor_aprovado": 3469.0
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 463,
+       "valor_aprovado": 3367.1
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 553,
+       "valor_aprovado": 3444.6
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 654,
+       "valor_aprovado": 4550.0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 378,
+       "valor_aprovado": 2425.7
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 1523,
+       "valor_aprovado": 15230.0
+      },
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 1691,
+       "valor_aprovado": 10653.3
+      },
+      {
+       "procedimento": "0414020138",
+       "quantidade_aprovada": 4,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0307020070",
+       "quantidade_aprovada": 3,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0307020029",
+       "quantidade_aprovada": 7,
+       "valor_aprovado": 0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 17,
+     "horas_ambulatoriais": 329,
+     "horas_hospitalares": 0,
+     "horas_outras": 80,
+     "principais_cbo": [
+      {
+       "cbo": "251510",
+       "vinculos": 4,
+       "horas_ambulatoriais": 69,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225133",
+       "vinculos": 3,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322415",
+       "vinculos": 2,
+       "horas_ambulatoriais": 60,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "251605",
+       "vinculos": 2,
+       "horas_ambulatoriais": 60,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447231",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 280,
+       "valor_aprovado": 83.4
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 327,
+       "valor_aprovado": 296.1
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 661,
+       "valor_aprovado": 464.1
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 525,
+       "valor_aprovado": 492.1
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 678,
+       "valor_aprovado": 546.8
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 642,
+       "valor_aprovado": 679.8
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 707,
+       "valor_aprovado": 665.5
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 3967,
+       "valor_aprovado": 1963.0
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 3,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 772,
+       "valor_aprovado": 4863.6
+      },
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 17,
+       "valor_aprovado": 170.0
+      },
+      {
+       "procedimento": "0401010015",
+       "quantidade_aprovada": 3,
+       "valor_aprovado": 97.2
+      },
+      {
+       "procedimento": "0214010279",
+       "quantidade_aprovada": 30,
+       "valor_aprovado": 30.0
+      },
+      {
+       "procedimento": "0301010056",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 10.0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 28,
+     "horas_ambulatoriais": 796,
+     "horas_hospitalares": 0,
+     "horas_outras": 230,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 7,
+       "horas_ambulatoriais": 280,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 5,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 190
+      },
+      {
+       "cbo": "322245",
+       "vinculos": 5,
+       "horas_ambulatoriais": 200,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225170",
+       "vinculos": 3,
+       "horas_ambulatoriais": 76,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223565",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322430",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 32,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7301332",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 791,
+       "valor_aprovado": 8.0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 669,
+       "valor_aprovado": 40.5
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 1111,
+       "valor_aprovado": 265.2
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 932,
+       "valor_aprovado": 209.4
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 923,
+       "valor_aprovado": 137.2
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 840,
+       "valor_aprovado": 348.21
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 1535,
+       "valor_aprovado": 3189.8
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 8537,
+       "valor_aprovado": 233.31
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 10,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0302050027",
+       "quantidade_aprovada": 506,
+       "valor_aprovado": 2363.02
+      },
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 174,
+       "valor_aprovado": 1096.2
+      },
+      {
+       "procedimento": "0401010015",
+       "quantidade_aprovada": 22,
+       "valor_aprovado": 712.8
+      },
+      {
+       "procedimento": "0302050019",
+       "quantidade_aprovada": 16,
+       "valor_aprovado": 101.6
+      },
+      {
+       "procedimento": "0214010279",
+       "quantidade_aprovada": 90,
+       "valor_aprovado": 90.0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 38,
+     "horas_ambulatoriais": 1104,
+     "horas_hospitalares": 0,
+     "horas_outras": 280,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 14,
+       "horas_ambulatoriais": 560,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 5,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 200
+      },
+      {
+       "cbo": "322245",
+       "vinculos": 5,
+       "horas_ambulatoriais": 200,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225170",
+       "vinculos": 2,
+       "horas_ambulatoriais": 26,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223565",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "411005",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447266",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 459,
+       "valor_aprovado": 777.0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 290,
+       "valor_aprovado": 169.8
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 651,
+       "valor_aprovado": 1076.93
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 625,
+       "valor_aprovado": 248.26
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 431,
+       "valor_aprovado": 137.6
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 341,
+       "valor_aprovado": 784.23
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 482,
+       "valor_aprovado": 818.0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 3755,
+       "valor_aprovado": 64.8
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0401010015",
+       "quantidade_aprovada": 119,
+       "valor_aprovado": 3855.6
+      },
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 14,
+       "valor_aprovado": 88.2
+      },
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 7,
+       "valor_aprovado": 70.0
+      },
+      {
+       "procedimento": "0214010279",
+       "quantidade_aprovada": 23,
+       "valor_aprovado": 23.0
+      },
+      {
+       "procedimento": "0214010074",
+       "quantidade_aprovada": 14,
+       "valor_aprovado": 14.0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 26,
+     "horas_ambulatoriais": 679,
+     "horas_hospitalares": 0,
+     "horas_outras": 240,
+     "principais_cbo": [
+      {
+       "cbo": "322245",
+       "vinculos": 7,
+       "horas_ambulatoriais": 280,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 6,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 240
+      },
+      {
+       "cbo": "515105",
+       "vinculos": 5,
+       "horas_ambulatoriais": 200,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322430",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225170",
+       "vinculos": 1,
+       "horas_ambulatoriais": 16,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225124",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223565",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447134",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 157,
+       "valor_aprovado": 110.0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 358,
+       "valor_aprovado": 516.1
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 1086,
+       "valor_aprovado": 202.4
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 687,
+       "valor_aprovado": 389.73
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 553,
+       "valor_aprovado": 361.83
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 656,
+       "valor_aprovado": 630.0
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 714,
+       "valor_aprovado": 1113.3
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 6740,
+       "valor_aprovado": 355.14
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 5,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 424,
+       "valor_aprovado": 2671.2
+      },
+      {
+       "procedimento": "0401010015",
+       "quantidade_aprovada": 24,
+       "valor_aprovado": 777.6
+      },
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 18,
+       "valor_aprovado": 180.0
+      },
+      {
+       "procedimento": "0214010279",
+       "quantidade_aprovada": 34,
+       "valor_aprovado": 34.0
+      },
+      {
+       "procedimento": "0202020509",
+       "quantidade_aprovada": 2,
+       "valor_aprovado": 5.46
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 29,
+     "horas_ambulatoriais": 848,
+     "horas_hospitalares": 0,
+     "horas_outras": 240,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 10,
+       "horas_ambulatoriais": 400,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 4,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 160
+      },
+      {
+       "cbo": "322245",
+       "vinculos": 4,
+       "horas_ambulatoriais": 160,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "782320",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "322430",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225170",
+       "vinculos": 1,
+       "horas_ambulatoriais": 16,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9600965",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 307,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 269,
+       "valor_aprovado": 453.6
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 406,
+       "valor_aprovado": 561.7
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 379,
+       "valor_aprovado": 397.9
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 373,
+       "valor_aprovado": 459.9
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 280,
+       "valor_aprovado": 449.66
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 384,
+       "valor_aprovado": 495.0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 411,
+       "valor_aprovado": 569.81
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 522,
+       "valor_aprovado": 3288.6
+      },
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 60.0
+      },
+      {
+       "procedimento": "0201010666",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 18.33
+      },
+      {
+       "procedimento": "0309030048",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 11.26
+      },
+      {
+       "procedimento": "0211040029",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 3.38
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 12,
+     "horas_ambulatoriais": 240,
+     "horas_hospitalares": 0,
+     "horas_outras": 80,
+     "principais_cbo": [
+      {
+       "cbo": "223505",
+       "vinculos": 3,
+       "horas_ambulatoriais": 110,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "251605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "251510",
+       "vinculos": 1,
+       "horas_ambulatoriais": 6,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223710",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447150",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 125,
+       "valor_aprovado": 17.0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 134,
+       "valor_aprovado": 8.0
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 246,
+       "valor_aprovado": 8.0
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 112,
+       "valor_aprovado": 7.0
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 194,
+       "valor_aprovado": 38.0
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 499,
+       "valor_aprovado": 260.75
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 727,
+       "valor_aprovado": 456.97
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 5986,
+       "valor_aprovado": 467.11
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 16,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0211020052",
+       "quantidade_aprovada": 109,
+       "valor_aprovado": 1097.63
+      },
+      {
+       "procedimento": "0214010279",
+       "quantidade_aprovada": 51,
+       "valor_aprovado": 51.0
+      },
+      {
+       "procedimento": "0401010015",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 32.4
+      },
+      {
+       "procedimento": "0214010074",
+       "quantidade_aprovada": 22,
+       "valor_aprovado": 22.0
+      },
+      {
+       "procedimento": "0214010058",
+       "quantidade_aprovada": 21,
+       "valor_aprovado": 21.0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 37,
+     "horas_ambulatoriais": 1026,
+     "horas_hospitalares": 0,
+     "horas_outras": 360,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 13,
+       "horas_ambulatoriais": 520,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 8,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 320
+      },
+      {
+       "cbo": "322245",
+       "vinculos": 5,
+       "horas_ambulatoriais": 200,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223565",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223208",
+       "vinculos": 2,
+       "horas_ambulatoriais": 16,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "322430",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "8261016",
+    "tipo_unidade": "81",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 40,
+       "valor_aprovado": 198.0
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 75,
+       "valor_aprovado": 367.56
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 37,
+       "valor_aprovado": 184.55
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 36,
+       "valor_aprovado": 209.0
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 32,
+       "valor_aprovado": 158.4
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0803010125",
+       "quantidade_aprovada": 132,
+       "valor_aprovado": 653.4
+      },
+      {
+       "procedimento": "0803010109",
+       "quantidade_aprovada": 64,
+       "valor_aprovado": 316.8
+      },
+      {
+       "procedimento": "0302050019",
+       "quantidade_aprovada": 18,
+       "valor_aprovado": 114.3
+      },
+      {
+       "procedimento": "0302060022",
+       "quantidade_aprovada": 4,
+       "valor_aprovado": 25.4
+      },
+      {
+       "procedimento": "0302010017",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 6.35
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 16,
+     "horas_ambulatoriais": 88,
+     "horas_hospitalares": 0,
+     "horas_outras": 500,
+     "principais_cbo": [
+      {
+       "cbo": "411010",
+       "vinculos": 7,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 280
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 80
+      },
+      {
+       "cbo": "225125",
+       "vinculos": 2,
+       "horas_ambulatoriais": 48,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "131205",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 80
+      },
+      {
+       "cbo": "251605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223208",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "131210",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 20
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9915370",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 345,
+       "valor_aprovado": 190.6
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 349,
+       "valor_aprovado": 139.6
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 834,
+       "valor_aprovado": 77.5
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 788,
+       "valor_aprovado": 73.8
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 641,
+       "valor_aprovado": 77.1
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 633,
+       "valor_aprovado": 11.0
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 809,
+       "valor_aprovado": 14.0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 6557,
+       "valor_aprovado": 452.8
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 23,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0401010015",
+       "quantidade_aprovada": 9,
+       "valor_aprovado": 291.6
+      },
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 35,
+       "valor_aprovado": 220.5
+      },
+      {
+       "procedimento": "0414020073",
+       "quantidade_aprovada": 10,
+       "valor_aprovado": 219.2
+      },
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 11,
+       "valor_aprovado": 110.0
+      },
+      {
+       "procedimento": "0307030032",
+       "quantidade_aprovada": 68,
+       "valor_aprovado": 84.32
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 19,
+     "horas_ambulatoriais": 482,
+     "horas_hospitalares": 0,
+     "horas_outras": 162,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 5,
+       "horas_ambulatoriais": 200,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 4,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 122
+      },
+      {
+       "cbo": "322245",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "517215",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "322430",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225124",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223565",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5431417",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 337,
+       "valor_aprovado": 53.4
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 344,
+       "valor_aprovado": 45.1
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 603,
+       "valor_aprovado": 53.7
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 545,
+       "valor_aprovado": 138.6
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 593,
+       "valor_aprovado": 38.4
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 533,
+       "valor_aprovado": 4.0
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 658,
+       "valor_aprovado": 4.0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 4503,
+       "valor_aprovado": 70.28
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 18,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0401010015",
+       "quantidade_aprovada": 8,
+       "valor_aprovado": 259.2
+      },
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 16,
+       "valor_aprovado": 100.8
+      },
+      {
+       "procedimento": "0214010279",
+       "quantidade_aprovada": 28,
+       "valor_aprovado": 28.0
+      },
+      {
+       "procedimento": "0214010074",
+       "quantidade_aprovada": 8,
+       "valor_aprovado": 8.0
+      },
+      {
+       "procedimento": "0214010058",
+       "quantidade_aprovada": 8,
+       "valor_aprovado": 8.0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 16,
+     "horas_ambulatoriais": 424,
+     "horas_hospitalares": 0,
+     "horas_outras": 120,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 4,
+       "horas_ambulatoriais": 160,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223208",
+       "vinculos": 3,
+       "horas_ambulatoriais": 88,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 80
+      },
+      {
+       "cbo": "225170",
+       "vinculos": 2,
+       "horas_ambulatoriais": 16,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "322430",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322245",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5431409",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 1518,
+       "valor_aprovado": 98.0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 1040,
+       "valor_aprovado": 197.8
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 2306,
+       "valor_aprovado": 5.0
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 1860,
+       "valor_aprovado": 9.0
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 1283,
+       "valor_aprovado": 5.0
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 1437,
+       "valor_aprovado": 10.0
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 1745,
+       "valor_aprovado": 3.0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 12918,
+       "valor_aprovado": 7.0
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 23,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 23,
+       "valor_aprovado": 230.0
+      },
+      {
+       "procedimento": "0214010279",
+       "quantidade_aprovada": 67,
+       "valor_aprovado": 67.0
+      },
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 37.8
+      },
+      {
+       "procedimento": "0414020138",
+       "quantidade_aprovada": 4,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0307040151",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 54,
+     "horas_ambulatoriais": 1448,
+     "horas_hospitalares": 0,
+     "horas_outras": 528,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 19,
+       "horas_ambulatoriais": 760,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 12,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 480
+      },
+      {
+       "cbo": "322245",
+       "vinculos": 6,
+       "horas_ambulatoriais": 240,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 3,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223565",
+       "vinculos": 3,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223605",
+       "vinculos": 2,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223208",
+       "vinculos": 2,
+       "horas_ambulatoriais": 28,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447223",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 367,
+       "valor_aprovado": 27.9
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 422,
+       "valor_aprovado": 27.2
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 535,
+       "valor_aprovado": 2.53
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 418,
+       "valor_aprovado": 10.0
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 417,
+       "valor_aprovado": 11.0
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 387,
+       "valor_aprovado": 7.0
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 536,
+       "valor_aprovado": 5.0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 4935,
+       "valor_aprovado": 10.0
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 18,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 7,
+       "valor_aprovado": 44.1
+      },
+      {
+       "procedimento": "0214010279",
+       "quantidade_aprovada": 41,
+       "valor_aprovado": 41.0
+      },
+      {
+       "procedimento": "0214010074",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 6.0
+      },
+      {
+       "procedimento": "0214010058",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 6.0
+      },
+      {
+       "procedimento": "0214010287",
+       "quantidade_aprovada": 2,
+       "valor_aprovado": 2.0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 18,
+     "horas_ambulatoriais": 586,
+     "horas_hospitalares": 0,
+     "horas_outras": 40,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 7,
+       "horas_ambulatoriais": 280,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322245",
+       "vinculos": 3,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225170",
+       "vinculos": 2,
+       "horas_ambulatoriais": 18,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "322430",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225124",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223565",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5869943",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 40,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 95,
+       "valor_aprovado": 20.0
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 162,
+       "valor_aprovado": 40.0
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 61,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 135,
+       "valor_aprovado": 2.0
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 201,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 266,
+       "valor_aprovado": 3.0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 2790,
+       "valor_aprovado": 9.3
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 0.77
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010072",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 60.0
+      },
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 6.3
+      },
+      {
+       "procedimento": "0214010058",
+       "quantidade_aprovada": 4,
+       "valor_aprovado": 4.0
+      },
+      {
+       "procedimento": "0214010074",
+       "quantidade_aprovada": 3,
+       "valor_aprovado": 3.0
+      },
+      {
+       "procedimento": "0214010279",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 1.0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 24,
+     "horas_ambulatoriais": 578,
+     "horas_hospitalares": 0,
+     "horas_outras": 240,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 5,
+       "horas_ambulatoriais": 200,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 5,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 200
+      },
+      {
+       "cbo": "223208",
+       "vinculos": 5,
+       "horas_ambulatoriais": 128,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322415",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225170",
+       "vinculos": 2,
+       "horas_ambulatoriais": 42,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "225124",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5564417",
+    "tipo_unidade": "02",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 302,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 118,
+       "valor_aprovado": 31.5
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 271,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 183,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 190,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 248,
+       "valor_aprovado": 2.7
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 266,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 2800,
+       "valor_aprovado": 25.2
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 16,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301010048",
+       "quantidade_aprovada": 9,
+       "valor_aprovado": 56.7
+      },
+      {
+       "procedimento": "0101010028",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 2.7
+      },
+      {
+       "procedimento": "0414020405",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0414020138",
+       "quantidade_aprovada": 24,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0414020120",
+       "quantidade_aprovada": 7,
+       "valor_aprovado": 0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 17,
+     "horas_ambulatoriais": 478,
+     "horas_hospitalares": 0,
+     "horas_outras": 160,
+     "principais_cbo": [
+      {
+       "cbo": "515105",
+       "vinculos": 4,
+       "horas_ambulatoriais": 160,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 3,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 120
+      },
+      {
+       "cbo": "322415",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223208",
+       "vinculos": 2,
+       "horas_ambulatoriais": 70,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "225142",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225124",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "0253421",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 3,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 85,
+     "principais_cbo": [
+      {
+       "cbo": "422105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "223415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 5
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "0370924",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 40,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "0406821",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 2,
+     "horas_ambulatoriais": 10,
+     "horas_hospitalares": 0,
+     "horas_outras": 6,
+     "principais_cbo": [
+      {
+       "cbo": "223605",
+       "vinculos": 2,
+       "horas_ambulatoriais": 10,
+       "horas_hospitalares": 0,
+       "horas_outras": 6
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "0840971",
+    "tipo_unidade": "36",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 17,
+     "horas_ambulatoriais": 667,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "251510",
+       "vinculos": 8,
+       "horas_ambulatoriais": 315,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223810",
+       "vinculos": 6,
+       "horas_ambulatoriais": 232,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223905",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "0900583",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 3,
+     "horas_ambulatoriais": 20,
+     "horas_hospitalares": 0,
+     "horas_outras": 40,
+     "principais_cbo": [
+      {
+       "cbo": "515215",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 20
+      },
+      {
+       "cbo": "223415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "221205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 20
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "0988561",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 8,
+     "horas_ambulatoriais": 340,
+     "horas_hospitalares": 0,
+     "horas_outras": 40,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 6,
+       "horas_ambulatoriais": 280,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "411005",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "251605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 60,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447193",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 40,
+     "principais_cbo": [
+      {
+       "cbo": "123105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447282",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 20,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2447290",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 8,
+     "horas_ambulatoriais": 80,
+     "horas_hospitalares": 0,
+     "horas_outras": 200,
+     "principais_cbo": [
+      {
+       "cbo": "515215",
+       "vinculos": 3,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 120
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "324205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "252105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "223415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2650517",
+    "tipo_unidade": "50",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 2,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0102010528",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0102010170",
+       "quantidade_aprovada": 2,
+       "valor_aprovado": 0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 63,
+     "horas_ambulatoriais": 2120,
+     "horas_hospitalares": 0,
+     "horas_outras": 340,
+     "principais_cbo": [
+      {
+       "cbo": "515140",
+       "vinculos": 47,
+       "horas_ambulatoriais": 1840,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "515120",
+       "vinculos": 4,
+       "horas_ambulatoriais": 160,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "782305",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 80
+      },
+      {
+       "cbo": "131210",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 60
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223560",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2814943",
+    "tipo_unidade": "42",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 74,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 80,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 63,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 89,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 84,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 67,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 112,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 62,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0301030189",
+       "quantidade_aprovada": 45,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0301030103",
+       "quantidade_aprovada": 586,
+       "valor_aprovado": 0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 7,
+     "horas_ambulatoriais": 132,
+     "horas_hospitalares": 0,
+     "horas_outras": 176,
+     "principais_cbo": [
+      {
+       "cbo": "322205",
+       "vinculos": 4,
+       "horas_ambulatoriais": 132,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "782320",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 88
+      },
+      {
+       "cbo": "515135",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "2942984",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 2,
+     "horas_ambulatoriais": 50,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223415",
+       "vinculos": 2,
+       "horas_ambulatoriais": 50,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "3151964",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 10,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223208",
+       "vinculos": 1,
+       "horas_ambulatoriais": 10,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "3151980",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 20,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223236",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "3151999",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 2,
+     "horas_ambulatoriais": 10,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "225195",
+       "vinculos": 1,
+       "horas_ambulatoriais": 5,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225125",
+       "vinculos": 1,
+       "horas_ambulatoriais": 5,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "3152014",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 2,
+     "horas_ambulatoriais": 56,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "322205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 44,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225140",
+       "vinculos": 1,
+       "horas_ambulatoriais": 12,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "3152057",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 20,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "3782018",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 8,
+     "horas_ambulatoriais": 120,
+     "horas_hospitalares": 0,
+     "horas_outras": 60,
+     "principais_cbo": [
+      {
+       "cbo": "225320",
+       "vinculos": 5,
+       "horas_ambulatoriais": 100,
+       "horas_hospitalares": 0,
+       "horas_outras": 20
+      },
+      {
+       "cbo": "324115",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "251510",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "4000714",
+    "tipo_unidade": "68",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 16,
+     "horas_ambulatoriais": 169,
+     "horas_hospitalares": 10,
+     "horas_outras": 40,
+     "principais_cbo": [
+      {
+       "cbo": "251510",
+       "vinculos": 2,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225270",
+       "vinculos": 2,
+       "horas_ambulatoriais": 16,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225124",
+       "vinculos": 2,
+       "horas_ambulatoriais": 4,
+       "horas_hospitalares": 10,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "322230",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225275",
+       "vinculos": 1,
+       "horas_ambulatoriais": 4,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225265",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "225250",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 4,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "4279581",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 26,
+     "horas_ambulatoriais": 478,
+     "horas_hospitalares": 0,
+     "horas_outras": 478,
+     "principais_cbo": [
+      {
+       "cbo": "251510",
+       "vinculos": 10,
+       "horas_ambulatoriais": 260,
+       "horas_hospitalares": 0,
+       "horas_outras": 60
+      },
+      {
+       "cbo": "239425",
+       "vinculos": 3,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 132
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 88
+      },
+      {
+       "cbo": "514325",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "514320",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "422105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "410105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "226305",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "4326946",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 2,
+     "horas_ambulatoriais": 20,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "324205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 10,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "221205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 10,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "4789784",
+    "tipo_unidade": "36",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 11,
+     "horas_ambulatoriais": 170,
+     "horas_hospitalares": 0,
+     "horas_outras": 40,
+     "principais_cbo": [
+      {
+       "cbo": "251510",
+       "vinculos": 4,
+       "horas_ambulatoriais": 100,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "422110",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "239425",
+       "vinculos": 1,
+       "horas_ambulatoriais": 5,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225125",
+       "vinculos": 1,
+       "horas_ambulatoriais": 5,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225112",
+       "vinculos": 1,
+       "horas_ambulatoriais": 5,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223810",
+       "vinculos": 1,
+       "horas_ambulatoriais": 30,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223710",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 5,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "4812069",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 3,
+     "horas_ambulatoriais": 10,
+     "horas_hospitalares": 0,
+     "horas_outras": 88,
+     "principais_cbo": [
+      {
+       "cbo": "252305",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 88
+      },
+      {
+       "cbo": "225120",
+       "vinculos": 1,
+       "horas_ambulatoriais": 10,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5424720",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 25,
+     "horas_ambulatoriais": 154,
+     "horas_hospitalares": 0,
+     "horas_outras": 180,
+     "principais_cbo": [
+      {
+       "cbo": "251510",
+       "vinculos": 10,
+       "horas_ambulatoriais": 68,
+       "horas_hospitalares": 0,
+       "horas_outras": 78
+      },
+      {
+       "cbo": "223905",
+       "vinculos": 5,
+       "horas_ambulatoriais": 30,
+       "horas_hospitalares": 0,
+       "horas_outras": 32
+      },
+      {
+       "cbo": "223810",
+       "vinculos": 5,
+       "horas_ambulatoriais": 16,
+       "horas_hospitalares": 0,
+       "horas_outras": 24
+      },
+      {
+       "cbo": "239425",
+       "vinculos": 3,
+       "horas_ambulatoriais": 30,
+       "horas_hospitalares": 0,
+       "horas_outras": 16
+      },
+      {
+       "cbo": "225133",
+       "vinculos": 1,
+       "horas_ambulatoriais": 10,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "142105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 30
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5471656",
+    "tipo_unidade": "77",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 20,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "251510",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5615798",
+    "tipo_unidade": "42",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 19,
+     "horas_ambulatoriais": 564,
+     "horas_hospitalares": 0,
+     "horas_outras": 160,
+     "principais_cbo": [
+      {
+       "cbo": "322205",
+       "vinculos": 10,
+       "horas_ambulatoriais": 384,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "782320",
+       "vinculos": 7,
+       "horas_ambulatoriais": 168,
+       "horas_hospitalares": 0,
+       "horas_outras": 120
+      },
+      {
+       "cbo": "782305",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 1,
+       "horas_ambulatoriais": 12,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5651611",
+    "tipo_unidade": "42",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 10,
+     "horas_ambulatoriais": 320,
+     "horas_hospitalares": 0,
+     "horas_outras": 80,
+     "principais_cbo": [
+      {
+       "cbo": "782320",
+       "vinculos": 5,
+       "horas_ambulatoriais": 152,
+       "horas_hospitalares": 0,
+       "horas_outras": 80
+      },
+      {
+       "cbo": "322205",
+       "vinculos": 3,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "515135",
+       "vinculos": 1,
+       "horas_ambulatoriais": 36,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 1,
+       "horas_ambulatoriais": 12,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5651638",
+    "tipo_unidade": "42",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 13,
+     "horas_ambulatoriais": 400,
+     "horas_hospitalares": 0,
+     "horas_outras": 80,
+     "principais_cbo": [
+      {
+       "cbo": "322205",
+       "vinculos": 6,
+       "horas_ambulatoriais": 232,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "782320",
+       "vinculos": 5,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 80
+      },
+      {
+       "cbo": "515135",
+       "vinculos": 1,
+       "horas_ambulatoriais": 36,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 1,
+       "horas_ambulatoriais": 12,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "5795230",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 12,
+     "horas_ambulatoriais": 196,
+     "horas_hospitalares": 0,
+     "horas_outras": 238,
+     "principais_cbo": [
+      {
+       "cbo": "251510",
+       "vinculos": 3,
+       "horas_ambulatoriais": 50,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "223830",
+       "vinculos": 2,
+       "horas_ambulatoriais": 80,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514320",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "422105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "224140",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "223905",
+       "vinculos": 1,
+       "horas_ambulatoriais": 44,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 22,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "6841325",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 7,
+     "horas_ambulatoriais": 8,
+     "horas_hospitalares": 0,
+     "horas_outras": 122,
+     "principais_cbo": [
+      {
+       "cbo": "514320",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "411010",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "251605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 30
+      },
+      {
+       "cbo": "251510",
+       "vinculos": 1,
+       "horas_ambulatoriais": 4,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "241040",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 6
+      },
+      {
+       "cbo": "239425",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 6
+      },
+      {
+       "cbo": "223710",
+       "vinculos": 1,
+       "horas_ambulatoriais": 4,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7301359",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 7,
+     "horas_ambulatoriais": 140,
+     "horas_hospitalares": 0,
+     "horas_outras": 120,
+     "principais_cbo": [
+      {
+       "cbo": "411010",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 80
+      },
+      {
+       "cbo": "515215",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "223505",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7301383",
+    "tipo_unidade": "40",
+    "sih": [],
+    "sia": {
+     "por_mes": [
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 1,
+       "valor_aprovado": 0
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 441,
+       "valor_aprovado": 0
+      }
+     ],
+     "principais_procedimentos": [
+      {
+       "procedimento": "0414020138",
+       "quantidade_aprovada": 53,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0307020070",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0307020029",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0307020010",
+       "quantidade_aprovada": 7,
+       "valor_aprovado": 0
+      },
+      {
+       "procedimento": "0307010074",
+       "quantidade_aprovada": 62,
+       "valor_aprovado": 0
+      }
+     ]
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 3,
+     "horas_ambulatoriais": 48,
+     "horas_hospitalares": 0,
+     "horas_outras": 40,
+     "principais_cbo": [
+      {
+       "cbo": "782305",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "322415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223208",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7411146",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 3,
+     "horas_ambulatoriais": 100,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223605",
+       "vinculos": 3,
+       "horas_ambulatoriais": 100,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7421338",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 16,
+     "horas_ambulatoriais": 260,
+     "horas_hospitalares": 0,
+     "horas_outras": 360,
+     "principais_cbo": [
+      {
+       "cbo": "411010",
+       "vinculos": 5,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 200
+      },
+      {
+       "cbo": "223405",
+       "vinculos": 4,
+       "horas_ambulatoriais": 100,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "223430",
+       "vinculos": 3,
+       "horas_ambulatoriais": 120,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "254310",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "251605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "131205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "123105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7543948",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 40,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223208",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7595034",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 40,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7608969",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 4,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 4,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7821026",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 6,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "225135",
+       "vinculos": 1,
+       "horas_ambulatoriais": 6,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "7834772",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 4,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "223605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 4,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "8150117",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 17,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 748,
+     "principais_cbo": [
+      {
+       "cbo": "421125",
+       "vinculos": 6,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 264
+      },
+      {
+       "cbo": "521130",
+       "vinculos": 4,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 176
+      },
+      {
+       "cbo": "223405",
+       "vinculos": 3,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 132
+      },
+      {
+       "cbo": "521110",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 88
+      },
+      {
+       "cbo": "514320",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "141415",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "8392714",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 5,
+     "horas_ambulatoriais": 40,
+     "horas_hospitalares": 0,
+     "horas_outras": 140,
+     "principais_cbo": [
+      {
+       "cbo": "514320",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      },
+      {
+       "cbo": "251605",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 30
+      },
+      {
+       "cbo": "241005",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 30
+      },
+      {
+       "cbo": "221205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "131210",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9235396",
+    "tipo_unidade": "50",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 7,
+     "horas_ambulatoriais": 60,
+     "horas_hospitalares": 0,
+     "horas_outras": 200,
+     "principais_cbo": [
+      {
+       "cbo": "519305",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 80
+      },
+      {
+       "cbo": "514225",
+       "vinculos": 2,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 80
+      },
+      {
+       "cbo": "352210",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223305",
+       "vinculos": 1,
+       "horas_ambulatoriais": 20,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "131205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9640207",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 44,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9642676",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 2,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 88,
+     "principais_cbo": [
+      {
+       "cbo": "252105",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      },
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9647082",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 44,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9653767",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 44,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9654755",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 44,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9655468",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 44,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9661514",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 44,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9665595",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 40,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 40
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9666583",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 44,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9682007",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 44,
+     "principais_cbo": [
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9685456",
+    "tipo_unidade": "39",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 40,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "221205",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9691456",
+    "tipo_unidade": "43",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 2,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 54,
+     "principais_cbo": [
+      {
+       "cbo": "411010",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 10
+      },
+      {
+       "cbo": "223405",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 44
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9696172",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 20,
+     "principais_cbo": [
+      {
+       "cbo": "223208",
+       "vinculos": 1,
+       "horas_ambulatoriais": 0,
+       "horas_hospitalares": 0,
+       "horas_outras": 20
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9814000",
+    "tipo_unidade": "04",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 40,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "225110",
+       "vinculos": 1,
+       "horas_ambulatoriais": 40,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9822984",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 1,
+     "horas_ambulatoriais": 8,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "225165",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   },
+   {
+    "cnes": "9868240",
+    "tipo_unidade": "22",
+    "sih": [],
+    "sia": {
+     "por_mes": [],
+     "principais_procedimentos": []
+    },
+    "ciha": [],
+    "profissionais": {
+     "competencia": "202610",
+     "vinculos": 5,
+     "horas_ambulatoriais": 54,
+     "horas_hospitalares": 0,
+     "horas_outras": 0,
+     "principais_cbo": [
+      {
+       "cbo": "251510",
+       "vinculos": 1,
+       "horas_ambulatoriais": 12,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225250",
+       "vinculos": 1,
+       "horas_ambulatoriais": 8,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "225125",
+       "vinculos": 1,
+       "horas_ambulatoriais": 12,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223810",
+       "vinculos": 1,
+       "horas_ambulatoriais": 12,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      },
+      {
+       "cbo": "223710",
+       "vinculos": 1,
+       "horas_ambulatoriais": 10,
+       "horas_hospitalares": 0,
+       "horas_outras": 0
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

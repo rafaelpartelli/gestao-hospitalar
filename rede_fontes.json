@@ -1,8 +1,8 @@
 {
- "gerado_em": "2026-11-26T19:00:13-03:00",
+ "gerado_em": "2026-11-26T19:12:17-03:00",
  "regra": "Status calculado pelo robo a cada rodada. Ativa so com coleta registrada dentro do prazo.",
  "resumo": {
-  "Ativa": 20,
+  "Ativa": 21,
   "Em teste": 0,
   "Manual": 6,
   "Bloqueada": 3,
@@ -110,6 +110,17 @@
    "resultado": "Coleta automatica de 23/11/2026, 2 dia(s) atras (prazo 60 dias)."
   },
   {
+   "id": "cnes_nomes",
+   "sistema": "CNES, nomes dos estabelecimentos (API de dados abertos do MS)",
+   "acesso": "API aberta, lida pelo robo (em teste)",
+   "uso": "Nome do estabelecimento no painel Gestao hospitalar; sem nome de pessoa fisica",
+   "coletor": "coletar_nomes_cnes",
+   "limite": "Endpoint conferido so na primeira rodada. Consultorio isolado e pessoa fisica ficam sem nome.",
+   "status": "Ativa",
+   "ultimo_teste": "2026-11-26T19:11:00-03:00",
+   "resultado": "Coleta automatica de 26/11/2026, 0 dia(s) atras (prazo 45 dias)."
+  },
+  {
    "id": "tabnet",
    "sistema": "DATASUS TabNet",
    "acesso": "Interface web de agregados, sem API",
@@ -117,7 +128,7 @@
    "coletor": "sem coletor automatico",
    "limite": "Sem API direta",
    "status": "Manual",
-   "ultimo_teste": "2026-11-26T19:00:11-03:00",
+   "ultimo_teste": "2026-11-26T19:11:52-03:00",
    "resultado": "Pagina responde (HTTP 200). Sem coletor automatico, lancamento manual."
   },
   {
@@ -128,7 +139,7 @@
    "coletor": "sem coletor automatico",
    "limite": "Atualizacao mensal por competencia",
    "status": "A confirmar",
-   "ultimo_teste": "2026-11-26T19:00:12-03:00",
+   "ultimo_teste": "2026-11-26T19:12:15-03:00",
    "resultado": "Sem resposta no teste (robots.txt: URLError)."
   },
   {
@@ -172,7 +183,7 @@
    "coletor": "sem coletor automatico",
    "limite": "Endpoint por conjunto a confirmar",
    "status": "Manual",
-   "ultimo_teste": "2026-11-26T19:00:12-03:00",
+   "ultimo_teste": "2026-11-26T19:12:15-03:00",
    "resultado": "Pagina responde (HTTP 200). Sem coletor automatico, lancamento manual."
   },
   {
@@ -271,7 +282,7 @@
    "coletor": "sem coletor automatico",
    "limite": "",
    "status": "A confirmar",
-   "ultimo_teste": "2026-11-26T19:00:13-03:00",
+   "ultimo_teste": "2026-11-26T19:12:16-03:00",
    "resultado": "Sem resposta no teste (robots.txt: URLError)."
   },
   {
@@ -282,8 +293,8 @@
    "coletor": "sem coletor automatico",
    "limite": "Endpoint por consulta a confirmar",
    "status": "A confirmar",
-   "ultimo_teste": "2026-11-26T19:00:13-03:00",
-   "resultado": "Sem resposta no teste (robots.txt: ConnectionResetError)."
+   "ultimo_teste": "2026-11-26T19:12:16-03:00",
+   "resultado": "Sem resposta no teste (ConnectionResetError)."
   },
   {
    "id": "ans",
