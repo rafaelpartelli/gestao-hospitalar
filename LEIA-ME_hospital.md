@@ -244,3 +244,10 @@ O dossie mostra `motivo_provavel` nos codigos de erro do arquivo ER (`por_codigo
   para os 6 digitos (pastas Doc e Auxiliar do SIHSUS conferidas, sem lista de erros). O codigo 010003, por exemplo, nao tem texto no manual e fica sem descricao.
 - Codigos sem texto no manual: 3, 9, 80, 101, 114 e 222. Texto transcrito por leitura automatizada do PDF: conferir com o manual antes de publicar.
 - Confirmacao: ver, na tela de rejeicao do SIHD2 do hospital, o motivo de 1 AIH com o codigo 060082 e de 1 com 060120 e comparar com o texto exibido.
+
+### Validar os motivos sem relatorio do hospital
+
+`notebook_app/validar_motivos_rejeicao.py` cruza as AIH rejeitadas (ER) que voltaram aprovadas (RD) e mede, por codigo de erro, sinais objetivos das datas
+(saida depois da competencia da rejeicao, saida 6+ meses antes, internacao depois da saida). Le DT_INTER e DT_SAIDA SO em memoria: nada de AIH ou data
+e gravado ou impresso, so contagens e percentuais. Percentual alto no codigo esperado e baixo nos demais e indicio, nao prova, da correspondencia.
+Uso: `python3 notebook_app/validar_motivos_rejeicao.py [CNES ...]`

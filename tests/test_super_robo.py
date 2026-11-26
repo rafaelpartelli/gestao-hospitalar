@@ -419,3 +419,13 @@ class MotivosDeRejeicao(unittest.TestCase):
         c = H._criticas("9", {"leitos": {"existentes": 20}, "estabelecimento": {"leitos_p1_p2_p3": [20, 0, 0]}}, [], None, rec)
         k = next(x for x in c if x["codigo"].startswith("C07-060082"))
         self.assertEqual(k["motivo_provavel"]["final_3_digitos"], "082")
+
+
+class ValidarMotivos(unittest.TestCase):
+    def test_sinais_de_data(self):
+        import validar_motivos_rejeicao as V
+        self.assertEqual(V.sinais("20260110", "20260305", "202602"), {"saida_apos_competencia": True, "saida_6m_antes": False, "inter_apos_saida": False})
+        self.assertEqual(V.sinais("20260110", "20260120", "202602")["saida_apos_competencia"], False)
+        self.assertEqual(V.sinais("20260310", "20260305", "202603")["inter_apos_saida"], True)
+        self.assertTrue(V.sinais("20250101", "20250105", "202603")["saida_6m_antes"])
+        self.assertEqual(V.sinais("", "xx", "202602"), {})
