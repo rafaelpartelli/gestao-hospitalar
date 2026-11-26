@@ -226,6 +226,30 @@ class PlanoDeAvanco(unittest.TestCase):
         self.assertEqual([k for k in H._criticas("9", {"leitos": {"existentes": 20}, "estabelecimento": {"leitos_p1_p2_p3": [20, 0, 0]}}, [], None, {"rejeitadas_fechadas": 5, "por_codigo_erro": [{"codigo_erro": "Z", "rejeitadas": 5, "recuperadas": 5, "nao_recuperadas": 0, "pct_recuperadas": 100.0}]})], [])
 
 
+class TabelasCnesMaisRecente(unittest.TestCase):
+    def test_usa_a_copia_mais_recente(self):
+        import tempfile, time
+        base = tempfile.mkdtemp()
+        os.makedirs(os.path.join(base, "dados_repo"))
+        sala = tempfile.mkdtemp()
+        velho, novo = os.path.join(base, "dados_repo", "tabelas_cnes.json"), os.path.join(sala, "tabelas_cnes.json")
+        json.dump({"tabelas": {"habilitacao": {"1": "a"}}}, open(velho, "w"))
+        json.dump({"tabelas": {"habilitacao": {"1": "a"}, "equipe_dbf": {"70": "ESF"}}}, open(novo, "w"))
+        os.utime(velho, (time.time() - 1000, time.time() - 1000))
+        antigos = (C.BASE, C.SALA, list(C._TAB))
+        C.BASE, C.SALA = base, sala
+        C._TAB.clear()
+        try:
+            tab = C.tabelas_cnes()
+            self.assertEqual(tab["_arquivo"], novo)
+            self.assertIn("equipe_dbf", tab["tabelas"])
+            self.assertIn("equipe_dbf", C.S.secao_tabelas(tab)["grupos_de_tabela"])
+        finally:
+            C.BASE, C.SALA = antigos[0], antigos[1]
+            C._TAB.clear()
+            C._TAB.extend(antigos[2])
+
+
 class EmendasPorMunicipio(unittest.TestCase):
     def test_secao_emendas(self):
         import tempfile

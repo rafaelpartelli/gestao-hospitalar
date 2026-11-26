@@ -25,11 +25,16 @@ _TAB = []
 
 
 def tabelas_cnes():
-    """tabelas_cnes.json (descricao oficial de codigos do CNES), se existir. Sem ele o dossie traz so o codigo."""
+    """tabelas_cnes.json (descricao oficial de codigos do CNES), se existir. Sem ele o dossie traz so o codigo.
+    Se houver mais de uma copia, usa a mais recente (copias antigas nao trazem as tabelas novas)."""
     if not _TAB:
-        cand = [os.environ.get("TABELAS_CNES", ""), os.path.join(BASE, "dados_repo", "tabelas_cnes.json"),
-                os.path.join(BASE, "dados_repo", "dados", "tabelas_cnes.json"), os.path.join(SALA, "tabelas_cnes.json")]
-        _TAB.append(S.carregar_tabelas([x for x in cand if x]))
+        cand = [x for x in (os.environ.get("TABELAS_CNES", ""), os.path.join(BASE, "dados_repo", "tabelas_cnes.json"),
+                            os.path.join(BASE, "dados_repo", "dados", "tabelas_cnes.json"), os.path.join(SALA, "tabelas_cnes.json")) if x and os.path.isfile(x)]
+        cand.sort(key=os.path.getmtime, reverse=True)
+        tab = S.carregar_tabelas(cand)
+        if tab is not None:
+            tab["_arquivo"] = next(c for c in cand if S.carregar_tabelas([c]) is not None)
+        _TAB.append(tab)
     return _TAB[0]
 
 
