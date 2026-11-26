@@ -80,8 +80,8 @@ class Dossie(unittest.TestCase):
 
     def test_municipio_sem_dado(self):
         ita = json.load(open(os.path.join(C.SAIDA, f"{ITA}.json")))
-        self.assertTrue(ita["secoes"]["producao"]["sih"]["aih_por_mes"].startswith("[PREENCHER"))
-        self.assertTrue(ita["secoes"]["producao"]["sia_aprovado"]["por_mes"].startswith("[PREENCHER"))
+        self.assertTrue(ita["secoes"]["producao"]["sih"]["aih_por_mes"]["situacao"].startswith("A confirmar"))
+        self.assertTrue(ita["secoes"]["producao"]["sia_aprovado"]["por_mes"]["situacao"].startswith("A confirmar"))
         nv = json.load(open(os.path.join(C.SAIDA, f"{NV}.json")))   # outro municipio nao vaza para Montanha
         self.assertEqual(nv["secoes"]["producao"]["sih"]["aih_por_mes"][0]["valor_total"], 9999.0)
 

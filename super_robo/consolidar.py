@@ -116,6 +116,11 @@ def secao_dengue(uf, cod):
     return {**cabecalho(d, ("se",)), "valores": pend("municipio sem registro em dengue")}
 
 
+def SEM_REGISTRO(o_que):
+    return {"situacao": f"A confirmar: nenhuma {o_que} do municipio na base de 2026",
+            "obs": "Ausencia de registro nao e erro de leitura. Conferir se o municipio tem estabelecimento do tipo no CNES (leitos, rede)."}
+
+
 def producao(con, cod):
     """SIH (RD, SP) e SIA (PA, somente aprovado) do municipio, a partir da base SQLite agregada."""
     c6 = cod[:6]
@@ -140,7 +145,7 @@ def producao(con, cod):
         sih = {"fonte": "SIH/SUS, arquivos RDES e SPES (FTP DATASUS), agregados na base local",
                "convertido_em": arq.get("rd", (None,))[0], "cnes_com_aih": cnes_rd,
                "obs": "Municipio do hospital (campo MUNIC_MOV). Conferir cnes_com_aih com o CNES antes de usar.",
-               "aih_por_mes": rd_mes or pend("sem AIH do municipio na base"), "principais_procedimentos": rd_proc,
+               "aih_por_mes": rd_mes or SEM_REGISTRO("AIH"), "principais_procedimentos": rd_proc,
                "servicos_profissionais_por_mes": sp_mes}
         pa_mes = [{"mes_processamento": f"{m[4:]}/{m[:4]}", "quantidade_aprovada": q, "valor_aprovado": round(v, 2)}
                   for m, q, v in con.execute("SELECT mvm, SUM(qtd_apr), SUM(val_apr) FROM pa WHERE ufmun=? GROUP BY mvm ORDER BY mvm", (c6,))]
@@ -150,7 +155,7 @@ def producao(con, cod):
             "SELECT cnes, SUM(val_apr) FROM pa WHERE ufmun=? GROUP BY cnes ORDER BY SUM(val_apr) DESC LIMIT ?", (c6, TOP))]
         sia = {"fonte": "SIA/SUS, arquivo PAES (FTP DATASUS), agregado na base local", "convertido_em": arq.get("pa", (None,))[0],
                "obs": "Somente producao aprovada (decisao do responsavel). Municipio do estabelecimento (PA_UFMUN).",
-               "por_mes": pa_mes or pend("sem producao ambulatorial do municipio na base"), "principais_procedimentos": pa_proc, "principais_estabelecimentos": pa_cnes}
+               "por_mes": pa_mes or SEM_REGISTRO("producao ambulatorial aprovada"), "principais_procedimentos": pa_proc, "principais_estabelecimentos": pa_cnes}
         return sih, sia
     finally:
         con.close()
