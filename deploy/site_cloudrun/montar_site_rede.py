@@ -25,10 +25,11 @@ function mostrarRede() {
   w.id = 'rede-wrap';
   w.append(abaRede());
   c.replaceChildren(w);
+  document.title = 'Gestão hospitalar';
   document.querySelectorAll('.t-item').forEach(a => {
     const on = a.dataset.r === 'rede';
     a.classList.toggle('ativo', on);
-    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    if (on) { a.setAttribute('aria-current', 'page'); const r = a.querySelector('span:last-child'); if (r && r.textContent !== 'Gestão hospitalar') r.textContent = 'Gestão hospitalar'; } else a.removeAttribute('aria-current');
   });
 }
 window.addEventListener('hashchange', mostrarRede);

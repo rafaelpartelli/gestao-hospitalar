@@ -21,7 +21,7 @@
 .rede .rd-btn-p:hover{background:var(--rd-escuro)}
 .rede :focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
 /* abas */
-.rede .rd-abas{display:flex;gap:4px;border-bottom:2px solid var(--rd-linha);margin:0 0 16px;overflow-x:auto}
+.rede .rd-abas{display:flex;gap:4px;border-bottom:2px solid var(--rd-linha);margin:0 0 16px;flex-wrap:wrap}
 .rede .rd-aba{font:inherit;font-weight:600;padding:10px 18px;min-height:44px;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;color:var(--rd-mudo);cursor:pointer;white-space:nowrap}
 .rede .rd-aba[aria-selected="true"]{color:var(--rd-azul);border-bottom-color:var(--rd-azul)}
 .rede .rd-painel[hidden]{display:none}
@@ -64,13 +64,13 @@
 .rede .rd-leg-barra::before{background:var(--rd-azul)}.rede .rd-leg-linha::before{background:var(--rd-verm);height:4px}
 /* ranking horizontal */
 .rede .rd-rank{display:flex;flex-direction:column;gap:10px}
-.rede .rd-rank-l{display:grid;grid-template-columns:minmax(120px,170px) 1fr 64px;gap:10px;align-items:center}
+.rede .rd-rank-l{display:grid;grid-template-columns:minmax(120px,170px) 1fr minmax(64px,auto);gap:10px;align-items:center}
 .rede .rd-rank-n{display:flex;flex-direction:column;font-size:.82rem;line-height:1.25}
 .rede .rd-rank-n span{color:var(--rd-mudo);font-size:.75rem}
 .rede .rd-ref{font-style:normal;font-size:.68rem;background:#e3f4e5;color:var(--rd-verde-t);border-radius:999px;padding:1px 8px;width:fit-content;margin-top:2px}
 .rede .rd-trilho{height:14px;background:#eef1f6;border-radius:999px;overflow:hidden}
 .rede .rd-fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rd-azul),#4a86e8);border-radius:999px;transition:width .7s ease}
-.rede .rd-rank-v{text-align:right;font-weight:700;font-size:.88rem;font-variant-numeric:tabular-nums}
+.rede .rd-rank-v{white-space:nowrap;text-align:right;font-weight:700;font-size:.88rem;font-variant-numeric:tabular-nums}
 /* rosca */
 .rede .rd-rosca-w{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
 .rede .rd-rosca{width:200px;height:200px;flex:none}
@@ -125,8 +125,16 @@
 .rede .rd-rot-sel{display:flex;gap:8px;align-items:center;margin:0 0 8px;font-size:.85rem}
 .rede .rd-leg-linha2{font-size:.78rem;color:var(--rd-mudo);margin:8px 0 0}
 .rede .rd-fonte{display:flex;gap:8px;align-items:flex-start;background:var(--rd-fundo);border-radius:10px;padding:12px;font-size:.78rem;color:var(--rd-mudo);margin-top:8px}
-@media (max-width:600px){.rede .rd-rank-l{grid-template-columns:1fr 64px}.rede .rd-rank-l .rd-trilho{grid-column:1/-1;grid-row:2}.rede .rd-val{font-size:1.4rem}}
+@media (max-width:600px){.rede .rd-rank-l{grid-template-columns:1fr auto}.rede .rd-rank-l .rd-trilho{grid-column:1/-1;grid-row:2}.rede .rd-val{font-size:1.4rem}}
 @media (prefers-reduced-motion:reduce){.rede .rd-fill{transition:none}.rede .rd-barra,.rede .rd-mun{transition:none}}
 @media print{.rede .rd-btn,.rede .rd-abas,.rede .rd-busca,.rede select{display:none}.rede .rd-painel[hidden]{display:block}.rede .rd-card,.rede .rd-kpi,.rede .rd-hosp{break-inside:avoid;box-shadow:none}}
 
 .rede{min-width:0;overflow-wrap:anywhere}.rede .rd-card,.rede .rd-kpi,.rede .rd-hosp{min-width:0}.rede svg{max-width:100%;height:auto}
+
+.rede .rd-selos{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}.rede .rd-selo{background:#eef2f9;color:var(--rd-escuro);border-radius:999px;padding:2px 10px;font-size:.78rem}.rede .rd-selo-av{background:#fff4d6;color:var(--rd-amar-t)}
+.rede .rd-kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(200px,100%),1fr));gap:8px 14px;margin:0 0 8px}.rede .rd-kv dt{font-size:.72rem;color:var(--rd-mudo)}.rede .rd-kv dd{margin:0;font-weight:700;color:var(--rd-escuro);font-size:.92rem}
+.rede .rd-sub-b{margin:10px 0 0;padding-left:10px;border-left:3px solid var(--rd-linha)}.rede .rd-sub-b h5{margin:0 0 6px;font-size:.85rem;color:var(--rd-escuro)}
+.rede .rd-fichas{display:flex;flex-wrap:wrap;gap:6px}.rede .rd-ficha{background:#f1f3f7;border-radius:6px;padding:2px 8px;font-size:.82rem}
+.rede .rd-bloco pre{white-space:pre-wrap;word-break:break-word}.rede .rd-lazy{min-height:40px}
+
+.rede .rd-grupo{margin:0 0 28px}.rede .rd-grupo>h3{margin:0 0 4px;font-size:1.15rem;color:var(--rd-escuro);padding-bottom:6px;border-bottom:2px solid var(--rd-azul)}.rede .rd-grupo>.rd-sub{margin:0 0 12px}

@@ -119,15 +119,16 @@ function pilha(resumo, total) {
   return el('div', null, barra, el('div', {class: 'rd-peq'}, ent.map(([k, n]) => `${k} ${n}`).join(' · ')));
 }
 
-function barrasMes(meses, campo) {
+function barrasMes(meses, campo, rotulo = 'Produção SIH por mês') {
   const W = 640, H = 220, m = {t: 14, r: 12, b: 34, l: 54}, iw = W - m.l - m.r, ih = H - m.t - m.b, rd = leitura();
   const val = x => num(x[campo]) ? x[campo] : 0, max = Math.max(...meses.map(val), 1), passo = niceStep(max / 4), topo = Math.ceil(max / passo) * passo, bw = iw / meses.length;
-  const g = sv('svg', {viewBox: `0 0 ${W} ${H}`, class: 'rd-svg', role: 'group', 'aria-label': 'Produção SIH por mês'});
-  for (let v = 0; v <= topo; v += passo) { const y = m.t + ih - (v / topo) * ih; g.append(sv('line', {x1: m.l, x2: W - m.r, y1: y, y2: y, class: 'rd-grade'}), sv('text', {x: m.l - 6, y: y + 4, class: 'rd-eixo', 'text-anchor': 'end'}, campo === 'valor_total' ? brlc(v) : inteiro(v))); }
+  const g = sv('svg', {viewBox: `0 0 ${W} ${H}`, class: 'rd-svg', role: 'group', 'aria-label': rotulo});
+  for (let v = 0; v <= topo; v += passo) { const y = m.t + ih - (v / topo) * ih; g.append(sv('line', {x1: m.l, x2: W - m.r, y1: y, y2: y, class: 'rd-grade'}), sv('text', {x: m.l - 6, y: y + 4, class: 'rd-eixo', 'text-anchor': 'end'}, /valor/.test(campo) ? brlc(v) : inteiro(v))); }
   meses.forEach((x, k) => {
     const h = (val(x) / topo) * ih, bx = m.l + k * bw + bw * 0.2, r = sv('rect', {x: bx, y: m.t + ih - h, width: bw * 0.6, height: h, rx: 3, class: 'rd-barra'});
-    ligar(r, `${x.competencia}: ${inteiro(x.aih)} AIH, ${num(x.valor_total) ? brl(x.valor_total) : 'sem valor'}, ocupação estimada ${pct(x.ocupacao_estimada_pct)}`, rd); g.append(r);
-    g.append(sv('text', {x: bx + bw * 0.3, y: H - 12, class: 'rd-eixo', 'text-anchor': 'middle'}, x.competencia));
+    const rot = x.competencia || x.mes_processamento || '';
+    ligar(r, x.aih !== undefined ? `${rot}: ${inteiro(x.aih)} AIH, ${num(x.valor_total) ? brl(x.valor_total) : 'sem valor'}, ocupação estimada ${pct(x.ocupacao_estimada_pct)}` : `${rot}: ${/valor/.test(campo) ? brl(x[campo]) : inteiro(x[campo])}`, rd); g.append(r);
+    g.append(sv('text', {x: bx + bw * 0.3, y: H - 12, class: 'rd-eixo', 'text-anchor': 'middle'}, rot));
   });
   return el('figure', {class: 'rd-fig'}, g, rd);
 }
@@ -157,13 +158,13 @@ async function montar(raiz) {
 function cabecalho(indice, estado) {
   const quando = (indice && indice.gerado_em) || (estado && estado.gerado_em);
   return el('header', {class: 'rd-topo'},
-    el('div', null, el('h2', null, 'Rede hospitalar e rejeições (ES)'), el('p', {class: 'rd-sub'}, 'Produção SIH, rejeição de AIH, habilitações e plano de avanço do faturamento, por CNES.')),
+    el('div', null, el('h2', null, 'Gestão hospitalar'), el('p', {class: 'rd-sub'}, 'Tudo que o robô colhe e valida: rejeição de AIH, produção SIH, SIA e CIHA, rede CNES, financeiro, recursos, território, críticas e plano de avanço do faturamento.')),
     el('div', {class: 'rd-topo-acoes'}, el('span', {class: 'rd-pilula'}, icone('agenda'), quando ? 'Dados gerados em ' + quando : pend('data de geração')),
       el('button', {type: 'button', class: 'rd-btn', onclick: () => window.print()}, icone('imprimir'), 'Imprimir')));
 }
 
 function rodapeFonte() {
-  return el('p', {class: 'rd-fonte'}, icone('info'), 'Fonte: SIH/SUS (RD e ER) e CNES, arquivos do DATASUS lidos pelo super robô do notebook. Somente dados agregados, identificados por código CNES e código do município. Percentual de recuperação, ocupação e perda são estimativas de apoio à gestão e não substituem o censo hospitalar nem o relatório oficial de críticas.');
+  return el('p', {class: 'rd-fonte'}, icone('info'), 'Fonte: SIH/SUS, SIA/SUS, CIHA e CNES (arquivos do DATASUS) e fontes oficiais de financiamento, lidos e validados pelo super robô do notebook. Somente dados agregados, identificados por código CNES e código do município. Campo sem dado aparece como [PREENCHER] e vai para a lista de pendências. Percentual de recuperação, ocupação e perda são estimativas de apoio à gestão e não substituem o censo hospitalar nem o relatório oficial de críticas.');
 }
 
 function abas(lista) {
@@ -215,7 +216,7 @@ function painelMunicipios(muns) {
   async function abrir(m) {
     limpar(det); det.append(el('p', null, 'Carregando...'));
     const d = dados[m.cod] || (dados[m.cod] = await carregar(D + `rede_${m.cod}.json`));
-    limpar(det); det.append(d ? municipio(d) : aviso('A confirmar: arquivo do município não encontrado.'));
+    limpar(det); det.append(d ? municipioPainel(m, d) : aviso('A confirmar: arquivo do município não encontrado.'));
     det.scrollIntoView && det.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
   // resumo nos cartoes: carrega todos em paralelo (poucos arquivos pequenos)
@@ -232,7 +233,6 @@ function painelMunicipios(muns) {
 
 function municipio(d) {
   const h = d.hospitais, w = el('div');
-  w.append(el('h3', {class: 'rd-tit-mun'}, d.municipio && d.municipio.nome ? d.municipio.nome : 'Município'), el('p', {class: 'rd-fonte-peq'}, `Gerado em: ${d.gerado_em || '[PREENCHER: data]'} · ${h && h.fonte ? h.fonte : ''}`));
   if (!h || !arr(h.itens).length) { w.append(aviso((h && (h.situacao || h.obs)) || 'A confirmar: sem hospital na base.')); return w; }
   const sev = h.criticas_por_severidade || {}, itens = h.itens;
   const aih = itens.reduce((s, i) => s + ((i.indicadores || {}).aih || 0), 0), valor = itens.reduce((s, i) => s + ((i.indicadores || {}).valor_total || 0), 0);
@@ -328,5 +328,213 @@ function hospital(i) {
     if (pl.pendencia_ganho) sp.append(el('p', {class: 'rd-peq'}, pl.pendencia_ganho));
   } else sp.append(el('p', null, 'Sem ações no plano.'));
   w.append(sp);
+  return w;
+}
+
+// ---------- Gestão hospitalar: demais seções do dossiê (produção, CNES, financeiro, recursos, território, pendências) ----------
+const ehPend = v => typeof v === 'string' && v.startsWith('[PREENCHER');
+const rotulo = k => { const t = String(k).replace(/_/g, ' ').trim(); return t.charAt(0).toUpperCase() + t.slice(1); };
+const PLANO = /(^|_)(ano|exercicio|se|bimestre|competencia|cod|cnes|codigo|tipo|classe|procedimento|cbo|servico|classificacao|mes_processamento|valores)$/;
+const META = ['fonte', 'status_fonte', 'competencia', 'exercicio', 'bimestre', 'periodo', 'ano', 'ano_da_proposta', 'se', 'meses', 'coletado_em', 'convertido_em', 'gerado_em', 'extracao_investsus', 'defasagem_dias'];
+const NOTAS = ['obs', 'situacao', 'regra'];
+const g = (o, ...c) => c.reduce((a, k) => (a && typeof a === 'object' ? a[k] : undefined), o);
+
+function fmtVal(k, v) {
+  if (v == null || v === '') return 'sem dado';
+  if (ehPend(v)) return el('span', {class: 'pendente'}, v);
+  if (typeof v === 'boolean') return v ? 'sim' : 'não';
+  if (typeof v === 'number') {
+    const c = String(k).toLowerCase();
+    if (PLANO.test(c)) return String(v);
+    if (/(_rs$|^valor|valor_|^val_|^sh$|^sp$|^sh_|^sp_)/.test(c)) return brl(v);
+    if (/pct|percent/.test(c)) return pct(v);
+    return Number.isInteger(v) ? inteiro(v) : decimal(v, 2);
+  }
+  return String(v);
+}
+const celula = (c, v) => v == null || v === '' ? '' : typeof v === 'object' ? (Array.isArray(v) ? `${inteiro(v.length)} item(ns)` : Object.entries(v).map(([a, b]) => `${rotulo(a)}: ${b && typeof b === 'object' ? '...' : b}`).join('; ')) : fmtVal(c, v);
+
+function meta(o) {
+  const w = el('div'), selos = [];
+  META.forEach(k => { const v = o[k]; if (v == null || v === '' || typeof v === 'object') return; selos.push(el('span', {class: 'rd-selo' + (k === 'defasagem_dias' && v > 30 ? ' rd-selo-av' : '')}, el('b', null, rotulo(k) + ': '), k === 'defasagem_dias' ? `${v} dia(s)` : ehPend(v) ? v : String(v))); });
+  if (selos.length) w.append(el('div', {class: 'rd-selos'}, selos));
+  NOTAS.forEach(k => { if (typeof o[k] === 'string' && o[k]) w.append(k === 'situacao' ? aviso(o[k]) : el('p', {class: 'rd-peq'}, o[k])); });
+  return w;
+}
+
+function lista(a, k) {
+  if (!a.length) return el('span', {class: 'rd-peq'}, 'sem registro');
+  if (a.every(x => x && typeof x === 'object' && !Array.isArray(x))) {
+    const cols = [...new Set(a.flatMap(x => Object.keys(x)))].slice(0, 12), N = 60, sub = a.slice(0, N);
+    const t = tabela(cols.map(rotulo), sub.map(x => cols.map(c => celula(c, x[c]))), cols.map((c, i) => i).filter(i => sub.some(x => typeof x[cols[i]] === 'number' && !PLANO.test(cols[i]))));
+    return el('div', null, t, a.length > N ? el('p', {class: 'rd-peq'}, `Mostrando ${N} de ${inteiro(a.length)} linhas.`) : null);
+  }
+  return el('div', {class: 'rd-fichas'}, a.slice(0, 80).map(x => el('span', {class: 'rd-ficha'}, x && typeof x === 'object' ? JSON.stringify(x) : fmtVal(k, x))), a.length > 80 ? el('span', {class: 'rd-peq'}, `+ ${inteiro(a.length - 80)}`) : null);
+}
+
+function bloco(v, k = '', d = 0) {
+  if (v == null || v === '') return el('span', {class: 'rd-peq'}, 'sem dado');
+  if (typeof v !== 'object') return fmtVal(k, v);
+  if (Array.isArray(v)) return lista(v, k);
+  const w = el('div', {class: 'rd-bloco'}), simples = [], filhos = [];
+  w.append(meta(v));
+  Object.entries(v).forEach(([c, x]) => { if (META.includes(c) || NOTAS.includes(c)) return; (x && typeof x === 'object' ? filhos : simples).push([c, x]); });
+  if (simples.length) w.append(el('dl', {class: 'rd-kv'}, simples.map(([c, x]) => el('div', null, el('dt', null, rotulo(c)), el('dd', null, fmtVal(c, x))))));
+  filhos.forEach(([c, x]) => w.append(el('div', {class: 'rd-sub-b'}, el('h5', null, rotulo(c)), d >= 3 ? el('pre', {class: 'rd-peq'}, JSON.stringify(x).slice(0, 400)) : bloco(x, c, d + 1))));
+  return w;
+}
+
+const grupo = (titulo, sub, ...filhos) => el('section', {class: 'rd-grupo'}, el('h3', null, titulo), sub ? el('p', {class: 'rd-sub'}, sub) : null, ...filhos);
+const semDado = (x, txt) => ehPend(x) ? aviso(x) : (x && typeof x === 'object' && !Array.isArray(x) ? bloco(x) : aviso(txt));
+const somar = (a, c) => arr(a).reduce((s, x) => s + (num(x[c]) ? x[c] : 0), 0);
+const nomeItem = x => x.descricao || [x.tipo, x.codigo, x.servico, x.classificacao, x.tipo_equipe, x.cbo, x.tipo_unidade, x.procedimento, x.cnes && 'CNES ' + x.cnes].filter(v => v != null && v !== '').join(' / ') || 'item';
+
+function rankSimples(linhas, fnome, fval, fmt, rot, max = 12) {
+  const l = linhas.slice(0, max), vals = l.map(fval), mx = Math.max(...vals.filter(num), 0) || 1, w = el('div', {class: 'rd-rank'});
+  l.forEach((x, k) => {
+    const v = vals[k], barra = el('span', {class: 'rd-fill'});
+    requestAnimationFrame(() => { barra.style.width = (num(v) ? Math.max(v / mx * 100, v > 0 ? 1.5 : 0) : 0) + '%'; });
+    w.append(el('div', {class: 'rd-rank-l'}, el('div', {class: 'rd-rank-n'}, el('strong', null, fnome(x))), el('div', {class: 'rd-trilho', role: 'img', 'aria-label': `${fnome(x)}, ${rot}: ${num(v) ? fmt(v) : 'sem dado'}`}, barra), el('div', {class: 'rd-rank-v'}, num(v) ? fmt(v) : 'sem dado')));
+  });
+  return w;
+}
+
+function cartaoLista(titulo, o, chaveLista, fval, fmt, rot, sub) {
+  const l = o && arr(o[chaveLista]);
+  if (!l || !l.length) return cartao(titulo, null, semDado(o, 'A confirmar: sem registro na base.'));
+  return cartao(titulo, sub || null, meta(o), rankSimples(l, nomeItem, fval, fmt, rot), detalhesTabela('Ver tabela completa', lista(l, chaveLista)));
+}
+
+// ---- Produção
+function cartaoSih(x) {
+  const m = arr(x && x.aih_por_mes);
+  if (!m.length) return grupo('SIH/SUS: internações aprovadas', null, semDado(x, 'A confirmar: sem AIH do município na base.'));
+  const aih = somar(m, 'aih'), valor = somar(m, 'valor_total'), ob = somar(m, 'obitos'), dias = somar(m, 'dias_permanencia');
+  const comp = [['SH (serviço hospitalar)', somar(m, 'sh')], ['SP (serviço profissional)', somar(m, 'sp')], ['SH complemento federal', somar(m, 'sh_fed')], ['SP complemento federal', somar(m, 'sp_fed')]].filter(c => c[1] > 0);
+  const w = el('div');
+  w.append(meta(x), el('div', {class: 'rd-kpis'},
+    kpi('doc', 'azul', 'AIH aprovadas', inteiro(aih), `${inteiro(m.length)} mês(es)`), kpi('moeda', 'verde', 'Valor total', brlc(valor), brl(valor)),
+    kpi('grafico', 'azul', 'Média por AIH', aih ? brl(valor / aih) : 'sem dado', 'valor total ÷ AIH'), kpi('agenda', 'azul', 'Permanência média', aih ? decimal(dias / aih, 1) + ' dias' : 'sem dado', 'dias ÷ AIH'),
+    kpi('pessoas', 'verm', 'Óbitos hospitalares', pct(aih ? ob / aih * 100 : null), `${inteiro(ob)} óbito(s) ÷ AIH`)));
+  w.append(el('div', {class: 'rd-duas'}, cartao('AIH por mês', null, barrasMes(m, 'aih', 'AIH aprovadas por mês no município')), cartao('Valor por mês', null, barrasMes(m, 'valor_total', 'Valor aprovado por mês no município'))));
+  w.append(el('div', {class: 'rd-duas'},
+    cartao('Composição do valor', 'SH + SP + complemento federal (a partir de 03/2026).', comp.length ? rankSimples(comp, c => c[0], c => c[1], brlc, 'valor') : aviso('A confirmar: sem valor.')),
+    cartaoLista('Procedimentos de maior valor', {principais_procedimentos: x.principais_procedimentos}, 'principais_procedimentos', p => p.valor_total, brlc, 'valor total', 'Código SIGTAP do procedimento realizado.')));
+  w.append(detalhesTabela('Ver produção mensal completa', lista(m, 'aih_por_mes')));
+  if (arr(x.servicos_profissionais_por_mes).length) w.append(cartao('Serviços profissionais por mês (SP)', null, lista(x.servicos_profissionais_por_mes, 'sp')));
+  if (arr(x.cnes_com_aih).length) w.append(cartao('CNES com AIH no município', 'Conferir com o CNES antes de usar.', lista(x.cnes_com_aih, 'cnes')));
+  return grupo('SIH/SUS: internações aprovadas', 'Produção hospitalar aprovada, por mês de processamento.', w);
+}
+
+function cartaoSia(x) {
+  const m = arr(x && x.por_mes);
+  if (!m.length) return grupo('SIA/SUS: produção ambulatorial aprovada', null, semDado(x, 'A confirmar: sem produção ambulatorial do município na base.'));
+  const w = el('div');
+  w.append(meta(x), el('div', {class: 'rd-kpis'}, kpi('doc', 'azul', 'Quantidade aprovada', inteiro(somar(m, 'quantidade_aprovada')), `${inteiro(m.length)} mês(es)`), kpi('moeda', 'verde', 'Valor aprovado', brlc(somar(m, 'valor_aprovado')), brl(somar(m, 'valor_aprovado')))));
+  w.append(el('div', {class: 'rd-duas'}, cartao('Valor aprovado por mês', null, barrasMes(m, 'valor_aprovado', 'Valor ambulatorial aprovado por mês')), cartao('Quantidade por mês', null, barrasMes(m, 'quantidade_aprovada', 'Quantidade ambulatorial aprovada por mês'))));
+  w.append(el('div', {class: 'rd-duas'}, cartaoLista('Procedimentos de maior valor', x, 'principais_procedimentos', p => p.valor_aprovado, brlc, 'valor aprovado'), cartaoLista('Estabelecimentos de maior valor', x, 'principais_estabelecimentos', p => p.valor_aprovado, brlc, 'valor aprovado')));
+  w.append(detalhesTabela('Ver produção mensal completa', lista(m, 'por_mes')));
+  return grupo('SIA/SUS: produção ambulatorial aprovada', 'Somente produção aprovada.', w);
+}
+
+function cartaoCiha(x) {
+  const m = arr(x && x.por_mes);
+  if (!m.length) return grupo('CIHA: internação e atendimento fora do SIH', null, semDado(x, 'A confirmar: sem registro de CIHA do município.'));
+  const w = el('div');
+  w.append(meta(x), el('div', {class: 'rd-kpis'}, kpi('doc', 'azul', 'Registros', inteiro(somar(m, 'registros')), `${inteiro(m.length)} mês(es)`), kpi('grafico', 'azul', 'Procedimentos', inteiro(somar(m, 'quantidade_procedimentos'))),
+    kpi('agenda', 'azul', 'Dias de permanência', inteiro(somar(m, 'dias_permanencia'))), kpi('pessoas', 'verm', 'Óbitos', inteiro(somar(m, 'obitos')))));
+  w.append(el('div', {class: 'rd-duas'}, cartao('Registros por mês', null, barrasMes(m, 'registros', 'Registros de CIHA por mês')), cartaoLista('Procedimentos mais frequentes', x, 'principais_procedimentos', p => p.quantidade, inteiro, 'quantidade')));
+  w.append(detalhesTabela('Ver mês a mês', lista(m, 'por_mes')));
+  if (arr(x.cnes_com_ciha).length) w.append(cartao('CNES com CIHA', null, lista(x.cnes_com_ciha, 'cnes')));
+  return grupo('CIHA: internação e atendimento fora do SIH', 'Sem valor financeiro. Não somar com AIH sem conferir duplicidade por CNES.', w);
+}
+
+const secProducao = s => s && typeof s === 'object' && !ehPend(s) ? el('div', null, cartaoSih(s.sih), cartaoSia(s.sia_aprovado), cartaoCiha(s.ciha)) : semDado(s, 'A confirmar: sem produção.');
+
+// ---- Rede CNES
+function secCnes(s) {
+  if (!s || typeof s !== 'object' || ehPend(s)) return semDado(s, 'A confirmar: sem seção CNES.');
+  const w = el('div'), kp = [];
+  const lt = g(s, 'leitos_por_tipo', 'totais'), eq = g(s, 'equipamentos_cadastro', 'totais'), pf = s.profissionais_cadastro, es = s.estabelecimentos;
+  if (lt && num(lt.existentes)) kp.push(kpi('hospital', 'azul', 'Leitos existentes', inteiro(lt.existentes), `${inteiro(lt.sus)} SUS · ${inteiro(lt.nao_sus)} não SUS`));
+  if (es && num(es.total)) kp.push(kpi('hospital', 'azul', 'Estabelecimentos', inteiro(es.total), `${inteiro(arr(es.com_leito_cadastrado).length)} com leito cadastrado`));
+  if (eq && num(eq.existentes)) kp.push(kpi('grafico', 'verde', 'Equipamentos', inteiro(eq.existentes), `${pct(eq.existentes ? eq.em_uso / eq.existentes * 100 : null)} em uso`));
+  if (pf && num(pf.vinculos)) kp.push(kpi('pessoas', 'azul', 'Vínculos profissionais', inteiro(pf.vinculos), 'contagem de vínculos, não de pessoas'));
+  if (g(s, 'equipes_cadastro', 'total_equipes') != null) kp.push(kpi('pessoas', 'azul', 'Equipes', inteiro(s.equipes_cadastro.total_equipes)));
+  if (g(s, 'habilitacoes', 'total') != null) kp.push(kpi('ok', 'verde', 'Habilitações', inteiro(s.habilitacoes.total), 'cadastro CNES'));
+  if (g(s, 'servicos_especializados', 'total_servicos_classificacoes') != null) kp.push(kpi('doc', 'azul', 'Serviços especializados', inteiro(s.servicos_especializados.total_servicos_classificacoes)));
+  if (kp.length) w.append(el('div', {class: 'rd-kpis'}, kp));
+  w.append(el('div', {class: 'rd-duas'}, cartaoLista('Leitos por tipo', s.leitos_por_tipo, 'itens', x => x.existentes, inteiro, 'leitos existentes'), cartaoLista('Equipamentos', s.equipamentos_cadastro, 'itens', x => x.existentes, inteiro, 'existentes')));
+  w.append(el('div', {class: 'rd-duas'}, cartaoLista('Equipes', s.equipes_cadastro, 'itens', x => x.equipes, inteiro, 'equipes'), cartaoLista('Serviços especializados', s.servicos_especializados, 'itens', x => x.estabelecimentos, inteiro, 'estabelecimentos')));
+  if (pf && arr(pf.principais_cbo).length) w.append(el('div', {class: 'rd-duas'}, cartaoLista('Profissionais por CBO', pf, 'principais_cbo', x => x.vinculos, inteiro, 'vínculos', 'Sem nome, CPF, CNS ou registro.'), cartaoLista('Vínculos por estabelecimento', pf, 'principais_estabelecimentos', x => x.vinculos, inteiro, 'vínculos')));
+  else w.append(cartao('Profissionais', null, semDado(pf, 'A confirmar: sem profissionais na base.')));
+  w.append(cartaoLista('Estabelecimentos por tipo de unidade', es, 'por_tipo_unidade', x => x.estabelecimentos, inteiro, 'estabelecimentos'));
+  if (es && arr(es.com_leito_cadastrado).length) w.append(cartao('Estabelecimentos com leito cadastrado', 'Natureza, gestão, urgência, centro cirúrgico, acreditação e instalações, em código do CNES.', detalhesTabela('Abrir tabela', lista(es.com_leito_cadastrado, 'com_leito_cadastrado'))));
+  [['habilitacoes', 'Habilitações'], ['incentivos', 'Incentivos'], ['regras_contratuais', 'Regras contratuais'], ['entidade_filantropica', 'Entidade filantrópica']].forEach(([k, t]) => w.append(cartao(t, 'Portaria, data e vigência por CNES.', ...(s[k] && arr(s[k].itens).length ? [meta(s[k]), detalhesTabela('Abrir tabela', lista(s[k].itens, k))] : [semDado(s[k], 'A confirmar: sem registro na base.')]))));
+  [['leitos', 'Resumo de leitos (Sala de Gestão)'], ['equipes', 'Resumo de equipes (Sala de Gestão)'], ['equipamentos', 'Resumo de equipamentos (Sala de Gestão)'], ['profissionais', 'Resumo de profissionais (Sala de Gestão)'], ['rede', 'Rede de serviços (Sala de Gestão)'], ['tabelas_codigos', 'Tabelas oficiais de descrição de códigos']].forEach(([k, t]) => { if (k in s) w.append(cartao(t, null, detalhesTabela('Abrir', bloco(s[k])))); });
+  return w;
+}
+
+// ---- Financeiro, recursos, território
+function secFinanceiro(s) {
+  if (!s || typeof s !== 'object' || ehPend(s)) return semDado(s, 'A confirmar: sem seção financeira.');
+  const w = el('div');
+  [['despesa_saude', 'Despesa em saúde'], ['receita', 'Receita'], ['pessoal', 'Despesa com pessoal'], ['siops', 'SIOPS: aplicação em saúde']].forEach(([k, t]) => { if (k in s) w.append(cartao(t, null, bloco(s[k]))); });
+  return w;
+}
+
+function secRecursos(s) {
+  if (!s || typeof s !== 'object' || ehPend(s)) return semDado(s, 'A confirmar: sem seção de recursos.');
+  const w = el('div'), e = s.emendas;
+  if (e && typeof e === 'object' && num(e.proposto_rs)) {
+    w.append(cartao('Emendas parlamentares (Radar de Recursos)', 'Execução financeira, não meta. Ano da proposta indicado abaixo.', meta(e), el('div', {class: 'rd-kpis'},
+      kpi('doc', 'azul', 'Propostas', inteiro(e.propostas)), kpi('moeda', 'azul', 'Proposto', brlc(e.proposto_rs), brl(e.proposto_rs)), kpi('moeda', 'amar', 'Empenhado', brlc(e.empenhado_rs), `${pct(e.pct_empenhado_sobre_proposto)} do proposto`),
+      kpi('ok', 'verde', 'Pago', brlc(e.pago_rs), `${pct(e.pct_pago_sobre_empenhado)} do empenhado`), kpi('alerta', 'verm', 'Saldo a pagar', brlc(e.saldo_a_pagar_rs), brl(e.saldo_a_pagar_rs))),
+      rankSimples([['Proposto', e.proposto_rs], ['Empenhado', e.empenhado_rs], ['Pago', e.pago_rs]], x => x[0], x => x[1], brlc, 'valor')));
+  } else if (e) w.append(cartao('Emendas parlamentares (Radar de Recursos)', null, semDado(e, 'A confirmar: sem emendas.')));
+  [['fns_investsus', 'Repasses FNS e InvestSUS'], ['transferencias_uniao_saude', 'Transferências da União para a saúde']].forEach(([k, t]) => { if (k in s) w.append(cartao(t, null, bloco(s[k]))); });
+  return w;
+}
+
+function secTerritorio(s) {
+  if (!s || typeof s !== 'object' || ehPend(s)) return semDado(s, 'A confirmar: sem seção de território.');
+  const w = el('div');
+  [['dengue', 'Dengue (Sala de Gestão)'], ['cobertura_planos_ans', 'Cobertura de planos de saúde (ANS)']].forEach(([k, t]) => { if (k in s) w.append(cartao(t, null, bloco(s[k]))); });
+  return w;
+}
+
+// ---- Pendências e validação
+function secResumo(r) {
+  const p = arr(r && r.pendencias), w = el('div');
+  const pop = g(r, 'municipio', 'populacao');
+  w.append(el('div', {class: 'rd-kpis'}, kpi('alerta', p.length ? 'amar' : 'verde', 'Pendências do robô', inteiro(p.length), 'campos que ainda dependem de dado oficial'), kpi('pessoas', 'azul', 'População', pop && num(pop.valor) ? inteiro(pop.valor) : 'sem dado', pop && pop.fonte ? String(pop.fonte) : 'denominador IBGE')));
+  if (!p.length) { w.append(aviso('Nenhuma pendência registrada pelo robô nesta geração.')); return w; }
+  const grupos = {};
+  p.forEach(t => { const [c, ...resto] = String(t).split(': '); const topo = c.split(/[.[]/)[0] || 'outros'; (grupos[topo] = grupos[topo] || []).push([c, resto.join(': ')]); });
+  Object.entries(grupos).sort((a, b) => b[1].length - a[1].length).forEach(([k, l]) => w.append(cartao(`${({cnes: 'Rede CNES', territorio_saude: 'Território', producao: 'Produção', recursos: 'Recursos', financeiro: 'Financeiro', populacao: 'População'})[k] || rotulo(k)}: ${inteiro(l.length)} pendência(s)`, null, tabela(['Campo', 'O que falta'], l.map(([c, t]) => [c, ehPend(t) ? el('span', {class: 'pendente'}, t) : t])))));
+  return w;
+}
+
+// ---- painel do município com abas e carga sob demanda
+const SECOES = [['producao', 'Produção SIH, SIA e CIHA', secProducao, 'secao'], ['cnes', 'Rede CNES', secCnes, 'secao'], ['financeiro', 'Financeiro', secFinanceiro, 'secao'], ['recursos', 'Recursos e emendas', secRecursos, 'secao'], ['territorio', 'Território', secTerritorio, 'secao'], ['resumo', 'Pendências', secResumo, null]];
+
+function municipioPainel(m, d) {
+  const w = el('div'), h = d.hospitais;
+  w.append(el('h3', {class: 'rd-tit-mun'}, d.municipio && d.municipio.nome ? d.municipio.nome : m.nome), el('p', {class: 'rd-fonte-peq'}, `Gerado em: ${d.gerado_em || '[PREENCHER: data]'} · ${h && h.fonte ? h.fonte : ''}`));
+  const painel = [['Hospitais e rejeição', municipio(d)]];
+  SECOES.forEach(([k, rot, fn, campo]) => {
+    const alvo = el('div', {class: 'rd-lazy'});
+    let feito = false;
+    alvo.carregar = async () => {
+      if (feito) return; feito = true; alvo.append(el('p', {class: 'rd-carregando'}, 'Carregando...'));
+      const x = await carregar(D + `rede_${m.cod}_${k}.json`);
+      limpar(alvo);
+      alvo.append(x ? (campo ? fn(x[campo]) : fn(x)) : aviso('A confirmar: seção ainda não publicada. Rode a coleta do robô e a publicação.'));
+    };
+    painel.push([rot, alvo]);
+  });
+  const corpo = abas(painel);
+  corpo.addEventListener('click', () => setTimeout(() => corpo.querySelectorAll('.rd-painel:not([hidden]) .rd-lazy').forEach(a => a.carregar && a.carregar()), 0));
+  w.append(corpo);
   return w;
 }

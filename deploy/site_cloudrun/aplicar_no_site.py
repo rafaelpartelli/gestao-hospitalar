@@ -12,7 +12,7 @@ def trocar(t, velho, novo, nome):
 
 h = ler('index.html')
 h = trocar(h, '<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="styles.css">\n<link rel="stylesheet" href="rede.css">', 'index.html')
-h = trocar(h, '    <a href="#/fontes"', '    <a href="#/rede" data-r="rede" class="t-item t-aux"><span class="t-n">R</span><span>Rede hospitalar e rejeições (ES)</span></a>\n    <a href="#/fontes"', 'index.html')
+h = trocar(h, '    <a href="#/fontes"', '    <a href="#/rede" data-r="rede" class="t-item t-aux"><span class="t-n">R</span><span>Gestão hospitalar</span></a>\n    <a href="#/fontes"', 'index.html')
 h = trocar(h, '<script src="app.js"></script>', '<script src="app.js"></script>\n<script src="rede.js"></script>', 'index.html')
 gravar('index.html', h)
 

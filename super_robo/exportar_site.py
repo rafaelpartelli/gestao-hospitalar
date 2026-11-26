@@ -1,6 +1,7 @@
-"""Exporta do dossie os JSON que o site (Gestao Hospitalar, aba Rede e rejeicoes) le: rede_indice.json, rede_<cod6ou7>.json e rede_rejeicao_es.json.
+"""Exporta do dossie os JSON que o site (painel Gestao hospitalar) le: rede_indice.json, rede_<cod>.json (hospitais), rede_rejeicao_es.json e, por municipio,
+uma secao por arquivo: rede_<cod>_producao.json, _cnes.json, _financeiro.json, _recursos.json, _territorio.json e _resumo.json (populacao e pendencias).
 
-So entram a secao de hospitais de cada municipio e a visao estadual de rejeicao por CNES. Guarda de privacidade: o arquivo e recusado se tiver
+Entra tudo que o robo colhe e valida, sempre agregado. Guarda de privacidade: o arquivo e recusado se tiver
 sequencia de 11 ou mais digitos (CPF, CNS, CNPJ, numero de AIH). Nome de estabelecimento nao existe nos dados. Nome de municipio vem so do cadastro
 autorizado (indice do dossie). Nada e publicado aqui: os arquivos ficam na pasta de dados do notebook e seguem a rotina `partelli-coleta publicar`."""
 import json, os, re
@@ -21,6 +22,9 @@ def _gravar(pasta, nome, obj):
     return True
 
 
+SECOES_SITE = {"producao": "producao", "cnes": "cnes", "financeiro": "financeiro", "recursos": "recursos", "territorio": "territorio_saude"}
+
+
 def exportar(dossie, saida):
     """Le <dossie>/indice.json, <dossie>/<cod>.json e <dossie>/estado_ES_rejeicao_por_cnes.json; grava em <saida>. Devolve {'gravados': [...], 'recusados': [...]}."""
     os.makedirs(saida, exist_ok=True)
@@ -36,8 +40,26 @@ def exportar(dossie, saida):
         nome = f"rede_{m['cod']}.json"
         if _gravar(saida, nome, {"gerado_em": d.get("gerado_em"), "municipio": {"cod": m["cod"], "nome": m["nome"]}, "hospitais": hosp}):
             gravados.append(nome)
+            sec = d.get("secoes") or {}
+            disp = []
+            for curto, chave in SECOES_SITE.items():
+                if chave not in sec:
+                    continue
+                nm = f"rede_{m['cod']}_{curto}.json"
+                if _gravar(saida, nm, {"gerado_em": d.get("gerado_em"), "municipio": {"cod": m["cod"], "nome": m["nome"]}, "secao": sec[chave]}):
+                    gravados.append(nm)
+                    disp.append(curto)
+                else:
+                    recusados.append(nm)
+            nm = f"rede_{m['cod']}_resumo.json"
+            if _gravar(saida, nm, {"gerado_em": d.get("gerado_em"), "municipio": {"cod": m["cod"], "nome": m["nome"], "populacao": (d.get("municipio") or {}).get("populacao")},
+                                   "pendencias": d.get("pendencias") or []}):
+                gravados.append(nm)
+                disp.append("resumo")
+            else:
+                recusados.append(nm)
             n = hosp.get("total") if isinstance(hosp, dict) else None
-            municipios.append({"cod": m["cod"], "nome": m["nome"], "hospitais": n or 0})
+            municipios.append({"cod": m["cod"], "nome": m["nome"], "hospitais": n or 0, "secoes": disp, "pendencias": len(d.get("pendencias") or [])})
         else:
             recusados.append(nome)
     est = os.path.join(dossie, "estado_ES_rejeicao_por_cnes.json")
