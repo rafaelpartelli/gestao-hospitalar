@@ -1,0 +1,906 @@
+{
+ "gerado_em": "2026-11-26T15:54:39-03:00",
+ "municipio": {
+  "cod": "3202801",
+  "nome": "Itapemirim"
+ },
+ "hospitais": {
+  "fonte": "Base local: SIH (RD, SP), SIA aprovado (PA), CIHA, CNES (ST, LT, EQ, PF, HB, IN, SR)",
+  "total": 2,
+  "criticas_por_severidade": {
+   "Alta": 0,
+   "Media": 1,
+   "Baixa": 0
+  },
+  "plano_acoes_arquivo": {
+   "situacao": "2 lancamento(s) aplicado(s), 0 recusado(s)",
+   "linhas_lidas": 2,
+   "recusadas": []
+  },
+  "itens": [
+   {
+    "cnes": "6945368",
+    "cadastro": {
+     "estabelecimento": {
+      "competencia": "10/2026",
+      "tipo_unidade": "05",
+      "natureza": "",
+      "natureza_juridica": "3999",
+      "esfera": "D",
+      "gestao": "D",
+      "leitos_p1_p2_p3": [
+       27,
+       33,
+       20
+      ]
+     },
+     "leitos": {
+      "competencia": "10/2026",
+      "existentes": 80,
+      "sus": 74,
+      "nao_sus": 6
+     },
+     "equipamentos": {
+      "competencia": "10/2026",
+      "existentes": 232,
+      "em_uso": 232,
+      "pct_em_uso": 100.0
+     },
+     "profissionais": {
+      "competencia": "10/2026",
+      "vinculos": 425,
+      "horas_ambulatoriais": 664,
+      "horas_hospitalares": 7226
+     },
+     "habilitacoes": {
+      "competencia": "10/2026",
+      "total": 3,
+      "codigos": [
+       "2601",
+       "2902",
+       "3801"
+      ]
+     },
+     "incentivos": {
+      "competencia": "10/2026",
+      "total": 3
+     },
+     "servicos_especializados": {
+      "competencia": "10/2026",
+      "total": 22
+     }
+    },
+    "producao": {
+     "sih_por_mes": [
+      {
+       "competencia": "01/2026",
+       "aih": 351,
+       "valor_total": 554505.41,
+       "sh": 473992.71,
+       "sp": 80512.7,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1757,
+       "obitos": 21,
+       "dias_uti": 433,
+       "ocupacao_estimada_pct": 76.6
+      },
+      {
+       "competencia": "02/2026",
+       "aih": 429,
+       "valor_total": 758565.73,
+       "sh": 643740.03,
+       "sp": 114825.7,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1940,
+       "obitos": 16,
+       "dias_uti": 700,
+       "ocupacao_estimada_pct": 93.6
+      },
+      {
+       "competencia": "03/2026",
+       "aih": 373,
+       "valor_total": 689224.95,
+       "sh": 586999.77,
+       "sp": 102225.18,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1804,
+       "obitos": 18,
+       "dias_uti": 691,
+       "ocupacao_estimada_pct": 78.6
+      },
+      {
+       "competencia": "04/2026",
+       "aih": 272,
+       "valor_total": 272267.99,
+       "sh": 225667.35,
+       "sp": 46600.64,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 991,
+       "obitos": 13,
+       "dias_uti": 146,
+       "ocupacao_estimada_pct": 44.6
+      },
+      {
+       "competencia": "05/2026",
+       "aih": 380,
+       "valor_total": 612519.89,
+       "sh": 520735.31,
+       "sp": 91784.58,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1860,
+       "obitos": 19,
+       "dias_uti": 573,
+       "ocupacao_estimada_pct": 81.1
+      },
+      {
+       "competencia": "06/2026",
+       "aih": 281,
+       "valor_total": 389421.09,
+       "sh": 324477.76,
+       "sp": 64943.33,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1421,
+       "obitos": 14,
+       "dias_uti": 291,
+       "ocupacao_estimada_pct": 64.0
+      },
+      {
+       "competencia": "07/2026",
+       "aih": 393,
+       "valor_total": 654610.87,
+       "sh": 552079.19,
+       "sp": 102531.68,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 2290,
+       "obitos": 19,
+       "dias_uti": 620,
+       "ocupacao_estimada_pct": 99.8
+      },
+      {
+       "competencia": "08/2026",
+       "aih": 335,
+       "valor_total": 546348.55,
+       "sh": 458354.48,
+       "sp": 87994.07,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1675,
+       "obitos": 13,
+       "dias_uti": 504,
+       "ocupacao_estimada_pct": 73.0
+      },
+      {
+       "competencia": "09/2026",
+       "aih": 329,
+       "valor_total": 484375.91,
+       "sh": 407703.79,
+       "sp": 76672.12,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1735,
+       "obitos": 17,
+       "dias_uti": 410,
+       "ocupacao_estimada_pct": 78.2
+      }
+     ],
+     "sia_aprovado_por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 4830,
+       "valor_aprovado": 51851.26
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 4396,
+       "valor_aprovado": 59726.06
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 4989,
+       "valor_aprovado": 54926.6
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 2997,
+       "valor_aprovado": 47416.74
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 2857,
+       "valor_aprovado": 44317.95
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 2753,
+       "valor_aprovado": 44378.47
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 3048,
+       "valor_aprovado": 47990.36
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 2918,
+       "valor_aprovado": 43605.32
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 1495,
+       "valor_aprovado": 23703.88
+      }
+     ],
+     "ciha_por_mes": [
+      {
+       "competencia": "03/2026",
+       "registros": 370,
+       "quantidade_procedimentos": 2045
+      },
+      {
+       "competencia": "04/2026",
+       "registros": 388,
+       "quantidade_procedimentos": 3133
+      },
+      {
+       "competencia": "05/2026",
+       "registros": 403,
+       "quantidade_procedimentos": 2741
+      },
+      {
+       "competencia": "06/2026",
+       "registros": 439,
+       "quantidade_procedimentos": 3009
+      },
+      {
+       "competencia": "07/2026",
+       "registros": 447,
+       "quantidade_procedimentos": 2803
+      },
+      {
+       "competencia": "08/2026",
+       "registros": 421,
+       "quantidade_procedimentos": 2597
+      },
+      {
+       "competencia": "09/2026",
+       "registros": 282,
+       "quantidade_procedimentos": 1973
+      }
+     ],
+     "sia_aprovado_total": {
+      "quantidade": 30283,
+      "valor": 417916.64
+     }
+    },
+    "indicadores": {
+     "meses_com_producao": 9,
+     "aih": 3143,
+     "valor_total": 4961840.39,
+     "media_por_aih": 1578.7,
+     "permanencia_media_dias": 4.92,
+     "mortalidade_hospitalar_pct": 4.77,
+     "formulas": "media = valor total / AIH; permanencia = dias de permanencia / AIH; mortalidade = obitos / AIH x 100",
+     "ocupacao_estimada_leitos_existentes_pct": 70.8,
+     "aih_por_leito_sus_por_mes": 4.72,
+     "ocupacao_estimada_pct": 76.6,
+     "obs_ocupacao": "Estimativa: dias de permanencia das AIH aprovadas (SIH) dividido por leitos SUS do cadastro vezes dias do periodo. Nao substitui o censo hospitalar. Leitos SUS da competencia mais recente do CNES. Tambem calculada sobre leitos existentes."
+    },
+    "rejeicao_sih": {
+     "situacao": "A confirmar: nenhuma AIH rejeitada do hospital na base de 2026"
+    },
+    "checklist_habilitacao": {
+     "competencia": "10/2026",
+     "resumo": {
+      "Habilitado": 3
+     },
+     "total": 3,
+     "itens": [
+      {
+       "codigo": "2601",
+       "descricao": "UTI II ADULTO",
+       "leitos": 20,
+       "portaria": "RET 245/GM/MS",
+       "data_portaria": "14/03/2023",
+       "vigencia_inicio": "202303",
+       "vigencia_fim": "999999",
+       "status": "Habilitado",
+       "motivo": "portaria e vigencia aberta registradas no CNES (confirmar no DOU)",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      },
+      {
+       "codigo": "2902",
+       "descricao": "PROGRAMA NACIONAL DE REDUCAO DE FILAS DE CIRURGIAS ELETIVAS",
+       "leitos": 0,
+       "portaria": "RESOLUÇÃO CIB 004/2025",
+       "data_portaria": "05/11/2026",
+       "vigencia_inicio": "202609",
+       "vigencia_fim": "202706",
+       "status": "Habilitado",
+       "motivo": "portaria e vigencia aberta registradas no CNES (confirmar no DOU)",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      },
+      {
+       "codigo": "3801",
+       "descricao": "PROGRAMA MAIS ACESSO A ESPECIALISTAS",
+       "leitos": 0,
+       "portaria": "CIB 004/2025",
+       "data_portaria": "05/11/2026",
+       "vigencia_inicio": "202510",
+       "vigencia_fim": "202706",
+       "status": "Habilitado",
+       "motivo": "portaria e vigencia aberta registradas no CNES (confirmar no DOU)",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      }
+     ],
+     "bases_do_cadastro": {
+      "caracterizacao": {
+       "situacao": "Disponivel na base: 1 registro(s) de estabelecimento (ST)"
+      },
+      "leitos": {
+       "situacao": "Disponivel na base: 4 registro(s) de leitos (LT)"
+      },
+      "servicos": {
+       "situacao": "Disponivel na base: 22 registro(s) de servicos especializados (SR)"
+      },
+      "habilitacoes": {
+       "situacao": "Disponivel na base: 3 registro(s) de habilitacoes (HB)"
+      },
+      "incentivos": {
+       "situacao": "Disponivel na base: 3 registro(s) de incentivos (IN)"
+      },
+      "equipamentos": {
+       "situacao": "Disponivel na base: 16 registro(s) de equipamentos (EQ)"
+      },
+      "cbo_e_carga_horaria": {
+       "situacao": "Disponivel na base: 78 registro(s) de profissionais por CBO e horas (PF)"
+      },
+      "atividades": {
+       "situacao": "[PREENCHER: atividades do estabelecimento nao coletadas nesta versao]"
+      },
+      "instalacoes": {
+       "situacao": "Ver secoes.cnes.estabelecimentos (QTINST do ST), quando o CNES tem leito cadastrado"
+      }
+     },
+     "obs": "Status derivado do registro do CNES. Em habilitacao e Nao habilitado so o gestor define. Sem portaria, nunca se afirma habilitado."
+    },
+    "criticas": [],
+    "plano_avanco": {
+     "itens": [],
+     "total": 0,
+     "pendencia_ganho": null
+    }
+   },
+   {
+    "cnes": "7336578",
+    "cadastro": {
+     "estabelecimento": {
+      "competencia": "10/2026",
+      "tipo_unidade": "05",
+      "natureza": "",
+      "natureza_juridica": "1244",
+      "esfera": "M",
+      "gestao": "M",
+      "leitos_p1_p2_p3": [
+       5,
+       8,
+       14
+      ]
+     },
+     "leitos": {
+      "competencia": "10/2026",
+      "existentes": 42,
+      "sus": 32,
+      "nao_sus": 10
+     },
+     "equipamentos": {
+      "competencia": "10/2026",
+      "existentes": 109,
+      "em_uso": 109,
+      "pct_em_uso": 100.0
+     },
+     "profissionais": {
+      "competencia": "10/2026",
+      "vinculos": 229,
+      "horas_ambulatoriais": 2275,
+      "horas_hospitalares": 2739
+     },
+     "habilitacoes": {
+      "competencia": "10/2026",
+      "total": 2,
+      "codigos": [
+       "1901",
+       "1902"
+      ]
+     },
+     "incentivos": {
+      "competencia": "10/2026",
+      "total": 0
+     },
+     "servicos_especializados": {
+      "competencia": "10/2026",
+      "total": 18
+     }
+    },
+    "producao": {
+     "sih_por_mes": [
+      {
+       "competencia": "01/2026",
+       "aih": 100,
+       "valor_total": 53851.23,
+       "sh": 32653.02,
+       "sp": 21198.21,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 215,
+       "obitos": 0,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 21.7
+      },
+      {
+       "competencia": "02/2026",
+       "aih": 103,
+       "valor_total": 58898.64,
+       "sh": 36007.98,
+       "sp": 22890.66,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 214,
+       "obitos": 1,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 23.9
+      },
+      {
+       "competencia": "03/2026",
+       "aih": 100,
+       "valor_total": 52507.55,
+       "sh": 31560.75,
+       "sp": 20946.8,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 193,
+       "obitos": 0,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 19.5
+      },
+      {
+       "competencia": "04/2026",
+       "aih": 125,
+       "valor_total": 62448.18,
+       "sh": 37658.37,
+       "sp": 24789.81,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 236,
+       "obitos": 0,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 24.6
+      },
+      {
+       "competencia": "05/2026",
+       "aih": 108,
+       "valor_total": 58678.87,
+       "sh": 34780.01,
+       "sp": 23898.86,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 193,
+       "obitos": 1,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 19.5
+      },
+      {
+       "competencia": "06/2026",
+       "aih": 115,
+       "valor_total": 66259.09,
+       "sh": 40530.9,
+       "sp": 25728.19,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 237,
+       "obitos": 1,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 24.7
+      },
+      {
+       "competencia": "07/2026",
+       "aih": 122,
+       "valor_total": 63311.19,
+       "sh": 38946.8,
+       "sp": 24364.39,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 256,
+       "obitos": 1,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 25.8
+      },
+      {
+       "competencia": "08/2026",
+       "aih": 161,
+       "valor_total": 81826.79,
+       "sh": 51663.15,
+       "sp": 30163.64,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 331,
+       "obitos": 2,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 33.4
+      },
+      {
+       "competencia": "09/2026",
+       "aih": 147,
+       "valor_total": 69298.85,
+       "sh": 44156.48,
+       "sp": 25142.37,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 328,
+       "obitos": 1,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 34.2
+      }
+     ],
+     "sia_aprovado_por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 30386,
+       "valor_aprovado": 83104.2
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 29975,
+       "valor_aprovado": 81894.21
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 32364,
+       "valor_aprovado": 87759.25
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 34380,
+       "valor_aprovado": 92950.51
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 31016,
+       "valor_aprovado": 88709.3
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 34116,
+       "valor_aprovado": 87697.56
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 30089,
+       "valor_aprovado": 77405.79
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 30742,
+       "valor_aprovado": 81061.75
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 6,
+       "valor_aprovado": 29.7
+      }
+     ],
+     "ciha_por_mes": [],
+     "sia_aprovado_total": {
+      "quantidade": 253074,
+      "valor": 680612.27
+     }
+    },
+    "indicadores": {
+     "meses_com_producao": 9,
+     "aih": 1081,
+     "valor_total": 567080.39,
+     "media_por_aih": 524.59,
+     "permanencia_media_dias": 2.04,
+     "mortalidade_hospitalar_pct": 0.65,
+     "formulas": "media = valor total / AIH; permanencia = dias de permanencia / AIH; mortalidade = obitos / AIH x 100",
+     "ocupacao_estimada_leitos_existentes_pct": 19.2,
+     "aih_por_leito_sus_por_mes": 3.75,
+     "ocupacao_estimada_pct": 25.2,
+     "obs_ocupacao": "Estimativa: dias de permanencia das AIH aprovadas (SIH) dividido por leitos SUS do cadastro vezes dias do periodo. Nao substitui o censo hospitalar. Leitos SUS da competencia mais recente do CNES. Tambem calculada sobre leitos existentes."
+    },
+    "rejeicao_sih": {
+     "total_rejeitadas": 14,
+     "total_aprovadas": 1081,
+     "pct_rejeicao_periodo": 1.28,
+     "por_mes": [
+      {
+       "competencia": "01/2026",
+       "aprovadas": 100,
+       "rejeitadas": 2,
+       "pct_rejeicao": 1.96
+      },
+      {
+       "competencia": "02/2026",
+       "aprovadas": 103,
+       "rejeitadas": 0,
+       "pct_rejeicao": 0.0
+      },
+      {
+       "competencia": "03/2026",
+       "aprovadas": 100,
+       "rejeitadas": 11,
+       "pct_rejeicao": 9.91
+      },
+      {
+       "competencia": "04/2026",
+       "aprovadas": 125,
+       "rejeitadas": 0,
+       "pct_rejeicao": 0.0
+      },
+      {
+       "competencia": "05/2026",
+       "aprovadas": 108,
+       "rejeitadas": 0,
+       "pct_rejeicao": 0.0
+      },
+      {
+       "competencia": "06/2026",
+       "aprovadas": 115,
+       "rejeitadas": 0,
+       "pct_rejeicao": 0.0
+      },
+      {
+       "competencia": "07/2026",
+       "aprovadas": 122,
+       "rejeitadas": 0,
+       "pct_rejeicao": 0.0
+      },
+      {
+       "competencia": "08/2026",
+       "aprovadas": 161,
+       "rejeitadas": 0,
+       "pct_rejeicao": 0.0
+      },
+      {
+       "competencia": "09/2026",
+       "aprovadas": 147,
+       "rejeitadas": 1,
+       "pct_rejeicao": 0.68
+      }
+     ],
+     "principais_codigos_erro": [
+      {
+       "codigo_erro": "060057",
+       "aih": 5,
+       "motivo_provavel": {
+        "final_3_digitos": "057",
+        "texto_manual": "ESP 4 SÓ COM CÓDIGO PRÓPRIO/CONSULTA",
+        "pagina_manual": 152,
+        "status": "Correspondencia provavel, a confirmar",
+        "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+       }
+      },
+      {
+       "codigo_erro": "060109",
+       "aih": 4,
+       "motivo_provavel": {
+        "final_3_digitos": "109",
+        "texto_manual": "UTI/UI MÊS ALTA ERRADO",
+        "pagina_manual": 153,
+        "status": "Correspondencia provavel, a confirmar",
+        "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+       }
+      },
+      {
+       "codigo_erro": "010003",
+       "aih": 2
+      },
+      {
+       "codigo_erro": "060074",
+       "aih": 1,
+       "motivo_provavel": {
+        "final_3_digitos": "074",
+        "texto_manual": "PROCED. REALIZADO INCOMPATÍVEL C/ESPECIALIDADE",
+        "pagina_manual": 152,
+        "status": "Correspondencia provavel, a confirmar",
+        "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+       }
+      },
+      {
+       "codigo_erro": "060065",
+       "aih": 1,
+       "motivo_provavel": {
+        "final_3_digitos": "065",
+        "texto_manual": "ESP. 4 E 5 SÓ PODEM TIPO ATO 07",
+        "pagina_manual": 152,
+        "status": "Correspondencia provavel, a confirmar",
+        "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+       }
+      }
+     ],
+     "reapresentacao": {
+      "competencia_em_aberto": "09/2026",
+      "rejeitadas_em_aberto": 1,
+      "rejeitadas_fechadas": 13,
+      "recuperadas": 13,
+      "nao_recuperadas": 0,
+      "pct_recuperadas": 100.0,
+      "valor_recuperado": 6395.83,
+      "por_codigo_erro": [
+       {
+        "codigo_erro": "060057",
+        "rejeitadas": 5,
+        "recuperadas": 5,
+        "nao_recuperadas": 0,
+        "pct_recuperadas": 100.0,
+        "motivo_provavel": {
+         "final_3_digitos": "057",
+         "texto_manual": "ESP 4 SÓ COM CÓDIGO PRÓPRIO/CONSULTA",
+         "pagina_manual": 152,
+         "status": "Correspondencia provavel, a confirmar",
+         "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+        }
+       },
+       {
+        "codigo_erro": "060109",
+        "rejeitadas": 4,
+        "recuperadas": 4,
+        "nao_recuperadas": 0,
+        "pct_recuperadas": 100.0,
+        "motivo_provavel": {
+         "final_3_digitos": "109",
+         "texto_manual": "UTI/UI MÊS ALTA ERRADO",
+         "pagina_manual": 153,
+         "status": "Correspondencia provavel, a confirmar",
+         "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+        }
+       },
+       {
+        "codigo_erro": "010003",
+        "rejeitadas": 2,
+        "recuperadas": 2,
+        "nao_recuperadas": 0,
+        "pct_recuperadas": 100.0
+       },
+       {
+        "codigo_erro": "060017",
+        "rejeitadas": 1,
+        "recuperadas": 1,
+        "nao_recuperadas": 0,
+        "pct_recuperadas": 100.0,
+        "motivo_provavel": {
+         "final_3_digitos": "017",
+         "texto_manual": "AIH DE CONTINUAÇÃO SEM AIH INICIAL",
+         "pagina_manual": 151,
+         "status": "Correspondencia provavel, a confirmar",
+         "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+        }
+       },
+       {
+        "codigo_erro": "060065",
+        "rejeitadas": 1,
+        "recuperadas": 1,
+        "nao_recuperadas": 0,
+        "pct_recuperadas": 100.0,
+        "motivo_provavel": {
+         "final_3_digitos": "065",
+         "texto_manual": "ESP. 4 E 5 SÓ PODEM TIPO ATO 07",
+         "pagina_manual": 152,
+         "status": "Correspondencia provavel, a confirmar",
+         "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+        }
+       }
+      ],
+      "regra": "AIH recuperada: mesmo numero e mesmo CNES aprovado no SIH em competencia posterior a da rejeicao. O numero da AIH nao e gravado.",
+      "base": "Rejeicoes de competencias anteriores a mais recente da base."
+     },
+     "formula": "rejeitadas / (aprovadas + rejeitadas) x 100, por contagem de AIH",
+     "obs": "O arquivo ER nao tem valor em R$: perda em R$ fica a apurar. Uma AIH rejeitada pode ser reapresentada e aprovada em competencia seguinte. O texto do motivo (campo motivo_provavel) vem do manual do SIH pelos 3 ultimos digitos do codigo e e CORRESPONDENCIA PROVAVEL, a confirmar; sem texto no manual, o codigo fica sem descricao."
+    },
+    "checklist_habilitacao": {
+     "competencia": "10/2026",
+     "resumo": {
+      "Habilitado": 2
+     },
+     "total": 2,
+     "itens": [
+      {
+       "codigo": "1901",
+       "descricao": "LAQUEADURA",
+       "leitos": 0,
+       "portaria": "RESULUCAO RES CIB-ES 158/2021",
+       "data_portaria": "09/07/2024",
+       "vigencia_inicio": "202202",
+       "vigencia_fim": "999999",
+       "status": "Habilitado",
+       "motivo": "portaria e vigencia aberta registradas no CNES (confirmar no DOU)",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      },
+      {
+       "codigo": "1902",
+       "descricao": "VASECTOMIA",
+       "leitos": 0,
+       "portaria": "RESULUCAO RES CIB-ES 158/2021",
+       "data_portaria": "27/06/2022",
+       "vigencia_inicio": "202202",
+       "vigencia_fim": "999999",
+       "status": "Habilitado",
+       "motivo": "portaria e vigencia aberta registradas no CNES (confirmar no DOU)",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      }
+     ],
+     "bases_do_cadastro": {
+      "caracterizacao": {
+       "situacao": "Disponivel na base: 1 registro(s) de estabelecimento (ST)"
+      },
+      "leitos": {
+       "situacao": "Disponivel na base: 7 registro(s) de leitos (LT)"
+      },
+      "servicos": {
+       "situacao": "Disponivel na base: 18 registro(s) de servicos especializados (SR)"
+      },
+      "habilitacoes": {
+       "situacao": "Disponivel na base: 2 registro(s) de habilitacoes (HB)"
+      },
+      "incentivos": {
+       "situacao": "A confirmar: sem registro de incentivos (IN) do CNES na base"
+      },
+      "equipamentos": {
+       "situacao": "Disponivel na base: 23 registro(s) de equipamentos (EQ)"
+      },
+      "cbo_e_carga_horaria": {
+       "situacao": "Disponivel na base: 47 registro(s) de profissionais por CBO e horas (PF)"
+      },
+      "atividades": {
+       "situacao": "[PREENCHER: atividades do estabelecimento nao coletadas nesta versao]"
+      },
+      "instalacoes": {
+       "situacao": "Ver secoes.cnes.estabelecimentos (QTINST do ST), quando o CNES tem leito cadastrado"
+      }
+     },
+     "obs": "Status derivado do registro do CNES. Em habilitacao e Nao habilitado so o gestor define. Sem portaria, nunca se afirma habilitado."
+    },
+    "criticas": [
+     {
+      "codigo": "C06-7336578",
+      "descricao": "Leitos existentes no arquivo LT (42) diferem da soma P1+P2+P3 do cadastro do estabelecimento (27).",
+      "severidade": "Media",
+      "origem": "CNES",
+      "acao_recomendada": "Conferir os leitos no CNES; a ocupacao estimada depende desse denominador.",
+      "responsavel": "A definir pelo gestor",
+      "prazo": "A definir pelo gestor",
+      "status": "A verificar"
+     }
+    ],
+    "plano_avanco": {
+     "itens": [
+      {
+       "acao": "Conferir os leitos no CNES; a ocupacao estimada depende desse denominador.",
+       "critica_vinculada": "C06-7336578",
+       "prioridade": "Media",
+       "ganho_estimado_rs": null,
+       "perda_por_rejeicao_rs": null,
+       "prazo": "A definir pelo gestor",
+       "responsavel": "A definir pelo gestor",
+       "status": "A iniciar"
+      }
+     ],
+     "total": 1,
+     "pendencia_ganho": "[PREENCHER: ganho estimado em R$ de 1 acao(oes), lancado pelo gestor]"
+    }
+   }
+  ],
+  "obs": "SIH e SIA de 2026 ate o ultimo mes disponivel no FTP; cadastro CNES na competencia mais recente de cada grupo."
+ }
+}

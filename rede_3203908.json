@@ -1,0 +1,724 @@
+{
+ "gerado_em": "2026-11-26T15:54:42-03:00",
+ "municipio": {
+  "cod": "3203908",
+  "nome": "Nova Venécia"
+ },
+ "hospitais": {
+  "fonte": "Base local: SIH (RD, SP), SIA aprovado (PA), CIHA, CNES (ST, LT, EQ, PF, HB, IN, SR)",
+  "total": 1,
+  "criticas_por_severidade": {
+   "Alta": 1,
+   "Media": 5,
+   "Baixa": 0
+  },
+  "plano_acoes_arquivo": {
+   "situacao": "2 lancamento(s) aplicado(s), 0 recusado(s)",
+   "linhas_lidas": 2,
+   "recusadas": []
+  },
+  "itens": [
+   {
+    "cnes": "2484943",
+    "cadastro": {
+     "estabelecimento": {
+      "competencia": "10/2026",
+      "tipo_unidade": "05",
+      "natureza": "",
+      "natureza_juridica": "3999",
+      "esfera": "D",
+      "gestao": "D",
+      "leitos_p1_p2_p3": [
+       5,
+       47,
+       1
+      ]
+     },
+     "leitos": {
+      "competencia": "10/2026",
+      "existentes": 65,
+      "sus": 54,
+      "nao_sus": 11
+     },
+     "equipamentos": {
+      "competencia": "10/2026",
+      "existentes": 89,
+      "em_uso": 88,
+      "pct_em_uso": 98.9
+     },
+     "profissionais": {
+      "competencia": "10/2026",
+      "vinculos": 272,
+      "horas_ambulatoriais": 1905,
+      "horas_hospitalares": 2197
+     },
+     "habilitacoes": {
+      "competencia": "10/2026",
+      "total": 5,
+      "codigos": [
+       "0636",
+       "0908",
+       "1901",
+       "1902",
+       "2901"
+      ]
+     },
+     "incentivos": {
+      "competencia": "10/2026",
+      "total": 2
+     },
+     "servicos_especializados": {
+      "competencia": "10/2026",
+      "total": 30
+     }
+    },
+    "producao": {
+     "sih_por_mes": [
+      {
+       "competencia": "01/2026",
+       "aih": 208,
+       "valor_total": 99281.23,
+       "sh": 79560.72,
+       "sp": 19720.51,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1339,
+       "obitos": 10,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 80.0
+      },
+      {
+       "competencia": "02/2026",
+       "aih": 179,
+       "valor_total": 76950.42,
+       "sh": 60379.18,
+       "sp": 16571.24,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1029,
+       "obitos": 7,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 68.1
+      },
+      {
+       "competencia": "03/2026",
+       "aih": 189,
+       "valor_total": 81565.99,
+       "sh": 61144.67,
+       "sp": 20421.32,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 922,
+       "obitos": 5,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 55.1
+      },
+      {
+       "competencia": "04/2026",
+       "aih": 251,
+       "valor_total": 99582.07,
+       "sh": 78625.61,
+       "sp": 20956.46,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1336,
+       "obitos": 6,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 82.5
+      },
+      {
+       "competencia": "05/2026",
+       "aih": 174,
+       "valor_total": 103623.45,
+       "sh": 82114.38,
+       "sp": 21509.07,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1315,
+       "obitos": 6,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 78.6
+      },
+      {
+       "competencia": "06/2026",
+       "aih": 247,
+       "valor_total": 114531.05,
+       "sh": 90831.43,
+       "sp": 23699.62,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1287,
+       "obitos": 10,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 79.4
+      },
+      {
+       "competencia": "07/2026",
+       "aih": 241,
+       "valor_total": 128271.11,
+       "sh": 104101.25,
+       "sp": 24169.86,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1619,
+       "obitos": 8,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 96.7
+      },
+      {
+       "competencia": "08/2026",
+       "aih": 197,
+       "valor_total": 98280.96,
+       "sh": 76862.4,
+       "sp": 21418.56,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1184,
+       "obitos": 2,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 70.7
+      },
+      {
+       "competencia": "09/2026",
+       "aih": 193,
+       "valor_total": 102372.31,
+       "sh": 80058.04,
+       "sp": 22314.27,
+       "sh_fed": 0.0,
+       "sp_fed": 0.0,
+       "dias_permanencia": 1199,
+       "obitos": 2,
+       "dias_uti": 0,
+       "ocupacao_estimada_pct": 74.0
+      }
+     ],
+     "sia_aprovado_por_mes": [
+      {
+       "mes_processamento": "01/2026",
+       "quantidade_aprovada": 7140,
+       "valor_aprovado": 54789.46
+      },
+      {
+       "mes_processamento": "02/2026",
+       "quantidade_aprovada": 6572,
+       "valor_aprovado": 56016.68
+      },
+      {
+       "mes_processamento": "03/2026",
+       "quantidade_aprovada": 8400,
+       "valor_aprovado": 64689.06
+      },
+      {
+       "mes_processamento": "04/2026",
+       "quantidade_aprovada": 9691,
+       "valor_aprovado": 60767.1
+      },
+      {
+       "mes_processamento": "05/2026",
+       "quantidade_aprovada": 8755,
+       "valor_aprovado": 56467.72
+      },
+      {
+       "mes_processamento": "06/2026",
+       "quantidade_aprovada": 7961,
+       "valor_aprovado": 50844.51
+      },
+      {
+       "mes_processamento": "07/2026",
+       "quantidade_aprovada": 17122,
+       "valor_aprovado": 126513.54
+      },
+      {
+       "mes_processamento": "08/2026",
+       "quantidade_aprovada": 23508,
+       "valor_aprovado": 175522.73
+      },
+      {
+       "mes_processamento": "09/2026",
+       "quantidade_aprovada": 23075,
+       "valor_aprovado": 173427.02
+      }
+     ],
+     "ciha_por_mes": [
+      {
+       "competencia": "01/2026",
+       "registros": 632,
+       "quantidade_procedimentos": 1657
+      },
+      {
+       "competencia": "02/2026",
+       "registros": 669,
+       "quantidade_procedimentos": 1676
+      },
+      {
+       "competencia": "03/2026",
+       "registros": 846,
+       "quantidade_procedimentos": 2104
+      },
+      {
+       "competencia": "04/2026",
+       "registros": 648,
+       "quantidade_procedimentos": 1578
+      },
+      {
+       "competencia": "05/2026",
+       "registros": 704,
+       "quantidade_procedimentos": 1952
+      },
+      {
+       "competencia": "06/2026",
+       "registros": 668,
+       "quantidade_procedimentos": 1718
+      },
+      {
+       "competencia": "07/2026",
+       "registros": 812,
+       "quantidade_procedimentos": 1996
+      },
+      {
+       "competencia": "08/2026",
+       "registros": 648,
+       "quantidade_procedimentos": 1767
+      },
+      {
+       "competencia": "09/2026",
+       "registros": 689,
+       "quantidade_procedimentos": 1740
+      }
+     ],
+     "sia_aprovado_total": {
+      "quantidade": 112224,
+      "valor": 819037.82
+     }
+    },
+    "indicadores": {
+     "meses_com_producao": 9,
+     "aih": 1879,
+     "valor_total": 904458.59,
+     "media_por_aih": 481.35,
+     "permanencia_media_dias": 5.98,
+     "mortalidade_hospitalar_pct": 2.98,
+     "formulas": "media = valor total / AIH; permanencia = dias de permanencia / AIH; mortalidade = obitos / AIH x 100",
+     "ocupacao_estimada_leitos_existentes_pct": 63.3,
+     "aih_por_leito_sus_por_mes": 3.87,
+     "ocupacao_estimada_pct": 76.2,
+     "obs_ocupacao": "Estimativa: dias de permanencia das AIH aprovadas (SIH) dividido por leitos SUS do cadastro vezes dias do periodo. Nao substitui o censo hospitalar. Leitos SUS da competencia mais recente do CNES. Tambem calculada sobre leitos existentes."
+    },
+    "rejeicao_sih": {
+     "total_rejeitadas": 485,
+     "total_aprovadas": 1879,
+     "pct_rejeicao_periodo": 20.52,
+     "por_mes": [
+      {
+       "competencia": "01/2026",
+       "aprovadas": 208,
+       "rejeitadas": 84,
+       "pct_rejeicao": 28.77
+      },
+      {
+       "competencia": "02/2026",
+       "aprovadas": 179,
+       "rejeitadas": 67,
+       "pct_rejeicao": 27.24
+      },
+      {
+       "competencia": "03/2026",
+       "aprovadas": 189,
+       "rejeitadas": 101,
+       "pct_rejeicao": 34.83
+      },
+      {
+       "competencia": "04/2026",
+       "aprovadas": 251,
+       "rejeitadas": 55,
+       "pct_rejeicao": 17.97
+      },
+      {
+       "competencia": "05/2026",
+       "aprovadas": 174,
+       "rejeitadas": 105,
+       "pct_rejeicao": 37.63
+      },
+      {
+       "competencia": "06/2026",
+       "aprovadas": 247,
+       "rejeitadas": 59,
+       "pct_rejeicao": 19.28
+      },
+      {
+       "competencia": "07/2026",
+       "aprovadas": 241,
+       "rejeitadas": 0,
+       "pct_rejeicao": 0.0
+      },
+      {
+       "competencia": "08/2026",
+       "aprovadas": 197,
+       "rejeitadas": 8,
+       "pct_rejeicao": 3.9
+      },
+      {
+       "competencia": "09/2026",
+       "aprovadas": 193,
+       "rejeitadas": 6,
+       "pct_rejeicao": 3.02
+      }
+     ],
+     "principais_codigos_erro": [
+      {
+       "codigo_erro": "020071",
+       "aih": 439,
+       "motivo_provavel": {
+        "final_3_digitos": "071",
+        "texto_manual": "UTI/UI MÊS INICIAL ERRADO",
+        "pagina_manual": 152,
+        "status": "Correspondencia provavel, a confirmar",
+        "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+       }
+      },
+      {
+       "codigo_erro": "020081",
+       "aih": 32,
+       "motivo_provavel": {
+        "final_3_digitos": "081",
+        "texto_manual": "DATA DA SAÍDA ERRADA",
+        "pagina_manual": 152,
+        "status": "Correspondencia provavel, a confirmar",
+        "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+       }
+      },
+      {
+       "codigo_erro": "020069",
+       "aih": 14,
+       "motivo_provavel": {
+        "final_3_digitos": "069",
+        "texto_manual": "SERV. PROFISSIONAL COM CAMPO ZERADO",
+        "pagina_manual": 152,
+        "status": "Correspondencia provavel, a confirmar",
+        "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+       }
+      }
+     ],
+     "reapresentacao": {
+      "competencia_em_aberto": "09/2026",
+      "rejeitadas_em_aberto": 6,
+      "rejeitadas_fechadas": 479,
+      "recuperadas": 470,
+      "nao_recuperadas": 9,
+      "pct_recuperadas": 98.1,
+      "valor_recuperado": 187996.78,
+      "por_codigo_erro": [
+       {
+        "codigo_erro": "020071",
+        "rejeitadas": 439,
+        "recuperadas": 438,
+        "nao_recuperadas": 1,
+        "pct_recuperadas": 99.8,
+        "motivo_provavel": {
+         "final_3_digitos": "071",
+         "texto_manual": "UTI/UI MÊS INICIAL ERRADO",
+         "pagina_manual": 152,
+         "status": "Correspondencia provavel, a confirmar",
+         "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+        }
+       },
+       {
+        "codigo_erro": "020081",
+        "rejeitadas": 32,
+        "recuperadas": 32,
+        "nao_recuperadas": 0,
+        "pct_recuperadas": 100.0,
+        "motivo_provavel": {
+         "final_3_digitos": "081",
+         "texto_manual": "DATA DA SAÍDA ERRADA",
+         "pagina_manual": 152,
+         "status": "Correspondencia provavel, a confirmar",
+         "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+        }
+       },
+       {
+        "codigo_erro": "020069",
+        "rejeitadas": 8,
+        "recuperadas": 0,
+        "nao_recuperadas": 8,
+        "pct_recuperadas": 0.0,
+        "motivo_provavel": {
+         "final_3_digitos": "069",
+         "texto_manual": "SERV. PROFISSIONAL COM CAMPO ZERADO",
+         "pagina_manual": 152,
+         "status": "Correspondencia provavel, a confirmar",
+         "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+        }
+       }
+      ],
+      "regra": "AIH recuperada: mesmo numero e mesmo CNES aprovado no SIH em competencia posterior a da rejeicao. O numero da AIH nao e gravado.",
+      "base": "Rejeicoes de competencias anteriores a mais recente da base.",
+      "perda_liquida_estimada_rs": 4332.15,
+      "obs_perda": "ESTIMATIVA: AIH nao recuperadas x media por AIH aprovada do hospital no periodo. O arquivo ER nao traz valor. Nao e resultado apurado."
+     },
+     "formula": "rejeitadas / (aprovadas + rejeitadas) x 100, por contagem de AIH",
+     "obs": "O arquivo ER nao tem valor em R$: perda em R$ fica a apurar. Uma AIH rejeitada pode ser reapresentada e aprovada em competencia seguinte. O texto do motivo (campo motivo_provavel) vem do manual do SIH pelos 3 ultimos digitos do codigo e e CORRESPONDENCIA PROVAVEL, a confirmar; sem texto no manual, o codigo fica sem descricao."
+    },
+    "checklist_habilitacao": {
+     "competencia": "10/2026",
+     "resumo": {
+      "Habilitado": 3,
+      "A verificar": 2
+     },
+     "total": 5,
+     "itens": [
+      {
+       "codigo": "0636",
+       "descricao": "SERVICOS HOSPITALARES DE REFERENCIA PARA ATENCAO A PESSOAS COM SOFRIMENTO OU TRANTORNO MENTAL INCLUINDO AQUELAS COM NECESSIDADES DECORRENTES DO USO DE ALCOOL E OUTRAS DROGAS",
+       "leitos": 8,
+       "portaria": "PT GM 3702",
+       "data_portaria": "23/12/2019",
+       "vigencia_inicio": "201912",
+       "vigencia_fim": "999999",
+       "status": "Habilitado",
+       "motivo": "portaria e vigencia aberta registradas no CNES (confirmar no DOU)",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      },
+      {
+       "codigo": "0908",
+       "descricao": "UNIDADE DE INTERNACAO EM CUIDADOS PROLONGADOS(UCP)",
+       "leitos": 15,
+       "portaria": "3925/GM/MS",
+       "data_portaria": "23/05/2024",
+       "vigencia_inicio": "202405",
+       "vigencia_fim": "999999",
+       "status": "Habilitado",
+       "motivo": "portaria e vigencia aberta registradas no CNES (confirmar no DOU)",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      },
+      {
+       "codigo": "1901",
+       "descricao": "LAQUEADURA",
+       "leitos": 0,
+       "portaria": null,
+       "data_portaria": "20/11/2006",
+       "vigencia_inicio": "200306",
+       "vigencia_fim": "999999",
+       "status": "A verificar",
+       "motivo": "sem portaria registrada no CNES",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      },
+      {
+       "codigo": "1902",
+       "descricao": "VASECTOMIA",
+       "leitos": 0,
+       "portaria": "655",
+       "data_portaria": "20/11/2006",
+       "vigencia_inicio": "200502",
+       "vigencia_fim": "999999",
+       "status": "Habilitado",
+       "motivo": "portaria e vigencia aberta registradas no CNES (confirmar no DOU)",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      },
+      {
+       "codigo": "2901",
+       "descricao": "VIDEOCIRURGIAS",
+       "leitos": 0,
+       "portaria": null,
+       "data_portaria": "20/11/2006",
+       "vigencia_inicio": "200507",
+       "vigencia_fim": "999999",
+       "status": "A verificar",
+       "motivo": "sem portaria registrada no CNES",
+       "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]",
+       "responsavel": "A definir pelo gestor"
+      }
+     ],
+     "bases_do_cadastro": {
+      "caracterizacao": {
+       "situacao": "Disponivel na base: 1 registro(s) de estabelecimento (ST)"
+      },
+      "leitos": {
+       "situacao": "Disponivel na base: 6 registro(s) de leitos (LT)"
+      },
+      "servicos": {
+       "situacao": "Disponivel na base: 30 registro(s) de servicos especializados (SR)"
+      },
+      "habilitacoes": {
+       "situacao": "Disponivel na base: 5 registro(s) de habilitacoes (HB)"
+      },
+      "incentivos": {
+       "situacao": "Disponivel na base: 2 registro(s) de incentivos (IN)"
+      },
+      "equipamentos": {
+       "situacao": "Disponivel na base: 25 registro(s) de equipamentos (EQ)"
+      },
+      "cbo_e_carga_horaria": {
+       "situacao": "Disponivel na base: 65 registro(s) de profissionais por CBO e horas (PF)"
+      },
+      "atividades": {
+       "situacao": "[PREENCHER: atividades do estabelecimento nao coletadas nesta versao]"
+      },
+      "instalacoes": {
+       "situacao": "Ver secoes.cnes.estabelecimentos (QTINST do ST), quando o CNES tem leito cadastrado"
+      }
+     },
+     "obs": "Status derivado do registro do CNES. Em habilitacao e Nao habilitado so o gestor define. Sem portaria, nunca se afirma habilitado."
+    },
+    "criticas": [
+     {
+      "codigo": "C06-2484943",
+      "descricao": "Leitos existentes no arquivo LT (65) diferem da soma P1+P2+P3 do cadastro do estabelecimento (53).",
+      "severidade": "Media",
+      "origem": "CNES",
+      "acao_recomendada": "Conferir os leitos no CNES; a ocupacao estimada depende desse denominador.",
+      "responsavel": "A definir pelo gestor",
+      "prazo": "A definir pelo gestor",
+      "status": "A verificar"
+     },
+     {
+      "codigo": "C07-020071-2484943",
+      "descricao": "Rejeicao sem aprovacao posterior no codigo 020071: 1 de 439 AIH (0.2%).",
+      "severidade": "Media",
+      "origem": "AIH",
+      "acao_recomendada": "Obter o relatorio de rejeitadas do hospital para o codigo, corrigir a causa e reapresentar dentro do prazo.",
+      "responsavel": "A definir pelo gestor",
+      "prazo": "A definir pelo gestor",
+      "status": "Aberta",
+      "motivo_provavel": {
+       "final_3_digitos": "071",
+       "texto_manual": "UTI/UI MÊS INICIAL ERRADO",
+       "pagina_manual": 152,
+       "status": "Correspondencia provavel, a confirmar",
+       "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+      }
+     },
+     {
+      "codigo": "C07-020069-2484943",
+      "descricao": "Rejeicao sem aprovacao posterior no codigo 020069: 8 de 8 AIH (100.0%).",
+      "severidade": "Alta",
+      "origem": "AIH",
+      "acao_recomendada": "Obter o relatorio de rejeitadas do hospital para o codigo, corrigir a causa e reapresentar dentro do prazo.",
+      "responsavel": "A definir pelo gestor",
+      "prazo": "A definir pelo gestor",
+      "status": "Aberta",
+      "motivo_provavel": {
+       "final_3_digitos": "069",
+       "texto_manual": "SERV. PROFISSIONAL COM CAMPO ZERADO",
+       "pagina_manual": 152,
+       "status": "Correspondencia provavel, a confirmar",
+       "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+      }
+     },
+     {
+      "codigo": "C08-020071-2484943",
+      "descricao": "Rejeicoes concentradas no codigo 020071: 439 de 479 (91.6%). Mesmo recuperadas, atrasam o recebimento em pelo menos uma competencia.",
+      "severidade": "Media",
+      "origem": "AIH",
+      "acao_recomendada": "Prevenir na origem: validar o dado antes de fechar a remessa e treinar a digitacao do campo envolvido.",
+      "responsavel": "A definir pelo gestor",
+      "prazo": "A definir pelo gestor",
+      "status": "Aberta",
+      "motivo_provavel": {
+       "final_3_digitos": "071",
+       "texto_manual": "UTI/UI MÊS INICIAL ERRADO",
+       "pagina_manual": 152,
+       "status": "Correspondencia provavel, a confirmar",
+       "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+      }
+     },
+     {
+      "codigo": "C09-1901-2484943",
+      "descricao": "Habilitacao 1901 (LAQUEADURA): sem portaria registrada no CNES.",
+      "severidade": "Media",
+      "origem": "CNES",
+      "acao_recomendada": "Conferir a portaria no DOU e atualizar o cadastro no CNES; vincular ao checklist de habilitacao.",
+      "responsavel": "A definir pelo gestor",
+      "prazo": "A definir pelo gestor",
+      "status": "A verificar"
+     },
+     {
+      "codigo": "C09-2901-2484943",
+      "descricao": "Habilitacao 2901 (VIDEOCIRURGIAS): sem portaria registrada no CNES.",
+      "severidade": "Media",
+      "origem": "CNES",
+      "acao_recomendada": "Conferir a portaria no DOU e atualizar o cadastro no CNES; vincular ao checklist de habilitacao.",
+      "responsavel": "A definir pelo gestor",
+      "prazo": "A definir pelo gestor",
+      "status": "A verificar"
+     }
+    ],
+    "plano_avanco": {
+     "itens": [
+      {
+       "acao": "Obter o relatorio de rejeitadas do hospital para o codigo, corrigir a causa e reapresentar dentro do prazo.",
+       "critica_vinculada": "C07-020069-2484943",
+       "prioridade": "Alta",
+       "ganho_estimado_rs": null,
+       "perda_por_rejeicao_rs": 3850.8,
+       "prazo": "A definir pelo gestor",
+       "responsavel": "A definir pelo gestor",
+       "status": "A iniciar",
+       "obs_perda": "ESTIMATIVA: AIH nao recuperadas x media por AIH aprovada do hospital. O arquivo ER nao traz valor."
+      },
+      {
+       "acao": "Conferir os leitos no CNES; a ocupacao estimada depende desse denominador.",
+       "critica_vinculada": "C06-2484943",
+       "prioridade": "Media",
+       "ganho_estimado_rs": null,
+       "perda_por_rejeicao_rs": null,
+       "prazo": "A definir pelo gestor",
+       "responsavel": "A definir pelo gestor",
+       "status": "A iniciar"
+      },
+      {
+       "acao": "Obter o relatorio de rejeitadas do hospital para o codigo, corrigir a causa e reapresentar dentro do prazo.",
+       "critica_vinculada": "C07-020071-2484943",
+       "prioridade": "Media",
+       "ganho_estimado_rs": null,
+       "perda_por_rejeicao_rs": 481.35,
+       "prazo": "A definir pelo gestor",
+       "responsavel": "A definir pelo gestor",
+       "status": "A iniciar",
+       "obs_perda": "ESTIMATIVA: AIH nao recuperadas x media por AIH aprovada do hospital. O arquivo ER nao traz valor."
+      },
+      {
+       "acao": "Prevenir na origem: validar o dado antes de fechar a remessa e treinar a digitacao do campo envolvido.",
+       "critica_vinculada": "C08-020071-2484943",
+       "prioridade": "Media",
+       "ganho_estimado_rs": null,
+       "perda_por_rejeicao_rs": null,
+       "prazo": "A definir pelo gestor",
+       "responsavel": "A definir pelo gestor",
+       "status": "A iniciar"
+      },
+      {
+       "acao": "Conferir a portaria de laqueadura (19.01) no CnesWeb e no DOU, e atualizar o cadastro ou abrir solicitacao pela SESA",
+       "critica_vinculada": "C09-1901-2484943",
+       "prioridade": "Media",
+       "ganho_estimado_rs": null,
+       "perda_por_rejeicao_rs": null,
+       "prazo": "A definir pelo gestor",
+       "responsavel": "Faturamento do hospital",
+       "status": "A iniciar",
+       "lancado_pelo_gestor": true
+      },
+      {
+       "acao": "Conferir a portaria de videocirurgia (29.01) no CnesWeb e no DOU, e atualizar o cadastro ou abrir solicitacao pela SESA",
+       "critica_vinculada": "C09-2901-2484943",
+       "prioridade": "Media",
+       "ganho_estimado_rs": null,
+       "perda_por_rejeicao_rs": null,
+       "prazo": "A definir pelo gestor",
+       "responsavel": "Faturamento do hospital",
+       "status": "A iniciar",
+       "lancado_pelo_gestor": true
+      }
+     ],
+     "total": 6,
+     "pendencia_ganho": "[PREENCHER: ganho estimado em R$ de 6 acao(oes), lancado pelo gestor]"
+    }
+   }
+  ],
+  "obs": "SIH e SIA de 2026 ate o ultimo mes disponivel no FTP; cadastro CNES na competencia mais recente de cada grupo."
+ }
+}

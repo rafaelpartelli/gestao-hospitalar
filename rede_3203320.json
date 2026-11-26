@@ -1,0 +1,11 @@
+{
+ "gerado_em": "2026-11-26T15:54:40-03:00",
+ "municipio": {
+  "cod": "3203320",
+  "nome": "Marataízes"
+ },
+ "hospitais": {
+  "situacao": "A confirmar: nenhum hospital com AIH, CIHA ou leito cadastrado do municipio na base de 2026",
+  "obs": "Ausencia de registro nao e erro de leitura. Conferir no CNES."
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "gerado_em": "2026-11-26T15:54:44-03:00",
+ "municipios": [
+  {
+   "cod": "3202801",
+   "nome": "Itapemirim",
+   "hospitais": 2
+  },
+  {
+   "cod": "3203320",
+   "nome": "Marataízes",
+   "hospitais": 0
+  },
+  {
+   "cod": "3203502",
+   "nome": "Montanha",
+   "hospitais": 1
+  },
+  {
+   "cod": "3203908",
+   "nome": "Nova Venécia",
+   "hospitais": 1
+  },
+  {
+   "cod": "3204906",
+   "nome": "São Mateus",
+   "hospitais": 3
+  }
+ ]
+}

@@ -1,0 +1,679 @@
+{
+ "gerado_em": "2026-11-26T15:54:44-03:00",
+ "total_rejeitadas_es": 8991,
+ "cnes_listados": 15,
+ "pct_acumulado_listados": 84.5,
+ "competencia_em_aberto": "09/2026",
+ "itens": [
+  {
+   "cnes": "7621442",
+   "municipio_movimento": "320530",
+   "rejeitadas": 2078,
+   "pct_do_total": 23.1,
+   "pct_acumulado": 23.1,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060082",
+     "aih": 1959,
+     "motivo_provavel": {
+      "final_3_digitos": "082",
+      "texto_manual": "DATA DA SAÍDA > DATA APRESENTAÇÃO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060120",
+     "aih": 41,
+     "motivo_provavel": {
+      "final_3_digitos": "120",
+      "texto_manual": "CGC HOSPITAL DA AIH1 DIFERENTE CGC AIH5",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060109",
+     "aih": 21,
+     "motivo_provavel": {
+      "final_3_digitos": "109",
+      "texto_manual": "UTI/UI MÊS ALTA ERRADO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 1842,
+   "recuperadas": 5,
+   "pct_recuperadas": 0.3
+  },
+  {
+   "cnes": "2547317",
+   "municipio_movimento": "320480",
+   "rejeitadas": 742,
+   "pct_do_total": 8.3,
+   "pct_acumulado": 31.4,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "010003",
+     "aih": 462
+    },
+    {
+     "codigo_erro": "020008",
+     "aih": 79,
+     "motivo_provavel": {
+      "final_3_digitos": "008",
+      "texto_manual": "FALTA CPF DO AUTORIZADOR",
+      "pagina_manual": 151,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "020081",
+     "aih": 46,
+     "motivo_provavel": {
+      "final_3_digitos": "081",
+      "texto_manual": "DATA DA SAÍDA ERRADA",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 742,
+   "recuperadas": 1,
+   "pct_recuperadas": 0.1
+  },
+  {
+   "cnes": "7257406",
+   "municipio_movimento": "320500",
+   "rejeitadas": 675,
+   "pct_do_total": 7.5,
+   "pct_acumulado": 38.9,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060082",
+     "aih": 376,
+     "motivo_provavel": {
+      "final_3_digitos": "082",
+      "texto_manual": "DATA DA SAÍDA > DATA APRESENTAÇÃO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060120",
+     "aih": 154,
+     "motivo_provavel": {
+      "final_3_digitos": "120",
+      "texto_manual": "CGC HOSPITAL DA AIH1 DIFERENTE CGC AIH5",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060072",
+     "aih": 130,
+     "motivo_provavel": {
+      "final_3_digitos": "072",
+      "texto_manual": "PROCEDIMENTO REALIZADO ERRADO",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 632,
+   "recuperadas": 6,
+   "pct_recuperadas": 0.9
+  },
+  {
+   "cnes": "4044916",
+   "municipio_movimento": "320530",
+   "rejeitadas": 644,
+   "pct_do_total": 7.2,
+   "pct_acumulado": 46.0,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060120",
+     "aih": 639,
+     "motivo_provavel": {
+      "final_3_digitos": "120",
+      "texto_manual": "CGC HOSPITAL DA AIH1 DIFERENTE CGC AIH5",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060109",
+     "aih": 4,
+     "motivo_provavel": {
+      "final_3_digitos": "109",
+      "texto_manual": "UTI/UI MÊS ALTA ERRADO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060110",
+     "aih": 1,
+     "motivo_provavel": {
+      "final_3_digitos": "110",
+      "texto_manual": "HOSPITAL NÃO CADASTRADO NA ESPECIALIDADE",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 581,
+   "recuperadas": 3,
+   "pct_recuperadas": 0.5
+  },
+  {
+   "cnes": "2465833",
+   "municipio_movimento": "320320",
+   "rejeitadas": 551,
+   "pct_do_total": 6.1,
+   "pct_acumulado": 52.2,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060120",
+     "aih": 301,
+     "motivo_provavel": {
+      "final_3_digitos": "120",
+      "texto_manual": "CGC HOSPITAL DA AIH1 DIFERENTE CGC AIH5",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060109",
+     "aih": 199,
+     "motivo_provavel": {
+      "final_3_digitos": "109",
+      "texto_manual": "UTI/UI MÊS ALTA ERRADO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060084",
+     "aih": 38,
+     "motivo_provavel": {
+      "final_3_digitos": "084",
+      "texto_manual": "TEMPO DE PERMANÊNCIA MAIOR QUE PERMITIDO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 520,
+   "recuperadas": 212,
+   "pct_recuperadas": 40.8
+  },
+  {
+   "cnes": "2484943",
+   "municipio_movimento": "320390",
+   "rejeitadas": 485,
+   "pct_do_total": 5.4,
+   "pct_acumulado": 57.6,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "020071",
+     "aih": 439,
+     "motivo_provavel": {
+      "final_3_digitos": "071",
+      "texto_manual": "UTI/UI MÊS INICIAL ERRADO",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "020081",
+     "aih": 32,
+     "motivo_provavel": {
+      "final_3_digitos": "081",
+      "texto_manual": "DATA DA SAÍDA ERRADA",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "020069",
+     "aih": 14,
+     "motivo_provavel": {
+      "final_3_digitos": "069",
+      "texto_manual": "SERV. PROFISSIONAL COM CAMPO ZERADO",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 479,
+   "recuperadas": 470,
+   "pct_recuperadas": 98.1
+  },
+  {
+   "cnes": "2678179",
+   "municipio_movimento": "320520",
+   "rejeitadas": 463,
+   "pct_do_total": 5.1,
+   "pct_acumulado": 62.7,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060082",
+     "aih": 381,
+     "motivo_provavel": {
+      "final_3_digitos": "082",
+      "texto_manual": "DATA DA SAÍDA > DATA APRESENTAÇÃO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060120",
+     "aih": 52,
+     "motivo_provavel": {
+      "final_3_digitos": "120",
+      "texto_manual": "CGC HOSPITAL DA AIH1 DIFERENTE CGC AIH5",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060072",
+     "aih": 10,
+     "motivo_provavel": {
+      "final_3_digitos": "072",
+      "texto_manual": "PROCEDIMENTO REALIZADO ERRADO",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 403,
+   "recuperadas": 12,
+   "pct_recuperadas": 3.0
+  },
+  {
+   "cnes": "2446030",
+   "municipio_movimento": "320150",
+   "rejeitadas": 366,
+   "pct_do_total": 4.1,
+   "pct_acumulado": 66.8,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060082",
+     "aih": 248,
+     "motivo_provavel": {
+      "final_3_digitos": "082",
+      "texto_manual": "DATA DA SAÍDA > DATA APRESENTAÇÃO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060120",
+     "aih": 92,
+     "motivo_provavel": {
+      "final_3_digitos": "120",
+      "texto_manual": "CGC HOSPITAL DA AIH1 DIFERENTE CGC AIH5",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "020051",
+     "aih": 6,
+     "motivo_provavel": {
+      "final_3_digitos": "051",
+      "texto_manual": "CARÁTER DE INTERNAÇÃO ERRADO",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 355,
+   "recuperadas": 2,
+   "pct_recuperadas": 0.6
+  },
+  {
+   "cnes": "2445956",
+   "municipio_movimento": "320090",
+   "rejeitadas": 309,
+   "pct_do_total": 3.4,
+   "pct_acumulado": 70.2,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060109",
+     "aih": 120,
+     "motivo_provavel": {
+      "final_3_digitos": "109",
+      "texto_manual": "UTI/UI MÊS ALTA ERRADO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "050008",
+     "aih": 63,
+     "motivo_provavel": {
+      "final_3_digitos": "008",
+      "texto_manual": "FALTA CPF DO AUTORIZADOR",
+      "pagina_manual": 151,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060055",
+     "aih": 57,
+     "motivo_provavel": {
+      "final_3_digitos": "055",
+      "texto_manual": "CÓDIGO NÃO PODE SER ATO PROFISSIONAL",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 309,
+   "recuperadas": 0,
+   "pct_recuperadas": 0.0
+  },
+  {
+   "cnes": "2546957",
+   "municipio_movimento": "320520",
+   "rejeitadas": 267,
+   "pct_do_total": 3.0,
+   "pct_acumulado": 73.2,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060082",
+     "aih": 228,
+     "motivo_provavel": {
+      "final_3_digitos": "082",
+      "texto_manual": "DATA DA SAÍDA > DATA APRESENTAÇÃO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060072",
+     "aih": 14,
+     "motivo_provavel": {
+      "final_3_digitos": "072",
+      "texto_manual": "PROCEDIMENTO REALIZADO ERRADO",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060055",
+     "aih": 10,
+     "motivo_provavel": {
+      "final_3_digitos": "055",
+      "texto_manual": "CÓDIGO NÃO PODE SER ATO PROFISSIONAL",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 230,
+   "recuperadas": 31,
+   "pct_recuperadas": 13.5
+  },
+  {
+   "cnes": "2547821",
+   "municipio_movimento": "320120",
+   "rejeitadas": 223,
+   "pct_do_total": 2.5,
+   "pct_acumulado": 75.7,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060221",
+     "aih": 98,
+     "motivo_provavel": {
+      "final_3_digitos": "221",
+      "texto_manual": "VERSÃO DO SGAIH ERRADA",
+      "pagina_manual": 156,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060120",
+     "aih": 48,
+     "motivo_provavel": {
+      "final_3_digitos": "120",
+      "texto_manual": "CGC HOSPITAL DA AIH1 DIFERENTE CGC AIH5",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060109",
+     "aih": 28,
+     "motivo_provavel": {
+      "final_3_digitos": "109",
+      "texto_manual": "UTI/UI MÊS ALTA ERRADO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 205,
+   "recuperadas": 56,
+   "pct_recuperadas": 27.3
+  },
+  {
+   "cnes": "0011746",
+   "municipio_movimento": "320530",
+   "rejeitadas": 213,
+   "pct_do_total": 2.4,
+   "pct_acumulado": 78.0,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060084",
+     "aih": 69,
+     "motivo_provavel": {
+      "final_3_digitos": "084",
+      "texto_manual": "TEMPO DE PERMANÊNCIA MAIOR QUE PERMITIDO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060065",
+     "aih": 41,
+     "motivo_provavel": {
+      "final_3_digitos": "065",
+      "texto_manual": "ESP. 4 E 5 SÓ PODEM TIPO ATO 07",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060110",
+     "aih": 38,
+     "motivo_provavel": {
+      "final_3_digitos": "110",
+      "texto_manual": "HOSPITAL NÃO CADASTRADO NA ESPECIALIDADE",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 195,
+   "recuperadas": 159,
+   "pct_recuperadas": 81.5
+  },
+  {
+   "cnes": "0011991",
+   "municipio_movimento": "320530",
+   "rejeitadas": 209,
+   "pct_do_total": 2.3,
+   "pct_acumulado": 80.4,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060120",
+     "aih": 180,
+     "motivo_provavel": {
+      "final_3_digitos": "120",
+      "texto_manual": "CGC HOSPITAL DA AIH1 DIFERENTE CGC AIH5",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060065",
+     "aih": 10,
+     "motivo_provavel": {
+      "final_3_digitos": "065",
+      "texto_manual": "ESP. 4 E 5 SÓ PODEM TIPO ATO 07",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060074",
+     "aih": 7,
+     "motivo_provavel": {
+      "final_3_digitos": "074",
+      "texto_manual": "PROCED. REALIZADO INCOMPATÍVEL C/ESPECIALIDADE",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 173,
+   "recuperadas": 5,
+   "pct_recuperadas": 2.9
+  },
+  {
+   "cnes": "2486199",
+   "municipio_movimento": "320500",
+   "rejeitadas": 198,
+   "pct_do_total": 2.2,
+   "pct_acumulado": 82.6,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060082",
+     "aih": 63,
+     "motivo_provavel": {
+      "final_3_digitos": "082",
+      "texto_manual": "DATA DA SAÍDA > DATA APRESENTAÇÃO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060120",
+     "aih": 43,
+     "motivo_provavel": {
+      "final_3_digitos": "120",
+      "texto_manual": "CGC HOSPITAL DA AIH1 DIFERENTE CGC AIH5",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060072",
+     "aih": 27,
+     "motivo_provavel": {
+      "final_3_digitos": "072",
+      "texto_manual": "PROCEDIMENTO REALIZADO ERRADO",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 192,
+   "recuperadas": 83,
+   "pct_recuperadas": 43.2
+  },
+  {
+   "cnes": "2494442",
+   "municipio_movimento": "320520",
+   "rejeitadas": 178,
+   "pct_do_total": 2.0,
+   "pct_acumulado": 84.5,
+   "principais_codigos_erro": [
+    {
+     "codigo_erro": "060084",
+     "aih": 103,
+     "motivo_provavel": {
+      "final_3_digitos": "084",
+      "texto_manual": "TEMPO DE PERMANÊNCIA MAIOR QUE PERMITIDO",
+      "pagina_manual": 153,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060065",
+     "aih": 18,
+     "motivo_provavel": {
+      "final_3_digitos": "065",
+      "texto_manual": "ESP. 4 E 5 SÓ PODEM TIPO ATO 07",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    },
+    {
+     "codigo_erro": "060072",
+     "aih": 15,
+     "motivo_provavel": {
+      "final_3_digitos": "072",
+      "texto_manual": "PROCEDIMENTO REALIZADO ERRADO",
+      "pagina_manual": 152,
+      "status": "Correspondencia provavel, a confirmar",
+      "fonte": "Manual Tecnico Operacional do SIH/SUS (Ministerio da Saude), secao 17, Motivos de Rejeicao da AIH"
+     }
+    }
+   ],
+   "rejeitadas_fechadas": 139,
+   "recuperadas": 117,
+   "pct_recuperadas": 84.2
+  }
+ ],
+ "regra": "Recuperada: mesmo numero e CNES aprovado no SIH em competencia posterior. O numero da AIH nao e gravado. Perda em R$ nao e estimada nesta visao.",
+ "obs": "Identificacao so por codigo CNES e codigo do municipio. Nome de estabelecimento ou municipio so com autorizacao. O texto de motivo_provavel e correspondencia provavel, a confirmar."
+}
