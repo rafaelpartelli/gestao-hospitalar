@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-26T19:12:17-03:00",
+ "gerado_em": "2026-11-26T20:40:58-03:00",
  "regra": "Status calculado pelo robo a cada rodada. Ativa so com coleta registrada dentro do prazo.",
  "resumo": {
   "Ativa": 21,
@@ -128,7 +128,7 @@
    "coletor": "sem coletor automatico",
    "limite": "Sem API direta",
    "status": "Manual",
-   "ultimo_teste": "2026-11-26T19:11:52-03:00",
+   "ultimo_teste": "2026-11-26T20:40:56-03:00",
    "resultado": "Pagina responde (HTTP 200). Sem coletor automatico, lancamento manual."
   },
   {
@@ -139,7 +139,7 @@
    "coletor": "sem coletor automatico",
    "limite": "Atualizacao mensal por competencia",
    "status": "A confirmar",
-   "ultimo_teste": "2026-11-26T19:12:15-03:00",
+   "ultimo_teste": "2026-11-26T20:40:56-03:00",
    "resultado": "Sem resposta no teste (robots.txt: URLError)."
   },
   {
@@ -183,7 +183,7 @@
    "coletor": "sem coletor automatico",
    "limite": "Endpoint por conjunto a confirmar",
    "status": "Manual",
-   "ultimo_teste": "2026-11-26T19:12:15-03:00",
+   "ultimo_teste": "2026-11-26T20:40:56-03:00",
    "resultado": "Pagina responde (HTTP 200). Sem coletor automatico, lancamento manual."
   },
   {
@@ -282,7 +282,7 @@
    "coletor": "sem coletor automatico",
    "limite": "",
    "status": "A confirmar",
-   "ultimo_teste": "2026-11-26T19:12:16-03:00",
+   "ultimo_teste": "2026-11-26T20:40:58-03:00",
    "resultado": "Sem resposta no teste (robots.txt: URLError)."
   },
   {
@@ -293,8 +293,8 @@
    "coletor": "sem coletor automatico",
    "limite": "Endpoint por consulta a confirmar",
    "status": "A confirmar",
-   "ultimo_teste": "2026-11-26T19:12:16-03:00",
-   "resultado": "Sem resposta no teste (ConnectionResetError)."
+   "ultimo_teste": "2026-11-26T20:40:58-03:00",
+   "resultado": "Sem resposta no teste (robots.txt: ConnectionResetError)."
   },
   {
    "id": "ans",
