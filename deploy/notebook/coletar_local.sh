@@ -7,7 +7,7 @@
 set -euo pipefail
 
 MODO="${1:-}"
-case "$MODO" in diaria|semanal|tudo|espelho|site|publicar) ;; *) echo "uso: $0 diaria|semanal|tudo|espelho|site|publicar" >&2; exit 2 ;; esac
+case "$MODO" in diaria|semanal|tudo|fontes|espelho|site|publicar) ;; *) echo "uso: $0 diaria|semanal|tudo|fontes|espelho|site|publicar" >&2; exit 2 ;; esac
 
 ENV_FILE="${PARTELLI_ENV:-/etc/partelli/coleta.env}"
 [ -r "$ENV_FILE" ] && . "$ENV_FILE"
@@ -80,6 +80,10 @@ REPO="$BASE/repo"; SALA="$BASE/sala-gestao"; DADOS="$BASE/dados_repo"
 
 atualizar_repo "$REPO_URL" "$REPO"
 atualizar_repo "$SALA_URL" "$SALA"
+# modo fontes: traz sempre os dados mais novos da Sala de Gestao (coletados pelas rotinas automaticas dela no GitHub)
+if [ "$MODO" = "fontes" ] && [ -d "$SALA/.git" ]; then
+  { git -C "$SALA" fetch -q origin && git -C "$SALA" reset -q --hard origin/main && log "dados da Sala de Gestao atualizados"; } || log "AVISO: sem rede para atualizar a Sala de Gestao, usando a copia local"
+fi
 
 if [ "$MODO" = "publicar" ] && [ -n "$GCS_BUCKET" ]; then
   # site novo (Cloud Run): a pagina vai pelo deploy do Cloud Run, aqui seguem so os dados agregados
@@ -104,22 +108,29 @@ else
   cp "$REPO"/hospital/dados/*.json "$DADOS"/ 2>/dev/null || true
 fi
 
+FONTES_LOCAIS="${FONTES_LOCAIS:-}"
+export SALA_DADOS="$SALA/dados" PARTELLI_BASE="$BASE"
 export PARTELLI_DADOS="$DADOS" PARTELLI_CONFIG="$REPO/config" \
        PARTELLI_REMESSAS="$REPO/hospital/config/remessas_datasus.json" \
        PARTELLI_ESTADO="$BASE/estado" TMPDIR="$BASE/tmp" \
        PYTHONPATH="$REPO/robo:$SALA/robo"
 
 case "$MODO" in
-  diaria)  JOBS="coletar_hospital_sih coletar_hospital_sia" ;;
-  semanal) JOBS="coletar_hospital_cnes coletar_cnes_tabelas sondar_remessas" ;;
-  *)       JOBS="coletar_hospital_sih coletar_hospital_sia coletar_hospital_cnes coletar_cnes_tabelas sondar_remessas" ;;
+  diaria)  JOBS="coletar_hospital_sih coletar_hospital_sia status_fontes" ;;
+  semanal) JOBS="coletar_hospital_cnes coletar_cnes_tabelas sondar_remessas status_fontes" ;;
+  fontes)  JOBS="$FONTES_LOCAIS status_fontes" ;;   # FONTES_LOCAIS (opcional, em coleta.env): coletores da Sala rodados aqui, ex.: "sala:coletar_recursos sala:coletar_emendas"
+  *)       JOBS="coletar_hospital_sih coletar_hospital_sia coletar_hospital_cnes coletar_cnes_tabelas sondar_remessas status_fontes" ;;
 esac
 JOBS="${JOBS_OVERRIDE:-$JOBS}"   # uso em testes
 
 FALHAS=0
 for J in $JOBS; do
   log "inicio $J"
-  if [ -f "$REPO/robo/$J.py" ]; then python3 "$REPO/robo/$J.py" >> "$LOG" 2>&1 || { log "ERRO em $J"; FALHAS=$((FALHAS+1)); }
+  if [ "${J#sala:}" != "$J" ]; then   # coletor da Sala de Gestao, executado na pasta dela com o proprio PYTHONPATH
+    N="${J#sala:}"
+    if [ -f "$SALA/robo/$N.py" ]; then ( cd "$SALA" && PYTHONPATH="$SALA/robo" python3 "robo/$N.py" ) >> "$LOG" 2>&1 || { log "ERRO em $J"; FALHAS=$((FALHAS+1)); }
+    else log "coletor $N nao existe na Sala de Gestao"; FALHAS=$((FALHAS+1)); fi
+  elif [ -f "$REPO/robo/$J.py" ]; then python3 "$REPO/robo/$J.py" >> "$LOG" 2>&1 || { log "ERRO em $J"; FALHAS=$((FALHAS+1)); }
   else "$J" >> "$LOG" 2>&1 || { log "ERRO em $J"; FALHAS=$((FALHAS+1)); }; fi
 done
 

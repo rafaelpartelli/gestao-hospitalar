@@ -151,7 +151,7 @@ async function montar(raiz) {
   raiz.append(cabecalho(indice, estado));
   const painelE = estado ? painelEstado(estado, nomeMun) : aviso('A confirmar: sem dados de rejeição do estado.');
   const painelM = painelMunicipios(muns);
-  raiz.append(abas([['Panorama do ES', painelE], ['Por município', painelM]]));
+  raiz.append(abas([['Panorama do ES', painelE], ['Por município', painelM], ['Fontes e conexões', painelFontes()]]));
   raiz.append(rodapeFonte());
 }
 
@@ -169,7 +169,7 @@ function rodapeFonte() {
 
 function abas(lista) {
   const barra = el('div', {class: 'rd-abas', role: 'tablist'}), corpo = el('div'), btns = [], pn = [];
-  const ir = k => btns.forEach((b, j) => { const on = j === k; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; pn[j].hidden = !on; });
+  const ir = k => { btns.forEach((b, j) => { const on = j === k; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; pn[j].hidden = !on; }); pn[k].querySelectorAll('.rd-lazy').forEach(a => a.carregar && a.carregar()); };
   lista.forEach(([rot, no], k) => {
     const b = el('button', {type: 'button', role: 'tab', class: 'rd-aba', onclick: () => ir(k)}, rot);
     b.addEventListener('keydown', ev => { if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft') { const n = (k + (ev.key === 'ArrowRight' ? 1 : lista.length - 1)) % lista.length; ir(n); btns[n].focus(); } });
@@ -533,8 +533,35 @@ function municipioPainel(m, d) {
     };
     painel.push([rot, alvo]);
   });
-  const corpo = abas(painel);
-  corpo.addEventListener('click', () => setTimeout(() => corpo.querySelectorAll('.rd-painel:not([hidden]) .rd-lazy').forEach(a => a.carregar && a.carregar()), 0));
-  w.append(corpo);
+  w.append(abas(painel));
   return w;
+}
+
+// ---------- Fontes e conexões: status calculado pelo robô (rede_fontes.json) ----------
+const ST = {Ativa: ['rd-st-ativa', '✔'], 'Em teste': ['rd-st-teste', '◌'], Manual: ['rd-st-manual', '✎'], Bloqueada: ['rd-st-bloq', '■'], 'A confirmar': ['rd-st-conf', '?'], Descartada: ['rd-st-desc', '✕']};
+const chipSt = st => { const [c, s] = ST[st] || ['rd-st-conf', '?']; return el('span', {class: 'rd-chip ' + c}, `${s} ${st}`); };
+const dataBr = iso => { const t = new Date(iso); return iso && !isNaN(t) ? t.toLocaleDateString('pt-BR') : 'sem teste'; };
+
+function painelFontes() {
+  const alvo = el('div', {class: 'rd-lazy'});
+  let feito = false;
+  alvo.carregar = async () => {
+    if (feito) return; feito = true; alvo.append(el('p', {class: 'rd-carregando'}, 'Carregando...'));
+    const d = await carregar(D + 'rede_fontes.json');
+    limpar(alvo);
+    if (!d || !arr(d.fontes).length) { alvo.append(aviso('A confirmar: o robô ainda não gerou o status das fontes. Rode "partelli-coleta fontes" no Serverrobo e publique.')); return; }
+    const res = d.resumo || {}, tot = arr(d.fontes).length, tom = {Ativa: 'verde', 'A confirmar': 'amar', Manual: 'azul', Bloqueada: 'verm', Descartada: 'azul', 'Em teste': 'azul'};
+    const ic = {Ativa: 'ok', 'A confirmar': 'agenda', Manual: 'doc', Bloqueada: 'alerta', Descartada: 'doc', 'Em teste': 'agenda'};
+    alvo.append(el('p', {class: 'rd-fonte-peq'}, `Gerado em ${dataBr(d.gerado_em)}. ${d.regra || ''}`),
+      el('div', {class: 'rd-kpis'}, Object.keys(ST).filter(k => res[k]).map(k => kpi(ic[k], tom[k], k, inteiro(res[k]), `${pct(res[k] / tot * 100)} das ${inteiro(tot)} fontes`))));
+    const sel = el('select', {'aria-label': 'Filtrar por status', class: 'rd-sel-ind'}, [el('option', {value: ''}, 'Todos os status'), ...Object.keys(ST).filter(k => res[k]).map(k => el('option', {value: k}, k))]);
+    const corpo = el('div'), pintar = () => {
+      limpar(corpo);
+      const l = arr(d.fontes).filter(x => !sel.value || x.status === sel.value);
+      corpo.append(tabela(['Sistema', 'Acesso', 'Status', 'Último teste', 'Resultado e limite'], l.map(x => [el('div', null, el('strong', null, x.sistema), x.uso ? el('div', {class: 'rd-peq'}, x.uso) : null), x.acesso || '', chipSt(x.status), el('span', {class: 'rd-nw'}, dataBr(x.ultimo_teste)), el('div', null, x.resultado || '', x.limite ? el('div', {class: 'rd-peq'}, x.limite) : null)])));
+    };
+    sel.addEventListener('change', pintar); pintar();
+    alvo.append(cartao('Todas as fontes oficiais', 'O status é calculado pelo robô a cada rodada. Ativa só com coleta registrada dentro do prazo. Bloqueio declarado não é contornado.', el('label', {class: 'rd-rot-sel'}, 'Status ', sel), corpo));
+  };
+  return alvo;
 }

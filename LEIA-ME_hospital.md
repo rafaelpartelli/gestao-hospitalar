@@ -274,3 +274,12 @@ O site novo roda no Cloud Run (projeto partelli-oficial) e le `/dados/` de um bu
 - A conta de servico `serverrobo-publicador` so escreve nesse bucket. O arquivo da chave fica em `~/partelli/.chave_gcs.json` (chmod 600), fora do repositorio, nunca em tela.
 - `partelli-coleta publicar` envia somente `rede_*.json` (agregados por CNES). A guarda recusa JSON invalido e qualquer sequencia de 11 ou mais digitos.
 - A pagina em si vai pelo deploy do Cloud Run, nao pelo robo. O fluxo antigo da Oracle so roda se `GCS_BUCKET` estiver vazio.
+
+## Fontes e conexoes em automatico (painel Gestao hospitalar)
+O status de cada fonte nao e digitado. `robo/status_fontes.py` le o catalogo `config/fontes.json` e grava `rede_fontes.json`:
+- Ativa: coletor existe e o arquivo (ou tabela da base) foi gerado dentro do prazo de frescor, com a data registrada.
+- A confirmar: saida antiga, saida ausente, ou fonte que tinha bloqueio e voltou a responder.
+- Manual: sem coletor; se houver endereco, uma unica requisicao de teste respeitando o robots.txt.
+- Bloqueada: bloqueio declarado (login, credencial, IP) ou resposta 401/403. Nunca ha tentativa de contorno.
+- Descartada: fonte retirada de uso.
+O modo `partelli-coleta fontes` atualiza os dados da Sala de Gestao (copia local do repositorio `sala-gestao`) e gera o status. Coletores da Sala que devam rodar no proprio notebook entram em `FONTES_LOCAIS` no `coleta.env`, por exemplo `FONTES_LOCAIS="sala:coletar_recursos sala:coletar_emendas"`. A chave do Portal da Transparencia fica so no `coleta.env` (`PORTAL_TRANSPARENCIA_KEY`).

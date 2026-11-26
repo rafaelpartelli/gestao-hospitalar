@@ -66,6 +66,7 @@ UNIT
 }
 mk_timer diaria  "*-*-* 02:30:00" diaria      # SIH e SIA
 mk_timer semanal "Mon *-*-* 04:30:00" semanal  # CNES e remessas
+mk_timer fontes  "*-*-* 05:00:00" fontes      # atualiza dados da Sala de Gestao e o status das fontes
 mk_timer espelho "*-*-* 06:30:00" espelho      # copia no Codeberg
 
 # o notebook nao pode suspender
@@ -75,7 +76,7 @@ printf '[Login]\nHandleLidSwitch=ignore\nHandleLidSwitchExternalPower=ignore\nHa
 systemctl restart systemd-logind || true
 
 systemctl daemon-reload
-systemctl enable --now partelli-diaria.timer partelli-semanal.timer partelli-espelho.timer
+systemctl enable --now partelli-diaria.timer partelli-semanal.timer partelli-fontes.timer partelli-espelho.timer
 
 echo
 echo "Instalado. Agora cadastre as chaves PUBLICAS (nunca a privada):"

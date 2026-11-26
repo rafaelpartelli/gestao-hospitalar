@@ -138,3 +138,6 @@
 .rede .rd-bloco pre{white-space:pre-wrap;word-break:break-word}.rede .rd-lazy{min-height:40px}
 
 .rede .rd-grupo{margin:0 0 28px}.rede .rd-grupo>h3{margin:0 0 4px;font-size:1.15rem;color:var(--rd-escuro);padding-bottom:6px;border-bottom:2px solid var(--rd-azul)}.rede .rd-grupo>.rd-sub{margin:0 0 12px}
+
+.rede .rd-st-ativa{background:#e3f4e5;color:#0b5a14}.rede .rd-st-teste{background:#eef2f9;color:#0c326f}.rede .rd-st-manual{background:#e8f0fb;color:#0c326f}.rede .rd-st-bloq{background:#fde8e5;color:#a31616}.rede .rd-st-conf{background:#fff4d6;color:#6b4e00}.rede .rd-st-desc{background:#eceff3;color:#4b5563}
+.rede .rd-nw{white-space:nowrap}
