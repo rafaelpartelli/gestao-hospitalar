@@ -226,6 +226,29 @@ class PlanoDeAvanco(unittest.TestCase):
         self.assertEqual([k for k in H._criticas("9", {"leitos": {"existentes": 20}, "estabelecimento": {"leitos_p1_p2_p3": [20, 0, 0]}}, [], None, {"rejeitadas_fechadas": 5, "por_codigo_erro": [{"codigo_erro": "Z", "rejeitadas": 5, "recuperadas": 5, "nao_recuperadas": 0, "pct_recuperadas": 100.0}]})], [])
 
 
+class ChecklistHabilitacao(unittest.TestCase):
+    def test_status_por_portaria_e_vigencia(self):
+        import hospitais as H
+        con = K.abrir_banco(os.path.join(tempfile.mkdtemp(), "h.sqlite"))
+        base = "INSERT INTO hb (arquivo,cnes,codufmun,sgruphab,cmpt_ini,cmpt_fim,dtportar,portaria,maportar,competen,tp_unid,vinc_sus,esfera_a,nat_jur,n_linhas,nuleitos) VALUES ('x','9','320390',?,?,?,?,?,'','202610','05','1','03','1023',1,?)"
+        con.execute(base, ("0601", "202001", "999999", "20200110", "PORTARIA 1", 10))     # vigente com portaria
+        con.execute(base, ("0602", "202001", "999999", "", "", 0))                        # sem portaria
+        con.execute(base, ("0603", "201901", "202301", "20190101", "PORTARIA 3", 5))      # vigencia encerrada
+        tab = {"tabelas": {"habilitacao": {"0601": "UTI adulto tipo II"}}}
+        ch = H._checklist_habilitacao(con, "9", tab)
+        st = {i["codigo"]: (i["status"], i["motivo"]) for i in ch["itens"]}
+        self.assertEqual(st["0601"][0], "Habilitado")
+        self.assertEqual(st["0602"], ("A verificar", "sem portaria registrada no CNES"))
+        self.assertEqual(st["0603"], ("A verificar", "vigencia encerrada em 01/2023"))
+        self.assertEqual(ch["resumo"], {"Habilitado": 1, "A verificar": 2})
+        self.assertEqual(next(i for i in ch["itens"] if i["codigo"] == "0601")["descricao"], "UTI adulto tipo II")
+        self.assertTrue(ch["itens"][0]["portaria_no_dou"].startswith("[PREENCHER"))
+        self.assertIn("atividades", ch["bases_do_cadastro"])
+        crit = H._criticas_habilitacao("9", ch)
+        self.assertEqual(sorted(k["codigo"] for k in crit), ["C09-0602-9", "C09-0603-9"])
+        self.assertEqual(H._checklist_habilitacao(K.abrir_banco(os.path.join(tempfile.mkdtemp(), "v.sqlite")), "9")["situacao"][:12], "A confirmar:")
+
+
 class TabelasCnesMaisRecente(unittest.TestCase):
     def test_usa_a_copia_mais_recente(self):
         import tempfile, time

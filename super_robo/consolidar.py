@@ -252,7 +252,7 @@ def montar(cfg, m, terr):
             "transferencias_uniao_saude": secao_mapa("transferencias.json", ler(os.path.join(SALA, "transferencias.json")), "mun", cod),
             "emendas": secao_emendas(uf, cod)},
         "producao": {"sih": sih, "sia_aprovado": sia, "ciha": ciha_mun(cod)},
-        "hospitais": HOSP.visao_hospitais(BANCO, cod[:6]),
+        "hospitais": HOSP.visao_hospitais(BANCO, cod[:6], tabelas_cnes()),
         "cnes": {
             "leitos": secao_mapa("leitos.json", ler(os.path.join(SALA, "leitos.json")), "mun", cod),
             "equipes": secao_mapa("equipes.json", ler(os.path.join(SALA, "equipes.json")), "mun", cod),

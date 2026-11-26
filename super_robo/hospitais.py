@@ -5,6 +5,7 @@ formula e a base usada. Criticas seguem o formato da plataforma (codigo, descric
 ESTIMATIVA (AIH aprovadas SUS e leitos SUS do cadastro), nao substitui o censo hospitalar."""
 import calendar, os, sqlite3
 import plano_acoes as PA
+import cnes_secoes as S
 
 RESP = "A definir pelo gestor"
 
@@ -65,6 +66,52 @@ def _cadastro(con, cnes):
     if csr:
         out["servicos_especializados"] = {"competencia": f"{csr[4:]}/{csr[:4]}", "total": con.execute(
             "SELECT COUNT(*) FROM (SELECT DISTINCT serv_esp, class_sr FROM sr WHERE cnes=? AND competen=?)", (cnes, csr)).fetchone()[0]}
+    return out
+
+
+def _checklist_habilitacao(con, cnes, tab=None):
+    """Checklist de habilitacao a partir do HB (habilitacoes cadastradas no CNES). Regra da plataforma: so 'Habilitado' com portaria registrada e
+    vigencia aberta; sem portaria ou com vigencia encerrada fica 'A verificar'. 'Em habilitacao' e 'Nao habilitado' dependem do gestor (nao ha dado).
+    A confirmacao no DOU e pendencia: o CNES traz numero e data da portaria, nao o link."""
+    chb = _maxc(con, "hb")
+    bases = {}
+    for nome, tabela, rotulo in (("caracterizacao", "st", "estabelecimento (ST)"), ("leitos", "lt", "leitos (LT)"), ("servicos", "sr", "servicos especializados (SR)"),
+                                 ("habilitacoes", "hb", "habilitacoes (HB)"), ("incentivos", "inc", "incentivos (IN)"), ("equipamentos", "eq", "equipamentos (EQ)"),
+                                 ("cbo_e_carga_horaria", "pf", "profissionais por CBO e horas (PF)")):
+        n = con.execute(f"SELECT COUNT(*) FROM {tabela} WHERE cnes=? AND competen=(SELECT MAX(competen) FROM {tabela})", (cnes,)).fetchone()[0] if _tem(con, tabela) else 0
+        bases[nome] = {"situacao": f"Disponivel na base: {n} registro(s) de {rotulo}" if n else f"A confirmar: sem registro de {rotulo} do CNES na base"}
+    bases["atividades"] = {"situacao": "[PREENCHER: atividades do estabelecimento nao coletadas nesta versao]"}
+    bases["instalacoes"] = {"situacao": "Ver secoes.cnes.estabelecimentos (QTINST do ST), quando o CNES tem leito cadastrado"}
+    if not chb:
+        return {"situacao": "A confirmar: arquivos HB ainda nao convertidos na base", "bases_do_cadastro": bases}
+    itens = []
+    for sg, ini, fim, po, dt, nl in con.execute(
+            "SELECT sgruphab, cmpt_ini, cmpt_fim, portaria, dtportar, SUM(nuleitos) FROM hb WHERE cnes=? AND competen=? "
+            "GROUP BY sgruphab, cmpt_ini, cmpt_fim, portaria, dtportar ORDER BY sgruphab", (cnes, chb)):
+        po, fim = (po or "").strip(), (fim or "").strip()
+        if not po:
+            status, motivo = "A verificar", "sem portaria registrada no CNES"
+        elif fim not in ("", "999999") and fim < chb:
+            status, motivo = "A verificar", f"vigencia encerrada em {fim[4:]}/{fim[:4]}"
+        else:
+            status, motivo = "Habilitado", "portaria e vigencia aberta registradas no CNES (confirmar no DOU)"
+        itens.append({"codigo": sg, "descricao": S.desc_habilitacao(tab, sg) or None, "leitos": nl, "portaria": po or None, "data_portaria": (dt or "").strip() or None,
+                      "vigencia_inicio": ini, "vigencia_fim": fim, "status": status, "motivo": motivo,
+                      "portaria_no_dou": "[PREENCHER: numero, data e pagina no DOU]", "responsavel": RESP})
+    resumo = {}
+    for i in itens:
+        resumo[i["status"]] = resumo.get(i["status"], 0) + 1
+    return {"competencia": f"{chb[4:]}/{chb[:4]}", "resumo": resumo, "total": len(itens), "itens": itens, "bases_do_cadastro": bases,
+            "obs": "Status derivado do registro do CNES. Em habilitacao e Nao habilitado so o gestor define. Sem portaria, nunca se afirma habilitado."}
+
+
+def _criticas_habilitacao(cnes, check):
+    out = []
+    for i in (check or {}).get("itens", []) if isinstance(check, dict) else []:
+        if i["status"] == "A verificar":
+            out.append({"codigo": f"C09-{i['codigo']}-{cnes}", "descricao": f"Habilitacao {i['codigo']}{' (' + i['descricao'] + ')' if i['descricao'] else ''}: {i['motivo']}.",
+                        "severidade": "Media", "origem": "CNES", "acao_recomendada": "Conferir a portaria no DOU e atualizar o cadastro no CNES; vincular ao checklist de habilitacao.",
+                        "responsavel": RESP, "prazo": RESP, "status": "A verificar"})
     return out
 
 
@@ -251,7 +298,7 @@ def _plano(criticas, rec, ind, lancamentos=None, cnes=None):
             "pendencia_ganho": f"[PREENCHER: ganho estimado em R$ de {len(sem_ganho)} acao(oes), lancado pelo gestor]" if sem_ganho else None}
 
 
-def visao_hospitais(banco, c6):
+def visao_hospitais(banco, c6, tab=None):
     if not os.path.isfile(banco):
         return "[PREENCHER: base SQLite nao encontrada]"
     con = sqlite3.connect(banco)
@@ -268,11 +315,12 @@ def visao_hospitais(banco, c6):
             _ocupacao_mensal(sih, (cad.get("leitos") or {}).get("sus"))
             ind = _indicadores(sih, (cad.get("leitos") or {}).get("sus"), (cad.get("leitos") or {}).get("existentes"))
             rej = _rejeicao(con, cnes, sih)
-            crit = _criticas(cnes, cad, sih, ind, (rej or {}).get("reapresentacao") if isinstance(rej, dict) else None)
+            hab = _checklist_habilitacao(con, cnes, tab)
+            crit = _criticas(cnes, cad, sih, ind, (rej or {}).get("reapresentacao") if isinstance(rej, dict) else None) + _criticas_habilitacao(cnes, hab)
             itens.append({"cnes": cnes, "cadastro": cad,
                           "producao": {"sih_por_mes": sih, "sia_aprovado_por_mes": sia, "ciha_por_mes": ciha,
                                        "sia_aprovado_total": {"quantidade": sum(x["quantidade_aprovada"] for x in sia), "valor": round(sum(x["valor_aprovado"] for x in sia), 2)} if sia else None},
-                          "indicadores": ind, "rejeicao_sih": rej, "criticas": crit, "plano_avanco": _plano(crit, (rej or {}).get("reapresentacao"), ind, arq["lancamentos"], cnes)})
+                          "indicadores": ind, "rejeicao_sih": rej, "checklist_habilitacao": hab, "criticas": crit, "plano_avanco": _plano(crit, (rej or {}).get("reapresentacao"), ind, arq["lancamentos"], cnes)})
         sev = {"Alta": 0, "Media": 0, "Baixa": 0}
         for h in itens:
             for k in h["criticas"]:
