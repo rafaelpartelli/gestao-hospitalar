@@ -168,9 +168,10 @@ def producao(con, cod):
     try:
         arq = {n: (l, v) for n, l, v in con.execute("SELECT tabela, MAX(convertido_em), COUNT(*) FROM arquivos GROUP BY tabela")}
         rd_mes = [{"competencia": f"{m}/{a}", "aih": n, "valor_total": round(t, 2), "sh": round(sh, 2), "sp": round(sp, 2),
+                   "sh_fed": round(shf, 2), "sp_fed": round(spf, 2),
                    "media_aih": round(t / n, 2) if n else None, "obitos": mo, "dias_permanencia": dp}
-                  for a, m, n, t, sh, sp, mo, dp in con.execute(
-                      "SELECT ano, mes, SUM(n_linhas), SUM(val_tot), SUM(val_sh), SUM(val_sp), SUM(mortes), SUM(dias_perm) FROM rd "
+                  for a, m, n, t, sh, sp, shf, spf, mo, dp in con.execute(
+                      "SELECT ano, mes, SUM(n_linhas), SUM(val_tot), SUM(val_sh), SUM(val_sp), SUM(val_sh_fed), SUM(val_sp_fed), SUM(mortes), SUM(dias_perm) FROM rd "
                       "WHERE munic_mov=? GROUP BY ano, mes ORDER BY ano, mes", (c6,))]
         rd_proc = [{"procedimento": p, "aih": n, "valor_total": round(t, 2)} for p, n, t in con.execute(
             "SELECT proc_rea, SUM(n_linhas), SUM(val_tot) FROM rd WHERE munic_mov=? GROUP BY proc_rea ORDER BY SUM(val_tot) DESC LIMIT ?", (c6, TOP))]
@@ -182,7 +183,8 @@ def producao(con, cod):
                 f"SELECT ano, mes, SUM(qtd_ato), SUM(val_ato) FROM sp WHERE cnes IN ({marcas}) GROUP BY ano, mes ORDER BY ano, mes", cnes_rd)]
         sih = {"fonte": "SIH/SUS, arquivos RDES e SPES (FTP DATASUS), agregados na base local",
                "convertido_em": arq.get("rd", (None,))[0], "cnes_com_aih": cnes_rd,
-               "obs": "Municipio do hospital (campo MUNIC_MOV). Conferir cnes_com_aih com o CNES antes de usar.",
+               "obs": "Municipio do hospital (campo MUNIC_MOV). Conferir cnes_com_aih com o CNES antes de usar. "
+                      "Valor total = SH + SP + SH_FED + SP_FED (complemento federal, presente a partir de 03/2026).",
                "aih_por_mes": rd_mes or SEM_REGISTRO("AIH"), "principais_procedimentos": rd_proc,
                "servicos_profissionais_por_mes": sp_mes}
         pa_mes = [{"mes_processamento": f"{m[4:]}/{m[:4]}", "quantidade_aprovada": q, "valor_aprovado": round(v, 2)}

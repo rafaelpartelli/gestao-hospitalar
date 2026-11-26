@@ -210,3 +210,5 @@ Conferido no CNES 2550687 (competências 03 a 09/2026): `VAL_TOT = VAL_SH + VAL_
 O conversor passou a ler `VAL_SH_FED` e `VAL_SP_FED` (campos opcionais). Em bases já criadas, `abrir_banco` acrescenta as colunas (zero) e marca os arquivos brutos existentes para reconversão; a próxima execução do `converter_sqlite.py` (ou do timer) recalcula o RD. Arquivos brutos já removidos mantêm zero nesses campos.
 A crítica C02 agora compara SH + SP + SH_FED + SP_FED com o valor total. O significado administrativo dos campos federais (nome sugere complemento federal) deve ser confirmado na documentação do DATASUS.
 Pendência: a seção municipal do dossiê (`consolidar.py`) e `conferir_hospital.py` ainda mostram SH e SP sem os campos federais.
+
+Atualização: a seção municipal do dossiê (`consolidar.py`, `sih.aih_por_mes`) e o `conferir_hospital.py` passaram a mostrar `sh_fed` e `sp_fed`; a pendência acima foi resolvida.

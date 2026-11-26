@@ -23,10 +23,10 @@ def hospitais(args):
 
 def relatorio(con, cnes):
     saida = []
-    saida.append("SIH, AIH reduzida (RD): competencia | AIHs | valor total | SH | SP | media por AIH | obitos | dias de permanencia medios")
-    for ano, mes, n, tot, sh, sp, mort, dias in con.execute(
-            "SELECT ano, mes, SUM(n_linhas), SUM(val_tot), SUM(val_sh), SUM(val_sp), SUM(mortes), SUM(dias_perm) FROM rd WHERE cnes=? GROUP BY ano, mes ORDER BY ano, mes", (cnes,)):
-        saida.append(f"  {mes}/{ano} | {n:>5} | {brl(tot):>16} | {brl(sh):>16} | {brl(sp):>16} | {brl(tot / n):>12} | {mort:>3} | {dias / n:.1f}")
+    saida.append("SIH, AIH reduzida (RD): competencia | AIHs | valor total | SH | SP | SH_FED | SP_FED | media por AIH | obitos | dias de permanencia medios")
+    for ano, mes, n, tot, sh, sp, shf, spf, mort, dias in con.execute(
+            "SELECT ano, mes, SUM(n_linhas), SUM(val_tot), SUM(val_sh), SUM(val_sp), SUM(val_sh_fed), SUM(val_sp_fed), SUM(mortes), SUM(dias_perm) FROM rd WHERE cnes=? GROUP BY ano, mes ORDER BY ano, mes", (cnes,)):
+        saida.append(f"  {mes}/{ano} | {n:>5} | {brl(tot):>16} | {brl(sh):>16} | {brl(sp):>16} | {brl(shf):>14} | {brl(spf):>14} | {brl(tot / n):>12} | {mort:>3} | {dias / n:.1f}")
     saida.append("SIH, servicos profissionais (SP): competencia | atos | valor")
     for ano, mes, q, v in con.execute("SELECT ano, mes, SUM(qtd_ato), SUM(val_ato) FROM sp WHERE cnes=? GROUP BY ano, mes ORDER BY ano, mes", (cnes,)):
         saida.append(f"  {mes}/{ano} | {q:>7} | {brl(v):>16}")
