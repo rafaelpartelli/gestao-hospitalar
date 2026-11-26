@@ -151,3 +151,7 @@ O notebook publica direto na VM pelo conector Partelli (`partelli-receber-deploy
 - Depois de cada coleta, os dados seguem sozinhos para a Oracle quando `VM_HOST` estiver definido em `/etc/partelli/coleta.env`.
 Pre-requisitos no notebook: `VM_HOST=partelli.tec.br`, `VM_USER=<usuario da VM>` em `/etc/partelli/coleta.env` e a chave do conector em `~rafael/.ssh/oracle_key` (permissao 600; copiar do terminal da VM, nunca por chat). A base SQLite agregada e os arquivos DBC nao sobem para o site.
 Aviso: a descricao dos codigos do CNES agora vive em `hospital/js/util.js` (o conector da VM so instala arquivos conhecidos; um arquivo novo nao seria publicado).
+
+### Super robo, camada 1: dossie por municipio (ES)
+
+`super_robo/consolidar.py` gera, para Itapemirim, Marataizes, Montanha, Nova Venecia e Sao Mateus (`super_robo/municipios.json`, codigos IBGE conferidos na base SICONFI), um JSON por municipio em `~/partelli/dossie/` com: populacao (IBGE/SICONFI), despesa, receita e pessoal (SICONFI), SIOPS, FNS/InvestSUS, transferencias da Uniao, leitos, equipes, equipamentos, profissionais e rede (CNES), dengue, cobertura de planos (ANS) e a producao SIH e SIA **aprovado** vinda da base SQLite. Cada secao traz fonte, data de coleta e defasagem em dias; sem dado vira `[PREENCHER: ...]` e entra em `pendencias`. Os dados nacionais vem de `SALA_DADOS` (padrao `~/partelli/sala-gestao/dados`). Timer diario as 05:30: `deploy/notebook/instalar_super_robo.sh`.

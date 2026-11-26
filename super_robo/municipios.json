@@ -1,0 +1,11 @@
+{
+  "descricao": "Municipios acompanhados pelo super robo. Codigos IBGE de 7 digitos conferidos na base territorial (SICONFI) da Sala de Gestao. Nomes autorizados pelo responsavel.",
+  "uf": "ES",
+  "municipios": [
+    {"cod": "3202801", "nome": "Itapemirim"},
+    {"cod": "3203320", "nome": "Marataízes"},
+    {"cod": "3203502", "nome": "Montanha"},
+    {"cod": "3203908", "nome": "Nova Venécia"},
+    {"cod": "3204906", "nome": "São Mateus"}
+  ]
+}
