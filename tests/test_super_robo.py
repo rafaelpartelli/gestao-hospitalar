@@ -436,3 +436,34 @@ class ValidarMotivos(unittest.TestCase):
         self.assertEqual(V.destino([("202603", "", "")], "202603"), "mesma")
         self.assertEqual(V.destino([("202605", "", "")], "202603"), "posterior")
         self.assertEqual(V.destino([("202601", "", "")], "202603"), "anterior")
+
+
+class RejeicaoPorCnes(unittest.TestCase):
+    def test_ranking_participacao_e_recuperacao(self):
+        import hospitais as H
+        d = tempfile.mkdtemp()
+        banco = os.path.join(d, "b.sqlite")
+        con = sqlite3.connect(banco)
+        con.execute("CREATE TABLE er (cnes TEXT, ano TEXT, mes TEXT, mun_mov TEXT, co_erro TEXT, n_linhas INTEGER)")
+        con.execute("CREATE TABLE rd (cnes TEXT, ano TEXT, mes TEXT)")
+        con.execute("CREATE TABLE rejeicao_rec (cnes TEXT, ano TEXT, mes TEXT, co_erro TEXT, rejeitadas INTEGER, recuperadas INTEGER, valor_recuperado REAL, calculado_em TEXT)")
+        con.executemany("INSERT INTO er VALUES (?,?,?,?,?,?)", [("111", "2026", "01", "320530", "060082", 60), ("111", "2026", "02", "320530", "060120", 20),
+                                                                ("222", "2026", "01", "320500", "020071", 20)])
+        con.execute("INSERT INTO rd VALUES ('111','2026','03')")
+        con.executemany("INSERT INTO rejeicao_rec VALUES (?,?,?,?,?,?,?,?)", [("111", "2026", "01", "060082", 60, 0, 0, "x"), ("111", "2026", "02", "060120", 20, 2, 10.0, "x"),
+                                                                              ("222", "2026", "01", "020071", 20, 20, 5.0, "x")])
+        con.commit()
+        con.close()
+        r = H.rejeicao_por_cnes(banco)
+        self.assertEqual(r["total_rejeitadas_es"], 100)
+        a, b = r["itens"]
+        self.assertEqual((a["cnes"], a["rejeitadas"], a["pct_do_total"], a["pct_acumulado"], a["municipio_movimento"]), ("111", 80, 80.0, 80.0, "320530"))
+        self.assertEqual((a["rejeitadas_fechadas"], a["recuperadas"], a["pct_recuperadas"]), (80, 2, 2.5))
+        self.assertEqual(a["principais_codigos_erro"][0]["codigo_erro"], "060082")
+        self.assertIn("motivo_provavel", a["principais_codigos_erro"][0])
+        self.assertEqual((b["cnes"], b["pct_acumulado"], b["pct_recuperadas"]), ("222", 100.0, 100.0))
+        self.assertNotIn("nome", a)
+
+    def test_sem_base_ou_sem_er(self):
+        import hospitais as H
+        self.assertIn("A confirmar", H.rejeicao_por_cnes("/nao/existe.sqlite")["situacao"])

@@ -251,3 +251,10 @@ O dossie mostra `motivo_provavel` nos codigos de erro do arquivo ER (`por_codigo
 (saida depois da competencia da rejeicao, saida 6+ meses antes, internacao depois da saida). Le DT_INTER e DT_SAIDA SO em memoria: nada de AIH ou data
 e gravado ou impresso, so contagens e percentuais. Percentual alto no codigo esperado e baixo nos demais e indicio, nao prova, da correspondencia.
 Uso: `python3 notebook_app/validar_motivos_rejeicao.py [CNES ...]`
+
+## Rejeicao por CNES (ES)
+
+O super robo grava `<BASE>/dossie/estado_ES_rejeicao_por_cnes.json` (a cada execucao completa, sem `--so`). Ranking dos 15 CNES com mais AIH rejeitadas (ER):
+participacao no total e acumulada, codigo do municipio de movimento, recuperacao (aprovacao posterior, so competencias fechadas) e os 3 principais codigos de erro
+com `motivo_provavel` (a confirmar). So codigo CNES e codigo do municipio: nome de estabelecimento ou municipio so com autorizacao. Sem valor em R$ (o ER nao traz).
+Funcao: `hospitais.rejeicao_por_cnes(banco, topo=15)`.

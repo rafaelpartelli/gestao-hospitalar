@@ -344,3 +344,42 @@ def visao_hospitais(banco, c6, tab=None):
                 "obs": "SIH e SIA de 2026 ate o ultimo mes disponivel no FTP; cadastro CNES na competencia mais recente de cada grupo."}
     finally:
         con.close()
+
+
+def rejeicao_por_cnes(banco, topo=15):
+    """Visao estadual: AIH rejeitadas (ER) por CNES, com participacao, recuperacao e principais codigos. Identifica so por codigo CNES e codigo do
+    municipio (6 digitos), sem nome de estabelecimento. Recuperacao vem da tabela rejeicao_rec (aprovacao posterior, mesmo numero e CNES) e e
+    calculada sobre as rejeicoes de competencias fechadas; sem a tabela, fica 'A confirmar'. Valor em R$ nao existe no ER: nao e estimado aqui."""
+    if not os.path.exists(banco):
+        return {"situacao": "A confirmar: base SQLite nao encontrada"}
+    con = sqlite3.connect(banco)
+    try:
+        if not _tem(con, "er"):
+            return {"situacao": "A confirmar: tabela ER ainda nao carregada"}
+        total = _um(con, "SELECT COALESCE(SUM(n_linhas),0) FROM er")[0]
+        if not total:
+            return {"situacao": "A confirmar: nenhuma AIH rejeitada na base"}
+        tem_rec = _tem(con, "rejeicao_rec")
+        ultima = _um(con, "SELECT MAX(ano || mes) FROM rd")[0] if _tem(con, "rd") else None
+        linhas, acum = [], 0
+        for cnes, n in con.execute("SELECT cnes, SUM(n_linhas) FROM er GROUP BY cnes ORDER BY SUM(n_linhas) DESC, cnes LIMIT ?", (topo,)):
+            acum += n
+            mun = _um(con, "SELECT mun_mov FROM er WHERE cnes=? GROUP BY mun_mov ORDER BY SUM(n_linhas) DESC, mun_mov LIMIT 1", (cnes,))[0]
+            cods = [_com_motivo({"codigo_erro": e, "aih": k}) for e, k in con.execute(
+                "SELECT co_erro, SUM(n_linhas) FROM er WHERE cnes=? GROUP BY co_erro ORDER BY SUM(n_linhas) DESC, co_erro LIMIT 3", (cnes,))]
+            item = {"cnes": cnes, "municipio_movimento": mun, "rejeitadas": n, "pct_do_total": round(n / total * 100, 1),
+                    "pct_acumulado": round(acum / total * 100, 1), "principais_codigos_erro": cods}
+            if tem_rec:
+                rf, rc = _um(con, "SELECT COALESCE(SUM(rejeitadas),0), COALESCE(SUM(recuperadas),0) FROM rejeicao_rec WHERE cnes=? AND (ano || mes) < ?", (cnes, ultima or ""))
+                item["rejeitadas_fechadas"] = rf
+                item["recuperadas"] = rc
+                item["pct_recuperadas"] = round(rc / rf * 100, 1) if rf else None
+            else:
+                item["pct_recuperadas"] = "A confirmar: conferencia de reapresentacao nao executada"
+            linhas.append(item)
+        return {"total_rejeitadas_es": total, "cnes_listados": len(linhas), "pct_acumulado_listados": round(acum / total * 100, 1),
+                "competencia_em_aberto": f"{ultima[4:]}/{ultima[:4]}" if ultima else None, "itens": linhas,
+                "regra": "Recuperada: mesmo numero e CNES aprovado no SIH em competencia posterior. O numero da AIH nao e gravado. Perda em R$ nao e estimada nesta visao.",
+                "obs": "Identificacao so por codigo CNES e codigo do municipio. Nome de estabelecimento ou municipio so com autorizacao. O texto de motivo_provavel e correspondencia provavel, a confirmar."}
+    finally:
+        con.close()

@@ -304,6 +304,8 @@ def main(argv):
         indice.append({"cod": m["cod"], "nome": m["nome"], "pendencias": len(d["pendencias"]), "gerado_em": d["gerado_em"]})
         print(f"[super] {m['nome']} ({m['cod']}): {len(d['pendencias'])} pendencias")
     if not alvo:
+        with open(os.path.join(SAIDA, "estado_ES_rejeicao_por_cnes.json"), "w", encoding="utf-8") as a:
+            json.dump({"gerado_em": agora(), **HOSP.rejeicao_por_cnes(BANCO)}, a, ensure_ascii=False, indent=1)
         with open(os.path.join(SAIDA, "indice.json"), "w", encoding="utf-8") as a:
             json.dump({"gerado_em": agora(), "municipios": indice}, a, ensure_ascii=False, indent=1)
     return 0
