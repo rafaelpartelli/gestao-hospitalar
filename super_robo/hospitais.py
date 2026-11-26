@@ -78,7 +78,38 @@ def _producao(con, cnes):
     return sih, sia, ciha
 
 
-def _indicadores(sih, leitos_sus):
+def _ocupacao_mensal(sih, leitos_sus):
+    """Taxa de ocupacao estimada por mes: dias de permanencia das AIH aprovadas / (leitos SUS x dias do mes) x 100."""
+    if not leitos_sus:
+        return
+    for x in sih:
+        dias_mes = calendar.monthrange(int(x["competencia"][3:]), int(x["competencia"][:2]))[1]
+        x["ocupacao_estimada_pct"] = round(x["dias_permanencia"] / (leitos_sus * dias_mes) * 100, 1)
+
+
+def _rejeicao(con, cnes, sih):
+    """AIH rejeitadas (arquivo ER) por mes e percentual sobre AIH aprovadas mais rejeitadas. O arquivo ER nao traz valor em R$."""
+    if not _tem(con, "er"):
+        return None
+    rej = {f"{m}/{a}": n for a, m, n in con.execute("SELECT ano, mes, SUM(n_linhas) FROM er WHERE cnes=? GROUP BY ano, mes", (cnes,))}
+    if not rej:
+        return {"situacao": "A confirmar: nenhuma AIH rejeitada do hospital na base de 2026"}
+    apr = {x["competencia"]: x["aih"] for x in sih}
+    meses = []
+    for comp in sorted(set(rej) | set(apr), key=lambda k: (k[3:], k[:2])):
+        r, a = rej.get(comp, 0), apr.get(comp, 0)
+        meses.append({"competencia": comp, "aprovadas": a, "rejeitadas": r, "pct_rejeicao": round(r / (a + r) * 100, 2) if (a + r) else None})
+    tr, ta = sum(m["rejeitadas"] for m in meses), sum(m["aprovadas"] for m in meses)
+    erros = [{"codigo_erro": e, "aih": n} for e, n in con.execute(
+        "SELECT co_erro, SUM(n_linhas) FROM er WHERE cnes=? GROUP BY co_erro ORDER BY SUM(n_linhas) DESC LIMIT 5", (cnes,))]
+    return {"total_rejeitadas": tr, "total_aprovadas": ta, "pct_rejeicao_periodo": round(tr / (ta + tr) * 100, 2) if (ta + tr) else None,
+            "por_mes": meses, "principais_codigos_erro": erros,
+            "formula": "rejeitadas / (aprovadas + rejeitadas) x 100, por contagem de AIH",
+            "obs": "O arquivo ER nao tem valor em R$: perda em R$ fica a apurar. Uma AIH rejeitada pode ser reapresentada e aprovada em competencia seguinte. "
+                   "Descricao do codigo de erro depende de tabela auxiliar nao carregada."}
+
+
+def _indicadores(sih, leitos_sus, leitos_exist=None):
     if not sih:
         return None
     aih = sum(x["aih"] for x in sih)
@@ -92,11 +123,13 @@ def _indicadores(sih, leitos_sus):
            "permanencia_media_dias": round(dias / aih, 2) if aih else None,
            "mortalidade_hospitalar_pct": round(obitos / aih * 100, 2) if aih else None,
            "formulas": "media = valor total / AIH; permanencia = dias de permanencia / AIH; mortalidade = obitos / AIH x 100"}
+    if leitos_exist:
+        ind["ocupacao_estimada_leitos_existentes_pct"] = round(dias / (leitos_exist * dias_calendario) * 100, 1)
     if leitos_sus:
         ind["aih_por_leito_sus_por_mes"] = round(aih / meses / leitos_sus, 2)
         ind["ocupacao_estimada_pct"] = round(dias / (leitos_sus * dias_calendario) * 100, 1)
         ind["obs_ocupacao"] = ("Estimativa: dias de permanencia das AIH aprovadas (SIH) dividido por leitos SUS do cadastro vezes dias do periodo. "
-                               "Nao substitui o censo hospitalar. Leitos SUS da competencia mais recente do CNES.")
+                               "Nao substitui o censo hospitalar. Leitos SUS da competencia mais recente do CNES. Tambem calculada sobre leitos existentes.")
     return ind
 
 
@@ -152,11 +185,12 @@ def visao_hospitais(banco, c6):
         for cnes in lista:
             cad = _cadastro(con, cnes)
             sih, sia, ciha = _producao(con, cnes)
-            ind = _indicadores(sih, (cad.get("leitos") or {}).get("sus"))
+            _ocupacao_mensal(sih, (cad.get("leitos") or {}).get("sus"))
+            ind = _indicadores(sih, (cad.get("leitos") or {}).get("sus"), (cad.get("leitos") or {}).get("existentes"))
             itens.append({"cnes": cnes, "cadastro": cad,
                           "producao": {"sih_por_mes": sih, "sia_aprovado_por_mes": sia, "ciha_por_mes": ciha,
                                        "sia_aprovado_total": {"quantidade": sum(x["quantidade_aprovada"] for x in sia), "valor": round(sum(x["valor_aprovado"] for x in sia), 2)} if sia else None},
-                          "indicadores": ind, "criticas": _criticas(cnes, cad, sih, ind)})
+                          "indicadores": ind, "rejeicao_sih": _rejeicao(con, cnes, sih), "criticas": _criticas(cnes, cad, sih, ind)})
         sev = {"Alta": 0, "Media": 0, "Baixa": 0}
         for h in itens:
             for k in h["criticas"]:

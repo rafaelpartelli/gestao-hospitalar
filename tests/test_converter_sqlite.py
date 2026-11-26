@@ -29,6 +29,7 @@ def rd_linha(aih, cnes, proc, sh, sp, dias, morte=0):
 
 # Nomes de campos dos arquivos reais de 2026 (saida de campos_dbc.py no notebook). ST e EP aparecem com os campos usados e os de identificacao.
 LAYOUTS_REAIS = {
+    "ER": "SEQUENCIA REMESSA CNES AIH ANO MES DT_INTER DT_SAIDA MUN_MOV UF_ZI MUN_RES UF_RES CO_ERRO".split(),
     "HB": "CNES CODUFMUN REGSAUDE MICR_REG DISTRSAN DISTRADM TPGESTAO PF_PJ CPF_CNPJ NIV_DEP CNPJ_MAN ESFERA_A RETENCAO ATIVIDAD NATUREZA CLIENTEL TP_UNID TURNO_AT NIV_HIER TERCEIRO COD_CEP VINC_SUS TP_PREST SGRUPHAB CMPT_INI CMPT_FIM DTPORTAR PORTARIA MAPORTAR NULEITOS COMPETEN NAT_JUR".split(),
     "IN": "CNES CODUFMUN REGSAUDE MICR_REG DISTRSAN DISTRADM TPGESTAO PF_PJ CPF_CNPJ NIV_DEP CNPJ_MAN ESFERA_A RETENCAO ATIVIDAD NATUREZA CLIENTEL TP_UNID TURNO_AT NIV_HIER TERCEIRO COD_CEP VINC_SUS TP_PREST SGRUPHAB CMPT_INI CMPT_FIM DTPORTAR PORTARIA MAPORTAR COMPETEN NAT_JUR".split(),
     "LT": "CNES CODUFMUN REGSAUDE MICR_REG DISTRSAN DISTRADM TPGESTAO PF_PJ CPF_CNPJ NIV_DEP CNPJ_MAN ESFERA_A ATIVIDAD RETENCAO NATUREZA CLIENTEL TP_UNID TURNO_AT NIV_HIER TERCEIRO TP_LEITO CODLEITO QT_EXIST QT_CONTR QT_SUS QT_NSUS COMPETEN NAT_JUR".split(),
@@ -155,6 +156,18 @@ class Conversao(unittest.TestCase):
             linhas.append(lin)
         return montar_dbc(campos, linhas)
 
+    def test_er_conta_rejeicoes_sem_numero_da_aih(self):
+        campos = [("SEQUENCIA", "N", 9), ("REMESSA", "C", 21), ("CNES", "C", 7), ("AIH", "C", 13), ("ANO", "C", 4), ("MES", "C", 2), ("DT_INTER", "C", 10),
+                  ("DT_SAIDA", "C", 10), ("MUN_MOV", "C", 6), ("UF_ZI", "C", 6), ("MUN_RES", "C", 6), ("UF_RES", "C", 2), ("CO_ERRO", "C", 6)]
+        lin = lambda aih, erro: [1, "REMESSA-SECRETA-0001", "2483998", aih, "2026", "09", "2026-09-01", "2026-09-05", "320350", "320000", "320530", "ES", erro]
+        regs = [lin("3220000000011", "001"), lin("3220000000022", "001"), lin("3220000000033", "014")]
+        r = K.converter_arquivo(self.con, self.grava("ERES2609.dbc", montar_dbc(campos, regs)))
+        self.assertEqual((r["tabela"], r["linhas"], r["grupos"]), ("er", 3, 2))
+        self.assertEqual(self.con.execute("SELECT n_linhas FROM er WHERE co_erro='001'").fetchone()[0], 2)
+        despejo = "\n".join(self.con.iterdump())
+        for sensivel in ("3220000000011", "REMESSA-SECRETA", "2026-09-01", "320530"):
+            self.assertNotIn(sensivel, despejo)
+
     def test_novos_grupos_cnes_convertem_e_nao_guardam_dado_pessoal(self):
         casos = {"LTES2610": ("lt", []), "EQES2610": ("eq", []), "SRES2610": ("sr", ["CPF_CNPJ", "CNPJ_MAN"]), "EPES2610": ("ep", ["NOME_EQP", "NOMEAREA"]),
                  "INES2610": ("inc", ["CPF_CNPJ", "COD_CEP"]), "RCES2610": ("rc", []), "EFES2610": ("ef", []),
@@ -200,7 +213,7 @@ class MudancaDeLayout(unittest.TestCase):
 
 class LayoutsReais(unittest.TestCase):
     def test_todo_campo_lido_existe_no_arquivo_real(self):
-        mapa = {"hb": "HB", "inc": "IN", "lt": "LT", "eq": "EQ", "pf": "PF", "rc": "RC", "ef": "EF", "sr": "SR", "ep": "EP", "st": "ST"}
+        mapa = {"hb": "HB", "inc": "IN", "lt": "LT", "eq": "EQ", "pf": "PF", "rc": "RC", "ef": "EF", "sr": "SR", "ep": "EP", "st": "ST", "er": "ER"}
         for tabela, grupo in mapa.items():
             _, dims, meds, _c = K.TABELAS[tabela]
             usados = [c for _, c in dims] + [c for _, c, _ in meds]

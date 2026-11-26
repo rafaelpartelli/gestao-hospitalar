@@ -79,6 +79,8 @@ TABELAS = {
             ("av_pnass", "AV_PNASS"), ("competen", "COMPETEN")],
            [("qtleitp1", "QTLEITP1", "i"), ("qtleitp2", "QTLEITP2", "i"), ("qtleitp3", "QTLEITP3", "i")] +
            [(f"qtinst{n:02d}", f"QTINST{n:02d}", "i") for n in range(1, 38)], "qtleitp1"),
+    # AIH rejeitadas (ER): so contagem por CNES, competencia, municipio de movimento e codigo de erro. Sem numero da AIH, datas, residencia, remessa.
+    "er": ("ERES", [("cnes", "CNES"), ("ano", "ANO"), ("mes", "MES"), ("mun_mov", "MUN_MOV"), ("co_erro", "CO_ERRO")], [], "n_linhas"),
     "pa": ("PAES",
            [("cnes", "PA_CODUNI"), ("mvm", "PA_MVM"), ("cmp", "PA_CMP"), ("proc_id", "PA_PROC_ID"), ("cbo", "PA_CBOCOD"),
             ("tpfin", "PA_TPFIN"), ("subfin", "PA_SUBFIN"), ("nivcpl", "PA_NIVCPL"), ("ufmun", "PA_UFMUN")],
@@ -86,7 +88,7 @@ TABELAS = {
 }
 NUNCA = set(H.PROIBIDOS) | {"CGC_HOSP", "CGC_CONSOR", "MUNIC_RES", "SEXO", "IDADE", "COD_IDADE", "RACA_COR", "DT_ATEND", "DT_SAIDA",
                             "HOMONIMO", "NACIONAL", "CPF_AUT", "SP_NAIH", "SP_PF_DOC", "CO_BANCO", "CO_AGENC", "C_CORREN", "CONTRATM",
-                            "CONTRATE", "ALVARA", "REGISTRO", "UFMUNRES", "CPFUNICO", "CBOUNICO", "NOME_EQP", "NOMEAREA", "DESCSEGM", "CPF_CNPJ"}
+                            "CONTRATE", "ALVARA", "REGISTRO", "UFMUNRES", "CPFUNICO", "CBOUNICO", "NOME_EQP", "NOMEAREA", "DESCSEGM", "CPF_CNPJ", "AIH", "DT_INTER", "MUN_RES", "UF_RES", "REMESSA", "SEQUENCIA"}
 for _t, (_p, _d, _m, _c) in TABELAS.items():   # trava: nenhuma coluna proibida na lista
     _usados = {c for _, c in _d} | {c for _, c, _ in _m}
     assert not (_usados & NUNCA), f"coluna proibida em {_t}: {_usados & NUNCA}"
@@ -188,7 +190,7 @@ def converter_arquivo(con, caminho, nome=None):
 def pendentes(con, pasta=None):
     pasta = pasta or ORIGEM
     feitos = dict(con.execute("SELECT nome, tamanho FROM arquivos"))
-    rx = re.compile(r"^(RDES|SPES|PAES|HBES|CIHAES|INES|RCES|EFES|LTES|EQES|PFES|SRES|EPES|STES)\d{4}\.dbc$", re.I)
+    rx = re.compile(r"^(RDES|SPES|ERES|PAES|HBES|CIHAES|INES|RCES|EFES|LTES|EQES|PFES|SRES|EPES|STES)\d{4}\.dbc$", re.I)
     saida = []
     for n in sorted(os.listdir(pasta)) if os.path.isdir(pasta) else []:
         p = os.path.join(pasta, n)

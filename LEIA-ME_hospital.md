@@ -179,3 +179,8 @@ Aviso: a descricao dos codigos do CNES agora vive em `hospital/js/util.js` (o co
 - Por hospital: cadastro (estabelecimento, leitos, equipamentos, profissionais, habilitações, incentivos, serviços), produção (SIH por mês, SIA aprovado, CIHA), indicadores e críticas.
 - Indicadores: média por AIH, permanência média, mortalidade hospitalar, AIH por leito SUS por mês e ocupação estimada. A ocupação é estimativa (dias de permanência das AIH aprovadas contra leitos SUS do cadastro) e não substitui o censo hospitalar.
 - Críticas automáticas: C01 AIH sem leito existente no cadastro; C02 SH mais SP diferente do total; C03 competência sem produção entre meses com produção; C04 AIH sem habilitação registrada; C05 ocupação estimada acima de 100%. Responsável e prazo ficam "A definir pelo gestor".
+
+## Taxa de ocupação e rejeição no dossiê por hospital
+
+- `sih_por_mes[].ocupacao_estimada_pct`: dias de permanência das AIH aprovadas do mês / (leitos SUS do cadastro x dias do mês) x 100. Também há a taxa do período sobre leitos SUS e sobre leitos existentes. É estimativa, não substitui o censo hospitalar.
+- `rejeicao_sih`: AIH rejeitadas (arquivo ER, conversão agregada por CNES, mês e código de erro, sem número da AIH) e percentual de rejeição = rejeitadas / (aprovadas + rejeitadas) x 100, por contagem. O ER não traz valor em R$, então a perda financeira fica a apurar. Uma AIH rejeitada pode ser reapresentada e aprovada em competência seguinte.
