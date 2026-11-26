@@ -64,9 +64,9 @@ Unit=partelli-coleta@$3.service
 WantedBy=timers.target
 UNIT
 }
-mk_timer diaria  "*-*-* 02:30:00" diaria      # SIH e SIA
+mk_timer diaria  "*-*-1/2 02:30:00" diaria    # SIH e SIA, coleta de dois em dois dias
 mk_timer semanal "Mon *-*-* 04:30:00" semanal  # CNES e remessas
-mk_timer fontes  "*-*-* 05:00:00" fontes      # atualiza dados da Sala de Gestao e o status das fontes
+mk_timer fontes  "*-*-* 21:20:00" fontes      # busca diaria: atualiza dados da Sala de Gestao e o status das fontes
 mk_timer espelho "*-*-* 06:30:00" espelho      # copia no Codeberg
 
 # o notebook nao pode suspender

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Instala o timer do super robo (dossie por municipio) no Serverrobo. Rodar como root:
 #   bash /home/rafael/partelli/repo/deploy/notebook/instalar_super_robo.sh
-# Roda todo dia as 05:30, depois da coleta noturna e da conversao das 03:40, para os dados estarem prontos as 07:00.
+# Roda todo dia as 21:50, 30 minutos depois da busca das fontes (21:20), para consolidar e exportar os dados do painel.
 set -euo pipefail
 [ "$(id -u)" -eq 0 ] || { echo "Rode como root."; exit 1; }
 USUARIO="${PARTELLI_USER:-rafael}"
@@ -28,7 +28,7 @@ cat > /etc/systemd/system/partelli-super.timer <<UNIT
 Description=Agenda do super robo
 
 [Timer]
-OnCalendar=*-*-* 05:30:00
+OnCalendar=*-*-* 21:50:00
 Persistent=true
 RandomizedDelaySec=120
 
