@@ -14,12 +14,14 @@ BASE = os.environ.get("PARTELLI_BASE", os.path.join(os.path.expanduser("~"), "pa
 SALA = os.environ.get("SALA_DADOS", os.path.join(BASE, "sala-gestao", "dados"))
 BANCO = os.environ.get("PARTELLI_BANCO", os.path.join(BASE, "base", "producao_es.sqlite"))
 SAIDA = os.environ.get("DOSSIE_SAIDA", os.path.join(BASE, "dossie"))
+DADOS_SITE = os.environ.get("PARTELLI_DADOS_SITE", os.path.join(BASE, "dados_repo"))   # JSON do site; a publicacao e a rotina partelli-coleta publicar
 CONFIG = os.environ.get("SUPER_MUNICIPIOS", os.path.join(AQUI, "municipios.json"))
 BRT = timezone(timedelta(hours=-3))
 TOP = 10
 sys.path.insert(0, AQUI)
 import cnes_secoes as S
 import hospitais as HOSP
+import exportar_site as SITE
 
 _TAB = []
 
@@ -308,6 +310,8 @@ def main(argv):
             json.dump({"gerado_em": agora(), **HOSP.rejeicao_por_cnes(BANCO)}, a, ensure_ascii=False, indent=1)
         with open(os.path.join(SAIDA, "indice.json"), "w", encoding="utf-8") as a:
             json.dump({"gerado_em": agora(), "municipios": indice}, a, ensure_ascii=False, indent=1)
+        r = SITE.exportar(SAIDA, DADOS_SITE)
+        print(f"[super] arquivos para o site em {DADOS_SITE}: {len(r['gravados'])} gravados, {len(r['recusados'])} recusados pela guarda de privacidade")
     return 0
 
 

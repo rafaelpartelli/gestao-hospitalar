@@ -467,3 +467,30 @@ class RejeicaoPorCnes(unittest.TestCase):
     def test_sem_base_ou_sem_er(self):
         import hospitais as H
         self.assertIn("A confirmar", H.rejeicao_por_cnes("/nao/existe.sqlite")["situacao"])
+
+
+class ExportarSite(unittest.TestCase):
+    def _dossie(self, extra=None):
+        import json as J
+        d = tempfile.mkdtemp()
+        J.dump({"gerado_em": "g", "municipios": [{"cod": "3203908", "nome": "Municipio Teste"}]}, open(os.path.join(d, "indice.json"), "w"))
+        J.dump({"gerado_em": "g", "secoes": {"hospitais": {"total": 2, "itens": [{"cnes": "1234567", "x": extra or "ok"}]}, "emendas": {"segredo": 1}}}, open(os.path.join(d, "3203908.json"), "w"))
+        J.dump({"total_rejeitadas_es": 5, "itens": []}, open(os.path.join(d, "estado_ES_rejeicao_por_cnes.json"), "w"))
+        return d
+
+    def test_exporta_so_hospitais_e_estado(self):
+        import exportar_site as E, json as J
+        d, s = self._dossie(), tempfile.mkdtemp()
+        r = E.exportar(d, s)
+        self.assertEqual(sorted(r["gravados"]), ["rede_3203908.json", "rede_indice.json", "rede_rejeicao_es.json"])
+        self.assertEqual(r["recusados"], [])
+        m = J.load(open(os.path.join(s, "rede_3203908.json")))
+        self.assertEqual(sorted(m), ["gerado_em", "hospitais", "municipio"])
+        self.assertEqual(J.load(open(os.path.join(s, "rede_indice.json")))["municipios"], [{"cod": "3203908", "nome": "Municipio Teste", "hospitais": 2}])
+
+    def test_guarda_recusa_sequencia_longa(self):
+        import exportar_site as E
+        d, s = self._dossie("12345678901234"), tempfile.mkdtemp()
+        r = E.exportar(d, s)
+        self.assertIn("rede_3203908.json", r["recusados"])
+        self.assertFalse(os.path.exists(os.path.join(s, "rede_3203908.json")))
