@@ -4,6 +4,7 @@ Tudo calculado a partir da base SQLite agregada. Sem meta inventada, sem compara
 formula e a base usada. Criticas seguem o formato da plataforma (codigo, descricao, severidade, origem, acao, status). Ocupacao e uma
 ESTIMATIVA (AIH aprovadas SUS e leitos SUS do cadastro), nao substitui o censo hospitalar."""
 import calendar, os, sqlite3
+import plano_acoes as PA
 
 RESP = "A definir pelo gestor"
 
@@ -227,7 +228,7 @@ def _criticas(cnes, cad, sih, ind, rec=None):
     return c
 
 
-def _plano(criticas, rec, ind):
+def _plano(criticas, rec, ind, lancamentos=None, cnes=None):
     """Plano de avanco do faturamento a partir das criticas. Ganho em R$ nao e inventado: o gestor lanca. Perda e ESTIMATIVA."""
     media = (ind or {}).get("media_por_aih")
     itens = []
@@ -243,8 +244,11 @@ def _plano(criticas, rec, ind):
         itens.append(item)
     ordem = {"Alta": 0, "Media": 1, "Baixa": 2}
     itens.sort(key=lambda i: ordem[i["prioridade"]])
+    if lancamentos and cnes:
+        PA.aplicar(itens, cnes, lancamentos)
+    sem_ganho = [i for i in itens if i["ganho_estimado_rs"] is None]
     return {"itens": itens, "total": len(itens),
-            "pendencia_ganho": "[PREENCHER: ganho estimado em R$ de cada acao, lancado pelo gestor]" if itens else None}
+            "pendencia_ganho": f"[PREENCHER: ganho estimado em R$ de {len(sem_ganho)} acao(oes), lancado pelo gestor]" if sem_ganho else None}
 
 
 def visao_hospitais(banco, c6):
@@ -257,6 +261,7 @@ def visao_hospitais(banco, c6):
             return {"situacao": "A confirmar: nenhum hospital com AIH, CIHA ou leito cadastrado do municipio na base de 2026",
                     "obs": "Ausencia de registro nao e erro de leitura. Conferir no CNES."}
         itens = []
+        arq = PA.carregar()
         for cnes in lista:
             cad = _cadastro(con, cnes)
             sih, sia, ciha = _producao(con, cnes)
@@ -267,13 +272,13 @@ def visao_hospitais(banco, c6):
             itens.append({"cnes": cnes, "cadastro": cad,
                           "producao": {"sih_por_mes": sih, "sia_aprovado_por_mes": sia, "ciha_por_mes": ciha,
                                        "sia_aprovado_total": {"quantidade": sum(x["quantidade_aprovada"] for x in sia), "valor": round(sum(x["valor_aprovado"] for x in sia), 2)} if sia else None},
-                          "indicadores": ind, "rejeicao_sih": rej, "criticas": crit, "plano_avanco": _plano(crit, (rej or {}).get("reapresentacao"), ind)})
+                          "indicadores": ind, "rejeicao_sih": rej, "criticas": crit, "plano_avanco": _plano(crit, (rej or {}).get("reapresentacao"), ind, arq["lancamentos"], cnes)})
         sev = {"Alta": 0, "Media": 0, "Baixa": 0}
         for h in itens:
             for k in h["criticas"]:
                 sev[k["severidade"]] += 1
         return {"fonte": "Base local: SIH (RD, SP), SIA aprovado (PA), CIHA, CNES (ST, LT, EQ, PF, HB, IN, SR)", "total": len(itens),
-                "criticas_por_severidade": sev, "itens": itens,
+                "criticas_por_severidade": sev, "plano_acoes_arquivo": {k: arq[k] for k in ("situacao", "linhas_lidas", "recusadas")}, "itens": itens,
                 "obs": "SIH e SIA de 2026 ate o ultimo mes disponivel no FTP; cadastro CNES na competencia mais recente de cada grupo."}
     finally:
         con.close()

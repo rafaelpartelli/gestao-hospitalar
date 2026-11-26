@@ -212,3 +212,14 @@ A crítica C02 agora compara SH + SP + SH_FED + SP_FED com o valor total. O sign
 Pendência: a seção municipal do dossiê (`consolidar.py`) e `conferir_hospital.py` ainda mostram SH e SP sem os campos federais.
 
 Atualização: a seção municipal do dossiê (`consolidar.py`, `sih.aih_por_mes`) e o `conferir_hospital.py` passaram a mostrar `sh_fed` e `sp_fed`; a pendência acima foi resolvida.
+
+## Lançamentos do gestor no plano de avanço
+
+Arquivo opcional `~/partelli/entrada/plano_acoes.csv` (variável `PLANO_ACOES`), modelo em `config/plano_acoes_modelo.csv`:
+`cnes;critica;codigo_erro;descricao_erro;qtd_aih;valor_rs;acao;prazo;responsavel;status;prioridade;ganho_estimado_rs;fonte`
+
+- Cada linha casa com o item do plano pelo `codigo_erro` (C07-<código>-<cnes>) ou pela `critica` (ex.: C06). Sem item correspondente, nasce um item novo (`L-<código>-<cnes>`, origem "Lançamento do gestor").
+- Valor lançado substitui a estimativa de perda; ganho estimado só existe se o gestor lançar. Valor, quantidade ou ganho exigem a coluna `fonte`.
+- Prazo em DD/MM/AAAA; status: A iniciar, Em andamento, Concluida, Cancelada; prioridade: Alta, Media, Baixa; números aceitam 1.234,56.
+- LGPD: linhas com sequência de 11 ou mais dígitos (AIH, CPF, CNS) são recusadas inteiras e listadas em `hospitais.plano_acoes_arquivo.recusadas`. No campo responsável use cargo ou setor, nunca nome.
+- O arquivo não altera a base: só o dossiê.

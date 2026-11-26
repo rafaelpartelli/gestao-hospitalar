@@ -226,6 +226,48 @@ class PlanoDeAvanco(unittest.TestCase):
         self.assertEqual([k for k in H._criticas("9", {"leitos": {"existentes": 20}, "estabelecimento": {"leitos_p1_p2_p3": [20, 0, 0]}}, [], None, {"rejeitadas_fechadas": 5, "por_codigo_erro": [{"codigo_erro": "Z", "rejeitadas": 5, "recuperadas": 5, "nao_recuperadas": 0, "pct_recuperadas": 100.0}]})], [])
 
 
+class LancamentosDoGestor(unittest.TestCase):
+    def _csv(self, linhas):
+        import tempfile
+        cab = "cnes;critica;codigo_erro;descricao_erro;qtd_aih;valor_rs;acao;prazo;responsavel;status;prioridade;ganho_estimado_rs;fonte\n"
+        p = os.path.join(tempfile.mkdtemp(), "plano.csv")
+        open(p, "w", encoding="utf-8").write(cab + "\n".join(linhas) + "\n")
+        return p
+
+    def test_validacao_e_lgpd(self):
+        import plano_acoes as PA
+        r = PA.carregar(self._csv([
+            "2484943;;020069;campo X;8;3.850,80;Reapresentar;30/12/2026;Faturamento;Em andamento;Alta;5000,00;Relatorio de AIH rejeitadas do hospital",
+            "2484943;;020071;;1;481,35;Corrigir;30/12/2026;Faturamento;Em andamento;;;",                      # valor sem fonte
+            "2484943;;020071;;;;Treinar digitacao;31/12/2026;Faturamento;Em andamento;;;",                   # ok, sem valor
+            "2484943;;020072;AIH 3220000000011;;;Reapresentar;;;;;;",                                         # numero de AIH
+            "248494;;020072;;;;x;;;;;;",                                                                      # cnes invalido
+            "2484943;;020073;;;;x;32/13/2026;;;;;",                                                           # prazo invalido
+            "2484943;;020074;;;;x;;;Feito;;;"]))                                                              # status invalido
+        self.assertEqual(len(r["lancamentos"]), 2)
+        motivos = " | ".join(x["motivo"] for x in r["recusadas"])
+        for trecho in ("fonte", "LGPD", "7 digitos", "DD/MM/AAAA", "status invalido"):
+            self.assertIn(trecho, motivos)
+        self.assertEqual(r["lancamentos"][0]["valor_rs"], 3850.80)
+        self.assertEqual(PA.carregar("/nao/existe.csv")["lancamentos"], [])
+
+    def test_aplicar_substitui_estimativa_e_cria_item(self):
+        import plano_acoes as PA, hospitais as H
+        rec = {"rejeitadas_fechadas": 20, "por_codigo_erro": [{"codigo_erro": "020069", "rejeitadas": 10, "recuperadas": 2, "nao_recuperadas": 8, "pct_recuperadas": 20.0}]}
+        crit = H._criticas("2484943", {"leitos": {"existentes": 10}}, [], {"media_por_aih": 481.35}, rec)
+        lanc = PA.carregar(self._csv([
+            "2484943;;020069;campo X;8;3850,80;Reapresentar;30/12/2026;Faturamento;Em andamento;;5000,00;Relatorio do hospital",
+            "2484943;;999999;;;;Acao nova;;;;Baixa;;"])) ["lancamentos"]
+        plano = H._plano(crit, rec, {"media_por_aih": 481.35}, lanc, "2484943")
+        it = next(i for i in plano["itens"] if i["critica_vinculada"] == "C07-020069-2484943")
+        self.assertEqual((it["acao"], it["status"], it["ganho_estimado_rs"], it["perda_por_rejeicao_rs"]), ("Reapresentar", "Em andamento", 5000.0, 3850.8))
+        self.assertIn("Substitui a estimativa", it["obs_perda"])
+        self.assertTrue(it["lancado_pelo_gestor"])
+        novo = next(i for i in plano["itens"] if i["critica_vinculada"] == "L-999999-2484943")
+        self.assertEqual(novo["prioridade"], "Baixa")
+        self.assertIn("2 acao", plano["pendencia_ganho"])       # C08 e o item novo seguem sem ganho
+
+
 class Reapresentacao(unittest.TestCase):
     def test_meses_fechados_e_em_aberto(self):
         import hospitais as H, sqlite3
