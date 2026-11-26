@@ -10,13 +10,13 @@ const sv = (tag, attrs, ...filhos) => {
   for (const f of filhos.flat()) if (f != null) e.append(f.nodeType ? f : document.createTextNode(String(f)));
   return e;
 };
-const brl = v => new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(v);
-const brlc = v => v >= 1e6 ? 'R$ ' + decimal(v / 1e6, 1) + ' mi' : v >= 1e3 ? 'R$ ' + decimal(v / 1e3, 0) + ' mil' : brl(v);
-const num = v => typeof v === 'number' && Number.isFinite(v);
-const pct = v => num(v) ? decimal(v, 1) + '%' : (typeof v === 'string' ? v : 'sem dado');
-const arr = x => Array.isArray(x) ? x : [];
-const pend = txt => el('span', {class: 'pendente'}, `[PREENCHER: ${txt}]`);
-const aviso = txt => el('p', {class: 'aviso'}, txt);
+export const brl = v => new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(v);
+export const brlc = v => v >= 1e6 ? 'R$ ' + decimal(v / 1e6, 1) + ' mi' : v >= 1e3 ? 'R$ ' + decimal(v / 1e3, 0) + ' mil' : brl(v);
+export const num = v => typeof v === 'number' && Number.isFinite(v);
+export const pct = v => num(v) ? decimal(v, 1) + '%' : (typeof v === 'string' ? v : 'sem dado');
+export const arr = x => Array.isArray(x) ? x : [];
+export const pend = txt => el('span', {class: 'pendente'}, `[PREENCHER: ${txt}]`);
+export const aviso = txt => el('p', {class: 'aviso'}, txt);
 const motivo = m => m ? `${m.texto_manual} (manual do SIH, p. ${m.pagina_manual}; ${String(m.status || '').toLowerCase()})` : 'sem descrição localizada';
 const CORES = ['#1351b4', '#168821', '#e0a100', '#0c326f', '#7a3fb5', '#c2185b', '#00838f'];
 
@@ -26,13 +26,13 @@ const ICONES = {
   grafico: 'M4 20V4 M4 20h16 M8 16v-5 M12 16V8 M16 16v-8', pessoas: 'M9 11a3 3 0 100-6 3 3 0 000 6 M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6 M17 11a2.5 2.5 0 100-5 M16 14c3 0 5 2.2 5 5', busca: 'M11 4a7 7 0 100 14 7 7 0 000-14 M20 20l-4-4',
   imprimir: 'M7 8V3h10v5 M6 17H4v-7h16v7h-2 M7 14h10v7H7z', info: 'M12 3a9 9 0 100 18 9 9 0 000-18 M12 11v5 M12 8v.5'
 };
-const icone = (n, cls) => sv('svg', {viewBox: '0 0 24 24', class: 'rd-ico ' + (cls || ''), 'aria-hidden': 'true', focusable: 'false', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.8', 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}, sv('path', {d: ICONES[n]}));
+export const icone = (n, cls) => sv('svg', {viewBox: '0 0 24 24', class: 'rd-ico ' + (cls || ''), 'aria-hidden': 'true', focusable: 'false', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.8', 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}, sv('path', {d: ICONES[n]}));
 
-const kpi = (ic, tom, rot, val, nota) => el('div', {class: 'rd-kpi rd-' + tom},
+export const kpi = (ic, tom, rot, val, nota) => el('div', {class: 'rd-kpi rd-' + tom},
   el('div', {class: 'rd-kpi-ic'}, icone(ic)),
   el('div', {class: 'rd-kpi-tx'}, el('div', {class: 'rd-rot'}, rot), el('div', {class: 'rd-val'}, val), nota ? el('div', {class: 'rd-nota'}, nota) : null));
-const cartao = (titulo, sub, ...filhos) => el('section', {class: 'rd-card'}, el('h3', null, titulo), sub ? el('p', {class: 'rd-sub'}, sub) : null, ...filhos);
-const detalhesTabela = (rotulo, tab) => el('details', {class: 'rd-det'}, el('summary', null, rotulo), tab);
+export const cartao = (titulo, sub, ...filhos) => el('section', {class: 'rd-card'}, el('h3', null, titulo), sub ? el('p', {class: 'rd-sub'}, sub) : null, ...filhos);
+export const detalhesTabela = (rotulo, tab) => el('details', {class: 'rd-det'}, el('summary', null, rotulo), tab);
 const SEV = {Alta: ['rd-sev-alta', '▲'], Media: ['rd-sev-media', '◆'], 'Média': ['rd-sev-media', '◆'], Baixa: ['rd-sev-baixa', '●']};
 const chipSev = (sev, n) => { const [c, s] = SEV[sev] || ['rd-sev-baixa', '●']; return el('span', {class: 'rd-chip ' + c}, `${s} ${sev === 'Media' ? 'Média' : sev}${n != null ? ': ' + inteiro(n) : ''}`); };
 
@@ -119,7 +119,7 @@ function pilha(resumo, total) {
   return el('div', null, barra, el('div', {class: 'rd-peq'}, ent.map(([k, n]) => `${k} ${n}`).join(' · ')));
 }
 
-function barrasMes(meses, campo, rotulo = 'Produção SIH por mês') {
+export function barrasMes(meses, campo, rotulo = 'Produção SIH por mês') {
   const W = 640, H = 220, m = {t: 14, r: 12, b: 34, l: 54}, iw = W - m.l - m.r, ih = H - m.t - m.b, rd = leitura();
   const val = x => num(x[campo]) ? x[campo] : 0, max = Math.max(...meses.map(val), 1), passo = niceStep(max / 4), topo = Math.ceil(max / passo) * passo, bw = iw / meses.length;
   const g = sv('svg', {viewBox: `0 0 ${W} ${H}`, class: 'rd-svg', role: 'group', 'aria-label': rotulo});
@@ -179,7 +179,7 @@ function abas(lista) {
   return el('div', null, barra, corpo);
 }
 
-function painelEstado(e, nomeMun) {
+export function painelEstado(e, nomeMun) {
   const itens = arr(e.itens);
   if (!itens.length) return aviso(e.situacao || 'A confirmar: sem dados de rejeição.');
   const fech = itens.reduce((s, i) => s + (i.rejeitadas_fechadas || 0), 0), rec = itens.reduce((s, i) => s + (i.recuperadas || 0), 0);
@@ -542,7 +542,7 @@ const ST = {Ativa: ['rd-st-ativa', '✔'], 'Em teste': ['rd-st-teste', '◌'], M
 const chipSt = st => { const [c, s] = ST[st] || ['rd-st-conf', '?']; return el('span', {class: 'rd-chip ' + c}, `${s} ${st}`); };
 const dataBr = iso => { const t = new Date(iso); return iso && !isNaN(t) ? t.toLocaleDateString('pt-BR') : 'sem teste'; };
 
-function painelFontes() {
+export function painelFontes() {
   const alvo = el('div', {class: 'rd-lazy'});
   let feito = false;
   alvo.carregar = async () => {

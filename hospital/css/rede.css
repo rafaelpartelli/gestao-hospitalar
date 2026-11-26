@@ -141,3 +141,22 @@
 
 .rede .rd-st-ativa{background:#e3f4e5;color:#0b5a14}.rede .rd-st-teste{background:#eef2f9;color:#0c326f}.rede .rd-st-manual{background:#e8f0fb;color:#0c326f}.rede .rd-st-bloq{background:#fde8e5;color:#a31616}.rede .rd-st-conf{background:#fff4d6;color:#6b4e00}.rede .rd-st-desc{background:#eceff3;color:#4b5563}
 .rede .rd-nw{white-space:nowrap}
+
+/* Tela unica Gestao hospitalar (moldes da Sala de Gestao do partelli.pro) */
+.rede.sala .sl-topo{background:var(--rd-escuro);color:#fff;border-radius:12px 12px 0 0;padding:22px 20px 18px}
+.rede.sala .sl-marca{margin:0 0 4px;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
+.rede.sala .sl-topo h2{color:#fff;font-size:clamp(1.4rem,4vw,2rem);margin:0 0 6px}
+.rede.sala .sl-lead{margin:0;max-width:70ch;opacity:.93;font-size:.95rem}
+.rede.sala .sl-filtros{position:sticky;top:58px;z-index:10;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:end;background:#fff;border:1px solid var(--rd-linha);border-top:0;border-radius:0 0 12px 12px;padding:12px 16px;margin-bottom:18px;box-shadow:0 2px 6px rgba(12,50,111,.08)}
+.rede.sala .sl-filtros label{display:flex;flex-direction:column;gap:4px;font-size:.8rem;font-weight:700;color:var(--rd-mudo);flex:1 1 200px;max-width:340px;margin:0}
+.rede.sala .sl-filtros select{font:inherit;font-weight:400;padding:9px 10px;border:1px solid #9aa8b8;border-radius:6px;background:#fff;color:var(--rd-texto);min-height:44px;width:100%}
+.rede.sala .sl-selo{margin:0;flex:2 1 240px;font-size:.8rem;color:var(--rd-mudo)}
+.rede.sala .sl-sec{margin:0 0 18px}
+.rede.sala .sl-sec>h3{margin:0 0 8px;font-size:1.15rem}
+.rede.sala .rd-card{margin:0 0 18px}
+.rede.sala .rd-card table{font-size:.88rem}
+.rede.sala .sl-fonte{margin:10px 0 0;font-size:.78rem;color:var(--rd-mudo)}
+.rede.sala .sl-graf{margin:12px 0 0}
+.rede.sala .sl-mais{margin:0 0 12px;background:#fff;border:1px solid var(--rd-linha);border-radius:10px;padding:10px 14px}
+.rede.sala .sl-mais>summary{font-weight:600;color:var(--rd-azul)}
+@media (max-width:700px){.rede.sala .sl-filtros{position:static}}
