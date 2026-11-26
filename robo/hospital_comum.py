@@ -8,8 +8,12 @@ Protecoes do plano gratuito da Oracle (Always Free):
 - nao baixa de novo arquivo ja processado (mesmo nome e tamanho);
 - um coletor por vez (trava por flock, feita no script de agendamento).
 Nenhum dado pessoal e gravado: so contagens e valores agregados por CNES."""
-import ftplib, json, mmap, os, re, shutil, tempfile, time
+import ftplib, json, mmap, os, re, shutil, sys, tempfile, time
 from datetime import datetime
+_BASE = os.environ.get("PARTELLI_BASE", os.path.join(os.path.expanduser("~"), "partelli"))
+for _p in (os.environ.get("ROBO_EXTRA", ""), os.path.join(_BASE, "sala-gestao", "robo")):     # comum.py, dbc.py e cnes_ftp.py ficam na Sala de Gestao
+    if _p and os.path.isdir(_p) and _p not in sys.path:
+        sys.path.append(_p)
 from comum import espera_para, agora, BRT, escrever_json, ler_json
 
 HOST = "ftp.datasus.gov.br"
