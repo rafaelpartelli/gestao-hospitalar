@@ -14,6 +14,11 @@
       "sistema": "SIH, servicos profissionais"
     },
     {
+      "prefixo": "ER",
+      "pasta": "/dissemin/publicos/SIHSUS/200801_/Dados",
+      "sistema": "SIH, AIH rejeitadas"
+    },
+    {
       "prefixo": "PA",
       "pasta": "/dissemin/publicos/SIASUS/200801_/Dados",
       "sistema": "SIA, producao ambulatorial"

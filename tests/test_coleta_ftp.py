@@ -10,15 +10,15 @@ import coleta_ftp as C
 CFG = C.carregar()
 SIH, SIA = "/dissemin/publicos/SIHSUS/200801_/Dados", "/dissemin/publicos/SIASUS/200801_/Dados"
 LIST = {SIH: [("RDES2601.dbc", 10), ("RDES2602.dbc", 11), ("RDES2512.dbc", 5), ("RDSP2601.dbc", 9), ("RDES2613.dbc", 1), ("SPES2601.dbc", 7),
-              ("SPSP2601.dbc", 7), ("RDES2601.dbc.bak", 3), ("rdes2603.DBC", 12), ("ERES2601.dbc", 4)],
+              ("SPSP2601.dbc", 7), ("RDES2601.dbc.bak", 3), ("rdes2603.DBC", 12), ("ERES2601.dbc", 4), ("ERSP2601.dbc", 4)],
         SIA: [("PAES2601a.dbc", 100), ("PAES2601b.dbc", 90), ("PAES2602a.dbc", 80), ("PAES2501a.dbc", 70), ("PASP2601a.dbc", 60), ("PAES2600a.dbc", 5)]}
 
 
 class Plano(unittest.TestCase):
     def test_somente_es_2026_e_tres_prefixos(self):
         nomes = [i["nome"] for i in C.planejar(CFG, LIST)]
-        self.assertEqual(sorted(n.upper() for n in nomes), sorted(["RDES2601.DBC", "RDES2602.DBC", "RDES2603.DBC", "SPES2601.DBC", "PAES2601A.DBC", "PAES2601B.DBC", "PAES2602A.DBC"]))
-        for ruim in ("RDES2512.dbc", "RDSP2601.dbc", "SPSP2601.dbc", "ERES2601.dbc", "PASP2601a.dbc", "PAES2501a.dbc", "RDES2613.dbc", "PAES2600a.dbc", "RDES2601.dbc.bak"):
+        self.assertEqual(sorted(n.upper() for n in nomes), sorted(["RDES2601.DBC", "RDES2602.DBC", "RDES2603.DBC", "SPES2601.DBC", "ERES2601.DBC", "PAES2601A.DBC", "PAES2601B.DBC", "PAES2602A.DBC"]))
+        for ruim in ("RDES2512.dbc", "RDSP2601.dbc", "SPSP2601.dbc", "ERSP2601.dbc", "PASP2601a.dbc", "PAES2501a.dbc", "RDES2613.dbc", "PAES2600a.dbc", "RDES2601.dbc.bak"):
             self.assertNotIn(ruim, nomes)
 
     def test_ultimos_meses_so_nos_grupos_cadastrais(self):
