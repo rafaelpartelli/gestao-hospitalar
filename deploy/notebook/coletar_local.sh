@@ -21,6 +21,9 @@ CODEBERG_URL="${CODEBERG_URL:-}"          # [PREENCHER: ex. git@codeberg.org:USU
 VM_HOST="${VM_HOST:-}"                    # IP ou dominio da Oracle (vazio = nao envia)
 VM_USER="${VM_USER:-ubuntu}"
 ORACLE_KEY="${ORACLE_KEY:-$HOME/.ssh/oracle_key}"
+GCS_BUCKET="${GCS_BUCKET:-}"              # bucket do Google Cloud lido pelo site (vazio = nao envia)
+GCS_KEY="${GCS_KEY:-$BASE/.chave_gcs.json}"   # arquivo da conta de servico, so neste notebook, nunca em codigo
+GCS_PY="${GCS_PY:-$BASE/venv_gcs/bin/python}"
 SSH_OPTS="-o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -o BatchMode=yes"
 # Chaves proprias dos robos: nao dependem nem alteram o ~/.ssh/config do usuario.
 GH_KEY="${GH_KEY:-$HOME/.ssh/partelli_github_key}"
@@ -62,6 +65,14 @@ enviar_oracle() { # $1 = site|dados
   fi
 }
 
+# ---------- envio ao Google Cloud (site partelli.tec.br le /dados/ deste bucket) ----------
+enviar_gcs() {
+  [ -n "$GCS_BUCKET" ] || { log "GCS_BUCKET vazio em $ENV_FILE: envio ao Google Cloud desligado"; return 2; }
+  [ -r "$GCS_KEY" ] || { log "arquivo da conta de servico nao encontrado em $GCS_KEY"; return 2; }
+  [ -x "$GCS_PY" ] || { log "python do venv nao encontrado em $GCS_PY"; return 2; }
+  GOOGLE_APPLICATION_CREDENTIALS="$GCS_KEY" "$GCS_PY" "$REPO/deploy/notebook/publicar_gcs.py" "$DADOS" "$GCS_BUCKET" >> "$LOG" 2>&1
+}
+
 # ---------- coleta ----------
 export ORCAMENTO_TRAFEGO_GB="${ORCAMENTO_TRAFEGO_GB:-6}"
 export DISCO_MINIMO_GB="${DISCO_MINIMO_GB:-3}"
@@ -70,6 +81,10 @@ REPO="$BASE/repo"; SALA="$BASE/sala-gestao"; DADOS="$BASE/dados_repo"
 atualizar_repo "$REPO_URL" "$REPO"
 atualizar_repo "$SALA_URL" "$SALA"
 
+if [ "$MODO" = "publicar" ] && [ -n "$GCS_BUCKET" ]; then
+  # site novo (Cloud Run): a pagina vai pelo deploy do Cloud Run, aqui seguem so os dados agregados
+  enviar_gcs && { log "dados enviados ao Google Cloud ($GCS_BUCKET)"; date -Is > "$BASE/ultima_execucao_${MODO}.txt"; exit 0; } || { log "ERRO no envio ao Google Cloud"; exit 1; }
+fi
 if [ "$MODO" = "site" ] || [ "$MODO" = "publicar" ]; then
   RES=0
   log "publicando a pagina Gestao Hospitalar em $VM_HOST"
@@ -122,6 +137,10 @@ fi
 if [ -n "$VM_HOST" ]; then
   enviar_oracle dados && log "dados enviados para a Oracle" || { log "ERRO no envio para a Oracle"; FALHAS=$((FALHAS+1)); }
 else log "envio para a Oracle desligado (VM_HOST vazio)"; fi
+
+if [ -n "$GCS_BUCKET" ]; then
+  enviar_gcs && log "dados enviados ao Google Cloud ($GCS_BUCKET)" || { log "ERRO no envio ao Google Cloud"; FALHAS=$((FALHAS+1)); }
+fi
 
 log "fim, robos com erro: $FALHAS"
 date -Is > "$BASE/ultima_execucao_${MODO}.txt"

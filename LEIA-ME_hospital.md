@@ -266,3 +266,11 @@ O super robo grava em `<BASE>/dados_repo` os arquivos `rede_indice.json`, `rede_
 hospitais do municipio e, por CNES, producao SIH, rejeicao por codigo com motivo provavel (a confirmar), habilitacoes, criticas e plano de avanco. Perda e ESTIMATIVA.
 Publicacao: o `git push` em `main` com mudanca em `hospital/**` ou `deploy/**` dispara a publicacao do site na Oracle (workflow site.yml). Os dados seguem por
 `partelli-coleta publicar` (modo dados). Nada e publicado sem merge em `main`.
+
+## Envio ao Google Cloud (site partelli.tec.br)
+
+O site novo roda no Cloud Run (projeto partelli-oficial) e le `/dados/` de um bucket do Cloud Storage, repassado pelo nginx do proprio site (mesma origem, sem mudar a CSP).
+- No Serverrobo, defina em `/etc/partelli/coleta.env`: `GCS_BUCKET=partelli-dados-saude`. Sem isso o envio fica desligado.
+- A conta de servico `serverrobo-publicador` so escreve nesse bucket. O arquivo da chave fica em `~/partelli/.chave_gcs.json` (chmod 600), fora do repositorio, nunca em tela.
+- `partelli-coleta publicar` envia somente `rede_*.json` (agregados por CNES). A guarda recusa JSON invalido e qualquer sequencia de 11 ou mais digitos.
+- A pagina em si vai pelo deploy do Cloud Run, nao pelo robo. O fluxo antigo da Oracle so roda se `GCS_BUCKET` estiver vazio.
