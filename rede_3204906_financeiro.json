@@ -1,0 +1,138 @@
+{
+ "gerado_em": "2026-11-26T19:00:09-03:00",
+ "municipio": {
+  "cod": "3204906",
+  "nome": "São Mateus"
+ },
+ "secao": {
+  "despesa_saude": {
+   "fonte": "SICONFI, DCA Anexo I-E, função 10 - Saúde (Tesouro Nacional)",
+   "coletado_em": "2026-11-05T09:27:40-03:00",
+   "defasagem_dias": 21,
+   "exercicio": 2025,
+   "valores": {
+    "empenhada": 101751711,
+    "liquidada": 95148300,
+    "paga": 95131246,
+    "populacao": 122386
+   }
+  },
+  "receita": {
+   "fonte": "SICONFI, RREO Anexo 01 (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:45:08-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "bimestre": 6,
+   "valores": {
+    "total": 699941611,
+    "correntes": 639931877,
+    "capital": 59066746,
+    "tributaria": 122094530,
+    "impostos": 113638055,
+    "transf_correntes": 446082730,
+    "transf_uniao": 189126653,
+    "transf_estados": 115651880,
+    "prevista": 621994990,
+    "populacao": 122386
+   }
+  },
+  "pessoal": {
+   "fonte": "SICONFI, RGF Anexo 01, Poder Executivo (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:49:05-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "valores": {
+    "dtp": 225514959,
+    "rcl_ajustada": 629554087,
+    "limite_maximo": 339959207,
+    "limite_prudencial": 322961247,
+    "limite_alerta": 305963286,
+    "bruta": 245856485,
+    "pct_rcl": 35.82,
+    "populacao": 122386
+   }
+  },
+  "siops": {
+   "fonte": "SIOPS, demonstrativo RREO Anexo 12 (Ministério da Saúde)",
+   "coletado_em": "2026-11-05T10:31:48-03:00",
+   "defasagem_dias": 21,
+   "valores": {
+    "anterior": [
+     2025,
+     5,
+     "24/11/25",
+     12006427,
+     6796568,
+     57835460,
+     13297706,
+     83171876,
+     817102,
+     18354710,
+     91868065,
+     1110148,
+     427277,
+     89936160,
+     195749178,
+     285685338,
+     42852801,
+     53561527,
+     47576939,
+     47403156,
+     18.74,
+     16.65,
+     16.59
+    ],
+    "atual": [
+     2026,
+     4,
+     "01/10/26",
+     9413450,
+     5865162,
+     63761571,
+     10183503,
+     75410174,
+     41380,
+     17270107,
+     94609568,
+     1103889,
+     0,
+     89223687,
+     188435117,
+     277658804,
+     41648821,
+     48887026,
+     41877669,
+     41030602,
+     17.6,
+     15.08,
+     14.77
+    ]
+   },
+   "campos": [
+    "ano",
+    "bimestre",
+    "homologado_em",
+    "iptu",
+    "itbi",
+    "iss",
+    "irrf",
+    "fpm",
+    "itr",
+    "ipva",
+    "icms",
+    "ipi",
+    "comp",
+    "imp",
+    "transf",
+    "base",
+    "minimo",
+    "aplicado_empenhado",
+    "aplicado_liquidado",
+    "aplicado_pago",
+    "pct_empenhado",
+    "pct_liquidado",
+    "pct_pago"
+   ]
+  }
+ }
+}

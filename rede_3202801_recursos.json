@@ -1,0 +1,105 @@
+{
+ "gerado_em": "2026-11-26T19:00:04-03:00",
+ "municipio": {
+  "cod": "3202801",
+  "nome": "Itapemirim"
+ },
+ "secao": {
+  "fns_investsus": {
+   "fonte": "Radar de Recursos (partelli.pro), dados do InvestSUS/FNS",
+   "coletado_em": "2026-11-26T04:22:16-03:00",
+   "defasagem_dias": 0,
+   "valores": {
+    "fb": 14148399,
+    "fl": 14127807,
+    "fe": 399995,
+    "fm": 13748404,
+    "s": 12809618,
+    "comp": [
+     [
+      0,
+      0,
+      308955
+     ],
+     [
+      1,
+      0,
+      542047
+     ],
+     [
+      2,
+      0,
+      7764445
+     ],
+     [
+      3,
+      0,
+      4204843
+     ],
+     [
+      4,
+      0,
+      928114
+     ],
+     [
+      2,
+      1,
+      399995
+     ]
+    ],
+    "em": [
+     5231351,
+     5231351,
+     2199995
+    ],
+    "eq": 16
+   },
+   "comp": [
+    "ASSISTÊNCIA FARMACÊUTICA",
+    "VIGILÂNCIA EM SAÚDE",
+    "ATENÇÃO PRIMÁRIA",
+    "ATENÇÃO DE MÉDIA E ALTA COMPLEXIDADE AMBULATORIAL E HOSPITALAR",
+    "GESTÃO DO SUS",
+    "ATENÇÃO ESPECIALIZADA",
+    "REESTRUTURAÇÃO DOS SERVIÇOS EM SAÚDE - FUNDO RIO DOCE"
+   ],
+   "meta": {
+    "extracao": "23/11/2026 20:07",
+    "saldoData": "30/09/2026",
+    "anoFaf": 2026,
+    "anoEm": 2026
+   }
+  },
+  "transferencias_uniao_saude": {
+   "fonte": "Portal da Transparência da União, transferências, função Saúde (código 10)",
+   "coletado_em": "2026-11-26T08:43:37-03:00",
+   "defasagem_dias": 0,
+   "meses": [
+    "202608",
+    "202609",
+    "202610"
+   ],
+   "valores": [
+    1152179,
+    953651,
+    1042269
+   ]
+  },
+  "emendas": {
+   "fonte": "Radar de Recursos (partelli.pro/fundo), a partir dos Paineis InvestSUS/FNS",
+   "status_fonte": "Em teste",
+   "ano_da_proposta": 2026,
+   "extracao_investsus": "23/11/2026 20:07",
+   "coletado_em": "2026-11-26T04:22:16-03:00",
+   "defasagem_dias": 0,
+   "propostas": 16,
+   "proposto_rs": 5231351,
+   "empenhado_rs": 5231351,
+   "pago_rs": 2199995,
+   "pct_empenhado_sobre_proposto": 100.0,
+   "pct_pago_sobre_empenhado": 42.1,
+   "saldo_a_pagar_rs": 3031356,
+   "obs": "Execucao financeira, nao meta. Dado por municipio do Radar (nao depende da localidade MULTIPLO do Portal da Transparencia). Somente o ano da proposta indicado; ganho estimado e prazos sao lancados pelo gestor."
+  }
+ }
+}

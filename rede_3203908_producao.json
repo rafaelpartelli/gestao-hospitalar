@@ -1,0 +1,487 @@
+{
+ "gerado_em": "2026-11-26T19:00:07-03:00",
+ "municipio": {
+  "cod": "3203908",
+  "nome": "Nova Venécia"
+ },
+ "secao": {
+  "sih": {
+   "fonte": "SIH/SUS, arquivos RDES e SPES (FTP DATASUS), agregados na base local",
+   "convertido_em": "2026-11-26T11:30:20",
+   "cnes_com_aih": [
+    "2484943"
+   ],
+   "obs": "Municipio do hospital (campo MUNIC_MOV). Conferir cnes_com_aih com o CNES antes de usar. Valor total = SH + SP + SH_FED + SP_FED (complemento federal, presente a partir de 03/2026).",
+   "aih_por_mes": [
+    {
+     "competencia": "01/2026",
+     "aih": 208,
+     "valor_total": 99281.23,
+     "sh": 79560.72,
+     "sp": 19720.51,
+     "sh_fed": 0.0,
+     "sp_fed": 0.0,
+     "media_aih": 477.31,
+     "obitos": 10,
+     "dias_permanencia": 1339
+    },
+    {
+     "competencia": "02/2026",
+     "aih": 179,
+     "valor_total": 76950.42,
+     "sh": 60379.18,
+     "sp": 16571.24,
+     "sh_fed": 0.0,
+     "sp_fed": 0.0,
+     "media_aih": 429.89,
+     "obitos": 7,
+     "dias_permanencia": 1029
+    },
+    {
+     "competencia": "03/2026",
+     "aih": 189,
+     "valor_total": 81565.99,
+     "sh": 61144.67,
+     "sp": 20421.32,
+     "sh_fed": 0.0,
+     "sp_fed": 0.0,
+     "media_aih": 431.57,
+     "obitos": 5,
+     "dias_permanencia": 922
+    },
+    {
+     "competencia": "04/2026",
+     "aih": 251,
+     "valor_total": 99582.07,
+     "sh": 78625.61,
+     "sp": 20956.46,
+     "sh_fed": 0.0,
+     "sp_fed": 0.0,
+     "media_aih": 396.74,
+     "obitos": 6,
+     "dias_permanencia": 1336
+    },
+    {
+     "competencia": "05/2026",
+     "aih": 174,
+     "valor_total": 103623.45,
+     "sh": 82114.38,
+     "sp": 21509.07,
+     "sh_fed": 0.0,
+     "sp_fed": 0.0,
+     "media_aih": 595.54,
+     "obitos": 6,
+     "dias_permanencia": 1315
+    },
+    {
+     "competencia": "06/2026",
+     "aih": 247,
+     "valor_total": 114531.05,
+     "sh": 90831.43,
+     "sp": 23699.62,
+     "sh_fed": 0.0,
+     "sp_fed": 0.0,
+     "media_aih": 463.69,
+     "obitos": 10,
+     "dias_permanencia": 1287
+    },
+    {
+     "competencia": "07/2026",
+     "aih": 241,
+     "valor_total": 128271.11,
+     "sh": 104101.25,
+     "sp": 24169.86,
+     "sh_fed": 0.0,
+     "sp_fed": 0.0,
+     "media_aih": 532.25,
+     "obitos": 8,
+     "dias_permanencia": 1619
+    },
+    {
+     "competencia": "08/2026",
+     "aih": 197,
+     "valor_total": 98280.96,
+     "sh": 76862.4,
+     "sp": 21418.56,
+     "sh_fed": 0.0,
+     "sp_fed": 0.0,
+     "media_aih": 498.89,
+     "obitos": 2,
+     "dias_permanencia": 1184
+    },
+    {
+     "competencia": "09/2026",
+     "aih": 193,
+     "valor_total": 102372.31,
+     "sh": 80058.04,
+     "sp": 22314.27,
+     "sh_fed": 0.0,
+     "sp_fed": 0.0,
+     "media_aih": 530.43,
+     "obitos": 2,
+     "dias_permanencia": 1199
+    }
+   ],
+   "principais_procedimentos": [
+    {
+     "procedimento": "0303140151",
+     "aih": 195,
+     "valor_total": 136903.7
+    },
+    {
+     "procedimento": "0411010034",
+     "aih": 142,
+     "valor_total": 98137.68
+    },
+    {
+     "procedimento": "0310010039",
+     "aih": 134,
+     "valor_total": 70108.4
+    },
+    {
+     "procedimento": "0303170140",
+     "aih": 39,
+     "valor_total": 35283.02
+    },
+    {
+     "procedimento": "0303170131",
+     "aih": 42,
+     "valor_total": 35025.55
+    },
+    {
+     "procedimento": "0303150050",
+     "aih": 91,
+     "valor_total": 34252.56
+    },
+    {
+     "procedimento": "0303080094",
+     "aih": 70,
+     "valor_total": 32246.9
+    },
+    {
+     "procedimento": "0303170166",
+     "aih": 33,
+     "valor_total": 24982.82
+    },
+    {
+     "procedimento": "0303010010",
+     "aih": 78,
+     "valor_total": 23817.3
+    },
+    {
+     "procedimento": "0401020053",
+     "aih": 60,
+     "valor_total": 21784.6
+    }
+   ],
+   "servicos_profissionais_por_mes": [
+    {
+     "competencia": "01/2026",
+     "atos": 3746,
+     "valor": 99281.23
+    },
+    {
+     "competencia": "02/2026",
+     "atos": 2923,
+     "valor": 76950.42
+    },
+    {
+     "competencia": "03/2026",
+     "atos": 2633,
+     "valor": 81565.99
+    },
+    {
+     "competencia": "04/2026",
+     "atos": 3654,
+     "valor": 99582.07
+    },
+    {
+     "competencia": "05/2026",
+     "atos": 3764,
+     "valor": 103623.45
+    },
+    {
+     "competencia": "06/2026",
+     "atos": 3472,
+     "valor": 114531.05
+    },
+    {
+     "competencia": "07/2026",
+     "atos": 4699,
+     "valor": 128271.11
+    },
+    {
+     "competencia": "08/2026",
+     "atos": 3278,
+     "valor": 98280.96
+    },
+    {
+     "competencia": "09/2026",
+     "atos": 3474,
+     "valor": 102372.31
+    }
+   ]
+  },
+  "sia_aprovado": {
+   "fonte": "SIA/SUS, arquivo PAES (FTP DATASUS), agregado na base local",
+   "convertido_em": "2026-11-23T23:06:11",
+   "obs": "Somente producao aprovada (decisao do responsavel). Municipio do estabelecimento (PA_UFMUN).",
+   "por_mes": [
+    {
+     "mes_processamento": "01/2026",
+     "quantidade_aprovada": 262712,
+     "valor_aprovado": 322841.26
+    },
+    {
+     "mes_processamento": "02/2026",
+     "quantidade_aprovada": 106193,
+     "valor_aprovado": 281994.98
+    },
+    {
+     "mes_processamento": "03/2026",
+     "quantidade_aprovada": 426154,
+     "valor_aprovado": 464124.73
+    },
+    {
+     "mes_processamento": "04/2026",
+     "quantidade_aprovada": 270508,
+     "valor_aprovado": 345272.47
+    },
+    {
+     "mes_processamento": "05/2026",
+     "quantidade_aprovada": 266672,
+     "valor_aprovado": 365447.2
+    },
+    {
+     "mes_processamento": "06/2026",
+     "quantidade_aprovada": 264262,
+     "valor_aprovado": 391333.5
+    },
+    {
+     "mes_processamento": "07/2026",
+     "quantidade_aprovada": 294167,
+     "valor_aprovado": 471578.86
+    },
+    {
+     "mes_processamento": "08/2026",
+     "quantidade_aprovada": 345191,
+     "valor_aprovado": 487169.54
+    },
+    {
+     "mes_processamento": "09/2026",
+     "quantidade_aprovada": 328388,
+     "valor_aprovado": 492105.91
+    }
+   ],
+   "principais_procedimentos": [
+    {
+     "procedimento": "0301060061",
+     "quantidade_aprovada": 34782,
+     "valor_aprovado": 382602.0
+    },
+    {
+     "procedimento": "0301010048",
+     "quantidade_aprovada": 50046,
+     "valor_aprovado": 315289.8
+    },
+    {
+     "procedimento": "0803010125",
+     "quantidade_aprovada": 60491,
+     "valor_aprovado": 299430.45
+    },
+    {
+     "procedimento": "0604840020",
+     "quantidade_aprovada": 48,
+     "valor_aprovado": 228301.44
+    },
+    {
+     "procedimento": "0204030188",
+     "quantidade_aprovada": 4512,
+     "valor_aprovado": 203040.0
+    },
+    {
+     "procedimento": "0604250045",
+     "quantidade_aprovada": 650,
+     "valor_aprovado": 180004.5
+    },
+    {
+     "procedimento": "0803010109",
+     "quantidade_aprovada": 33830,
+     "valor_aprovado": 167458.5
+    },
+    {
+     "procedimento": "0604850026",
+     "quantidade_aprovada": 589,
+     "valor_aprovado": 142596.9
+    },
+    {
+     "procedimento": "0301010072",
+     "quantidade_aprovada": 9831,
+     "valor_aprovado": 98310.0
+    },
+    {
+     "procedimento": "0205010032",
+     "quantidade_aprovada": 1173,
+     "valor_aprovado": 79599.78
+    }
+   ],
+   "principais_estabelecimentos": [
+    {
+     "cnes": "6461425",
+     "valor_aprovado": 1158607.93
+    },
+    {
+     "cnes": "2484943",
+     "valor_aprovado": 819037.82
+    },
+    {
+     "cnes": "9402357",
+     "valor_aprovado": 371495.99
+    },
+    {
+     "cnes": "9297928",
+     "valor_aprovado": 288692.45
+    },
+    {
+     "cnes": "2485141",
+     "valor_aprovado": 209992.26
+    },
+    {
+     "cnes": "9268650",
+     "valor_aprovado": 126290.56
+    },
+    {
+     "cnes": "7188277",
+     "valor_aprovado": 79549.04
+    },
+    {
+     "cnes": "2484935",
+     "valor_aprovado": 62314.16
+    },
+    {
+     "cnes": "7739893",
+     "valor_aprovado": 54596.4
+    },
+    {
+     "cnes": "4451627",
+     "valor_aprovado": 44593.7
+    }
+   ]
+  },
+  "ciha": {
+   "fonte": "CIHA (FTP DATASUS), agregado na base local",
+   "convertido_em": "2026-11-26T09:42:05",
+   "obs": "CIHA nao traz valor financeiro. Complementa o SIH, nao somar com AIH sem conferir duplicidade por CNES.",
+   "cnes_com_ciha": [
+    "2484943"
+   ],
+   "por_mes": [
+    {
+     "competencia": "01/2026",
+     "registros": 632,
+     "quantidade_procedimentos": 1657,
+     "dias_permanencia": 84,
+     "obitos": 0
+    },
+    {
+     "competencia": "02/2026",
+     "registros": 669,
+     "quantidade_procedimentos": 1676,
+     "dias_permanencia": 110,
+     "obitos": 0
+    },
+    {
+     "competencia": "03/2026",
+     "registros": 846,
+     "quantidade_procedimentos": 2104,
+     "dias_permanencia": 98,
+     "obitos": 1
+    },
+    {
+     "competencia": "04/2026",
+     "registros": 648,
+     "quantidade_procedimentos": 1578,
+     "dias_permanencia": 91,
+     "obitos": 0
+    },
+    {
+     "competencia": "05/2026",
+     "registros": 704,
+     "quantidade_procedimentos": 1952,
+     "dias_permanencia": 146,
+     "obitos": 0
+    },
+    {
+     "competencia": "06/2026",
+     "registros": 668,
+     "quantidade_procedimentos": 1718,
+     "dias_permanencia": 119,
+     "obitos": 1
+    },
+    {
+     "competencia": "07/2026",
+     "registros": 812,
+     "quantidade_procedimentos": 1996,
+     "dias_permanencia": 119,
+     "obitos": 1
+    },
+    {
+     "competencia": "08/2026",
+     "registros": 648,
+     "quantidade_procedimentos": 1767,
+     "dias_permanencia": 109,
+     "obitos": 0
+    },
+    {
+     "competencia": "09/2026",
+     "registros": 689,
+     "quantidade_procedimentos": 1740,
+     "dias_permanencia": 106,
+     "obitos": 0
+    }
+   ],
+   "principais_procedimentos": [
+    {
+     "procedimento": "0301060096",
+     "quantidade": 2278
+    },
+    {
+     "procedimento": "0301100012",
+     "quantidade": 1781
+    },
+    {
+     "procedimento": "0301060061",
+     "quantidade": 945
+    },
+    {
+     "procedimento": "0207010021",
+     "quantidade": 827
+    },
+    {
+     "procedimento": "0207010030",
+     "quantidade": 749
+    },
+    {
+     "procedimento": "0204030170",
+     "quantidade": 687
+    },
+    {
+     "procedimento": "0202020380",
+     "quantidade": 557
+    },
+    {
+     "procedimento": "0205020046",
+     "quantidade": 473
+    },
+    {
+     "procedimento": "0204020077",
+     "quantidade": 449
+    },
+    {
+     "procedimento": "0204030153",
+     "quantidade": 412
+    }
+   ]
+  }
+ }
+}

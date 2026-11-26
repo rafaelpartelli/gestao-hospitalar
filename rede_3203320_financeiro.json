@@ -1,0 +1,138 @@
+{
+ "gerado_em": "2026-11-26T19:00:05-03:00",
+ "municipio": {
+  "cod": "3203320",
+  "nome": "Marataízes"
+ },
+ "secao": {
+  "despesa_saude": {
+   "fonte": "SICONFI, DCA Anexo I-E, função 10 - Saúde (Tesouro Nacional)",
+   "coletado_em": "2026-11-05T09:27:40-03:00",
+   "defasagem_dias": 21,
+   "exercicio": 2025,
+   "valores": {
+    "empenhada": 83702700,
+    "liquidada": 83702700,
+    "paga": 82067820,
+    "populacao": 46198
+   }
+  },
+  "receita": {
+   "fonte": "SICONFI, RREO Anexo 01 (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:45:08-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "bimestre": 6,
+   "valores": {
+    "total": 439376467,
+    "correntes": 428643942,
+    "capital": 10732524,
+    "tributaria": 36579239,
+    "impostos": 32233567,
+    "transf_correntes": 380161685,
+    "transf_uniao": 276176024,
+    "transf_estados": 34663345,
+    "prevista": 428781436,
+    "populacao": 46198
+   }
+  },
+  "pessoal": {
+   "fonte": "SICONFI, RGF Anexo 01, Poder Executivo (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:49:05-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "valores": {
+    "dtp": 194738452,
+    "rcl_ajustada": 424504210,
+    "limite_maximo": 229232274,
+    "limite_prudencial": 217770660,
+    "limite_alerta": 206309046,
+    "bruta": 208875178,
+    "pct_rcl": 45.87,
+    "populacao": 46198
+   }
+  },
+  "siops": {
+   "fonte": "SIOPS, demonstrativo RREO Anexo 12 (Ministério da Saúde)",
+   "coletado_em": "2026-11-05T10:31:48-03:00",
+   "defasagem_dias": 21,
+   "valores": {
+    "anterior": [
+     2025,
+     5,
+     "14/11/25",
+     6163743,
+     2352586,
+     6855001,
+     9822604,
+     46206598,
+     4897,
+     5995840,
+     26969422,
+     328475,
+     125104,
+     25193934,
+     79630335,
+     104824269,
+     15723640,
+     19403371,
+     18937876,
+     18640644,
+     18.51,
+     18.06,
+     17.78
+    ],
+    "atual": [
+     2026,
+     4,
+     "19/10/26",
+     5839629,
+     1215453,
+     6944907,
+     7462683,
+     41894541,
+     0,
+     5720613,
+     22524290,
+     263045,
+     0,
+     21462672,
+     70402489,
+     91865161,
+     13779774,
+     18139628,
+     16234729,
+     16002279,
+     19.74,
+     17.67,
+     17.41
+    ]
+   },
+   "campos": [
+    "ano",
+    "bimestre",
+    "homologado_em",
+    "iptu",
+    "itbi",
+    "iss",
+    "irrf",
+    "fpm",
+    "itr",
+    "ipva",
+    "icms",
+    "ipi",
+    "comp",
+    "imp",
+    "transf",
+    "base",
+    "minimo",
+    "aplicado_empenhado",
+    "aplicado_liquidado",
+    "aplicado_pago",
+    "pct_empenhado",
+    "pct_liquidado",
+    "pct_pago"
+   ]
+  }
+ }
+}

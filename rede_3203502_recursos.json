@@ -1,0 +1,110 @@
+{
+ "gerado_em": "2026-11-26T19:00:06-03:00",
+ "municipio": {
+  "cod": "3203502",
+  "nome": "Montanha"
+ },
+ "secao": {
+  "fns_investsus": {
+   "fonte": "Radar de Recursos (partelli.pro), dados do InvestSUS/FNS",
+   "coletado_em": "2026-11-26T04:22:16-03:00",
+   "defasagem_dias": 0,
+   "valores": {
+    "fb": 21592529,
+    "fl": 21578229,
+    "fe": 5322765,
+    "fm": 16269764,
+    "s": 12070873,
+    "comp": [
+     [
+      0,
+      0,
+      152733
+     ],
+     [
+      1,
+      0,
+      338656
+     ],
+     [
+      2,
+      0,
+      11383542
+     ],
+     [
+      3,
+      0,
+      3457931
+     ],
+     [
+      4,
+      0,
+      936902
+     ],
+     [
+      2,
+      1,
+      2816765
+     ],
+     [
+      5,
+      1,
+      2506000
+     ]
+    ],
+    "em": [
+     9038197,
+     9038197,
+     8186190
+    ],
+    "eq": 20
+   },
+   "comp": [
+    "ASSISTÊNCIA FARMACÊUTICA",
+    "VIGILÂNCIA EM SAÚDE",
+    "ATENÇÃO PRIMÁRIA",
+    "ATENÇÃO DE MÉDIA E ALTA COMPLEXIDADE AMBULATORIAL E HOSPITALAR",
+    "GESTÃO DO SUS",
+    "ATENÇÃO ESPECIALIZADA",
+    "REESTRUTURAÇÃO DOS SERVIÇOS EM SAÚDE - FUNDO RIO DOCE"
+   ],
+   "meta": {
+    "extracao": "23/11/2026 20:07",
+    "saldoData": "30/09/2026",
+    "anoFaf": 2026,
+    "anoEm": 2026
+   }
+  },
+  "transferencias_uniao_saude": {
+   "fonte": "Portal da Transparência da União, transferências, função Saúde (código 10)",
+   "coletado_em": "2026-11-26T08:43:37-03:00",
+   "defasagem_dias": 0,
+   "meses": [
+    "202608",
+    "202609",
+    "202610"
+   ],
+   "valores": [
+    713151,
+    727214,
+    746095
+   ]
+  },
+  "emendas": {
+   "fonte": "Radar de Recursos (partelli.pro/fundo), a partir dos Paineis InvestSUS/FNS",
+   "status_fonte": "Em teste",
+   "ano_da_proposta": 2026,
+   "extracao_investsus": "23/11/2026 20:07",
+   "coletado_em": "2026-11-26T04:22:16-03:00",
+   "defasagem_dias": 0,
+   "propostas": 20,
+   "proposto_rs": 9038197,
+   "empenhado_rs": 9038197,
+   "pago_rs": 8186190,
+   "pct_empenhado_sobre_proposto": 100.0,
+   "pct_pago_sobre_empenhado": 90.6,
+   "saldo_a_pagar_rs": 852007,
+   "obs": "Execucao financeira, nao meta. Dado por municipio do Radar (nao depende da localidade MULTIPLO do Portal da Transparencia). Somente o ano da proposta indicado; ganho estimado e prazos sao lancados pelo gestor."
+  }
+ }
+}

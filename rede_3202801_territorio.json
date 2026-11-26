@@ -1,0 +1,46 @@
+{
+ "gerado_em": "2026-11-26T19:00:04-03:00",
+ "municipio": {
+  "cod": "3202801",
+  "nome": "Itapemirim"
+ },
+ "secao": {
+  "dengue": {
+   "fonte": "InfoDengue (Fiocruz e FGV), casos estimados pelo modelo",
+   "coletado_em": "2026-11-26T09:14:31-03:00",
+   "defasagem_dias": 0,
+   "ano": 2026,
+   "se": 202646,
+   "valores": [
+    "3202801",
+    "Itapemirim",
+    1,
+    12,
+    16.0,
+    34.9,
+    1.57,
+    [
+     7.0,
+     10.0,
+     11.0,
+     8.0,
+     7.0,
+     13.0,
+     8.0,
+     16.0
+    ]
+   ],
+   "obs": "Formato da Sala de Gestao: cod, nome, nivel, casos, incidencia e serie recente."
+  },
+  "cobertura_planos_ans": {
+   "fonte": "ANS, Painel de Dados Abertos, taxa de cobertura de planos de saúde",
+   "coletado_em": "2026-11-18T17:05:19-03:00",
+   "defasagem_dias": 8,
+   "periodo": "2026",
+   "valores": {
+    "beneficiarios_assistencia_medica": 5781,
+    "populacao": 0
+   }
+  }
+ }
+}

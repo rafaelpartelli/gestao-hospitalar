@@ -1,0 +1,1374 @@
+{
+ "gerado_em": "2026-11-26T19:00:06-03:00",
+ "municipio": {
+  "cod": "3203502",
+  "nome": "Montanha"
+ },
+ "secao": {
+  "leitos": {
+   "fonte": "CNES, Leitos SUS (Dados Abertos do SUS, Ministério da Saúde)",
+   "coletado_em": "2026-11-23T22:10:41-03:00",
+   "defasagem_dias": 2,
+   "competencia": "202610",
+   "valores": {
+    "EST": 1,
+    "EXIST": 35,
+    "SUS": 32,
+    "UTI_EXIST": 0,
+    "UTI_SUS": 0,
+    "UTI_AD_SUS": 0,
+    "UTI_PED_SUS": 0,
+    "UTI_NEO_SUS": 0
+   }
+  },
+  "equipes": {
+   "fonte": "CNES, arquivos EP do FTP do DATASUS (Ministério da Saúde)",
+   "coletado_em": "2026-11-23T22:10:52-03:00",
+   "defasagem_dias": 2,
+   "competencia": "2610",
+   "valores": {
+    "70": 8,
+    "71": 8,
+    "76": 2,
+    "72": 1
+   },
+   "tipos": {
+    "70": "Saúde da Família (eSF e variantes, inclui eACS)",
+    "71": "Saúde Bucal (eSB)",
+    "73": "Consultório na Rua (eCR)",
+    "74": "Atenção Primária Prisional (eAPP)",
+    "76": "Atenção Primária (eAP)"
+   }
+  },
+  "equipamentos": {
+   "fonte": "CNES, arquivos EQ do FTP do DATASUS (Ministério da Saúde)",
+   "coletado_em": "2026-11-09T10:55:50-03:00",
+   "defasagem_dias": 17,
+   "competencia": "2609",
+   "valores": {
+    "2": [
+     101,
+     93,
+     91
+    ],
+    "7": [
+     173,
+     168,
+     104
+    ],
+    "5": [
+     81,
+     81,
+     69
+    ],
+    "3": [
+     20,
+     20,
+     19
+    ],
+    "1": [
+     20,
+     16,
+     13
+    ],
+    "6": [
+     30,
+     29,
+     20
+    ],
+    "4": [
+     12,
+     11,
+     7
+    ],
+    "9": [
+     1,
+     1,
+     1
+    ],
+    "8": [
+     3,
+     3,
+     0
+    ]
+   },
+   "campos": [
+    "existentes",
+    "em_uso",
+    "disponiveis_ao_sus"
+   ],
+   "tipos": {
+    "1": "Diagnóstico por imagem",
+    "2": "Infraestrutura",
+    "3": "Métodos ópticos",
+    "4": "Métodos gráficos",
+    "5": "Manutenção da vida",
+    "6": "Outros equipamentos",
+    "7": "Odontologia",
+    "8": "Audiologia"
+   }
+  },
+  "profissionais": {
+   "fonte": "CNES, arquivos PF do FTP do DATASUS (Ministério da Saúde)",
+   "coletado_em": "2026-11-23T22:15:19-03:00",
+   "defasagem_dias": 2,
+   "competencia": "2610",
+   "valores": {
+    "Outros": [
+     211,
+     100,
+     8075
+    ],
+    "Total": [
+     565,
+     364,
+     18108
+    ],
+    "Cirurgiões-dentistas": [
+     31,
+     15,
+     894
+    ],
+    "Enfermeiros": [
+     53,
+     51,
+     1884
+    ],
+    "Médicos": [
+     91,
+     61,
+     1133
+    ],
+    "Técnicos e auxiliares de enfermagem": [
+     56,
+     53,
+     2183
+    ],
+    "Psicólogos": [
+     20,
+     13,
+     397
+    ],
+    "Técnicos e auxiliares de saúde bucal": [
+     17,
+     9,
+     680
+    ],
+    "Agentes comunitários de saúde": [
+     32,
+     32,
+     1280
+    ],
+    "Fisioterapeutas": [
+     18,
+     12,
+     486
+    ],
+    "Assistentes sociais": [
+     6,
+     5,
+     165
+    ],
+    "Nutricionistas": [
+     3,
+     3,
+     90
+    ],
+    "Farmacêuticos": [
+     24,
+     9,
+     806
+    ],
+    "Fonoaudiólogos e terapeutas ocupacionais": [
+     3,
+     1,
+     35
+    ]
+   },
+   "grupos": [
+    "Médicos",
+    "Enfermeiros",
+    "Técnicos e auxiliares de enfermagem",
+    "Agentes comunitários de saúde",
+    "Cirurgiões-dentistas",
+    "Técnicos e auxiliares de saúde bucal",
+    "Farmacêuticos",
+    "Psicólogos",
+    "Fisioterapeutas",
+    "Nutricionistas",
+    "Assistentes sociais",
+    "Fonoaudiólogos e terapeutas ocupacionais",
+    "Outros",
+    "Total"
+   ]
+  },
+  "rede": {
+   "fonte": "CNES, Dados Abertos do SUS (Ministerio da Saude)",
+   "coletado_em": "2026-11-23T22:10:38-03:00",
+   "defasagem_dias": 2,
+   "valores": {
+    "total": 68,
+    "ativos": 61,
+    "grupos": {
+     "Atenção básica": 8,
+     "Apoio diagnóstico e terapêutico": 6,
+     "Urgência e unidade mista": 2,
+     "Ambulatório especializado": 10,
+     "Consultório isolado": 22,
+     "Hospitais": 1,
+     "Vigilância, regulação e gestão": 2,
+     "Farmácia": 7,
+     "Outros tipos": 3
+    },
+    "esfera": {
+     "Municipal": 61
+    },
+    "tipos": {
+     "02": 8,
+     "39": 6,
+     "42": 2,
+     "36": 8,
+     "22": 22,
+     "05": 1,
+     "04": 2,
+     "50": 1,
+     "43": 7,
+     "84": 1,
+     "85": 1,
+     "74": 1,
+     "68": 1
+    },
+    "nat": {
+     "Pública": 16,
+     "Privada com fins lucrativos": 31,
+     "Pessoa física": 12,
+     "Privada sem fins lucrativos": 2
+    },
+    "gn": {
+     "Atenção básica": {
+      "Pública": 8
+     },
+     "Apoio diagnóstico e terapêutico": {
+      "Privada com fins lucrativos": 6
+     },
+     "Urgência e unidade mista": {
+      "Pública": 2
+     },
+     "Ambulatório especializado": {
+      "Privada com fins lucrativos": 8,
+      "Privada sem fins lucrativos": 1,
+      "Pública": 1
+     },
+     "Consultório isolado": {
+      "Pessoa física": 12,
+      "Privada com fins lucrativos": 10
+     },
+     "Hospitais": {
+      "Privada sem fins lucrativos": 1
+     },
+     "Vigilância, regulação e gestão": {
+      "Pública": 2
+     },
+     "Farmácia": {
+      "Privada com fins lucrativos": 6,
+      "Pública": 1
+     },
+     "Outros tipos": {
+      "Pública": 2,
+      "Privada com fins lucrativos": 1
+     }
+    }
+   }
+  },
+  "tabelas_codigos": {
+   "fonte": "TAB_CNES.zip (FTP DATASUS, pasta Auxiliar)",
+   "gerado_em": "2026-11-26T14:49:40-03:00",
+   "arquivo": "/home/rafael/partelli/sala-gestao/dados/tabelas_cnes.json",
+   "grupos_de_tabela": [
+    "equipamento",
+    "equipamento_2507",
+    "equipamento_grupo",
+    "equipe_dbf",
+    "equipe_tipo",
+    "especialidade_leito",
+    "estabelecimento_filantropico",
+    "habilitacao",
+    "incentivo",
+    "indicador_sus",
+    "instalacoes_def",
+    "regras_dbf",
+    "servico_classificacao",
+    "servico_classificacao_n",
+    "servico_def",
+    "tipo_equipamento",
+    "tipo_equipamento_dbf",
+    "tipo_leito"
+   ]
+  },
+  "habilitacoes": {
+   "fonte": "CNES, arquivo HB (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T09:42:05",
+   "total": 2,
+   "estabelecimentos": [
+    "2483998"
+   ],
+   "itens": [
+    {
+     "cnes": "2483998",
+     "codigo": "1901",
+     "vigencia_inicio": "202605",
+     "vigencia_fim": "999999",
+     "portaria": "SEMUS",
+     "data_portaria": "08/06/2026",
+     "codigo_habilitacao": "1901",
+     "leitos": 0,
+     "descricao": "LAQUEADURA"
+    },
+    {
+     "cnes": "2483998",
+     "codigo": "1902",
+     "vigencia_inicio": "202605",
+     "vigencia_fim": "999999",
+     "portaria": "SEMUS",
+     "data_portaria": "08/06/2026",
+     "codigo_habilitacao": "1902",
+     "leitos": 0,
+     "descricao": "VASECTOMIA"
+    }
+   ]
+  },
+  "leitos_por_tipo": {
+   "fonte": "CNES, arquivo LT (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T10:21:57",
+   "totais": {
+    "existentes": 35,
+    "contratados": 0,
+    "sus": 32,
+    "nao_sus": 3
+   },
+   "itens": [
+    {
+     "tipo": "2",
+     "codigo": "33",
+     "existentes": 18,
+     "contratados": 0,
+     "sus": 17,
+     "nao_sus": 1,
+     "descricao": "Clínico · CLINICA GERAL"
+    },
+    {
+     "tipo": "4",
+     "codigo": "10",
+     "existentes": 8,
+     "contratados": 0,
+     "sus": 6,
+     "nao_sus": 2,
+     "descricao": "Obstétrico · OBSTETRICIA CIRURGICA"
+    },
+    {
+     "tipo": "5",
+     "codigo": "45",
+     "existentes": 5,
+     "contratados": 0,
+     "sus": 5,
+     "nao_sus": 0,
+     "descricao": "Pediátrico · PEDIATRIA CLINICA"
+    },
+    {
+     "tipo": "1",
+     "codigo": "03",
+     "existentes": 4,
+     "contratados": 0,
+     "sus": 4,
+     "nao_sus": 0,
+     "descricao": "Cirúrgico · CIRURGIA GERAL"
+    }
+   ]
+  },
+  "equipamentos_cadastro": {
+   "fonte": "CNES, arquivo EQ (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T10:21:57",
+   "totais": {
+    "existentes": 448,
+    "em_uso": 429
+   },
+   "itens": [
+    {
+     "tipo": "02",
+     "codigo": "19",
+     "existentes": 96,
+     "em_uso": 90,
+     "estabelecimentos": 18,
+     "descricao": "AR CONDICIONADO"
+    },
+    {
+     "tipo": "07",
+     "codigo": "83",
+     "existentes": 48,
+     "em_uso": 46,
+     "estabelecimentos": 19,
+     "descricao": "Caneta de Alta Rotacao"
+    },
+    {
+     "tipo": "05",
+     "codigo": "62",
+     "existentes": 46,
+     "em_uso": 46,
+     "estabelecimentos": 22,
+     "descricao": "Monitor de Pressao Nao-Invasivo"
+    },
+    {
+     "tipo": "07",
+     "codigo": "84",
+     "existentes": 31,
+     "em_uso": 30,
+     "estabelecimentos": 19,
+     "descricao": "Caneta de Baixa Rotacao"
+    },
+    {
+     "tipo": "07",
+     "codigo": "82",
+     "existentes": 27,
+     "em_uso": 27,
+     "estabelecimentos": 19,
+     "descricao": "FOTOPOLIMERIZADOR DE RESINAS"
+    },
+    {
+     "tipo": "07",
+     "codigo": "80",
+     "existentes": 24,
+     "em_uso": 24,
+     "estabelecimentos": 20,
+     "descricao": "CADEIRA ODONTOLOGICA COMPLETA"
+    },
+    {
+     "tipo": "07",
+     "codigo": "81",
+     "existentes": 20,
+     "em_uso": 20,
+     "estabelecimentos": 19,
+     "descricao": "COMPRESSOR ODONTOLOGICO"
+    },
+    {
+     "tipo": "07",
+     "codigo": "86",
+     "existentes": 19,
+     "em_uso": 19,
+     "estabelecimentos": 17,
+     "descricao": "Aparelho de Profilaxia c/ Jato de Bicarbonato"
+    },
+    {
+     "tipo": "05",
+     "codigo": "63",
+     "existentes": 15,
+     "em_uso": 15,
+     "estabelecimentos": 6,
+     "descricao": "Reanimador Pulmonar/AMBU"
+    },
+    {
+     "tipo": "06",
+     "codigo": "72",
+     "existentes": 14,
+     "em_uso": 13,
+     "estabelecimentos": 7,
+     "descricao": "Aparelho de Eletroestimulacao"
+    },
+    {
+     "tipo": "01",
+     "codigo": "07",
+     "existentes": 13,
+     "em_uso": 10,
+     "estabelecimentos": 11,
+     "descricao": "RAIO X ODONTOLOGICO"
+    },
+    {
+     "tipo": "06",
+     "codigo": "71",
+     "existentes": 12,
+     "em_uso": 12,
+     "estabelecimentos": 8,
+     "descricao": "Aparelho de Diatermia por Ultrassom/Ondas Cur"
+    },
+    {
+     "tipo": "03",
+     "codigo": "46",
+     "existentes": 10,
+     "em_uso": 10,
+     "estabelecimentos": 7,
+     "descricao": "OFTALMOSCOPIO"
+    },
+    {
+     "tipo": "02",
+     "codigo": "25",
+     "existentes": 9,
+     "em_uso": 7,
+     "estabelecimentos": 4,
+     "descricao": "CAMARA PARA CONSERVACAO DE IMUNOBIOLOGICOS"
+    },
+    {
+     "tipo": "04",
+     "codigo": "41",
+     "existentes": 8,
+     "em_uso": 7,
+     "estabelecimentos": 7,
+     "descricao": "Eletrocardiografo"
+    },
+    {
+     "tipo": "05",
+     "codigo": "61",
+     "existentes": 6,
+     "em_uso": 6,
+     "estabelecimentos": 2,
+     "descricao": "Monitor de Pressao Invasivo"
+    },
+    {
+     "tipo": "04",
+     "codigo": "42",
+     "existentes": 4,
+     "em_uso": 4,
+     "estabelecimentos": 3,
+     "descricao": "Eletroencefalografo"
+    },
+    {
+     "tipo": "05",
+     "codigo": "56",
+     "existentes": 4,
+     "em_uso": 4,
+     "estabelecimentos": 3,
+     "descricao": "DESFIBRILADOR CONVENCIONAL"
+    },
+    {
+     "tipo": "07",
+     "codigo": "85",
+     "existentes": 4,
+     "em_uso": 2,
+     "estabelecimentos": 4,
+     "descricao": "AMALGAMADOR ODONTOLOGICO"
+    },
+    {
+     "tipo": "06",
+     "codigo": "78",
+     "existentes": 3,
+     "em_uso": 3,
+     "estabelecimentos": 3,
+     "descricao": "Forno de Bier"
+    },
+    {
+     "tipo": "01",
+     "codigo": "13",
+     "existentes": 2,
+     "em_uso": 2,
+     "estabelecimentos": 2,
+     "descricao": "Ultrassom Doppler Colorido"
+    },
+    {
+     "tipo": "02",
+     "codigo": "66",
+     "existentes": 2,
+     "em_uso": 2,
+     "estabelecimentos": 2,
+     "descricao": "REFRIGERADOR"
+    },
+    {
+     "tipo": "03",
+     "codigo": "39",
+     "existentes": 2,
+     "em_uso": 2,
+     "estabelecimentos": 1,
+     "descricao": "REFRATOR"
+    },
+    {
+     "tipo": "03",
+     "codigo": "44",
+     "existentes": 2,
+     "em_uso": 2,
+     "estabelecimentos": 2,
+     "descricao": "PROJETOR OU TABELA DE OPTOTIPOS"
+    },
+    {
+     "tipo": "05",
+     "codigo": "52",
+     "existentes": 2,
+     "em_uso": 2,
+     "estabelecimentos": 1,
+     "descricao": "Bomba de Infusao"
+    },
+    {
+     "tipo": "05",
+     "codigo": "60",
+     "existentes": 2,
+     "em_uso": 2,
+     "estabelecimentos": 1,
+     "descricao": "Monitor de ECG"
+    },
+    {
+     "tipo": "05",
+     "codigo": "64",
+     "existentes": 2,
+     "em_uso": 2,
+     "estabelecimentos": 1,
+     "descricao": "Respirador/Ventilador"
+    },
+    {
+     "tipo": "08",
+     "codigo": "92",
+     "existentes": 2,
+     "em_uso": 2,
+     "estabelecimentos": 2,
+     "descricao": "AUDIOMETRO DE DOIS CANAIS"
+    },
+    {
+     "tipo": "01",
+     "codigo": "05",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "Raio X de 100 a 500 mA"
+    },
+    {
+     "tipo": "01",
+     "codigo": "09",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "Raio X para Densitometria Ossea"
+    },
+    {
+     "tipo": "01",
+     "codigo": "11",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "Tomografo Computadorizado"
+    },
+    {
+     "tipo": "01",
+     "codigo": "14",
+     "existentes": 1,
+     "em_uso": 0,
+     "estabelecimentos": 1,
+     "descricao": "Ultrassom Ecografo"
+    },
+    {
+     "tipo": "01",
+     "codigo": "15",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "Ultrassom Convencional"
+    },
+    {
+     "tipo": "02",
+     "codigo": "21",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "Controle Ambiental/Ar-condicionado Central"
+    },
+    {
+     "tipo": "03",
+     "codigo": "33",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "Endoscopio Digestivo"
+    },
+    {
+     "tipo": "03",
+     "codigo": "37",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "CADEIRA OFTALMOLOGICA"
+    },
+    {
+     "tipo": "03",
+     "codigo": "40",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "LENSOMETRO"
+    },
+    {
+     "tipo": "03",
+     "codigo": "45",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "RETINOSCOPIO"
+    },
+    {
+     "tipo": "03",
+     "codigo": "48",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "TONOMETRO DE APLANACAO"
+    },
+    {
+     "tipo": "03",
+     "codigo": "49",
+     "existentes": 1,
+     "em_uso": 1,
+     "estabelecimentos": 1,
+     "descricao": "BIOMICROSCOPIO (LAMPADA DE FENDA)"
+    }
+   ],
+   "obs": "Ate 40 tipos, em ordem de quantidade."
+  },
+  "profissionais_cadastro": {
+   "fonte": "CNES, arquivo PF (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T10:22:24",
+   "vinculos": 565,
+   "horas_ambulatoriais": 9002,
+   "horas_hospitalares": 1362,
+   "horas_outras": 7744,
+   "estabelecimentos": 61,
+   "principais_cbo": [
+    {
+     "cbo": "223505",
+     "vinculos": 41,
+     "horas_ambulatoriais": 1003,
+     "horas_hospitalares": 361,
+     "horas_outras": 40
+    },
+    {
+     "cbo": "422105",
+     "vinculos": 35,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 1360
+    },
+    {
+     "cbo": "322205",
+     "vinculos": 35,
+     "horas_ambulatoriais": 503,
+     "horas_hospitalares": 840,
+     "horas_outras": 0
+    },
+    {
+     "cbo": "782320",
+     "vinculos": 33,
+     "horas_ambulatoriais": 40,
+     "horas_hospitalares": 0,
+     "horas_outras": 1290
+    },
+    {
+     "cbo": "515105",
+     "vinculos": 32,
+     "horas_ambulatoriais": 1280,
+     "horas_hospitalares": 0,
+     "horas_outras": 0
+    },
+    {
+     "cbo": "225125",
+     "vinculos": 24,
+     "horas_ambulatoriais": 224,
+     "horas_hospitalares": 13,
+     "horas_outras": 4
+    },
+    {
+     "cbo": "411005",
+     "vinculos": 21,
+     "horas_ambulatoriais": 0,
+     "horas_hospitalares": 0,
+     "horas_outras": 801
+    },
+    {
+     "cbo": "251510",
+     "vinculos": 20,
+     "horas_ambulatoriais": 397,
+     "horas_hospitalares": 0,
+     "horas_outras": 0
+    },
+    {
+     "cbo": "223208",
+     "vinculos": 19,
+     "horas_ambulatoriais": 422,
+     "horas_hospitalares": 0,
+     "horas_outras": 50
+    },
+    {
+     "cbo": "322245",
+     "vinculos": 18,
+     "horas_ambulatoriais": 720,
+     "horas_hospitalares": 0,
+     "horas_outras": 0
+    },
+    {
+     "cbo": "223605",
+     "vinculos": 18,
+     "horas_ambulatoriais": 426,
+     "horas_hospitalares": 0,
+     "horas_outras": 60
+    },
+    {
+     "cbo": "223405",
+     "vinculos": 18,
+     "horas_ambulatoriais": 355,
+     "horas_hospitalares": 40,
+     "horas_outras": 304
+    },
+    {
+     "cbo": "225142",
+     "vinculos": 17,
+     "horas_ambulatoriais": 620,
+     "horas_hospitalares": 0,
+     "horas_outras": 0
+    },
+    {
+     "cbo": "515140",
+     "vinculos": 12,
+     "horas_ambulatoriais": 480,
+     "horas_hospitalares": 0,
+     "horas_outras": 0
+    },
+    {
+     "cbo": "225250",
+     "vinculos": 12,
+     "horas_ambulatoriais": 66,
+     "horas_hospitalares": 12,
+     "horas_outras": 0
+    }
+   ],
+   "principais_estabelecimentos": [
+    {
+     "cnes": "2483998",
+     "vinculos": 92
+    },
+    {
+     "cnes": "2484447",
+     "vinculos": 53
+    },
+    {
+     "cnes": "2484420",
+     "vinculos": 29
+    },
+    {
+     "cnes": "6670237",
+     "vinculos": 26
+    },
+    {
+     "cnes": "2484005",
+     "vinculos": 26
+    },
+    {
+     "cnes": "2627965",
+     "vinculos": 25
+    },
+    {
+     "cnes": "2627930",
+     "vinculos": 23
+    },
+    {
+     "cnes": "0484946",
+     "vinculos": 22
+    },
+    {
+     "cnes": "2627957",
+     "vinculos": 21
+    },
+    {
+     "cnes": "7946945",
+     "vinculos": 19
+    }
+   ],
+   "obs": "Contagem de vinculos, nao de pessoas. Sem qualquer dado de identificacao dos profissionais.",
+   "descricao_cbo": "[PREENCHER: descricao das ocupacoes (tabela CBO nao carregada)]"
+  },
+  "servicos_especializados": {
+   "fonte": "CNES, arquivo SR (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T10:22:25",
+   "total_servicos_classificacoes": 64,
+   "itens": [
+    {
+     "servico": "112",
+     "classificacao": "001",
+     "estabelecimentos": 11,
+     "descricao": "112 SERVICO DE ATENCAO AO PRE-NATAL, PARTO E NASCIMENTO / 001 ACOMPANHAMENTO DO PRE-NATAL DE RISCO H"
+    },
+    {
+     "servico": "141",
+     "classificacao": "001",
+     "estabelecimentos": 10,
+     "descricao": "141 SERVICO DE VIGILANCIA EM SAUDE / 001 VIGILANCIA EPIDEMIOLOGICA"
+    },
+    {
+     "servico": "141",
+     "classificacao": "003",
+     "estabelecimentos": 10,
+     "descricao": "141 SERVICO DE VIGILANCIA EM SAUDE / 003 VIGILANCIA AMBIENTAL"
+    },
+    {
+     "servico": "141",
+     "classificacao": "002",
+     "estabelecimentos": 9,
+     "descricao": "141 SERVICO DE VIGILANCIA EM SAUDE / 002 VIGILANCIA SANITARIA"
+    },
+    {
+     "servico": "108",
+     "classificacao": "001",
+     "estabelecimentos": 8,
+     "descricao": "108 SERVICO DE ATENCAO A SAUDE DO TRABALHADOR / 001 ATENDIMENTOACOMPANHAMENTO EM SAUDE DO TRABALHADO"
+    },
+    {
+     "servico": "119",
+     "classificacao": "001",
+     "estabelecimentos": 8,
+     "descricao": "119 SERVICO DE CONTROLE DE TABAGISMO / 001 ABORDAGEM E TRATAMENTO  DO FUMANTE"
+    },
+    {
+     "servico": "126",
+     "classificacao": "005",
+     "estabelecimentos": 8,
+     "descricao": "126 SERVICO DE FISIOTERAPIA / 005 ASSISTENCIA FISIOTERAPEUTICA NAS DISFUNCOES MUSCULO ESQUELET"
+    },
+    {
+     "servico": "159",
+     "classificacao": "004",
+     "estabelecimentos": 7,
+     "descricao": "159 ATENCAO PRIMARIA / 004 ESTRATEGIA DE SAUDE DA FAMILIA"
+    },
+    {
+     "servico": "159",
+     "classificacao": "005",
+     "estabelecimentos": 7,
+     "descricao": "159 ATENCAO PRIMARIA / 005 SAUDE BUCAL"
+    },
+    {
+     "servico": "174",
+     "classificacao": "001",
+     "estabelecimentos": 7,
+     "descricao": "174 IMUNIZACAO / 001 INDIVIDUOS EM GERAL"
+    },
+    {
+     "servico": "114",
+     "classificacao": "001",
+     "estabelecimentos": 6,
+     "descricao": "114 SERVICO DE ATENCAO EM SAUDE BUCAL / 001 DENTISTICA"
+    },
+    {
+     "servico": "126",
+     "classificacao": "004",
+     "estabelecimentos": 5,
+     "descricao": "126 SERVICO DE FISIOTERAPIA / 004 ASSISTENCIA FISIOTERAPEUTICA CARDIOVASCULARES E PNEUMOFUNCI"
+    },
+    {
+     "servico": "126",
+     "classificacao": "007",
+     "estabelecimentos": 5,
+     "descricao": "126 SERVICO DE FISIOTERAPIA / 007 ASSISTENCIA FISIOTERAPEUTICA NAS ALTERACOES EM NEUROLOGIA"
+    },
+    {
+     "servico": "121",
+     "classificacao": "001",
+     "estabelecimentos": 4,
+     "descricao": "121 SERVICO DE DIAGNOSTICO POR IMAGEM / 001 RADIOLOGIA"
+    },
+    {
+     "servico": "111",
+     "classificacao": "001",
+     "estabelecimentos": 3,
+     "descricao": "111 SERVICO DE ATENCAO AO PACIENTE COM TUBERCULOSE / 001 DIAGNOSTICO E TRATAMENTO"
+    },
+    {
+     "servico": "113",
+     "classificacao": "001",
+     "estabelecimentos": 3,
+     "descricao": "113 SERVICO DE ATENCAO DOMICILIAR / 001 ASSISTENCIA DOMICILIAR"
+    },
+    {
+     "servico": "121",
+     "classificacao": "002",
+     "estabelecimentos": 3,
+     "descricao": "121 SERVICO DE DIAGNOSTICO POR IMAGEM / 002 ULTRASONOGRAFIA"
+    },
+    {
+     "servico": "122",
+     "classificacao": "003",
+     "estabelecimentos": 3,
+     "descricao": "122 SERVICO DE DIAGNOSTICO POR METODOS GRAFICOS DINAMICOS / 003 EXAME  ELETROCARDIOGRAFICO"
+    },
+    {
+     "servico": "126",
+     "classificacao": "002",
+     "estabelecimentos": 3,
+     "descricao": "126 SERVICO DE FISIOTERAPIA / 002 ASSISTENCIA FISIOTERAPEUTICA EM ALTERACOES ONCOLOGICAS"
+    },
+    {
+     "servico": "135",
+     "classificacao": "011",
+     "estabelecimentos": 3,
+     "descricao": "135 SERVICO DE REABILITACAO / 011 ATENCAO FISIOTERAPEUTICA"
+    },
+    {
+     "servico": "145",
+     "classificacao": "001",
+     "estabelecimentos": 3,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 001 EXAMES BIOQUIMICOS"
+    },
+    {
+     "servico": "145",
+     "classificacao": "002",
+     "estabelecimentos": 3,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 002 EXAMES HEMATOLOGICOS E HEMOSTASIA"
+    },
+    {
+     "servico": "145",
+     "classificacao": "003",
+     "estabelecimentos": 3,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 003 EXAMES SOROLOGICOS E IMUNOLOGICOS"
+    },
+    {
+     "servico": "145",
+     "classificacao": "004",
+     "estabelecimentos": 3,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 004 EXAMES COPROLOGICOS"
+    },
+    {
+     "servico": "145",
+     "classificacao": "005",
+     "estabelecimentos": 3,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 005 EXAMES DE UROANALISE"
+    },
+    {
+     "servico": "145",
+     "classificacao": "006",
+     "estabelecimentos": 3,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 006 EXAMES HORMONAIS"
+    },
+    {
+     "servico": "145",
+     "classificacao": "009",
+     "estabelecimentos": 3,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 009 EXAMES MICROBIOLOGICOS"
+    },
+    {
+     "servico": "145",
+     "classificacao": "010",
+     "estabelecimentos": 3,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 010 EXAMES EM OUTROS LIQUIDOS BIOLOGICOS"
+    },
+    {
+     "servico": "145",
+     "classificacao": "013",
+     "estabelecimentos": 3,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 013 EXAMES IMUNOHEMATOLOGICOS"
+    },
+    {
+     "servico": "159",
+     "classificacao": "001",
+     "estabelecimentos": 3,
+     "descricao": "159 ATENCAO PRIMARIA / 001 ATENCAO PRIMARIA"
+    },
+    {
+     "servico": "160",
+     "classificacao": "006",
+     "estabelecimentos": 3
+    },
+    {
+     "servico": "173",
+     "classificacao": "002",
+     "estabelecimentos": 3,
+     "descricao": "173 LOGISTICA DE IMUNOBIOLOGICOS / 002 ARMAZENAMENTO E CONTROLE"
+    },
+    {
+     "servico": "113",
+     "classificacao": "002",
+     "estabelecimentos": 2,
+     "descricao": "113 SERVICO DE ATENCAO DOMICILIAR / 002 INTERNACAO DOMICILIAR"
+    },
+    {
+     "servico": "114",
+     "classificacao": "002",
+     "estabelecimentos": 2,
+     "descricao": "114 SERVICO DE ATENCAO EM SAUDE BUCAL / 002 ENDODONTIA"
+    },
+    {
+     "servico": "114",
+     "classificacao": "005",
+     "estabelecimentos": 2,
+     "descricao": "114 SERVICO DE ATENCAO EM SAUDE BUCAL / 005 CIRURGIA ORAL"
+    },
+    {
+     "servico": "115",
+     "classificacao": "002",
+     "estabelecimentos": 2,
+     "descricao": "115 SERVICO DE ATENCAO PSICOSSOCIAL / 002 ATENDIMENTO PSICOSSOCIAL"
+    },
+    {
+     "servico": "126",
+     "classificacao": "008",
+     "estabelecimentos": 2,
+     "descricao": "126 SERVICO DE FISIOTERAPIA / 008 DIAGNOSTICO CINETICO FUNCIONAL"
+    },
+    {
+     "servico": "145",
+     "classificacao": "008",
+     "estabelecimentos": 2,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 008 EXAMES TOXICOLOGICOS OU DE MONITORIZACAO TER"
+    },
+    {
+     "servico": "145",
+     "classificacao": "011",
+     "estabelecimentos": 2,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 011 EXAMES DE GENETICA"
+    },
+    {
+     "servico": "145",
+     "classificacao": "012",
+     "estabelecimentos": 2,
+     "descricao": "145 SERVICO DE DIAGNOSTICO DE LABORATORIO CLINICO / 012 EXAMES PARA TRIAGEM NEONATAL"
+    }
+   ]
+  },
+  "equipes_cadastro": {
+   "fonte": "CNES, arquivo EP (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T10:21:55",
+   "total_equipes": 20,
+   "itens": [
+    {
+     "tipo_equipe": "71",
+     "equipes": 8,
+     "sem_data_de_desativacao": 0,
+     "descricao": "ESB - EQUIPE DE SAUDE BUCAL"
+    },
+    {
+     "tipo_equipe": "70",
+     "equipes": 8,
+     "sem_data_de_desativacao": 0,
+     "descricao": "ESF - EQUIPE DE SAUDE DA FAMILIA"
+    },
+    {
+     "tipo_equipe": "76",
+     "equipes": 2,
+     "sem_data_de_desativacao": 0,
+     "descricao": "EAP - EQUIPE DE ATENCAO PRIMARIA"
+    },
+    {
+     "tipo_equipe": "72",
+     "equipes": 2,
+     "sem_data_de_desativacao": 0,
+     "descricao": "ENASFAP - EQ DO NUCLEO AMPLIADO SAUDE DA FAMILIA E AT PRIMA."
+    }
+   ],
+   "obs": "Tipo de equipe em codigo do CNES; a descricao vem da tabela auxiliar oficial, quando o codigo consta dela."
+  },
+  "incentivos": {
+   "fonte": "CNES, arquivo IN (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T10:21:57",
+   "total": 2,
+   "estabelecimentos": [
+    "0484202",
+    "0484946"
+   ],
+   "itens": [
+    {
+     "cnes": "0484202",
+     "codigo": "8250",
+     "vigencia_inicio": "202404",
+     "vigencia_fim": "999999",
+     "portaria": "3473/GM/MS",
+     "data_portaria": "03/04/2024",
+     "descricao": "UNIDADE MOVEL DE ATENDIMENTO PRE-HOSPITALAR USB SAMU 192"
+    },
+    {
+     "cnes": "0484946",
+     "codigo": "8249",
+     "vigencia_inicio": "202403",
+     "vigencia_fim": "999999",
+     "portaria": "3329/GM/MS",
+     "data_portaria": "12/03/2024",
+     "descricao": "UNIDADE MOVEL DE ATENDIMENTO PRE-HOSPITALAR USA SAMU 192"
+    }
+   ]
+  },
+  "regras_contratuais": {
+   "fonte": "CNES, arquivo RC (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T10:22:24",
+   "total": 2,
+   "estabelecimentos": [
+    "2484005",
+    "2484447"
+   ],
+   "itens": [
+    {
+     "cnes": "2484005",
+     "codigo": "7111",
+     "vigencia_inicio": "201811",
+     "vigencia_fim": "999999",
+     "portaria": "2273",
+     "data_portaria": "06/12/2018",
+     "descricao": "ESTABELECIMENTO DE SAUDE SEM GERACAO DE CREDITO - NASF, EXCETO FAEC"
+    },
+    {
+     "cnes": "2484447",
+     "codigo": "7111",
+     "vigencia_inicio": "202305",
+     "vigencia_fim": "999999",
+     "portaria": "635",
+     "data_portaria": "04/07/2023",
+     "descricao": "ESTABELECIMENTO DE SAUDE SEM GERACAO DE CREDITO - NASF, EXCETO FAEC"
+    }
+   ]
+  },
+  "entidade_filantropica": {
+   "fonte": "CNES, arquivo EF (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T10:21:55",
+   "total": 1,
+   "estabelecimentos": [
+    "2483998"
+   ],
+   "itens": [
+    {
+     "cnes": "2483998",
+     "codigo": "6001",
+     "vigencia_inicio": "200612",
+     "vigencia_fim": "999999",
+     "portaria": "GM 3123",
+     "data_portaria": "07/12/2006",
+     "descricao": "HOSPITAL FILANTRÓPICO"
+    }
+   ]
+  },
+  "estabelecimentos": {
+   "fonte": "CNES, arquivo ST (FTP DATASUS), agregado na base local",
+   "competencia": "10/2026",
+   "convertido_em": "2026-11-26T10:28:26",
+   "total": 61,
+   "por_tipo_unidade": [
+    {
+     "tipo_unidade": "22",
+     "estabelecimentos": 22
+    },
+    {
+     "tipo_unidade": "36",
+     "estabelecimentos": 8
+    },
+    {
+     "tipo_unidade": "02",
+     "estabelecimentos": 8
+    },
+    {
+     "tipo_unidade": "43",
+     "estabelecimentos": 7
+    },
+    {
+     "tipo_unidade": "39",
+     "estabelecimentos": 6
+    },
+    {
+     "tipo_unidade": "42",
+     "estabelecimentos": 2
+    },
+    {
+     "tipo_unidade": "04",
+     "estabelecimentos": 2
+    },
+    {
+     "tipo_unidade": "85",
+     "estabelecimentos": 1
+    },
+    {
+     "tipo_unidade": "84",
+     "estabelecimentos": 1
+    },
+    {
+     "tipo_unidade": "74",
+     "estabelecimentos": 1
+    },
+    {
+     "tipo_unidade": "68",
+     "estabelecimentos": 1
+    },
+    {
+     "tipo_unidade": "50",
+     "estabelecimentos": 1
+    },
+    {
+     "tipo_unidade": "05",
+     "estabelecimentos": 1
+    }
+   ],
+   "vinculo_sus_codigos": {
+    "0": 43,
+    "1": 18
+   },
+   "com_leito_cadastrado": [
+    {
+     "cnes": "2483998",
+     "tipo_unidade": "05",
+     "natureza": "",
+     "natureza_juridica": "3999",
+     "esfera": "M",
+     "gestao": "M",
+     "leitos_cadastro": {
+      "p1": 4,
+      "p2": 18,
+      "p3": 0
+     },
+     "urgencia": "1",
+     "atendimento_ambulatorial": "1",
+     "centro_cirurgico": "1",
+     "centro_obstetrico": "1",
+     "centro_neonatal": "1",
+     "atendimento_hospitalar": "1",
+     "acreditacao": "",
+     "classe_avaliacao": "",
+     "instalacoes": {
+      "04": {
+       "quantidade": 1,
+       "descricao": "Urgência/emergência: Sala Atendimento Indifer."
+      },
+      "08": {
+       "quantidade": 1,
+       "descricao": "Urgência/emergência: Sala Repouso/Obs.Indiferen."
+      },
+      "13": {
+       "quantidade": 1,
+       "descricao": "Urgência/emergência: sala Pequena Cirurgia"
+      },
+      "17": {
+       "quantidade": 1,
+       "descricao": "Atend. ambulatorial: Consultório Clínica Indiferen."
+      },
+      "26": {
+       "quantidade": 1,
+       "descricao": "Atend. ambulatorial: sala Imunização"
+      },
+      "27": {
+       "quantidade": 1,
+       "descricao": "Atend. ambulatorial: sala Nebulização"
+      },
+      "29": {
+       "quantidade": 1,
+       "descricao": "Atend. ambulatorial: sala de Curativo"
+      },
+      "31": {
+       "quantidade": 1,
+       "descricao": "Centro cirúrgico: sala Cirurgia"
+      },
+      "34": {
+       "quantidade": 1,
+       "descricao": "Centro obstétrico: sala Pré Parto"
+      },
+      "35": {
+       "quantidade": 1,
+       "descricao": "Centro obstétrico: sala Parto Normal"
+      }
+     }
+    }
+   ],
+   "obs": "Tipo de unidade, natureza e indicadores em codigo do CNES (S e N, 1 e 0 como vieram do arquivo). Sem CNPJ, endereco, banco, alvara ou contrato."
+  }
+ }
+}

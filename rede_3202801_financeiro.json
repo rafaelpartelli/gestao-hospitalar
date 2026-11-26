@@ -1,0 +1,138 @@
+{
+ "gerado_em": "2026-11-26T19:00:04-03:00",
+ "municipio": {
+  "cod": "3202801",
+  "nome": "Itapemirim"
+ },
+ "secao": {
+  "despesa_saude": {
+   "fonte": "SICONFI, DCA Anexo I-E, função 10 - Saúde (Tesouro Nacional)",
+   "coletado_em": "2026-11-05T09:27:40-03:00",
+   "defasagem_dias": 21,
+   "exercicio": 2025,
+   "valores": {
+    "empenhada": 109219951,
+    "liquidada": 108295540,
+    "paga": 105753283,
+    "populacao": 45801
+   }
+  },
+  "receita": {
+   "fonte": "SICONFI, RREO Anexo 01 (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:45:08-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "bimestre": 6,
+   "valores": {
+    "total": 594608152,
+    "correntes": 567535716,
+    "capital": 2207406,
+    "tributaria": 27049826,
+    "impostos": 25870181,
+    "transf_correntes": 478287833,
+    "transf_uniao": 247994564,
+    "transf_estados": 167360657,
+    "prevista": 583486274,
+    "populacao": 45801
+   }
+  },
+  "pessoal": {
+   "fonte": "SICONFI, RGF Anexo 01, Poder Executivo (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:49:05-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "valores": {
+    "dtp": 253238276,
+    "rcl_ajustada": 548052100,
+    "limite_maximo": 295948134,
+    "limite_prudencial": 281150727,
+    "limite_alerta": 266353320,
+    "bruta": 267871126,
+    "pct_rcl": 46.21,
+    "populacao": 45801
+   }
+  },
+  "siops": {
+   "fonte": "SIOPS, demonstrativo RREO Anexo 12 (Ministério da Saúde)",
+   "coletado_em": "2026-11-05T10:31:48-03:00",
+   "defasagem_dias": 21,
+   "valores": {
+    "anterior": [
+     2025,
+     5,
+     "29/01/26",
+     3339410,
+     1691047,
+     5593765,
+     6907447,
+     43090581,
+     81031,
+     4324924,
+     157073870,
+     1912452,
+     728382,
+     17531669,
+     207211240,
+     224742909,
+     33711436,
+     36076466,
+     29517716,
+     27894377,
+     16.05,
+     13.13,
+     12.41
+    ],
+    "atual": [
+     2026,
+     4,
+     "01/10/26",
+     3527576,
+     807263,
+     7877223,
+     11422006,
+     37705087,
+     42628,
+     4271019,
+     87214361,
+     1014183,
+     0,
+     23634068,
+     130247278,
+     153881346,
+     23082202,
+     34734141,
+     32677159,
+     32107862,
+     22.57,
+     21.23,
+     20.86
+    ]
+   },
+   "campos": [
+    "ano",
+    "bimestre",
+    "homologado_em",
+    "iptu",
+    "itbi",
+    "iss",
+    "irrf",
+    "fpm",
+    "itr",
+    "ipva",
+    "icms",
+    "ipi",
+    "comp",
+    "imp",
+    "transf",
+    "base",
+    "minimo",
+    "aplicado_empenhado",
+    "aplicado_liquidado",
+    "aplicado_pago",
+    "pct_empenhado",
+    "pct_liquidado",
+    "pct_pago"
+   ]
+  }
+ }
+}

@@ -1,0 +1,138 @@
+{
+ "gerado_em": "2026-11-26T19:00:07-03:00",
+ "municipio": {
+  "cod": "3203908",
+  "nome": "Nova Venécia"
+ },
+ "secao": {
+  "despesa_saude": {
+   "fonte": "SICONFI, DCA Anexo I-E, função 10 - Saúde (Tesouro Nacional)",
+   "coletado_em": "2026-11-05T09:27:40-03:00",
+   "defasagem_dias": 21,
+   "exercicio": 2025,
+   "valores": {
+    "empenhada": 80353614,
+    "liquidada": 78275621,
+    "paga": 77917492,
+    "populacao": 48220
+   }
+  },
+  "receita": {
+   "fonte": "SICONFI, RREO Anexo 01 (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:45:08-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "bimestre": 6,
+   "valores": {
+    "total": 354745531,
+    "correntes": 318245531,
+    "capital": 36500000,
+    "tributaria": 28555189,
+    "impostos": 26736513,
+    "transf_correntes": 273320526,
+    "transf_uniao": 119909205,
+    "transf_estados": 91947204,
+    "prevista": 354324365,
+    "populacao": 48220
+   }
+  },
+  "pessoal": {
+   "fonte": "SICONFI, RGF Anexo 01, Poder Executivo (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:49:05-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "valores": {
+    "dtp": 111841050,
+    "rcl_ajustada": 303967536,
+    "limite_maximo": 164142469,
+    "limite_prudencial": 155935346,
+    "limite_alerta": 147728222,
+    "bruta": 118803173,
+    "pct_rcl": 36.79,
+    "populacao": 48220
+   }
+  },
+  "siops": {
+   "fonte": "SIOPS, demonstrativo RREO Anexo 12 (Ministério da Saúde)",
+   "coletado_em": "2026-11-05T10:31:48-03:00",
+   "defasagem_dias": 21,
+   "valores": {
+    "anterior": [
+     2025,
+     5,
+     "06/01/26",
+     2705523,
+     2742211,
+     12341239,
+     3363908,
+     55827117,
+     437550,
+     7683381,
+     56739737,
+     680953,
+     0,
+     21152881,
+     121368738,
+     142521620,
+     21378243,
+     29451082,
+     24435554,
+     23965493,
+     20.66,
+     17.14,
+     16.81
+    ],
+    "atual": [
+     2026,
+     4,
+     "30/09/26",
+     2859201,
+     2410995,
+     11428611,
+     3208719,
+     49005458,
+     57520,
+     7369387,
+     55986745,
+     647723,
+     0,
+     19907526,
+     113066833,
+     132974359,
+     19946154,
+     32822016,
+     25079042,
+     24643751,
+     24.68,
+     18.86,
+     18.53
+    ]
+   },
+   "campos": [
+    "ano",
+    "bimestre",
+    "homologado_em",
+    "iptu",
+    "itbi",
+    "iss",
+    "irrf",
+    "fpm",
+    "itr",
+    "ipva",
+    "icms",
+    "ipi",
+    "comp",
+    "imp",
+    "transf",
+    "base",
+    "minimo",
+    "aplicado_empenhado",
+    "aplicado_liquidado",
+    "aplicado_pago",
+    "pct_empenhado",
+    "pct_liquidado",
+    "pct_pago"
+   ]
+  }
+ }
+}

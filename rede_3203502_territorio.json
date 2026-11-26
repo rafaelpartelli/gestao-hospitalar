@@ -1,0 +1,46 @@
+{
+ "gerado_em": "2026-11-26T19:00:06-03:00",
+ "municipio": {
+  "cod": "3203502",
+  "nome": "Montanha"
+ },
+ "secao": {
+  "dengue": {
+   "fonte": "InfoDengue (Fiocruz e FGV), casos estimados pelo modelo",
+   "coletado_em": "2026-11-26T09:14:31-03:00",
+   "defasagem_dias": 0,
+   "ano": 2026,
+   "se": 202646,
+   "valores": [
+    "3203502",
+    "Montanha",
+    1,
+    0,
+    0.0,
+    0.0,
+    0.0,
+    [
+     2.0,
+     0,
+     0,
+     0,
+     1.0,
+     3.0,
+     0,
+     0
+    ]
+   ],
+   "obs": "Formato da Sala de Gestao: cod, nome, nivel, casos, incidencia e serie recente."
+  },
+  "cobertura_planos_ans": {
+   "fonte": "ANS, Painel de Dados Abertos, taxa de cobertura de planos de saúde",
+   "coletado_em": "2026-11-18T17:05:19-03:00",
+   "defasagem_dias": 8,
+   "periodo": "2026",
+   "valores": {
+    "beneficiarios_assistencia_medica": 1944,
+    "populacao": 0
+   }
+  }
+ }
+}

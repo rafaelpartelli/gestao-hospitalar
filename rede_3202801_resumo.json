@@ -1,0 +1,24 @@
+{
+ "gerado_em": "2026-11-26T19:00:04-03:00",
+ "municipio": {
+  "cod": "3202801",
+  "nome": "Itapemirim",
+  "populacao": {
+   "valor": 44020,
+   "fonte": "https://apidatalake.tesouro.gov.br/ords/siconfi/tt/entes",
+   "coletado_em": "2026-11-04T11:54:18-03:00",
+   "defasagem_dias": 22
+  }
+ },
+ "pendencias": [
+  "hospitais.itens[0].checklist_habilitacao.itens[0].portaria_no_dou: [PREENCHER: numero, data e pagina no DOU]",
+  "hospitais.itens[0].checklist_habilitacao.itens[1].portaria_no_dou: [PREENCHER: numero, data e pagina no DOU]",
+  "hospitais.itens[0].checklist_habilitacao.itens[2].portaria_no_dou: [PREENCHER: numero, data e pagina no DOU]",
+  "hospitais.itens[0].checklist_habilitacao.bases_do_cadastro.atividades.situacao: [PREENCHER: atividades do estabelecimento nao coletadas nesta versao]",
+  "hospitais.itens[1].checklist_habilitacao.itens[0].portaria_no_dou: [PREENCHER: numero, data e pagina no DOU]",
+  "hospitais.itens[1].checklist_habilitacao.itens[1].portaria_no_dou: [PREENCHER: numero, data e pagina no DOU]",
+  "hospitais.itens[1].checklist_habilitacao.bases_do_cadastro.atividades.situacao: [PREENCHER: atividades do estabelecimento nao coletadas nesta versao]",
+  "hospitais.itens[1].plano_avanco.pendencia_ganho: [PREENCHER: ganho estimado em R$ de 1 acao(oes), lancado pelo gestor]",
+  "cnes.profissionais_cadastro.descricao_cbo: [PREENCHER: descricao das ocupacoes (tabela CBO nao carregada)]"
+ ]
+}

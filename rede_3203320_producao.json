@@ -1,0 +1,149 @@
+{
+ "gerado_em": "2026-11-26T19:00:05-03:00",
+ "municipio": {
+  "cod": "3203320",
+  "nome": "Marataízes"
+ },
+ "secao": {
+  "sih": {
+   "fonte": "SIH/SUS, arquivos RDES e SPES (FTP DATASUS), agregados na base local",
+   "convertido_em": "2026-11-26T11:30:20",
+   "cnes_com_aih": [],
+   "obs": "Municipio do hospital (campo MUNIC_MOV). Conferir cnes_com_aih com o CNES antes de usar. Valor total = SH + SP + SH_FED + SP_FED (complemento federal, presente a partir de 03/2026).",
+   "aih_por_mes": {
+    "situacao": "A confirmar: sem AIH do municipio na base de 2026",
+    "obs": "Ausencia de registro nao e erro de leitura. Conferir se o municipio tem estabelecimento do tipo no CNES (leitos, rede)."
+   },
+   "principais_procedimentos": [],
+   "servicos_profissionais_por_mes": []
+  },
+  "sia_aprovado": {
+   "fonte": "SIA/SUS, arquivo PAES (FTP DATASUS), agregado na base local",
+   "convertido_em": "2026-11-23T23:06:11",
+   "obs": "Somente producao aprovada (decisao do responsavel). Municipio do estabelecimento (PA_UFMUN).",
+   "por_mes": [
+    {
+     "mes_processamento": "01/2026",
+     "quantidade_aprovada": 43075,
+     "valor_aprovado": 144713.22
+    },
+    {
+     "mes_processamento": "02/2026",
+     "quantidade_aprovada": 44535,
+     "valor_aprovado": 154665.1
+    },
+    {
+     "mes_processamento": "03/2026",
+     "quantidade_aprovada": 36716,
+     "valor_aprovado": 156682.12
+    },
+    {
+     "mes_processamento": "04/2026",
+     "quantidade_aprovada": 48807,
+     "valor_aprovado": 178477.57
+    },
+    {
+     "mes_processamento": "05/2026",
+     "quantidade_aprovada": 43926,
+     "valor_aprovado": 150689.58
+    },
+    {
+     "mes_processamento": "06/2026",
+     "quantidade_aprovada": 44085,
+     "valor_aprovado": 144340.16
+    },
+    {
+     "mes_processamento": "07/2026",
+     "quantidade_aprovada": 39506,
+     "valor_aprovado": 161569.95
+    },
+    {
+     "mes_processamento": "08/2026",
+     "quantidade_aprovada": 40846,
+     "valor_aprovado": 169348.76
+    },
+    {
+     "mes_processamento": "09/2026",
+     "quantidade_aprovada": 53859,
+     "valor_aprovado": 204591.94
+    }
+   ],
+   "principais_procedimentos": [
+    {
+     "procedimento": "0301060096",
+     "quantidade_aprovada": 84207,
+     "valor_aprovado": 926277.0
+    },
+    {
+     "procedimento": "0301060029",
+     "quantidade_aprovada": 13145,
+     "valor_aprovado": 163918.15
+    },
+    {
+     "procedimento": "0301010072",
+     "quantidade_aprovada": 11276,
+     "valor_aprovado": 112760.0
+    },
+    {
+     "procedimento": "0301010048",
+     "quantidade_aprovada": 10568,
+     "valor_aprovado": 66578.4
+    },
+    {
+     "procedimento": "0301060061",
+     "quantidade_aprovada": 4155,
+     "valor_aprovado": 45705.0
+    },
+    {
+     "procedimento": "0211020036",
+     "quantidade_aprovada": 8295,
+     "valor_aprovado": 42719.25
+    },
+    {
+     "procedimento": "0202010708",
+     "quantidade_aprovada": 340,
+     "valor_aprovado": 5181.6
+    },
+    {
+     "procedimento": "0202010384",
+     "quantidade_aprovada": 314,
+     "valor_aprovado": 4895.26
+    },
+    {
+     "procedimento": "0204060150",
+     "quantidade_aprovada": 590,
+     "valor_aprovado": 4000.2
+    },
+    {
+     "procedimento": "0204020069",
+     "quantidade_aprovada": 350,
+     "valor_aprovado": 3836.0
+    }
+   ],
+   "principais_estabelecimentos": [
+    {
+     "cnes": "0057835",
+     "valor_aprovado": 1302591.6
+    },
+    {
+     "cnes": "3468720",
+     "valor_aprovado": 120674.6
+    },
+    {
+     "cnes": "0428612",
+     "valor_aprovado": 41812.2
+    },
+    {
+     "cnes": "0997536",
+     "valor_aprovado": 0.0
+    }
+   ]
+  },
+  "ciha": {
+   "situacao": "A confirmar: sem registro de CIHA do municipio na base de 2026",
+   "obs": "CIHA nao traz valor financeiro. Complementa o SIH, nao somar com AIH sem conferir duplicidade por CNES.",
+   "fonte": "CIHA (FTP DATASUS), agregado na base local",
+   "convertido_em": "2026-11-26T09:42:05"
+  }
+ }
+}

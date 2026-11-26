@@ -1,0 +1,17 @@
+{
+ "gerado_em": "2026-11-26T19:00:05-03:00",
+ "municipio": {
+  "cod": "3203320",
+  "nome": "Marataízes",
+  "populacao": {
+   "valor": 45953,
+   "fonte": "https://apidatalake.tesouro.gov.br/ords/siconfi/tt/entes",
+   "coletado_em": "2026-11-04T11:54:18-03:00",
+   "defasagem_dias": 22
+  }
+ },
+ "pendencias": [
+  "cnes.leitos.valores: [PREENCHER: municipio sem registro em leitos.json]",
+  "cnes.profissionais_cadastro.descricao_cbo: [PREENCHER: descricao das ocupacoes (tabela CBO nao carregada)]"
+ ]
+}

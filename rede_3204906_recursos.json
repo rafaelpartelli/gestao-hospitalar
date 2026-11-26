@@ -1,0 +1,115 @@
+{
+ "gerado_em": "2026-11-26T19:00:09-03:00",
+ "municipio": {
+  "cod": "3204906",
+  "nome": "São Mateus"
+ },
+ "secao": {
+  "fns_investsus": {
+   "fonte": "Radar de Recursos (partelli.pro), dados do InvestSUS/FNS",
+   "coletado_em": "2026-11-26T04:22:16-03:00",
+   "defasagem_dias": 0,
+   "valores": {
+    "fb": 49287044,
+    "fl": 49255364,
+    "fe": 12452427,
+    "fm": 36834617,
+    "s": 68789986,
+    "comp": [
+     [
+      0,
+      0,
+      989080
+     ],
+     [
+      1,
+      0,
+      2320857
+     ],
+     [
+      2,
+      0,
+      15952794
+     ],
+     [
+      3,
+      0,
+      7695017
+     ],
+     [
+      4,
+      0,
+      1521921
+     ],
+     [
+      6,
+      0,
+      8354948
+     ],
+     [
+      5,
+      1,
+      2143000
+     ],
+     [
+      6,
+      1,
+      10309427
+     ]
+    ],
+    "em": [
+     1000000,
+     1000000,
+     0
+    ],
+    "eq": 2
+   },
+   "comp": [
+    "ASSISTÊNCIA FARMACÊUTICA",
+    "VIGILÂNCIA EM SAÚDE",
+    "ATENÇÃO PRIMÁRIA",
+    "ATENÇÃO DE MÉDIA E ALTA COMPLEXIDADE AMBULATORIAL E HOSPITALAR",
+    "GESTÃO DO SUS",
+    "ATENÇÃO ESPECIALIZADA",
+    "REESTRUTURAÇÃO DOS SERVIÇOS EM SAÚDE - FUNDO RIO DOCE"
+   ],
+   "meta": {
+    "extracao": "23/11/2026 20:07",
+    "saldoData": "30/09/2026",
+    "anoFaf": 2026,
+    "anoEm": 2026
+   }
+  },
+  "transferencias_uniao_saude": {
+   "fonte": "Portal da Transparência da União, transferências, função Saúde (código 10)",
+   "coletado_em": "2026-11-26T08:43:37-03:00",
+   "defasagem_dias": 0,
+   "meses": [
+    "202608",
+    "202609",
+    "202610"
+   ],
+   "valores": [
+    2440301,
+    2722263,
+    2813316
+   ]
+  },
+  "emendas": {
+   "fonte": "Radar de Recursos (partelli.pro/fundo), a partir dos Paineis InvestSUS/FNS",
+   "status_fonte": "Em teste",
+   "ano_da_proposta": 2026,
+   "extracao_investsus": "23/11/2026 20:07",
+   "coletado_em": "2026-11-26T04:22:16-03:00",
+   "defasagem_dias": 0,
+   "propostas": 2,
+   "proposto_rs": 1000000,
+   "empenhado_rs": 1000000,
+   "pago_rs": 0,
+   "pct_empenhado_sobre_proposto": 100.0,
+   "pct_pago_sobre_empenhado": 0.0,
+   "saldo_a_pagar_rs": 1000000,
+   "obs": "Execucao financeira, nao meta. Dado por municipio do Radar (nao depende da localidade MULTIPLO do Portal da Transparencia). Somente o ano da proposta indicado; ganho estimado e prazos sao lancados pelo gestor."
+  }
+ }
+}

@@ -1,0 +1,138 @@
+{
+ "gerado_em": "2026-11-26T19:00:06-03:00",
+ "municipio": {
+  "cod": "3203502",
+  "nome": "Montanha"
+ },
+ "secao": {
+  "despesa_saude": {
+   "fonte": "SICONFI, DCA Anexo I-E, função 10 - Saúde (Tesouro Nacional)",
+   "coletado_em": "2026-11-05T09:27:40-03:00",
+   "defasagem_dias": 21,
+   "exercicio": 2025,
+   "valores": {
+    "empenhada": 33433838,
+    "liquidada": 33433838,
+    "paga": 33235252,
+    "populacao": 18851
+   }
+  },
+  "receita": {
+   "fonte": "SICONFI, RREO Anexo 01 (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:45:08-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "bimestre": 6,
+   "valores": {
+    "total": 143277789,
+    "correntes": 134877845,
+    "capital": 8399943,
+    "tributaria": 12495609,
+    "impostos": 12211895,
+    "transf_correntes": 117813576,
+    "transf_uniao": 60479577,
+    "transf_estados": 32844622,
+    "prevista": 137700583,
+    "populacao": 18851
+   }
+  },
+  "pessoal": {
+   "fonte": "SICONFI, RGF Anexo 01, Poder Executivo (Tesouro Nacional)",
+   "coletado_em": "2026-11-26T08:49:05-03:00",
+   "defasagem_dias": 0,
+   "exercicio": 2025,
+   "valores": {
+    "dtp": 44341287,
+    "rcl_ajustada": 125967872,
+    "limite_maximo": 68022651,
+    "limite_prudencial": 64621518,
+    "limite_alerta": 61220386,
+    "bruta": 44471193,
+    "pct_rcl": 35.2,
+    "populacao": 18851
+   }
+  },
+  "siops": {
+   "fonte": "SIOPS, demonstrativo RREO Anexo 12 (Ministério da Saúde)",
+   "coletado_em": "2026-11-05T10:31:48-03:00",
+   "defasagem_dias": 21,
+   "valores": {
+    "anterior": [
+     2025,
+     5,
+     "03/12/25",
+     275422,
+     2098969,
+     5502462,
+     1495915,
+     28977218,
+     277929,
+     3058574,
+     23663685,
+     286278,
+     0,
+     9372768,
+     56263685,
+     65636452,
+     9845468,
+     15067261,
+     13894744,
+     13739864,
+     22.95,
+     21.16,
+     20.93
+    ],
+    "atual": [
+     2026,
+     4,
+     "24/09/26",
+     110380,
+     1756371,
+     3793179,
+     143154,
+     25136725,
+     21839,
+     3096961,
+     23695591,
+     274142,
+     0,
+     5803084,
+     52225259,
+     58028343,
+     8704251,
+     15222629,
+     13644290,
+     12859561,
+     26.23,
+     23.51,
+     22.16
+    ]
+   },
+   "campos": [
+    "ano",
+    "bimestre",
+    "homologado_em",
+    "iptu",
+    "itbi",
+    "iss",
+    "irrf",
+    "fpm",
+    "itr",
+    "ipva",
+    "icms",
+    "ipi",
+    "comp",
+    "imp",
+    "transf",
+    "base",
+    "minimo",
+    "aplicado_empenhado",
+    "aplicado_liquidado",
+    "aplicado_pago",
+    "pct_empenhado",
+    "pct_liquidado",
+    "pct_pago"
+   ]
+  }
+ }
+}
