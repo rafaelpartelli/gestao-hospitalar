@@ -184,3 +184,11 @@ Aviso: a descricao dos codigos do CNES agora vive em `hospital/js/util.js` (o co
 
 - `sih_por_mes[].ocupacao_estimada_pct`: dias de permanência das AIH aprovadas do mês / (leitos SUS do cadastro x dias do mês) x 100. Também há a taxa do período sobre leitos SUS e sobre leitos existentes. É estimativa, não substitui o censo hospitalar.
 - `rejeicao_sih`: AIH rejeitadas (arquivo ER, conversão agregada por CNES, mês e código de erro, sem número da AIH) e percentual de rejeição = rejeitadas / (aprovadas + rejeitadas) x 100, por contagem. O ER não traz valor em R$, então a perda financeira fica a apurar. Uma AIH rejeitada pode ser reapresentada e aprovada em competência seguinte.
+
+## Reapresentação de AIH rejeitadas (`reconciliar_rejeicoes.py`)
+
+- Roda ao fim da rotina automática (`rodar_automacao.py`), depois da conversão.
+- Compara as AIH rejeitadas (ER) com as aprovadas (RD) pelo número da AIH e pelo CNES. O número da AIH é lido somente em memória e nunca é gravado. A tabela `rejeicao_rec` guarda só contagens e valor somado por CNES, competência da rejeição e código de erro.
+- Recuperada: mesmo número e mesmo CNES aprovado em competência posterior à da rejeição. Aprovação na mesma competência ou anterior não conta.
+- A rejeição da competência mais recente fica "em aberto" (ainda pode ser reapresentada) e não entra no percentual de recuperação.
+- Dossiê por hospital: `rejeicao_sih.reapresentacao` traz rejeitadas, recuperadas, não recuperadas, percentual, valor recuperado (R$ das aprovações posteriores) e, rotulada como ESTIMATIVA, a perda líquida (não recuperadas x média por AIH aprovada).

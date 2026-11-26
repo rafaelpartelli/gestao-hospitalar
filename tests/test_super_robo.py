@@ -64,6 +64,10 @@ def prepara():
     ins("st", cnes="2483998", codufmun="320350", tp_unid="05", natureza="3", nat_jur="1023", competen=C10, qtleitp1=20, qtinst01=2)
     ins("st", cnes="9999999", codufmun="320350", tp_unid="02", competen=C10)
     ins("inc", cnes="2483998", codufmun="320350", sgruphab="0701", cmpt_ini="202001", cmpt_fim="999999", portaria="INC 1", competen=C10)
+    con.execute("CREATE TABLE rejeicao_rec (cnes TEXT, ano TEXT, mes TEXT, co_erro TEXT, rejeitadas INTEGER, recuperadas INTEGER, valor_recuperado REAL, calculado_em TEXT)")
+    con.execute("INSERT INTO rejeicao_rec VALUES ('2483998','2026','01','001',1,1,80.0,'x')")
+    con.execute("INSERT INTO rejeicao_rec VALUES ('2483998','2026','01','014',2,0,0,'x')")
+    con.execute("INSERT INTO rejeicao_rec VALUES ('2483998','2026','09','014',5,0,0,'x')")
     ins("er", cnes="2483998", mun_mov="320350", ano="2026", mes="01", co_erro="001", n_linhas=1)
     ins("er", cnes="2483998", mun_mov="320350", ano="2026", mes="01", co_erro="014", n_linhas=2)
     con.execute("INSERT INTO arquivos VALUES ('RDES2601.dbc','rd',1,1,1,1,'2026-11-23T23:00:00')")
@@ -157,6 +161,8 @@ class Dossie(unittest.TestCase):
         rj = hosp["rejeicao_sih"]
         self.assertEqual((rj["total_rejeitadas"], rj["total_aprovadas"], rj["pct_rejeicao_periodo"]), (3, 3, 50.0))
         self.assertEqual(rj["principais_codigos_erro"][0], {"codigo_erro": "014", "aih": 2})
+        rc = rj["reapresentacao"]
+        self.assertEqual((rc["competencia_em_aberto"], rc["rejeitadas_em_aberto"], rc["rejeitadas_fechadas"], rc["recuperadas"], rc["nao_recuperadas"]), ("01/2026", 8, 0, 0, 0))
         self.assertEqual(hosp["criticas"], [])
         self.assertIsNone(h["itens"][1]["indicadores"])
         self.assertEqual(h["criticas_por_severidade"], {"Alta": 0, "Media": 0, "Baixa": 0})
@@ -188,6 +194,27 @@ class Criticas(unittest.TestCase):
         self.assertIn("02/2026, 03/2026", cod["C03"]["descricao"])
         self.assertEqual(H._indicadores([], 5), None)
         self.assertNotIn("ocupacao_estimada_pct", H._indicadores(sih, 0))   # sem leito SUS: nao estima
+
+
+class Reapresentacao(unittest.TestCase):
+    def test_meses_fechados_e_em_aberto(self):
+        import hospitais as H, sqlite3
+        con = sqlite3.connect(":memory:")
+        con.execute("CREATE TABLE rd (ano TEXT, mes TEXT)")
+        con.execute("INSERT INTO rd VALUES ('2026','09')")
+        con.execute("CREATE TABLE rejeicao_rec (cnes TEXT, ano TEXT, mes TEXT, co_erro TEXT, rejeitadas INTEGER, recuperadas INTEGER, valor_recuperado REAL, calculado_em TEXT)")
+        for lin in (("1", "2026", "03", "A", 100, 60, 3000.0), ("1", "2026", "04", "A", 50, 10, 500.0), ("1", "2026", "04", "B", 50, 50, 2500.0),
+                    ("1", "2026", "09", "A", 40, 0, 0.0), ("2", "2026", "03", "A", 999, 999, 1.0)):
+            con.execute("INSERT INTO rejeicao_rec VALUES (?,?,?,?,?,?,?,'x')", lin)
+        sih = [{"aih": 10, "valor_total": 5000.0}]
+        r = H._recuperacao(con, "1", sih)
+        self.assertEqual((r["rejeitadas_fechadas"], r["recuperadas"], r["nao_recuperadas"], r["pct_recuperadas"]), (200, 120, 80, 60.0))
+        self.assertEqual((r["rejeitadas_em_aberto"], r["competencia_em_aberto"]), (40, "09/2026"))
+        self.assertEqual(r["valor_recuperado"], 6000.0)
+        self.assertEqual(r["perda_liquida_estimada_rs"], 80 * 500.0)       # 80 nao recuperadas x media por AIH (5000 / 10)
+        self.assertIn("ESTIMATIVA", r["obs_perda"])
+        self.assertEqual(r["por_codigo_erro"][0], {"codigo_erro": "A", "rejeitadas": 150, "recuperadas": 70, "nao_recuperadas": 80, "pct_recuperadas": 46.7})
+        self.assertTrue(H._recuperacao(con, "9", sih)["situacao"].startswith("A confirmar"))
 
 
 class Descricoes(unittest.TestCase):

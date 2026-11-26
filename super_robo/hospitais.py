@@ -87,6 +87,42 @@ def _ocupacao_mensal(sih, leitos_sus):
         x["ocupacao_estimada_pct"] = round(x["dias_permanencia"] / (leitos_sus * dias_mes) * 100, 1)
 
 
+def _recuperacao(con, cnes, sih):
+    """AIH rejeitadas que reapareceram aprovadas em competencia posterior (tabela rejeicao_rec, gerada por reconciliar_rejeicoes.py).
+    A competencia mais recente da base fica 'em aberto': a AIH ainda pode ser reapresentada."""
+    if not _tem(con, "rejeicao_rec"):
+        return {"situacao": "A confirmar: conferencia de reapresentacao ainda nao executada (rode reconciliar_rejeicoes.py)"}
+    ultima = _um(con, "SELECT MAX(ano || mes) FROM rd")[0] if _tem(con, "rd") else None
+    linhas = con.execute("SELECT ano, mes, co_erro, rejeitadas, recuperadas, valor_recuperado FROM rejeicao_rec WHERE cnes=?", (cnes,)).fetchall()
+    if not linhas:
+        return {"situacao": "A confirmar: nenhuma rejeicao do hospital na conferencia de reapresentacao"}
+    fech = [x for x in linhas if ultima and (x[0] + x[1]) < ultima]
+    aberta = [x for x in linhas if not ultima or (x[0] + x[1]) >= ultima]
+    rf, cf = sum(x[3] for x in fech), sum(x[4] for x in fech)
+    nao = rf - cf
+    media = round(sum(x["valor_total"] for x in sih) / sum(x["aih"] for x in sih), 2) if sih and sum(x["aih"] for x in sih) else None
+    por_cod = {}
+    for _, _, e, r, k, _v in fech:
+        a = por_cod.setdefault(e, [0, 0])
+        a[0] += r
+        a[1] += k
+    out = {"competencia_em_aberto": f"{ultima[4:]}/{ultima[:4]}" if ultima else None,
+           "rejeitadas_em_aberto": sum(x[3] for x in aberta),
+           "rejeitadas_fechadas": rf, "recuperadas": cf, "nao_recuperadas": nao,
+           "pct_recuperadas": round(cf / rf * 100, 1) if rf else None,
+           "valor_recuperado": round(sum(x[5] for x in fech), 2),
+           "por_codigo_erro": [{"codigo_erro": e, "rejeitadas": r, "recuperadas": k, "nao_recuperadas": r - k,
+                                "pct_recuperadas": round(k / r * 100, 1) if r else None}
+                               for e, (r, k) in sorted(por_cod.items(), key=lambda kv: -kv[1][0])[:5]],
+           "regra": "AIH recuperada: mesmo numero e mesmo CNES aprovado no SIH em competencia posterior a da rejeicao. O numero da AIH nao e gravado.",
+           "base": "Rejeicoes de competencias anteriores a mais recente da base."}
+    if media is not None and nao:
+        out["perda_liquida_estimada_rs"] = round(nao * media, 2)
+        out["obs_perda"] = ("ESTIMATIVA: AIH nao recuperadas x media por AIH aprovada do hospital no periodo. O arquivo ER nao traz valor. "
+                            "Nao e resultado apurado.")
+    return out
+
+
 def _rejeicao(con, cnes, sih):
     """AIH rejeitadas (arquivo ER) por mes e percentual sobre AIH aprovadas mais rejeitadas. O arquivo ER nao traz valor em R$."""
     if not _tem(con, "er"):
@@ -99,11 +135,12 @@ def _rejeicao(con, cnes, sih):
     for comp in sorted(set(rej) | set(apr), key=lambda k: (k[3:], k[:2])):
         r, a = rej.get(comp, 0), apr.get(comp, 0)
         meses.append({"competencia": comp, "aprovadas": a, "rejeitadas": r, "pct_rejeicao": round(r / (a + r) * 100, 2) if (a + r) else None})
+    rec = _recuperacao(con, cnes, sih)
     tr, ta = sum(m["rejeitadas"] for m in meses), sum(m["aprovadas"] for m in meses)
     erros = [{"codigo_erro": e, "aih": n} for e, n in con.execute(
         "SELECT co_erro, SUM(n_linhas) FROM er WHERE cnes=? GROUP BY co_erro ORDER BY SUM(n_linhas) DESC LIMIT 5", (cnes,))]
     return {"total_rejeitadas": tr, "total_aprovadas": ta, "pct_rejeicao_periodo": round(tr / (ta + tr) * 100, 2) if (ta + tr) else None,
-            "por_mes": meses, "principais_codigos_erro": erros,
+            "por_mes": meses, "principais_codigos_erro": erros, "reapresentacao": rec,
             "formula": "rejeitadas / (aprovadas + rejeitadas) x 100, por contagem de AIH",
             "obs": "O arquivo ER nao tem valor em R$: perda em R$ fica a apurar. Uma AIH rejeitada pode ser reapresentada e aprovada em competencia seguinte. "
                    "Descricao do codigo de erro depende de tabela auxiliar nao carregada."}
