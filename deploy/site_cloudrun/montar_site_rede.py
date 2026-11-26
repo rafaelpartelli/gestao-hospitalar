@@ -32,7 +32,9 @@ function mostrarRede() {
     if (on) { a.setAttribute('aria-current', 'page'); const r = a.querySelector('span:last-child'); if (r && r.textContent !== 'Gestão hospitalar') r.textContent = 'Gestão hospitalar'; } else a.removeAttribute('aria-current');
   });
 }
-window.addEventListener('hashchange', mostrarRede);
+function renomear() { const r = document.querySelector('.t-item[data-r="rede"] span:last-child'); if (r && r.textContent !== 'Gestão hospitalar') r.textContent = 'Gestão hospitalar'; }
+window.addEventListener('hashchange', () => { renomear(); mostrarRede(); });
+renomear();
 mostrarRede();
 '''
 (saida / 'rede.js').write_text('(function () {\n"use strict";\n' + util + '\n' + rede + gancho + '})();\n', encoding='utf-8')
