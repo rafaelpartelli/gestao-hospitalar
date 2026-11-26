@@ -124,7 +124,7 @@ def main(argv):
     print(f"[ftp-es] {len(plano)} arquivos de {cfg['uf']} {cfg['ano']} no FTP, {len(pendentes)} a baixar")
     if "--listar" in argv:
         for i in plano:
-            print(("ok       " if ja_baixado(i) else "pendente ") + f"{i['nome']:18} {i['tamanho'] / 1e6:8.1f} MB  {i['sistema']}")
+            print(("ok       " if ja_baixado(i) else "pendente ") + f"{i['nome']:18} {i['tamanho'] / 1e6:8.1f} MB ({i['tamanho']:>10,} bytes)  {i['sistema']}")
         return 0
     for i in pendentes:
         try:

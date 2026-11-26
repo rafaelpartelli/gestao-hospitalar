@@ -22,6 +22,11 @@
       "prefixo": "HB",
       "pasta": "/dissemin/publicos/CNES/200508_/Dados/HB",
       "sistema": "CNES, habilitacoes"
+    },
+    {
+      "prefixo": "CIHA",
+      "pasta": "/dissemin/publicos/CIHA/201101_/Dados",
+      "sistema": "CIHA, internacao e atendimento hospitalar"
     }
   ]
 }
