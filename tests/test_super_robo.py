@@ -226,6 +226,33 @@ class PlanoDeAvanco(unittest.TestCase):
         self.assertEqual([k for k in H._criticas("9", {"leitos": {"existentes": 20}, "estabelecimento": {"leitos_p1_p2_p3": [20, 0, 0]}}, [], None, {"rejeitadas_fechadas": 5, "por_codigo_erro": [{"codigo_erro": "Z", "rejeitadas": 5, "recuperadas": 5, "nao_recuperadas": 0, "pct_recuperadas": 100.0}]})], [])
 
 
+class EmendasPorMunicipio(unittest.TestCase):
+    def test_secao_emendas(self):
+        import tempfile
+        pasta = tempfile.mkdtemp()
+        os.makedirs(os.path.join(pasta, "recursos"))
+        json.dump({"gerado_em": "2026-11-18T10:32:26-03:00", "meta": {"extracao": "13/11/2026 15:00", "anoEm": 2026},
+                   "m": {"3203502": {"em": [1000, 1000, 500], "eq": 4, "fb": 1}, "3204906": {"em": [1000, 1000, 0], "eq": 2},
+                         "3202801": {"em": [0, 0, 0], "eq": 0}}}, open(os.path.join(pasta, "recursos", "ES.json"), "w"))
+        antigo = C.SALA
+        C.SALA = pasta
+        try:
+            e = C.secao_emendas("ES", "3203502")
+            self.assertEqual((e["proposto_rs"], e["empenhado_rs"], e["pago_rs"], e["propostas"]), (1000, 1000, 500, 4))
+            self.assertEqual((e["pct_empenhado_sobre_proposto"], e["pct_pago_sobre_empenhado"], e["saldo_a_pagar_rs"]), (100.0, 50.0, 500.0))
+            self.assertEqual(e["ano_da_proposta"], 2026)
+            self.assertEqual(C.secao_emendas("ES", "3204906")["pct_pago_sobre_empenhado"], 0.0)       # zero pago e resultado, nao ausencia
+            self.assertIsNone(C.secao_emendas("ES", "3202801")["pct_pago_sobre_empenhado"])            # sem empenho: nao divide por zero
+            self.assertIn("situacao", C.secao_emendas("ES", "3203908"))                                # municipio sem registro
+            texto = json.dumps(e)
+            for proibido in ("autor", "proposta_numero", "parlamentar"):
+                self.assertNotIn(proibido, texto)
+            C.SALA = tempfile.mkdtemp()
+            self.assertTrue(C.secao_emendas("ES", "3203502").startswith("[PREENCHER"))                 # arquivo ausente vira marcador
+        finally:
+            C.SALA = antigo
+
+
 class LancamentosDoGestor(unittest.TestCase):
     def _csv(self, linhas):
         import tempfile

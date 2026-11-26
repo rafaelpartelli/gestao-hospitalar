@@ -120,6 +120,31 @@ def secao_uf(nome, uf, cod):
     return s
 
 
+def _pct(a, b):
+    return round(a / b * 100, 1) if b else None
+
+
+def secao_emendas(uf, cod):
+    """Emendas parlamentares do municipio a partir do Radar de Recursos (partelli.pro/fundo, que le os Paineis InvestSUS/FNS), coletado por
+    coletar_recursos.py. Valores do ano da proposta (meta.anoEm): proposto, empenhado, pago. Sem numero de proposta nem autor.
+    Percentuais sao de EXECUCAO (empenhado sobre proposto, pago sobre empenhado), nao meta."""
+    d = ler(os.path.join(SALA, "recursos", f"{uf}.json"))
+    if d is None:
+        return pend(f"arquivo recursos/{uf}.json nao encontrado em {SALA}; rode coletar_recursos.py")
+    m = valor_municipio(d.get("m"), cod)
+    if not m or "em" not in m:
+        return {"situacao": "A confirmar: municipio sem emendas no Radar de Recursos no ano da proposta", "fonte": "Radar de Recursos (InvestSUS/FNS)"}
+    prop, emp, pago = m["em"]
+    meta = d.get("meta") or {}
+    return {"fonte": "Radar de Recursos (partelli.pro/fundo), a partir dos Paineis InvestSUS/FNS", "status_fonte": "Em teste",
+            "ano_da_proposta": meta.get("anoEm"), "extracao_investsus": meta.get("extracao"), "coletado_em": d.get("gerado_em"),
+            "defasagem_dias": defasagem(d.get("gerado_em")),
+            "propostas": m.get("eq"), "proposto_rs": prop, "empenhado_rs": emp, "pago_rs": pago,
+            "pct_empenhado_sobre_proposto": _pct(emp, prop), "pct_pago_sobre_empenhado": _pct(pago, emp), "saldo_a_pagar_rs": round(emp - pago, 2),
+            "obs": "Execucao financeira, nao meta. Dado por municipio do Radar (nao depende da localidade MULTIPLO do Portal da Transparencia). "
+                   "Somente o ano da proposta indicado; ganho estimado e prazos sao lancados pelo gestor."}
+
+
 def secao_dengue(uf, cod):
     d = ler(os.path.join(SALA, "dengue", f"{uf}.json"))
     if d is None:
@@ -220,7 +245,7 @@ def montar(cfg, m, terr):
         "recursos": {
             "fns_investsus": secao_uf("recursos", uf, cod),
             "transferencias_uniao_saude": secao_mapa("transferencias.json", ler(os.path.join(SALA, "transferencias.json")), "mun", cod),
-            "emendas": pend("emendas por municipio: fonte e chave do Portal da Transparencia a definir (localidade MULTIPLO limita o dado)")},
+            "emendas": secao_emendas(uf, cod)},
         "producao": {"sih": sih, "sia_aprovado": sia, "ciha": ciha_mun(cod)},
         "hospitais": HOSP.visao_hospitais(BANCO, cod[:6]),
         "cnes": {

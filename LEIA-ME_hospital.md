@@ -223,3 +223,7 @@ Arquivo opcional `~/partelli/entrada/plano_acoes.csv` (variável `PLANO_ACOES`),
 - Prazo em DD/MM/AAAA; status: A iniciar, Em andamento, Concluida, Cancelada; prioridade: Alta, Media, Baixa; números aceitam 1.234,56.
 - LGPD: linhas com sequência de 11 ou mais dígitos (AIH, CPF, CNS) são recusadas inteiras e listadas em `hospitais.plano_acoes_arquivo.recusadas`. No campo responsável use cargo ou setor, nunca nome.
 - O arquivo não altera a base: só o dossiê.
+
+## Emendas por município no dossiê
+
+`secoes.recursos.emendas` vem de `<SALA>/recursos/ES.json` (gerado por `coletar_recursos.py` a partir do Radar de Recursos, partelli.pro/fundo, que lê os Painéis InvestSUS/FNS). Traz, do ano da proposta (`meta.anoEm`): número de propostas, proposto, empenhado, pago, percentual empenhado sobre proposto, percentual pago sobre empenhado e saldo a pagar. São percentuais de **execução**, não meta. Sem número de proposta nem autor. Status da fonte: Em teste (leitura direta do InvestSUS/FNS a partir do GitHub deu HTTP 403; a do notebook ainda não foi testada). Não depende da localidade MÚLTIPLO do Portal da Transparência. Arquivo ausente vira `[PREENCHER]`.
