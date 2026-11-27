@@ -32,7 +32,8 @@ async function preencher(api) {
   let nUn = 0;
 
   // etapa 1: unidades (CNES com producao ou profissionais; nome so quando publico)
-  const ests = arr(estab && estab.secao && estab.secao.estabelecimentos);
+  const todosEst = arr(estab && estab.secao && estab.secao.estabelecimentos);
+  const ests = todosEst.some(e => e.gestao_publica != null) ? todosEst.filter(e => e.gestao_publica === true) : todosEst; // somente gestao publica (CNES), quando o arquivo traz a natureza juridica
   ests.forEach(e => {
     if (!S.unidades.some(u => u.cnes === e.cnes)) { S.unidades.push({ cnes: e.cnes, tipo: tipoUn(e.tipo_unidade), desc: ehNome(nome[e.cnes]) ? String(nome[e.cnes]).slice(0, 80) : '', _auto: cod }); nUn++; }
     else { const u = S.unidades.find(x => x.cnes === e.cnes); if (u._auto && !u.desc && ehNome(nome[e.cnes])) u.desc = String(nome[e.cnes]).slice(0, 80); }

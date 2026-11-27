@@ -17,6 +17,20 @@ def _comp_pf(con, c6):
     return r[0] if r else None
 
 
+def publico(nat_jur, esfera):
+    """Gestao publica pelo CNES: natureza juridica do grupo 1 (administracao publica) ou, sem ela, esfera administrativa federal, estadual ou municipal.
+    Devolve True, False ou None (sem informacao)."""
+    n = str(nat_jur or "").strip()
+    if n.isdigit():
+        return n.zfill(4)[0] == "1"
+    e = str(esfera or "").strip()
+    if e in ("1", "2", "3"):
+        return True
+    if e == "4":
+        return False
+    return None
+
+
 def montar(banco, cod):
     """Devolve {'fonte', 'estabelecimentos': [{cnes, tipo_unidade, sih, sia, ciha, profissionais}]} ou {'situacao': ...}."""
     c6 = cod[:6]
@@ -27,11 +41,17 @@ def montar(banco, cod):
     try:
         e = {}
         def ficha(c):
-            return e.setdefault(c, {"cnes": c, "tipo_unidade": None, "sih": [], "sia": {"por_mes": [], "principais_procedimentos": []}, "ciha": [], "profissionais": None})
+            return e.setdefault(c, {"cnes": c, "tipo_unidade": None, "natureza_juridica": None, "gestao_publica": None, "sih": [], "sia": {"por_mes": [], "principais_procedimentos": []}, "ciha": [], "profissionais": None})
         if _tem(con, "st"):
             comp = con.execute("SELECT MAX(competen) FROM st WHERE codufmun=?", (c6,)).fetchone()[0]
-            for c, t in con.execute("SELECT DISTINCT cnes, tp_unid FROM st WHERE codufmun=? AND competen=?", (c6, comp)):
-                ficha(c)["tipo_unidade"] = t
+            cols = {r[1] for r in con.execute("PRAGMA table_info(st)")}
+            esf = "esfera_a" if "esfera_a" in cols else "NULL"
+            nj = "nat_jur" if "nat_jur" in cols else "NULL"
+            for c, t, n, ea in con.execute(f"SELECT DISTINCT cnes, tp_unid, {nj}, {esf} FROM st WHERE codufmun=? AND competen=?", (c6, comp)):
+                f = ficha(c)
+                f["tipo_unidade"] = t
+                f["natureza_juridica"] = str(n).strip() if n not in (None, "") else None
+                f["gestao_publica"] = publico(n, ea)
         if _tem(con, "rd"):
             for c, a, m, n, v, o, d in con.execute("SELECT cnes, ano, mes, SUM(n_linhas), SUM(val_tot), SUM(mortes), SUM(dias_perm) FROM rd WHERE munic_mov=? GROUP BY cnes, ano, mes ORDER BY cnes, ano, mes", (c6,)):
                 ficha(c)["sih"].append({"competencia": f"{m}/{a}", "aih": n, "valor_total": round(v or 0, 2), "obitos": o, "dias_permanencia": d})
@@ -69,6 +89,6 @@ def montar(banco, cod):
         if not lista:
             return {"situacao": "A confirmar: sem producao ou profissionais por estabelecimento na base"}
         return {"fonte": "SIH, SIA (aprovado), CIHA e CNES PF, agregados por CNES na base local", "total": len(lista), "truncado": len(lista) > MAX_ESTAB,
-                "obs": "Contagem de vinculos, nao de pessoas. Sem nome de profissional ou qualquer dado de identificacao.", "estabelecimentos": lista[:MAX_ESTAB]}
+                "obs": "Contagem de vinculos, nao de pessoas. Sem nome de profissional ou qualquer dado de identificacao. gestao_publica: natureza juridica do grupo 1 (administracao publica) no CNES; null quando o CNES nao informa.", "estabelecimentos": lista[:MAX_ESTAB]}
     finally:
         con.close()

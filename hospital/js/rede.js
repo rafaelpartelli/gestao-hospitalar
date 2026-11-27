@@ -4,7 +4,7 @@ import {el, limpar, carregar, tabela, inteiro, decimal} from './util.js';
 
 const D = new URL('../', import.meta.url).href + 'dados/';
 const NS = 'http://www.w3.org/2000/svg';
-const sv = (tag, attrs, ...filhos) => {
+export const sv = (tag, attrs, ...filhos) => {
   const e = document.createElementNS(NS, tag);
   for (const [k, v] of Object.entries(attrs || {})) { if (v == null || v === false) continue; e.setAttribute(k, v === true ? '' : v); }
   for (const f of filhos.flat()) if (f != null) e.append(f.nodeType ? f : document.createTextNode(String(f)));
@@ -18,7 +18,7 @@ export const arr = x => Array.isArray(x) ? x : [];
 export const pend = txt => el('span', {class: 'pendente'}, `[PREENCHER: ${txt}]`);
 export const aviso = txt => el('p', {class: 'aviso'}, txt);
 const motivo = m => m ? `${m.texto_manual} (manual do SIH, p. ${m.pagina_manual}; ${String(m.status || '').toLowerCase()})` : 'sem descrição localizada';
-const CORES = ['#1351b4', '#168821', '#e0a100', '#0c326f', '#7a3fb5', '#c2185b', '#00838f'];
+export const CORES = ['#1351b4', '#168821', '#e0a100', '#0c326f', '#7a3fb5', '#c2185b', '#00838f'];
 
 const ICONES = {
   doc: 'M6 2h9l5 5v15H6z M14 2v6h6', alerta: 'M12 3l10 18H2z M12 10v5 M12 18v.5', hospital: 'M4 21V4h10v17 M14 9h6v12 M8 8v4 M6 10h4 M7 21v-4h2v4 M17 13h1 M17 17h1',

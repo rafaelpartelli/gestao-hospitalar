@@ -17,7 +17,7 @@ class T(unittest.TestCase):
         CREATE TABLE er(cnes,ano,mes,n_linhas,co_erro);
         INSERT INTO er VALUES('1111111','2026','01',2,'0123');
         CREATE TABLE pf(codufmun,cnes,competen,cbo,n_linhas,hora_amb,horahosp,horaoutr);
-        INSERT INTO st VALUES('320390','1111111','202610','05','1'),('320390','2222222','202610','02','1');
+        INSERT INTO st VALUES('320390','1111111','202610','05','1031'),('320390','2222222','202610','02','3999');
         INSERT INTO rd VALUES('320390','1111111','2026','01',10,5000.5,1,30);
         INSERT INTO pa VALUES('320390','2222222','202601',100,800.0,'0301010072'),('320390','1111111','202601',5,50.0,'0301010072');
         INSERT INTO ciha VALUES('320390','1111111','2026','02',4,8,12,0);
@@ -37,6 +37,9 @@ class T(unittest.TestCase):
             self.assertEqual(m["1111111"]["ciha"][0]["registros"], 4)
             self.assertEqual(m["1111111"]["profissionais"]["vinculos"], 3)
             self.assertNotIn("nome", m["1111111"])
+            self.assertIs(m["1111111"]["gestao_publica"], True)
+            self.assertIs(m["2222222"]["gestao_publica"], False)
+            self.assertIsNone(E.publico(None, None)); self.assertTrue(E.publico('', '3')); self.assertFalse(E.publico('', '4'))
         finally:
             os.remove(f)
 
